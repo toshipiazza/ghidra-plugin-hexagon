@@ -1186,7 +1186,9 @@ public class Disassembler implements DisassemblerConflictHandler {
 		// NOTE: Don't rely on instruction for fallthrough since this will not work
 		// on a pseudo instruction when an instruction has delay slots.
 		// Block fallthrough not yet established.
-		if (!inst.hasFallthrough()) {
+		// NOTE: If inst is part of a parallel block, and this is not the last inst
+		// in the block, consult fallthrough as well
+		if (!inst.hasFallthrough() && !isBlockTerminationOK(inst)) {
 			return null;
 		}
 		return block.getMaxAddress().next();

@@ -20,6 +20,8 @@ import java.io.StringReader;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -277,26 +279,35 @@ public class DecompileCallback {
 		}
 		try {
 			Instruction instr = getInstruction(addr);
-			if (instr == null) {
-				return null;
-			}
-			if (undefinedBody != null) {
-				undefinedBody.addRange(instr.getMinAddress(), instr.getMaxAddress());
-				cachedFunction.setBody(undefinedBody);
-			}
-			if (debug != null) {
-				debug.getPcode(addr, instr);
-				FlowOverride fo = instr.getFlowOverride();
-				if (fo != FlowOverride.NONE) {
-					debug.addFlowOverride(addr, fo);
-				}
+
+			ParallelInstructionLanguageHelper parallelHelper = pcodelanguage.getParallelInstructionHelper();
+			if (parallelHelper != null) {
+				// collect all pcode in the instruction group and hand off to parallelHelper to model
+				// the parallel semantics of the instruction group
+				List<PcodeOp> ops = new ArrayList<>();
+				boolean endBlock;
+				do {
+					if (undefinedBody != null) {
+						undefinedBody.addRange(instr.getMinAddress(), instr.getMaxAddress());
+						cachedFunction.setBody(undefinedBody);
+					}
+
+					PcodeOp[] pcode = instr.getPrototype()
+							.getPcode(instr.getInstructionContext(),
+									new InstructionPcodeOverride(instr), uniqueFactory);
+					ops.addAll(Arrays.asList(pcode));
+
+					endBlock = parallelHelper.isEndOfParallelInstructionGroup(instr);
+					instr = instr.getNext();
+					assert endBlock || instr != null;
+				} while (!endBlock);
+
+				return parallelHelper.getPcodePacked(ops, uniqueFactory);
 			}
 
-			PackedBytes pcode = instr.getPrototype()
+			return instr.getPrototype()
 					.getPcodePacked(instr.getInstructionContext(),
-						new InstructionPcodeOverride(instr), uniqueFactory);
-
-			return pcode;
+							new InstructionPcodeOverride(instr), uniqueFactory);
 		}
 		catch (UsrException e) {
 			Msg.warn(this,

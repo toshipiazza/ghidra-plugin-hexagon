@@ -16,7 +16,11 @@
  */
 package ghidra.program.model.lang;
 
+import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.pcode.PcodeOp;
+
+import java.util.List;
 
 /**
  * <code>ParallelInstructionLanguageHelper</code> provides the ability via a language 
@@ -65,4 +69,5 @@ public interface ParallelInstructionLanguageHelper {
 	 */
 	boolean isEndOfParallelInstructionGroup(Instruction instruction);
 
+	PackedBytes getPcodePacked(List<PcodeOp> ops, UniqueAddressFactory uniqueFactory);
 }

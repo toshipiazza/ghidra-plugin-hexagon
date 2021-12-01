@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<processor_spec>
+  <properties>
+    <property key="parallelInstructionHelperClass" value="ghidra.hexagon.HexagonParallelInstructionLanguageHelper"/>
+  </properties>
+</processor_spec>
