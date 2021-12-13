@@ -3,9 +3,4 @@
   <properties>
     <property key="parallelInstructionHelperClass" value="ghidra.app.plugin.core.analysis.HexagonParallelInstructionLanguageHelper"/>
   </properties> 
-  <context_data>
-    <context_set space="ram">
-      <set name="pkt_parse" val="4" description="default value for parse bits (don't change)"/>
-    </context_set>
-  </context_data>
 </processor_spec>

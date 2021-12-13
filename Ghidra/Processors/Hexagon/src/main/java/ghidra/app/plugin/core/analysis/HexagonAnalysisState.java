@@ -54,6 +54,7 @@ public class HexagonAnalysisState implements AnalysisState {
 			return;
 		}
 
+		// parse out Parse bits
 		try {
 			BigInteger value = BigInteger.valueOf(((instr.getByte(1) & 0xc0) >> 6) & 0b11);
 			parseBits.put(minAddress, value);
@@ -70,7 +71,7 @@ public class HexagonAnalysisState implements AnalysisState {
 			HexagonPacket packet = packets.get(i);
 
 			// instruction immediately precedes packet
-			if (maxAddress == packet.getMinAddress()) {
+			if (maxAddress.equals(packet.getMinAddress())) {
 				if (newPacket.isTerminated()) {
 					// create a new packet
 					addr2packet.put(minAddress, newPacket);
@@ -83,7 +84,7 @@ public class HexagonAnalysisState implements AnalysisState {
 			}
 
 			// instruction immediately succeeds packet
-			if (minAddress == packet.getMaxAddress().add(4)) {
+			if (minAddress.equals(packet.getMaxAddress().add(4))) {
 				if (packet.isTerminated()) {
 					// create a new packet
 					addr2packet.put(minAddress, newPacket);
@@ -110,16 +111,22 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	void disassembleDirtyPackets(TaskMonitor monitor) {
 		for (HexagonPacket packet : packets) {
-			if (packet.isTerminated()) {
-				packet.disassemblePacket(monitor);
-			} else {
+			if (!packet.isTerminated()) {
 				//
 				// Unterminated packet likely contains control flow that ghidra assumed
 				// terminated the bb
 				// Must set flow override and trigger reanalysis
 				//
-				throw new NotYetImplementedException("NYI -- unterminated packet");
+				Msg.info(this, "NYI -- unterminated packet");
+				continue;
 			}
+			packet.disassemblePacket(monitor);
+		}
+	}
+
+	void debugPrintAllKnownPackets() {
+		for (HexagonPacket packet : packets) {
+			Msg.info(this, packet);
 		}
 	}
 

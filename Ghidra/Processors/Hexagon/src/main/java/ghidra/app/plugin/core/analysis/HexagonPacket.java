@@ -39,7 +39,7 @@ public class HexagonPacket {
 			if (isTerminated()) {
 				throw new IllegalArgumentException("Instruction appended to already-terminated packet");
 			}
-			if (getMaxAddress().add(4) != instr.getMinAddress()) {
+			if (!getMaxAddress().add(4).equals(instr.getMinAddress())) {
 				throw new IllegalArgumentException("Instruction appended to packet is not immediately after packet");
 			}
 		}
@@ -49,7 +49,7 @@ public class HexagonPacket {
 
 	public void addInstructionToBegOfPacket(Instruction instr) {
 		if (this.addrSet.getNumAddresses() > 0) {
-			if (getMinAddress().subtract(4) != instr.getMaxAddress()) {
+			if (!getMinAddress().subtract(4).equals(instr.getMaxAddress())) {
 				throw new IllegalArgumentException("Instruction prepended to packet is not immediately before packet");
 			}
 		}
@@ -64,7 +64,7 @@ public class HexagonPacket {
 	Address getMaxAddress() {
 		return this.addrSet.getMaxAddress();
 	}
-	
+
 	void disassemblePacket(TaskMonitor monitor) {
 		if (addrSet.getNumAddresses() == 0) {
 			throw new IllegalArgumentException("No instructions in packet");
@@ -77,10 +77,26 @@ public class HexagonPacket {
 		if (!dirty) {
 			return;
 		}
-		
+
 		program.getListing().clearCodeUnits(getMinAddress(), getMaxAddress(), false);
 		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
 		dis.disassemble(addrSet, addrSet, false);
 		dirty = false;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{ ");
+		AddressIterator iter = addrSet.getAddresses(true);
+		while (iter.hasNext()) {
+			Instruction instr = program.getListing().getInstructionAt(iter.next());
+			sb.append(instr.toString());
+			if (iter.hasNext()) {
+				sb.append(" ; ");
+			}
+		}
+		sb.append(" } @ ");
+		sb.append(addrSet.getMinAddress().toString());
+		return sb.toString();
 	}
 }
