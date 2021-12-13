@@ -16,11 +16,7 @@
  */
 package ghidra.program.model.lang;
 
-import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.listing.Instruction;
-import ghidra.program.model.pcode.PcodeOp;
-
-import java.util.List;
 
 /**
  * <code>ParallelInstructionLanguageHelper</code> provides the ability via a language 
@@ -43,14 +39,6 @@ public interface ParallelInstructionLanguageHelper {
 	String getMnemonicPrefix(Instruction instr);
 
 	/**
-	 * Determine if the specified instruction is executed in parallel with 
-	 * the instruction preceding it.
-	 * @param instruction
-	 * @return true if parallel else false
-	 */
-	boolean isParallelInstruction(Instruction instruction);
-
-	/**
 	 * Determine if the specified instruction is the last instruction in a parallel
 	 * instruction group.  The group is defined as a sequential set of instructions 
 	 * which are executed in parallel.  It is assumed that all terminal flows 
@@ -68,6 +56,4 @@ public interface ParallelInstructionLanguageHelper {
 	 * instruction is executed in parallel with the specified instruction.
 	 */
 	boolean isEndOfParallelInstructionGroup(Instruction instruction);
-
-	PackedBytes getPcodePacked(List<PcodeOp> ops, UniqueAddressFactory uniqueFactory);
 }

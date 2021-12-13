@@ -4,7 +4,7 @@ define alignment=4;
 define space ram      type=ram_space      size=4  default;
 define space register type=register_space size=4;
 
-define register offset=0x00 size=4 [ 
+define register offset=0x000 size=4 [ 
   R0  R1  R2  R3  R4  R5  R6  R7
   R8  R9  R10 R11 R12 R13 R14 R15
   R16 R17 R18 R19 R20 R21 R22 R23
@@ -18,8 +18,74 @@ define register offset=0x00 size=8 [
   R25R24  R27R26  R29R28  R31R30
 ];
 
-define token unused(8)
-	unused1 = (0, 7)
+define register offset=0x500 size=8 contextreg;
+
+define context contextreg
+  pkt_parse = (0,2) # 0, 1, 2, 3, 4, 4 is the default
+  pkt_beg = (0, 1)
+  pkt_end = (2, 3)
+  endloop = (4, 6)
 ;
 
-:a is unused1=0xcc unimpl
+define token inst(32)
+  ICLASS = (28, 31)
+
+  Amode  = (25, 27)
+  Type   = (22, 24)
+  UN     = (21, 21)
+  x5     = (16, 20)
+  Parse  = (14, 15)
+  u11_3  = ( 0, 10)
+  
+  Rs     = (27, 27)
+  MajOp  = (24, 26)
+  s16_2  = (22, 23)
+  s16_1  = (16, 20)
+  s16_0  = ( 5, 13)
+  d5  	 = ( 0,  4)
+
+  s5     = (16, 20)
+  dd5  	 = ( 0,  4)
+;
+
+attach variables [ x5 d5 s5 ] [
+  R0  R1  R2  R3  R4  R5  R6  R7
+  R8  R9  R10 R11 R12 R13 R14 R15
+  R16 R17 R18 R19 R20 R21 R22 R23
+  R24 R25 R26 R27 R28 R29 R30 R31
+];
+
+attach variables [ dd5 ] [
+  R1R0   _ R3R2   _ R5R4   _ R7R6   _
+  R9R8   _ R11R10 _ R13R12 _ R15R14 _
+  R17R16 _ R19R18 _ R21R20 _ R23R22 _
+  R25R24 _ R27R26 _ R29R28 _ R31R30 _
+];
+
+u11: reloc is u11_3 [ reloc = u11_3 << 3; ] {
+  tmp = reloc:4; export tmp;
+}
+
+s16: reloc is s16_0 & s16_1 & s16_2 [ reloc = s16_0 + (s16_1 << 8) + (s16_2 << 13); ] {
+  tmp = reloc:4; export tmp;
+}
+
+:"allocframe("x5","u11"):raw" is ICLASS = 0b1010 & Amode = 0b0000 & Type = 0b010 & UN = 0 & x5 & u11 {
+  local tmp1 = x5 - 8;
+  *:8 tmp1 = R31R30;
+  R30 = tmp1;
+  x5 = tmp1 - u11;
+}
+
+:""d5" = "s16 is ICLASS = 0b0111 & Rs = 1 & MajOp = 0b000 & s16 & d5 {
+  d5 = s16;
+}
+
+:""dd5" = dealloc_return("s5"):raw" is ICLASS = 0b1001 & Amode = 0b011 & Type = 0b000 & UN = 0 & dd5 & s5 {
+  local tmp1 = s5;
+  local tmp2 = *:8 tmp1;
+  dd5 = tmp2;
+  R29 = tmp1 + 8;
+  local tmp3:4 = &dd5 + 4;
+  return [*[register]:4 tmp3];
+}

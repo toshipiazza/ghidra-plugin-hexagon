@@ -14,40 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.hexagon;
+package ghidra.app.plugin.core.analysis;
 
-import ghidra.program.model.address.UniqueAddressFactory;
-import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.listing.Instruction;
-import ghidra.program.model.pcode.PcodeOp;
-
-import java.util.List;
+import ghidra.program.model.listing.Program;
 
 public class HexagonParallelInstructionLanguageHelper implements ParallelInstructionLanguageHelper {
 
 	@Override
 	public String getMnemonicPrefix(Instruction instr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isParallelInstruction(Instruction instruction) {
-		// TODO Auto-generated method stub
-		return false;
+		Program program = instr.getProgram();
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		return state.getMnemonicPrefix(instr);
 	}
 
 	@Override
 	public boolean isEndOfParallelInstructionGroup(Instruction instruction) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public PackedBytes getPcodePacked(List<PcodeOp> ops, UniqueAddressFactory uniqueFactory) {
-		// TODO Auto-generated method stub
-		return null;
+		Program program = instruction.getProgram();
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		return state.isEndOfParallelInstructionGroup(instruction);
 	}
 
 }
