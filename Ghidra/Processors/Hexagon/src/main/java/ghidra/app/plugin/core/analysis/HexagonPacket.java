@@ -1,17 +1,11 @@
 package ghidra.app.plugin.core.analysis;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
-import ghidra.program.model.lang.Register;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
-import ghidra.util.Msg;
 import ghidra.util.task.TaskMonitor;
 
 public class HexagonPacket {
@@ -63,6 +57,10 @@ public class HexagonPacket {
 
 	Address getMaxAddress() {
 		return this.addrSet.getMaxAddress();
+	}
+
+	boolean containsAddress(Address address) {
+		return addrSet.contains(address);
 	}
 
 	void disassemblePacket(TaskMonitor monitor) {

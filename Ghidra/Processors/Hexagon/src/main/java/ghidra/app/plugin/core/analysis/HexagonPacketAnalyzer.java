@@ -96,8 +96,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 		state.disassembleDirtyPackets(monitor);
 
-		state.debugPrintAllKnownPackets();
-
 		return true;
 	}
 

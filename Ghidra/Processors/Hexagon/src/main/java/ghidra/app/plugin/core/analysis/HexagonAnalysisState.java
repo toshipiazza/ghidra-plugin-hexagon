@@ -8,8 +8,10 @@ import ghidra.util.exception.NotYetImplementedException;
 import ghidra.util.task.TaskMonitor;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import ghidra.program.model.address.Address;
@@ -27,13 +29,11 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	Map<Address, BigInteger> parseBits;
 	LinkedList<HexagonPacket> packets;
-	Map<Address, HexagonPacket> addr2packet;
 	Program program;
 
 	public HexagonAnalysisState(Program program) {
 		packets = new LinkedList<>();
 		parseBits = new HashMap<>();
-		addr2packet = new HashMap<>();
 		this.program = program;
 	}
 
@@ -74,11 +74,9 @@ public class HexagonAnalysisState implements AnalysisState {
 			if (maxAddress.equals(packet.getMinAddress())) {
 				if (newPacket.isTerminated()) {
 					// create a new packet
-					addr2packet.put(minAddress, newPacket);
 					packets.add(i, newPacket);
 					return;
 				}
-				addr2packet.put(minAddress, packet);
 				packet.addInstructionToBegOfPacket(instr);
 				return;
 			}
@@ -87,25 +85,21 @@ public class HexagonAnalysisState implements AnalysisState {
 			if (minAddress.equals(packet.getMaxAddress().add(4))) {
 				if (packet.isTerminated()) {
 					// create a new packet
-					addr2packet.put(minAddress, newPacket);
-					packets.add(i, newPacket);
+					packets.add(i + 1, newPacket);
 					return;
 				}
-				addr2packet.put(minAddress, packet);
 				packet.addInstructionToEndOfPacket(instr);
 				return;
 			}
 
-			// instruction succeeds packet
-			if (packet.getMinAddress().compareTo(instr.getMinAddress()) == -1) {
-				addr2packet.put(minAddress, newPacket);
+			// packet succeeds instruction, so insert before
+			if (packet.getMinAddress().compareTo(instr.getMinAddress()) == 1) {
 				packets.add(i, newPacket);
 				return;
 			}
 		}
 
 		// either empty or packet needs to be added to the end
-		addr2packet.put(minAddress, newPacket);
 		packets.add(newPacket);
 	}
 
@@ -130,9 +124,19 @@ public class HexagonAnalysisState implements AnalysisState {
 		}
 	}
 
+	HexagonPacket findPacketForInstruction(Instruction instr) {
+		Address address = instr.getMinAddress();
+		for (HexagonPacket packet : packets) {
+			if (packet.containsAddress(address)) {
+				return packet;
+			}
+		}
+		return null;
+	}
+
 	public String getMnemonicPrefix(Instruction instr) {
 		Address minAddress = instr.getMinAddress();
-		HexagonPacket packet = addr2packet.get(minAddress);
+		HexagonPacket packet = findPacketForInstruction(instr);
 		if (packet == null) {
 			// instruction wasn't analyzed yet in HexagonPacketAnalyzer
 			return "";
@@ -145,7 +149,7 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	public boolean isEndOfParallelInstructionGroup(Instruction instruction) {
 		Address minAddress = instruction.getMinAddress();
-		HexagonPacket packet = addr2packet.get(minAddress);
+		HexagonPacket packet = findPacketForInstruction(instruction);
 		if (packet == null) {
 			// instruction wasn't analyzed yet in HexagonPacketAnalyzer
 			return true;
@@ -154,6 +158,10 @@ public class HexagonAnalysisState implements AnalysisState {
 			return true;
 		}
 		return false;
+	}
+
+	List<HexagonPacket> getPackets() {
+		return new ArrayList<>(packets);
 	}
 
 }

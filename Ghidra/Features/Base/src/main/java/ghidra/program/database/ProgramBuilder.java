@@ -283,6 +283,9 @@ public class ProgramBuilder {
 				case "PowerPC":
 					ldefFile = Application.getModuleDataFile("PowerPC", "languages/ppc.ldefs");
 					break;
+				case "hexagon":
+					ldefFile = Application.getModuleDataFile("Hexagon", "languages/hexagon.ldefs");
+					break;
 				default:
 					break;
 			}
