@@ -16,7 +16,11 @@
  */
 package ghidra.app.plugin.core.analysis;
 
+import ghidra.program.model.address.UniqueAddressFactory;
+import ghidra.program.model.lang.InstructionContext;
+import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
+import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 
@@ -34,6 +38,13 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 		Program program = instruction.getProgram();
 		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
 		return state.isEndOfParallelInstructionGroup(instruction);
+	}
+
+	@Override
+	public PackedBytes getPcodePacked(Program program, InstructionContext context, UniqueAddressFactory uniqueFactory)
+			throws UnknownInstructionException {
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		return state.getPcodePacked(context, uniqueFactory);
 	}
 
 }

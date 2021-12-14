@@ -1,11 +1,17 @@
 package ghidra.app.plugin.core.analysis;
 
+import java.math.BigInteger;
+
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
+import ghidra.program.model.lang.Register;
+import ghidra.program.model.listing.ContextChangeException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
+import ghidra.util.Msg;
+import ghidra.util.exception.NotYetImplementedException;
 import ghidra.util.task.TaskMonitor;
 
 public class HexagonPacket {
@@ -14,6 +20,9 @@ public class HexagonPacket {
 	HexagonAnalysisState state;
 	boolean dirty;
 
+	Register pktStartRegister;
+	Register pktNextRegister;
+
 	AddressSet addrSet;
 
 	HexagonPacket(Program program, HexagonAnalysisState state) {
@@ -21,6 +30,9 @@ public class HexagonPacket {
 		this.state = state;
 		this.addrSet = new AddressSet();
 		this.dirty = false;
+
+		pktStartRegister = program.getProgramContext().getRegister("pkt_start");
+		pktNextRegister = program.getProgramContext().getRegister("pkt_next");
 	}
 
 	boolean isTerminated() {
@@ -52,18 +64,56 @@ public class HexagonPacket {
 	}
 
 	Address getMinAddress() {
-		return this.addrSet.getMinAddress();
+		return addrSet.getMinAddress();
 	}
 
 	Address getMaxAddress() {
-		return this.addrSet.getMaxAddress();
+		return addrSet.getMaxAddress();
 	}
 
 	boolean containsAddress(Address address) {
 		return addrSet.contains(address);
 	}
 
-	void disassemblePacket(TaskMonitor monitor) {
+	boolean hasEndLoop() {
+		throw new NotYetImplementedException("NYI");
+	}
+
+	int getEndLoop() {
+		throw new NotYetImplementedException("NYI");
+	}
+	
+	void setFallthrough() {
+		boolean terminated = isTerminated();
+		
+		Address addr = getMinAddress();
+		
+		//
+		// If the packet is terminated, then set fallthrough for all but the
+		// last instruction in the packet
+		//
+		// This is required by ParallelInstructionLanguageHelper
+		//
+		// However, if the packet isn't terminated, we want to set fallthrough
+		// for the last instruction as well
+		//
+		Address stop = getMaxAddress();
+		if (!terminated) {
+			stop = stop.add(4);
+		}
+		
+		while (!addr.equals(stop)) {
+			Instruction instr = program.getListing().getInstructionAt(addr);
+			addr = addr.add(4);
+			instr.setFallThrough(addr);
+		}
+
+		// TODO: for terminated packets analyze pcode and determine whether the
+		// last packet should fall through
+		
+	}
+
+	void redoPacket(TaskMonitor monitor) {
 		if (addrSet.getNumAddresses() == 0) {
 			throw new IllegalArgumentException("No instructions in packet");
 		}
@@ -77,8 +127,21 @@ public class HexagonPacket {
 		}
 
 		program.getListing().clearCodeUnits(getMinAddress(), getMaxAddress(), false);
+
+		BigInteger pktStart = BigInteger.valueOf(getMinAddress().getOffset());
+		BigInteger pktNext = BigInteger.valueOf(getMaxAddress().add(4).getOffset());
+		try {
+			program.getProgramContext().setValue(pktStartRegister, getMinAddress(), getMaxAddress(), pktStart);
+			program.getProgramContext().setValue(pktNextRegister, getMinAddress(), getMaxAddress(), pktNext);
+		} catch (ContextChangeException e) {
+			Msg.error(this, "Unexpected Exception", e);
+		}
+
 		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
 		dis.disassemble(addrSet, addrSet, false);
+		
+		setFallthrough();
+
 		dirty = false;
 	}
 

@@ -280,30 +280,10 @@ public class DecompileCallback {
 		try {
 			Instruction instr = getInstruction(addr);
 
-//			ParallelInstructionLanguageHelper parallelHelper = pcodelanguage.getParallelInstructionHelper();
-//			if (parallelHelper != null) {
-//				// collect all pcode in the instruction group and hand off to parallelHelper to model
-//				// the parallel semantics of the instruction group
-//				List<PcodeOp> ops = new ArrayList<>();
-//				boolean endBlock;
-//				do {
-//					if (undefinedBody != null) {
-//						undefinedBody.addRange(instr.getMinAddress(), instr.getMaxAddress());
-//						cachedFunction.setBody(undefinedBody);
-//					}
-//
-//					PcodeOp[] pcode = instr.getPrototype()
-//							.getPcode(instr.getInstructionContext(),
-//									new InstructionPcodeOverride(instr), uniqueFactory);
-//					ops.addAll(Arrays.asList(pcode));
-//
-//					endBlock = parallelHelper.isEndOfParallelInstructionGroup(instr);
-//					instr = instr.getNext();
-//					assert endBlock || instr != null;
-//				} while (!endBlock);
-//
-//				return parallelHelper.getPcodePacked(ops, uniqueFactory);
-//			}
+			ParallelInstructionLanguageHelper parallelHelper = pcodelanguage.getParallelInstructionHelper();
+			if (parallelHelper != null) {
+				return parallelHelper.getPcodePacked(program, instr.getInstructionContext(), uniqueFactory);
+			}
 
 			return instr.getPrototype()
 					.getPcodePacked(instr.getInstructionContext(),

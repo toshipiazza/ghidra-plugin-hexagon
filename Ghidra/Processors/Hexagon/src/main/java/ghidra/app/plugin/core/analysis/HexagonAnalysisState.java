@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 import ghidra.program.model.address.Address;
+import ghidra.program.model.address.UniqueAddressFactory;
+import ghidra.program.model.lang.InstructionContext;
+import ghidra.program.model.lang.PackedBytes;
+import ghidra.program.model.lang.UnknownInstructionException;
 
 public class HexagonAnalysisState implements AnalysisState {
 
@@ -109,23 +113,16 @@ public class HexagonAnalysisState implements AnalysisState {
 				//
 				// Unterminated packet likely contains control flow that ghidra assumed
 				// terminated the bb
-				// Must set flow override and trigger reanalysis
 				//
-				Msg.info(this, "NYI -- unterminated packet");
+				Msg.warn(this, "Packet was not terminated");
+				packet.setFallthrough();
 				continue;
 			}
-			packet.disassemblePacket(monitor);
+			packet.redoPacket(monitor);
 		}
 	}
 
-	void debugPrintAllKnownPackets() {
-		for (HexagonPacket packet : packets) {
-			Msg.info(this, packet);
-		}
-	}
-
-	HexagonPacket findPacketForInstruction(Instruction instr) {
-		Address address = instr.getMinAddress();
+	HexagonPacket findPacketForAddress(Address address) {
 		for (HexagonPacket packet : packets) {
 			if (packet.containsAddress(address)) {
 				return packet;
@@ -136,7 +133,7 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	public String getMnemonicPrefix(Instruction instr) {
 		Address minAddress = instr.getMinAddress();
-		HexagonPacket packet = findPacketForInstruction(instr);
+		HexagonPacket packet = findPacketForAddress(minAddress);
 		if (packet == null) {
 			// instruction wasn't analyzed yet in HexagonPacketAnalyzer
 			return "";
@@ -149,7 +146,7 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	public boolean isEndOfParallelInstructionGroup(Instruction instruction) {
 		Address minAddress = instruction.getMinAddress();
-		HexagonPacket packet = findPacketForInstruction(instruction);
+		HexagonPacket packet = findPacketForAddress(minAddress);
 		if (packet == null) {
 			// instruction wasn't analyzed yet in HexagonPacketAnalyzer
 			return true;
@@ -164,4 +161,16 @@ public class HexagonAnalysisState implements AnalysisState {
 		return new ArrayList<>(packets);
 	}
 
+	public PackedBytes getPcodePacked(InstructionContext context, UniqueAddressFactory uniqueFactory)
+			throws UnknownInstructionException {
+		HexagonPacket packet = findPacketForAddress(context.getAddress());
+		if (packet == null) {
+			throw new UnknownInstructionException("No packet found at address " + context.getAddress());
+		}
+		if (!packet.getMinAddress().equals(context.getAddress())) {
+			throw new UnknownInstructionException("Attempting to get pcode from " + context.getAddress()
+					+ " which lies in the middle of packet " + packet);
+		}
+		throw new UnknownInstructionException("NYI");
+	}
 }

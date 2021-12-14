@@ -18,6 +18,7 @@ package ghidra.app.plugin.core.analysis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.junit.After;
@@ -26,6 +27,8 @@ import org.junit.Test;
 
 import ghidra.framework.options.Options;
 import ghidra.program.database.ProgramBuilder;
+import ghidra.program.model.lang.Register;
+import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
 import ghidra.test.TestEnv;
@@ -55,6 +58,12 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		analysisOptions.setBoolean(optionName, false);
 		program.endTransaction(txId, true);
 	}
+	
+	void debugPrintAllKnownPackets(HexagonAnalysisState state) {
+		for (HexagonPacket packet : state.getPackets()) {
+			System.out.println(packet);
+		}
+	}
 
 	/*
 	 * Test several packets that are each only a single instruction with no control
@@ -70,33 +79,45 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		programBuilder.disassemble("1000", 12, true);
 		programBuilder.analyze();
+		
+		program.endTransaction(txId, true);
 
 		assertEquals(3, program.getListing().getNumInstructions());
 
 		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
-		state.debugPrintAllKnownPackets();
+		debugPrintAllKnownPackets(state);
 		List<HexagonPacket> packets = state.getPackets();
 
 		assertEquals(3, packets.size());
 
-		HexagonPacket packet1 = packets.get(0);
-		HexagonPacket packet2 = packets.get(1);
-		HexagonPacket packet3 = packets.get(2);
+		HexagonPacket pkt1 = packets.get(0);
+		HexagonPacket pkt2 = packets.get(1);
+		HexagonPacket pkt3 = packets.get(2);
 
 		// all packets are terminated
-		assertTrue(packet1.isTerminated());
-		assertTrue(packet2.isTerminated());
-		assertTrue(packet3.isTerminated());
+		assertTrue(pkt1.isTerminated());
+		assertTrue(pkt2.isTerminated());
+		assertTrue(pkt3.isTerminated());
 
 		// all packets have only one instruction
-		assertEquals(packet1.getMinAddress(), packet1.getMaxAddress());
-		assertEquals(packet2.getMinAddress(), packet2.getMaxAddress());
-		assertEquals(packet3.getMinAddress(), packet3.getMaxAddress());
+		assertEquals(pkt1.getMinAddress(), pkt1.getMaxAddress());
+		assertEquals(pkt2.getMinAddress(), pkt2.getMaxAddress());
+		assertEquals(pkt3.getMinAddress(), pkt3.getMaxAddress());
 
 		// all packets are in the right order
-		assertEquals(packet1.getMinAddress().getOffset(), 0x1000);
-		assertEquals(packet2.getMinAddress().getOffset(), 0x1004);
-		assertEquals(packet3.getMinAddress().getOffset(), 0x1008);
+		assertEquals(pkt1.getMinAddress().getOffset(), 0x1000);
+		assertEquals(pkt2.getMinAddress().getOffset(), 0x1004);
+		assertEquals(pkt3.getMinAddress().getOffset(), 0x1008);
+
+		// pkt_start and pkt_next are correct
+		Register pktSReg = program.getProgramContext().getRegister("pkt_start");
+		Register pktNReg = program.getProgramContext().getRegister("pkt_next");
+		assertEquals(program.getProgramContext().getValue(pktSReg, pkt1.getMinAddress(), false).intValue(), 0x1000);
+		assertEquals(program.getProgramContext().getValue(pktNReg, pkt1.getMinAddress(), false).intValue(), 0x1004);
+		assertEquals(program.getProgramContext().getValue(pktSReg, pkt2.getMinAddress(), false).intValue(), 0x1004);
+		assertEquals(program.getProgramContext().getValue(pktNReg, pkt2.getMinAddress(), false).intValue(), 0x1008);
+		assertEquals(program.getProgramContext().getValue(pktSReg, pkt3.getMinAddress(), false).intValue(), 0x1008);
+		assertEquals(program.getProgramContext().getValue(pktNReg, pkt3.getMinAddress(), false).intValue(), 0x100c);
 	}
 
 	/*
@@ -114,10 +135,12 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		programBuilder.disassemble("1000", 8, true);
 		programBuilder.analyze();
 
+		program.endTransaction(txId, true);
+
 		assertEquals(2, program.getListing().getNumInstructions());
 
 		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
-		state.debugPrintAllKnownPackets();
+		debugPrintAllKnownPackets(state);
 		List<HexagonPacket> packets = state.getPackets();
 
 		assertEquals(1, packets.size());
@@ -130,6 +153,10 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// packet has two instructions
 		assertEquals(packet1.getMinAddress().getOffset(), 0x1000);
 		assertEquals(packet1.getMaxAddress().getOffset(), 0x1004);
+		
+		// verify fallthrough of first instruction in packet
+		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
+		assertTrue(insn1.hasFallthrough());
 	}
 
 	/*
@@ -147,10 +174,12 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		programBuilder.disassemble("1000", 8, true);
 		programBuilder.analyze();
 
+		program.endTransaction(txId, true);
+
 		assertEquals(2, program.getListing().getNumInstructions());
 
 		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
-		state.debugPrintAllKnownPackets();
+		debugPrintAllKnownPackets(state);
 		List<HexagonPacket> packets = state.getPackets();
 
 		assertEquals(1, packets.size());
@@ -163,5 +192,9 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// packet has two instructions
 		assertEquals(packet1.getMinAddress().getOffset(), 0x1000);
 		assertEquals(packet1.getMaxAddress().getOffset(), 0x1004);
+
+		// verify fallthrough of first instruction in packet
+		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
+		assertTrue(insn1.hasFallthrough());
 	}
 }

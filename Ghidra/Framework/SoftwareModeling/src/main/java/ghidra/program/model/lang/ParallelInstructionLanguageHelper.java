@@ -16,23 +16,27 @@
  */
 package ghidra.program.model.lang;
 
+import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.Program;
 
 /**
- * <code>ParallelInstructionLanguageHelper</code> provides the ability via a language 
- * specified property to identify certain parallel instruction attributes. 
- * Implementations must define a public default constructor.
+ * <code>ParallelInstructionLanguageHelper</code> provides the ability via a
+ * language specified property to identify certain parallel instruction
+ * attributes. Implementations must define a public default constructor.
  * <p>
- * The following assumptions exist for parallel packets/groups of instructions:</p>
+ * The following assumptions exist for parallel packets/groups of instructions:
+ * </p>
  * <ul>
- * <li>All instructions in a packet/group which are not the last instruction in the
- * packet/group must have a fall-through.</li>
+ * <li>All instructions in a packet/group which are not the last instruction in
+ * the packet/group must have a fall-through.</li>
  * </ul>
  */
 public interface ParallelInstructionLanguageHelper {
 
 	/**
 	 * Return the mnemonic prefix (i.e., || ) for the specified instriction.
+	 *
 	 * @param instr
 	 * @return mnemonic prefix or null if not applicable
 	 */
@@ -40,20 +44,23 @@ public interface ParallelInstructionLanguageHelper {
 
 	/**
 	 * Determine if the specified instruction is the last instruction in a parallel
-	 * instruction group.  The group is defined as a sequential set of instructions 
-	 * which are executed in parallel.  It is assumed that all terminal flows 
-	 * will only be present in the semantics of the last instruction in a parallel
-	 * group.
+	 * instruction group. The group is defined as a sequential set of instructions
+	 * which are executed in parallel. It is assumed that all terminal flows will
+	 * only be present in the semantics of the last instruction in a parallel group.
 	 * <p>
-	 * This method is primarily intended to assist disassembly to keep parallel 
-	 * instruction packets/groups intact within a single InstructionBlock to 
-	 * facilitate the pcode crossbuild directive.  Such cases are expected to
-	 * defer all flows to the last instruction in the packet and flows should never
-	 * have a destination in the middle of a packet/group.  If pcode crossbuild's
-	 * are never utilized this method may always return false.
+	 * This method is primarily intended to assist disassembly to keep parallel
+	 * instruction packets/groups intact within a single InstructionBlock to
+	 * facilitate the pcode crossbuild directive. Such cases are expected to defer
+	 * all flows to the last instruction in the packet and flows should never have a
+	 * destination in the middle of a packet/group. If pcode crossbuild's are never
+	 * utilized this method may always return false.
+	 * 
 	 * @param instruction
 	 * @return true if instruction is last in a parallel group or if no other
-	 * instruction is executed in parallel with the specified instruction.
+	 *         instruction is executed in parallel with the specified instruction.
 	 */
 	boolean isEndOfParallelInstructionGroup(Instruction instruction);
+
+	PackedBytes getPcodePacked(Program program, InstructionContext context, UniqueAddressFactory uniqueFactory)
+			throws UnknownInstructionException;
 }

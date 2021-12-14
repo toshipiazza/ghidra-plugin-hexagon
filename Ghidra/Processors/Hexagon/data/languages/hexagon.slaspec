@@ -18,6 +18,13 @@ define register offset=0x00 size=8 [
   R25R24  R27R26  R29R28  R31R30
 ];
 
+define register offset=0x500 size=8 contextreg;
+
+define context contextreg
+  pkt_start = ( 0, 31)
+  pkt_next  = (32, 63)
+;
+
 define token inst(32)
   ICLASS = (28, 31)
 
