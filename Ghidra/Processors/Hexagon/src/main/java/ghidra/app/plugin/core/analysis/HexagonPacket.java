@@ -1,12 +1,16 @@
 package ghidra.app.plugin.core.analysis;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
+import ghidra.program.model.lang.InstructionSet;
 import ghidra.program.model.lang.Register;
+import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.ContextChangeException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
@@ -28,8 +32,8 @@ public class HexagonPacket {
 	HexagonPacket(Program program, HexagonAnalysisState state) {
 		this.program = program;
 		this.state = state;
-		this.addrSet = new AddressSet();
-		this.dirty = false;
+		addrSet = new AddressSet();
+		dirty = false;
 
 		pktStartRegister = program.getProgramContext().getRegister("pkt_start");
 		pktNextRegister = program.getProgramContext().getRegister("pkt_next");
@@ -41,7 +45,7 @@ public class HexagonPacket {
 	}
 
 	public void addInstructionToEndOfPacket(Instruction instr) {
-		if (this.addrSet.getNumAddresses() > 0) {
+		if (addrSet.getNumAddresses() > 0) {
 			if (isTerminated()) {
 				throw new IllegalArgumentException("Instruction appended to already-terminated packet");
 			}
@@ -54,7 +58,7 @@ public class HexagonPacket {
 	}
 
 	public void addInstructionToBegOfPacket(Instruction instr) {
-		if (this.addrSet.getNumAddresses() > 0) {
+		if (addrSet.getNumAddresses() > 0) {
 			if (!getMinAddress().subtract(4).equals(instr.getMaxAddress())) {
 				throw new IllegalArgumentException("Instruction prepended to packet is not immediately before packet");
 			}
@@ -69,6 +73,19 @@ public class HexagonPacket {
 
 	Address getMaxAddress() {
 		return addrSet.getMaxAddress();
+	}
+	
+	List<Instruction> getInstructions() throws UnknownInstructionException {
+		List<Instruction> rv = new ArrayList<>();
+		AddressIterator iter = addrSet.getAddresses(true);
+		while (iter.hasNext()) {
+			Instruction instr = program.getListing().getInstructionAt(iter.next());
+			if (instr == null) {
+				throw new UnknownInstructionException("Instruction in packet not defined");
+			}
+			rv.add(instr);
+		}
+		return rv;
 	}
 
 	boolean containsAddress(Address address) {

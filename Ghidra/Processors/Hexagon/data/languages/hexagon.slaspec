@@ -9,6 +9,10 @@ define register offset=0x000 size=4 [
   R8  R9  R10 R11 R12 R13 R14 R15
   R16 R17 R18 R19 R20 R21 R22 R23
   R24 R25 R26 R27 R28 R29 R30 R31
+  C0  C1  C2  C3  C4  C5  C6  C7
+  C8  C9  C10 C11 C12 C13 C14 C15
+  C16 C17 C18 C19 C20 C21 C22 C23
+  C24 C25 C26 C27 C28 C29 C30 C31
 ];
 
 define register offset=0x00 size=8 [ 
@@ -16,6 +20,10 @@ define register offset=0x00 size=8 [
   R9R8    R11R10  R13R12  R15R14
   R17R16  R19R18  R21R20  R23R22
   R25R24  R27R26  R29R28  R31R30
+  C1C0    C3C2    C5C4    C7C6
+  C9C8    C11C10  C13C12  C15C14
+  C17C16  C19C18  C21C20  C23C22
+  C25C24  C27C26  C29C28  C31C30
 ];
 
 define register offset=0x500 size=8 contextreg;

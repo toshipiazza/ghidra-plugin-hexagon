@@ -3,6 +3,9 @@ package ghidra.app.plugin.core.analysis;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryAccessException;
+import ghidra.program.model.pcode.PcodeOp;
+import ghidra.program.model.pcode.SequenceNumber;
+import ghidra.program.model.pcode.Varnode;
 import ghidra.util.Msg;
 import ghidra.util.exception.NotYetImplementedException;
 import ghidra.util.task.TaskMonitor;
@@ -10,11 +13,17 @@ import ghidra.util.task.TaskMonitor;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
+import ghidra.app.plugin.processors.sleigh.VarnodeData;
 import ghidra.program.model.address.Address;
+import ghidra.program.model.address.AddressFactory;
+import ghidra.program.model.address.AddressSpace;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.PackedBytes;
@@ -161,9 +170,190 @@ public class HexagonAnalysisState implements AnalysisState {
 		return new ArrayList<>(packets);
 	}
 
+	Address getRegisterTemp(Address[] scratchRegUnique, Address addr) {
+		return scratchRegUnique[(int) (addr.getOffset() / 4)];
+	}
+
+	boolean isBranch(PcodeOp op) {
+		if (op.getOpcode() == PcodeOp.CBRANCH) {
+			throw new NotYetImplementedException("NYI");
+		}
+		return op.getOpcode() == PcodeOp.CALL || op.getOpcode() == PcodeOp.CALLIND || op.getOpcode() == PcodeOp.BRANCH
+				|| op.getOpcode() == PcodeOp.BRANCHIND || op.getOpcode() == PcodeOp.CBRANCH
+				|| op.getOpcode() == PcodeOp.RETURN;
+	}
+
+	boolean isCall(PcodeOp op) {
+		return op.getOpcode() == PcodeOp.CALL || op.getOpcode() == PcodeOp.CALLIND;
+	}
+
+	void analyzePcode(Instruction instruction, PcodeOp[] pcode, UniqueAddressFactory uniqueFactory,
+			Address[] scratchRegUnique, Set<Varnode> registerSpills, Map<SequenceNumber, Varnode> branches) {
+
+		// identify all the registers which need to be spilled up top and control flow
+		// to be patched
+		for (PcodeOp op : pcode) {
+			for (int i = 0; i < op.getNumInputs(); ++i) {
+				Address addr = op.getInput(i).getAddress();
+				if (addr.getAddressSpace().getName().equals("register")) {
+					registerSpills.add(op.getInput(i));
+				}
+			}
+			if (isBranch(op)) {
+				branches.put(op.getSeqnum(), new Varnode(uniqueFactory.getNextUniqueAddress(), 1));
+			}
+		}
+	}
+
+	void initBranches(Address address, List<PcodeOp> uniqPcode, Map<SequenceNumber, Varnode> branches,
+			AddressFactory addressFactory) {
+		final int SPILL_UNIQ = 0x42424000;
+
+		int seqno = 0;
+		for (Varnode branchVn : branches.values()) {
+			Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(0), 1) };
+			PcodeOp spill = new PcodeOp(address, SPILL_UNIQ + seqno++, PcodeOp.COPY, in, branchVn);
+			uniqPcode.add(spill);
+		}
+	}
+
+	void spillRegs(Address address, List<PcodeOp> uniqPcode, Address[] scratchRegUnique, Set<Varnode> registerSpills) {
+		final int SPILL_UNIQ = 0x41414000;
+
+		int seqno = 0;
+		for (Varnode reg : registerSpills) {
+			Address uniq = getRegisterTemp(scratchRegUnique, reg.getAddress());
+			Varnode[] in = new Varnode[] { reg };
+			Varnode out = new Varnode(uniq, reg.getSize());
+			PcodeOp spill = new PcodeOp(address, SPILL_UNIQ + seqno++, PcodeOp.COPY, in, out);
+			uniqPcode.add(spill);
+		}
+
+	}
+
+	boolean hasInternalCof(PcodeOp[] pcode) {
+		for (PcodeOp op : pcode) {
+			if (op.getOpcode() == PcodeOp.CBRANCH
+					&& op.getInput(1).getAddress().getAddressSpace().getName().equals("constant")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void writePcode(Instruction instruction, Address maxAddress, PcodeOp[] pcode, List<PcodeOp> mainPcode,
+			List<PcodeOp> jumpPcode, UniqueAddressFactory uniqueFactory, Address[] scratchRegUnique,
+			Set<Varnode> registerSpills, Map<SequenceNumber, Varnode> branches, AddressFactory addressFactory) {
+		final int SPILL_UNIQ = 0x43434000;
+
+		int seqno = 0;
+		for (PcodeOp op : pcode) {
+			PcodeOp opNew = new PcodeOp(op.getSeqnum(), op.getOpcode(), op.getNumInputs(), op.getOutput());
+			for (int i = 0; i < op.getNumInputs(); i++) {
+				if (op.getInput(i).getAddress().getAddressSpace().getName().equals("register")) {
+					Address uniq = getRegisterTemp(scratchRegUnique, op.getInput(i).getAddress());
+					opNew.setInput(new Varnode(uniq, op.getInput(i).getSize()), i);
+				} else {
+					opNew.setInput(op.getInput(i), i);
+				}
+			}
+			if (isBranch(opNew)) {
+				Varnode branchVn = branches.get(op.getSeqnum());
+				if (hasInternalCof(pcode)) {
+					Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(1), 1) };
+					PcodeOp spill = new PcodeOp(instruction.getMinAddress(), SPILL_UNIQ + seqno++, PcodeOp.COPY, in,
+							branchVn);
+					mainPcode.add(spill);
+
+					int disp = 1;
+					if (isCall(op)) {
+						disp = 2;
+					}
+
+					in = new Varnode[] { branchVn, new Varnode(addressFactory.getConstantAddress(disp), 1) };
+					PcodeOp insn1 = new PcodeOp(maxAddress, SPILL_UNIQ + seqno++, PcodeOp.CBRANCH, in, null);
+					jumpPcode.add(insn1);
+				}
+
+				jumpPcode.add(opNew);
+
+				if (isCall(op)) {
+					// jump to next instruction in case of a call, so we don't
+					// potentially fallthrough to another jump
+					Varnode[] in = new Varnode[] { new Varnode(maxAddress.add(4), 4) };
+					PcodeOp insn2 = new PcodeOp(maxAddress, SPILL_UNIQ + seqno++, PcodeOp.BRANCH, in, null);
+					jumpPcode.add(insn2);
+				}
+			} else {
+				mainPcode.add(opNew);
+			}
+		}
+	}
+
+	void writeOffset(PackedBytes buf, long val) {
+		while (val != 0) {
+			int chunk = (int) (val & 0x3f);
+			val >>>= 6;
+			buf.write(chunk + 0x20);
+		}
+		buf.write(PcodeEmitPacked.end_tag);
+	}
+
+	void dump(PackedBytes buf, Address instrAddr, int opcode, Varnode[] in, int isize, Varnode out) {
+		buf.write(PcodeEmitPacked.op_tag);
+		buf.write(opcode + 0x20);
+		if (out == null) {
+			buf.write(PcodeEmitPacked.void_tag);
+		} else {
+			dumpVarnodeData(buf, out);
+		}
+		int i = 0;
+		if ((opcode == PcodeOp.LOAD) || (opcode == PcodeOp.STORE)) {
+			dumpSpaceId(buf, in[0]);
+			i = 1;
+		}
+		for (; i < isize; ++i) {
+			dumpVarnodeData(buf, in[i]);
+		}
+		buf.write(PcodeEmitPacked.end_tag);
+	}
+
+	private void dumpSpaceId(PackedBytes buf, Varnode v) {
+		buf.write(PcodeEmitPacked.spaceid_tag);
+		int spcindex = ((int) v.getOffset() >> AddressSpace.ID_UNIQUE_SHIFT);
+		buf.write(spcindex + 0x20);
+	}
+
+	void dumpVarnodeData(PackedBytes buf, Varnode v) {
+		buf.write(PcodeEmitPacked.addrsz_tag);
+		int spcindex = v.getAddress().getAddressSpace().getUnique();
+		buf.write(spcindex + 0x20);
+		writeOffset(buf, v.getOffset());
+		buf.write(v.getSize() + 0x20);
+	}
+
+	void writePackedBytes(HexagonPacket packet, List<PcodeOp> pcode, PackedBytes buf)
+			throws UnknownInstructionException {
+		long packetSize = packet.getMaxAddress().add(4).subtract(packet.getMinAddress());
+		buf.write(PcodeEmitPacked.inst_tag);
+		writeOffset(buf, packetSize);
+
+		Address pktAddr = packet.getMinAddress();
+		int spcindex = pktAddr.getAddressSpace().getUnique();
+		buf.write(spcindex + 0x20);
+		writeOffset(buf, pktAddr.getOffset());
+
+		for (PcodeOp op : pcode) {
+			dump(buf, packet.getMinAddress(), op.getOpcode(), op.getInputs(), op.getNumInputs(), op.getOutput());
+		}
+
+		buf.write(PcodeEmitPacked.end_tag);
+	}
+
 	public PackedBytes getPcodePacked(InstructionContext context, UniqueAddressFactory uniqueFactory)
 			throws UnknownInstructionException {
 		HexagonPacket packet = findPacketForAddress(context.getAddress());
+		System.out.println("getPcodePacked " + context.getAddress());
 		if (packet == null) {
 			throw new UnknownInstructionException("No packet found at address " + context.getAddress());
 		}
@@ -171,6 +361,62 @@ public class HexagonAnalysisState implements AnalysisState {
 			throw new UnknownInstructionException("Attempting to get pcode from " + context.getAddress()
 					+ " which lies in the middle of packet " + packet);
 		}
-		throw new UnknownInstructionException("NYI");
+
+		List<PcodeOp> uniqPcode = new ArrayList<>();
+		List<PcodeOp> mainPcode = new ArrayList<>();
+		List<PcodeOp> jumpPcode = new ArrayList<>();
+
+		Set<Varnode> registerSpills = new HashSet<>();
+		Map<SequenceNumber, Varnode> branches = new HashMap<>();
+
+		// Registers R1R0 aliases with R1 and R0, so their scratch regs must too
+		// 64 registers R0 to R31 and C0 to R31
+		Address[] scratchRegUnique = new Address[] { null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, };
+		for (int i = 0; i < scratchRegUnique.length; i += 2) {
+			Address uniq = uniqueFactory.getNextUniqueAddress();
+			scratchRegUnique[i + 0] = uniq.add(0);
+			scratchRegUnique[i + 1] = uniq.add(4);
+		}
+
+		for (Instruction instr : packet.getInstructions()) {
+			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory);
+			analyzePcode(instr, pcode, uniqueFactory, scratchRegUnique, registerSpills, branches);
+		}
+
+		initBranches(packet.getMinAddress(), uniqPcode, branches, program.getAddressFactory());
+		spillRegs(packet.getMinAddress(), uniqPcode, scratchRegUnique, registerSpills);
+
+		for (Instruction instr : packet.getInstructions()) {
+			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory);
+			writePcode(instr, packet.getMaxAddress(), pcode, mainPcode, jumpPcode, uniqueFactory, scratchRegUnique,
+					registerSpills, branches, program.getAddressFactory());
+		}
+
+		System.out.println("pkt_uniq:");
+		for (PcodeOp op : uniqPcode) {
+			System.out.println(op);
+		}
+		System.out.println("pkt_main:");
+		for (PcodeOp op : mainPcode) {
+			System.out.println(op);
+		}
+		System.out.println("pkt_jump:");
+		for (PcodeOp op : jumpPcode) {
+			System.out.println(op);
+		}
+
+		List<PcodeOp> donePcode = new ArrayList<>();
+		donePcode.addAll(uniqPcode);
+		donePcode.addAll(mainPcode);
+		donePcode.addAll(jumpPcode);
+
+		PackedBytes packed = new PackedBytes(100);
+		writePackedBytes(packet, donePcode, packed);
+
+		return packed;
 	}
 }

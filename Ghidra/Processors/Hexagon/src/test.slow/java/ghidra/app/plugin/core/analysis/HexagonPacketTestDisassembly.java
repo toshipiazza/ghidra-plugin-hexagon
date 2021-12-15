@@ -26,7 +26,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ghidra.framework.options.Options;
+import ghidra.program.database.ProgramAddressFactory;
 import ghidra.program.database.ProgramBuilder;
+import ghidra.program.model.address.AddressFactory;
+import ghidra.program.model.address.UniqueAddressFactory;
+import ghidra.program.model.lang.CompilerSpec;
+import ghidra.program.model.lang.Language;
+import ghidra.program.model.lang.PackedBytes;
+import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
@@ -118,6 +125,21 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(program.getProgramContext().getValue(pktNReg, pkt2.getMinAddress(), false).intValue(), 0x1008);
 		assertEquals(program.getProgramContext().getValue(pktSReg, pkt3.getMinAddress(), false).intValue(), 0x1008);
 		assertEquals(program.getProgramContext().getValue(pktNReg, pkt3.getMinAddress(), false).intValue(), 0x100c);
+
+		// test pcode generation
+		Language language = program.getLanguage();
+		AddressFactory addressFactory = program.getAddressFactory();
+		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(addressFactory, language);
+		ParallelInstructionLanguageHelper parallelHelper = new HexagonParallelInstructionLanguageHelper();
+
+		Instruction insn1 = program.getListing().getInstructionAt(pkt1.getMinAddress());
+		parallelHelper.getPcodePacked(program, insn1.getInstructionContext(), uniqueFactory);
+
+		Instruction insn2 = program.getListing().getInstructionAt(pkt2.getMinAddress());
+		parallelHelper.getPcodePacked(program, insn2.getInstructionContext(), uniqueFactory);
+
+		Instruction insn3 = program.getListing().getInstructionAt(pkt3.getMinAddress());
+		parallelHelper.getPcodePacked(program, insn3.getInstructionContext(), uniqueFactory);
 	}
 
 	/*
@@ -157,6 +179,13 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// verify fallthrough of first instruction in packet
 		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
 		assertTrue(insn1.hasFallthrough());
+		
+		// test pcode generation
+		Language language = program.getLanguage();
+		AddressFactory addressFactory = program.getAddressFactory();
+		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(addressFactory, language);
+		ParallelInstructionLanguageHelper parallelHelper = new HexagonParallelInstructionLanguageHelper();
+		parallelHelper.getPcodePacked(program, insn1.getInstructionContext(), uniqueFactory);
 	}
 
 	/*
