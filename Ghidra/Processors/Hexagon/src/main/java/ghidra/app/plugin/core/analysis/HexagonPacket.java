@@ -74,7 +74,7 @@ public class HexagonPacket {
 	Address getMaxAddress() {
 		return addrSet.getMaxAddress();
 	}
-	
+
 	List<Instruction> getInstructions() throws UnknownInstructionException {
 		List<Instruction> rv = new ArrayList<>();
 		AddressIterator iter = addrSet.getAddresses(true);
@@ -99,12 +99,34 @@ public class HexagonPacket {
 	int getEndLoop() {
 		throw new NotYetImplementedException("NYI");
 	}
-	
+
+	Address getFallthrough() {
+		if (!isTerminated()) {
+			throw new IllegalArgumentException("Packet is not terminated");
+		}
+
+		boolean hasFallthrough = true;
+
+		AddressIterator iter = addrSet.getAddresses(true);
+		while (iter.hasNext()) {
+			Address addr = iter.next();
+			Instruction instr = program.getListing().getInstructionAt(addr);
+			if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
+				hasFallthrough = false;
+			}
+		}
+
+		if (!hasFallthrough) {
+			return null;
+		}
+		return getMaxAddress().add(4);
+	}
+
 	void setFallthrough() {
 		boolean terminated = isTerminated();
-		
+
 		Address addr = getMinAddress();
-		
+
 		//
 		// If the packet is terminated, then set fallthrough for all but the
 		// last instruction in the packet
@@ -118,16 +140,16 @@ public class HexagonPacket {
 		if (!terminated) {
 			stop = stop.add(4);
 		}
-		
+
 		while (!addr.equals(stop)) {
 			Instruction instr = program.getListing().getInstructionAt(addr);
 			addr = addr.add(4);
 			instr.setFallThrough(addr);
 		}
 
-		// TODO: for terminated packets analyze pcode and determine whether the
-		// last packet should fall through
-		
+		if (terminated) {
+			program.getListing().getInstructionAt(getMaxAddress()).setFallThrough(getFallthrough());
+		}
 	}
 
 	void redoPacket(TaskMonitor monitor) {
@@ -156,7 +178,7 @@ public class HexagonPacket {
 
 		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
 		dis.disassemble(addrSet, addrSet, false);
-		
+
 		setFallthrough();
 
 		dirty = false;

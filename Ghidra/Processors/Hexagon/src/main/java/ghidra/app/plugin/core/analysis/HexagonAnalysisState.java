@@ -353,7 +353,6 @@ public class HexagonAnalysisState implements AnalysisState {
 	public PackedBytes getPcodePacked(InstructionContext context, UniqueAddressFactory uniqueFactory)
 			throws UnknownInstructionException {
 		HexagonPacket packet = findPacketForAddress(context.getAddress());
-		System.out.println("getPcodePacked " + context.getAddress());
 		if (packet == null) {
 			throw new UnknownInstructionException("No packet found at address " + context.getAddress());
 		}

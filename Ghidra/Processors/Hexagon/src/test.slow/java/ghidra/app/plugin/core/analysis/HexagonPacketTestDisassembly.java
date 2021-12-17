@@ -16,6 +16,8 @@
 package ghidra.app.plugin.core.analysis;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
@@ -179,6 +181,13 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// verify fallthrough of first instruction in packet
 		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
 		assertTrue(insn1.hasFallthrough());
+		
+		// verify no fallthrough for last instruction in packet
+		Instruction insn2 = program.getListing().getInstructionAt(packet1.getMaxAddress());
+		assertFalse(insn2.hasFallthrough());
+		
+		// verify no fallthrough for the packet
+		assertNull(packet1.getFallthrough());
 		
 		// test pcode generation
 		Language language = program.getLanguage();

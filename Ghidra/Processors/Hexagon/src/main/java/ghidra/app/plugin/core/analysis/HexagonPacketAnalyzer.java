@@ -88,4 +88,11 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 		return true;
 	}
 
+	@Override
+	public boolean removed(Program program, AddressSetView set, TaskMonitor monitor, MessageLog log)
+			throws CancelledException {
+		// TODO
+		return false;
+	}
+
 }
