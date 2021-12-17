@@ -57,6 +57,9 @@ define token inst(32)
   dd5  	 = ( 0,  4)
   
   jumpr_21_27 = (21, 27)
+  call_25_27 =  (25, 27)
+  imm_1_13   =  ( 1, 13)
+  imm_16_24  =  (16, 24)
 ;
 
 attach variables [ x5 d5 s5 t5 ] [
@@ -105,6 +108,22 @@ s16: reloc is s16_0 & s16_1 & s16_2 [ reloc = s16_0 + (s16_1 << 8) + (s16_2 << 1
   d5 = s5 + t5;
 }
 
+:"jumpr" s5 is ICLASS = 0b0101 & jumpr_21_27 = 0b0010100 & s5 & s5 = 0b11111 {
+  return [s5];
+}
+
 :"jumpr" s5 is ICLASS = 0b0101 & jumpr_21_27 = 0b0010100 & s5 {
   goto [s5];
+}
+
+r22_2: reloc is imm_1_13 & imm_16_24 [ reloc = pkt_start + ((imm_1_13) + (imm_16_24 << 13)) << 2; ] {
+  tmp = reloc:4; export tmp;
+}
+
+:"call" r22_2 is ICLASS = 0b0101 & call_25_27 = 0b101 & r22_2 {
+  call r22_2;
+}
+
+:"nop" is ICLASS = 0b0111 & Rs = 0b1 & MajOp = 0b111 {
+
 }
