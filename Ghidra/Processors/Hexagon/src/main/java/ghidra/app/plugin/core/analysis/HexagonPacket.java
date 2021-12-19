@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import ghidra.app.plugin.core.analysis.HexagonAnalysisState.DuplexEncoding;
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
@@ -26,6 +27,7 @@ public class HexagonPacket {
 
 	Register pktStartRegister;
 	Register pktNextRegister;
+	Register subinsnRegister;
 
 	AddressSet addrSet;
 
@@ -37,11 +39,15 @@ public class HexagonPacket {
 
 		pktStartRegister = program.getProgramContext().getRegister("pkt_start");
 		pktNextRegister = program.getProgramContext().getRegister("pkt_next");
+		subinsnRegister = program.getProgramContext().getRegister("subinsn");
 	}
 
 	boolean isTerminated() {
-		int curValue = state.getParseBits(getMaxAddress());
-		return curValue == 0b00 || curValue == 0b11;
+		return state.endPacket(getMaxAddress());
+	}
+
+	boolean hasDuplex() {
+		return state.hasDuplex(getMaxAddress());
 	}
 
 	public void addInstructionToEndOfPacket(Instruction instr) {
@@ -89,7 +95,11 @@ public class HexagonPacket {
 	}
 
 	boolean containsAddress(Address address) {
-		return addrSet.contains(address);
+		if (addrSet.contains(address)) {
+			return true;
+		}
+		// address can be at most 2 past the end
+		return isTerminated() && hasDuplex() && getMaxAddress().add(2).equals(address);
 	}
 
 	boolean hasEndLoop() {
@@ -116,40 +126,19 @@ public class HexagonPacket {
 			}
 		}
 
+		if (hasDuplex()) {
+			Instruction instr = program.getListing().getInstructionAt(getMaxAddress().add(2));
+			if (instr != null) {
+				if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
+					hasFallthrough = false;
+				}
+			}
+		}
+
 		if (!hasFallthrough) {
 			return null;
 		}
 		return getMaxAddress().add(4);
-	}
-
-	void setFallthrough() {
-		boolean terminated = isTerminated();
-
-		Address addr = getMinAddress();
-
-		//
-		// If the packet is terminated, then set fallthrough for all but the
-		// last instruction in the packet
-		//
-		// This is required by ParallelInstructionLanguageHelper
-		//
-		// However, if the packet isn't terminated, we want to set fallthrough
-		// for the last instruction as well
-		//
-		Address stop = getMaxAddress();
-		if (!terminated) {
-			stop = stop.add(4);
-		}
-
-		while (!addr.equals(stop)) {
-			Instruction instr = program.getListing().getInstructionAt(addr);
-			addr = addr.add(4);
-			instr.setFallThrough(addr);
-		}
-
-		if (terminated) {
-			program.getListing().getInstructionAt(getMaxAddress()).setFallThrough(getFallthrough());
-		}
 	}
 
 	void redoPacket(TaskMonitor monitor) {
@@ -165,21 +154,54 @@ public class HexagonPacket {
 			return;
 		}
 
-		program.getListing().clearCodeUnits(getMinAddress(), getMaxAddress(), false);
+		program.getListing().clearCodeUnits(getMinAddress(), getMaxAddress().add(2), true);
+
+		AddressSet addrSet2 = new AddressSet();
+		AddressIterator iter = addrSet.getAddresses(true);
+		while (iter.hasNext()) {
+			addrSet2.add(iter.next());
+		}
+
+		boolean hasDuplex = hasDuplex();
 
 		BigInteger pktStart = BigInteger.valueOf(getMinAddress().getOffset());
 		BigInteger pktNext = BigInteger.valueOf(getMaxAddress().add(4).getOffset());
 		try {
 			program.getProgramContext().setValue(pktStartRegister, getMinAddress(), getMaxAddress(), pktStart);
 			program.getProgramContext().setValue(pktNextRegister, getMinAddress(), getMaxAddress(), pktNext);
+
+			if (hasDuplex) {
+				Address duplexLo = getMaxAddress().add(0);
+				Address duplexHi = getMaxAddress().add(2);
+				BigInteger lo = BigInteger.valueOf(state.duplexInsns.get(duplexLo).getValue());
+				BigInteger hi = BigInteger.valueOf(state.duplexInsns.get(duplexHi).getValue());
+				program.getProgramContext().setValue(subinsnRegister, duplexLo, duplexLo, lo);
+				program.getProgramContext().setValue(subinsnRegister, duplexHi, duplexHi, hi);
+				addrSet2.add(duplexHi); // disassemble the duplex as well
+			}
 		} catch (ContextChangeException e) {
 			Msg.error(this, "Unexpected Exception", e);
 		}
 
 		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
-		dis.disassemble(addrSet, addrSet, false);
+		dis.disassemble(addrSet2, addrSet2, false);
 
-		setFallthrough();
+		// set fallthrough for all instructions in the packet
+		iter = addrSet.getAddresses(true);
+		while (iter.hasNext()) {
+			Address addr = iter.next();
+			Instruction instr = program.getListing().getInstructionAt(addr);
+			instr.setFallThrough(addr.add(instr.getLength()));
+		}
+
+		long add = 0;
+		if (hasDuplex) {
+			add = 2;
+		}
+
+		// set fallthrough of last instruction, accounting for duplex
+		// instruction
+		program.getListing().getInstructionAt(getMaxAddress().add(add)).setFallThrough(getFallthrough());
 
 		dirty = false;
 	}
@@ -193,6 +215,13 @@ public class HexagonPacket {
 			sb.append(instr.toString());
 			if (iter.hasNext()) {
 				sb.append(" ; ");
+			}
+		}
+		if (isTerminated() && hasDuplex()) {
+			Instruction duplex = program.getListing().getInstructionAt(getMaxAddress().add(2));
+			if (duplex != null) {
+				sb.append(" ; ");
+				sb.append(duplex.toString());
 			}
 		}
 		sb.append(" } @ ");

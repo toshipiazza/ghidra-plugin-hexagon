@@ -41,13 +41,29 @@ public class HexagonAnalysisState implements AnalysisState {
 	}
 
 	Map<Address, BigInteger> parseBits;
+	Set<Address> endPackets;
+	Map<Address, DuplexEncoding> duplexInsns;
 	LinkedList<HexagonPacket> packets;
 	Program program;
 
 	public HexagonAnalysisState(Program program) {
 		packets = new LinkedList<>();
 		parseBits = new HashMap<>();
+		endPackets = new HashSet<>();
+		duplexInsns = new HashMap<>();
 		this.program = program;
+	}
+
+	boolean endPacket(Address address) {
+		return endPackets.contains(address);
+	}
+
+	boolean hasDuplex(Address address) {
+		boolean ret = endPacket(address) && duplexInsns.containsKey(address);
+		if (ret) {
+			assert duplexInsns.containsKey(address.add(2));
+		}
+		return ret;
 	}
 
 	int getParseBits(Address addr) {
@@ -56,6 +72,27 @@ public class HexagonAnalysisState implements AnalysisState {
 			throw new IllegalArgumentException("No parse bits identified for given instruction");
 		}
 		return value.intValue();
+	}
+
+	enum DuplexEncoding {
+		A, L1, L2, S1, S2;
+
+		int getValue() {
+			switch (this) {
+			case A:
+				return 1;
+			case L1:
+				return 2;
+			case L2:
+				return 3;
+			case S1:
+				return 4;
+			case S2:
+				return 5;
+			}
+			assert false;
+			return -1;
+		}
 	}
 
 	void addInstructionToPacketOrCreatePacket(Instruction instr, TaskMonitor monitor) {
@@ -67,10 +104,88 @@ public class HexagonAnalysisState implements AnalysisState {
 			return;
 		}
 
-		// parse out Parse bits
+		// parse out Parse and duplex iclass bits
 		try {
-			BigInteger value = BigInteger.valueOf(((instr.getByte(1) & 0xc0) >> 6) & 0b11);
+			BigInteger value = BigInteger.valueOf(((instr.getByte(1) & 0xc0) >> 6) & 0b011);
 			parseBits.put(minAddress, value);
+			if (value.intValue() == 0b00) {
+				// This is an end of packet, and a duplex instruction
+				Address addrLo = minAddress.add(0);
+				Address addrHi = minAddress.add(2); // duplex is 2 bytes
+
+				endPackets.add(addrLo);
+
+				int iclass1 = ((instr.getByte(1) & 0x20) >> 5) & 0b001;
+				int iclass2 = ((instr.getByte(3) & 0xe0) >> 5) & 0b111;
+				int iclass = (iclass2 << 1) | iclass1;
+				switch (iclass) {
+				case 0:
+					duplexInsns.put(addrLo, DuplexEncoding.L1);
+					duplexInsns.put(addrHi, DuplexEncoding.L1);
+					break;
+				case 1:
+					duplexInsns.put(addrLo, DuplexEncoding.L2);
+					duplexInsns.put(addrHi, DuplexEncoding.L1);
+					break;
+				case 2:
+					duplexInsns.put(addrLo, DuplexEncoding.L2);
+					duplexInsns.put(addrHi, DuplexEncoding.L2);
+					break;
+				case 3:
+					duplexInsns.put(addrLo, DuplexEncoding.A);
+					duplexInsns.put(addrHi, DuplexEncoding.A);
+					break;
+				case 4:
+					duplexInsns.put(addrLo, DuplexEncoding.L1);
+					duplexInsns.put(addrHi, DuplexEncoding.A);
+					break;
+				case 5:
+					duplexInsns.put(addrLo, DuplexEncoding.L2);
+					duplexInsns.put(addrHi, DuplexEncoding.A);
+					break;
+				case 6:
+					duplexInsns.put(addrLo, DuplexEncoding.S1);
+					duplexInsns.put(addrHi, DuplexEncoding.A);
+					break;
+				case 7:
+					duplexInsns.put(addrLo, DuplexEncoding.S2);
+					duplexInsns.put(addrHi, DuplexEncoding.A);
+					break;
+				case 8:
+					duplexInsns.put(addrLo, DuplexEncoding.S1);
+					duplexInsns.put(addrHi, DuplexEncoding.L1);
+					break;
+				case 9:
+					duplexInsns.put(addrLo, DuplexEncoding.S1);
+					duplexInsns.put(addrHi, DuplexEncoding.L2);
+					break;
+				case 10:
+					duplexInsns.put(addrLo, DuplexEncoding.S1);
+					duplexInsns.put(addrHi, DuplexEncoding.S1);
+					break;
+				case 11:
+					duplexInsns.put(addrLo, DuplexEncoding.S2);
+					duplexInsns.put(addrHi, DuplexEncoding.S1);
+					break;
+				case 12:
+					duplexInsns.put(addrLo, DuplexEncoding.S2);
+					duplexInsns.put(addrHi, DuplexEncoding.L1);
+					break;
+				case 13:
+					duplexInsns.put(addrLo, DuplexEncoding.S2);
+					duplexInsns.put(addrHi, DuplexEncoding.L2);
+					break;
+				case 14:
+					duplexInsns.put(addrLo, DuplexEncoding.S2);
+					duplexInsns.put(addrHi, DuplexEncoding.S2);
+					break;
+				default:
+					assert false;
+				}
+			}
+			if (value.intValue() == 0b11) {
+				endPackets.add(minAddress);
+			}
 		} catch (MemoryAccessException e) {
 			Msg.error(this, "Unexpected Exception", e);
 			return;
@@ -119,12 +234,7 @@ public class HexagonAnalysisState implements AnalysisState {
 	void disassembleDirtyPackets(TaskMonitor monitor) {
 		for (HexagonPacket packet : packets) {
 			if (!packet.isTerminated()) {
-				//
-				// Unterminated packet likely contains control flow that ghidra assumed
-				// terminated the bb
-				//
 				Msg.warn(this, "Packet was not terminated");
-				packet.setFallthrough();
 				continue;
 			}
 			packet.redoPacket(monitor);
@@ -393,19 +503,6 @@ public class HexagonAnalysisState implements AnalysisState {
 			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory);
 			writePcode(instr, packet.getMaxAddress(), pcode, mainPcode, jumpPcode, uniqueFactory, scratchRegUnique,
 					registerSpills, branches, program.getAddressFactory());
-		}
-
-		System.out.println("pkt_uniq:");
-		for (PcodeOp op : uniqPcode) {
-			System.out.println(op);
-		}
-		System.out.println("pkt_main:");
-		for (PcodeOp op : mainPcode) {
-			System.out.println(op);
-		}
-		System.out.println("pkt_jump:");
-		for (PcodeOp op : jumpPcode) {
-			System.out.println(op);
 		}
 
 		List<PcodeOp> donePcode = new ArrayList<>();

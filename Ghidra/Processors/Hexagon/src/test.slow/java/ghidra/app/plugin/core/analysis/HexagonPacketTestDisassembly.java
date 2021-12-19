@@ -27,6 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ghidra.app.plugin.core.analysis.HexagonAnalysisState.DuplexEncoding;
 import ghidra.framework.options.Options;
 import ghidra.program.database.ProgramAddressFactory;
 import ghidra.program.database.ProgramBuilder;
@@ -67,7 +68,7 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		analysisOptions.setBoolean(optionName, false);
 		program.endTransaction(txId, true);
 	}
-	
+
 	void debugPrintAllKnownPackets(HexagonAnalysisState state) {
 		for (HexagonPacket packet : state.getPackets()) {
 			System.out.println(packet);
@@ -88,7 +89,7 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		programBuilder.disassemble("1000", 12, true);
 		programBuilder.analyze();
-		
+
 		program.endTransaction(txId, true);
 
 		assertEquals(3, program.getListing().getNumInstructions());
@@ -127,21 +128,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(program.getProgramContext().getValue(pktNReg, pkt2.getMinAddress(), false).intValue(), 0x1008);
 		assertEquals(program.getProgramContext().getValue(pktSReg, pkt3.getMinAddress(), false).intValue(), 0x1008);
 		assertEquals(program.getProgramContext().getValue(pktNReg, pkt3.getMinAddress(), false).intValue(), 0x100c);
-
-		// test pcode generation
-		Language language = program.getLanguage();
-		AddressFactory addressFactory = program.getAddressFactory();
-		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(addressFactory, language);
-		ParallelInstructionLanguageHelper parallelHelper = new HexagonParallelInstructionLanguageHelper();
-
-		Instruction insn1 = program.getListing().getInstructionAt(pkt1.getMinAddress());
-		parallelHelper.getPcodePacked(program, insn1.getInstructionContext(), uniqueFactory);
-
-		Instruction insn2 = program.getListing().getInstructionAt(pkt2.getMinAddress());
-		parallelHelper.getPcodePacked(program, insn2.getInstructionContext(), uniqueFactory);
-
-		Instruction insn3 = program.getListing().getInstructionAt(pkt3.getMinAddress());
-		parallelHelper.getPcodePacked(program, insn3.getInstructionContext(), uniqueFactory);
 	}
 
 	/*
@@ -177,24 +163,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// packet has two instructions
 		assertEquals(packet1.getMinAddress().getOffset(), 0x1000);
 		assertEquals(packet1.getMaxAddress().getOffset(), 0x1004);
-		
-		// verify fallthrough of first instruction in packet
-		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
-		assertTrue(insn1.hasFallthrough());
-		
-		// verify no fallthrough for last instruction in packet
-		Instruction insn2 = program.getListing().getInstructionAt(packet1.getMaxAddress());
-		assertFalse(insn2.hasFallthrough());
-		
-		// verify no fallthrough for the packet
-		assertNull(packet1.getFallthrough());
-		
-		// test pcode generation
-		Language language = program.getLanguage();
-		AddressFactory addressFactory = program.getAddressFactory();
-		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(addressFactory, language);
-		ParallelInstructionLanguageHelper parallelHelper = new HexagonParallelInstructionLanguageHelper();
-		parallelHelper.getPcodePacked(program, insn1.getInstructionContext(), uniqueFactory);
 	}
 
 	/*
@@ -234,5 +202,32 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// verify fallthrough of first instruction in packet
 		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
 		assertTrue(insn1.hasFallthrough());
+	}
+
+	@Test
+	public void testDuplexInstruction() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 64);
+		programBuilder.setBytes("1000", "c0 3f 10 48");
+
+		programBuilder.disassemble("1000", 4, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		assertEquals(2, program.getListing().getNumInstructions());
+
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		debugPrintAllKnownPackets(state);
+		List<HexagonPacket> packets = state.getPackets();
+
+		assertEquals(1, packets.size());
+
+		HexagonPacket packet1 = packets.get(0);
+
+		assertEquals(state.duplexInsns.get(packet1.getMaxAddress().add(0)), DuplexEncoding.L2);
+		assertEquals(state.duplexInsns.get(packet1.getMaxAddress().add(2)), DuplexEncoding.A);
 	}
 }
