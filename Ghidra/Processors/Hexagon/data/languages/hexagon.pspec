@@ -5,7 +5,6 @@
   </properties> 
   <context_data>
     <context_set space="ram">
-      <set name="subinsn" val="0"          description=""/>
       <set name="immext"  val="4294967295" description=""/>
     </context_set>
   </context_data>
