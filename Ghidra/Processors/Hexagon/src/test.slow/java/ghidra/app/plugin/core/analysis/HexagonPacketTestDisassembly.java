@@ -230,4 +230,29 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(state.duplexInsns.get(packet1.getMaxAddress().add(0)), DuplexEncoding.L2);
 		assertEquals(state.duplexInsns.get(packet1.getMaxAddress().add(2)), DuplexEncoding.A);
 	}
+
+	@Test
+	public void testImmext() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 64);
+		programBuilder.setBytes("1000", "d1 48 01 00 16 c0 41 3c");
+
+		programBuilder.disassemble("1000", 8, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		assertEquals(2, program.getListing().getNumInstructions());
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		debugPrintAllKnownPackets(state);
+		List<HexagonPacket> packets = state.getPackets();
+
+		assertEquals(1, packets.size());
+
+		// immext must have propagated if imm is correct
+		Instruction inst1 = program.getListing().getInstructionAt(packets.get(0).getMaxAddress());
+		assertEquals("0x123456", inst1.getDefaultOperandRepresentation(2));
+	}
 }
