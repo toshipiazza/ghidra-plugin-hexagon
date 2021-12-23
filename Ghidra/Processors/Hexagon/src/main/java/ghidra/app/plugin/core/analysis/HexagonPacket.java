@@ -186,23 +186,6 @@ public class HexagonPacket {
 		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
 		dis.disassemble(addrSet2, addrSet2, false);
 
-		// set fallthrough for all instructions in the packet
-		iter = addrSet.getAddresses(true);
-		while (iter.hasNext()) {
-			Address addr = iter.next();
-			Instruction instr = program.getListing().getInstructionAt(addr);
-			instr.setFallThrough(addr.add(instr.getLength()));
-		}
-
-		long add = 0;
-		if (hasDuplex) {
-			add = 2;
-		}
-
-		// set fallthrough of last instruction, accounting for duplex
-		// instruction
-		program.getListing().getInstructionAt(getMaxAddress().add(add)).setFallThrough(getFallthrough());
-
 		dirty = false;
 	}
 
