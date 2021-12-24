@@ -91,6 +91,13 @@ public class HexagonPacket {
 			}
 			rv.add(instr);
 		}
+		if (hasDuplex()) {
+			Instruction instr = program.getListing().getInstructionAt(getMaxAddress().add(2));
+			if (instr == null) {
+				throw new UnknownInstructionException("Instruction in packet not defined");
+			}
+			rv.add(instr);
+		}
 		return rv;
 	}
 
