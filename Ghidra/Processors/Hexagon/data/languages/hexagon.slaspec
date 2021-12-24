@@ -12143,13 +12143,17 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :J4_cmpltu_f_jumpnv_nt J4_cmpltu_f_jumpnv_nt_Rt32 "R"newreg".new" J4_cmpltu_f_jumpnv_nt_r9_2 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 0 & J4_cmpltu_f_jumpnv_nt_Rt32 & J4_cmpltu_f_jumpnv_nt_Ns8 & J4_cmpltu_f_jumpnv_nt_r9_2 & hasnew = 1 [ newreg = dotnew; ] unimpl
 
-:J2_call J2_call_r22_2 is Parse != 0b00 & subinsn = 0 & b0 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_call_r22_2 unimpl
+:J2_call J2_call_r22_2 is Parse != 0b00 & subinsn = 0 & b0 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_call_r22_2 {
+  call [J2_call_r22_2];
+}
 
 :J2_callt J2_callt_Pu4 J2_callt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b21 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callt_Pu4 & J2_callt_r15_2 unimpl
 
 :J2_callf J2_callf_Pu4 J2_callf_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b21 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callf_Pu4 & J2_callf_r15_2 unimpl
 
-:J2_callr J2_callr_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callr_Rs32 unimpl
+:J2_callr J2_callr_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callr_Rs32 {
+  call [J2_callr_Rs32];
+}
 
 :J2_callrt J2_callrt_Pu4 J2_callrt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callrt_Pu4 & J2_callrt_Rs32 unimpl
 
@@ -12419,7 +12423,11 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_storerf_pcr S2_storerf_pcr_Rx32 S2_storerf_pcr_Mu2 S2_storerf_pcr_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 1 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storerf_pcr_Rx32 & S2_storerf_pcr_Mu2 & S2_storerf_pcr_Rt32 unimpl
 
-:S2_storeri_io S2_storeri_io_Rs32 S2_storeri_io_Rt32 S2_storeri_io_s11_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_io_Rs32 & S2_storeri_io_Rt32 & S2_storeri_io_s11_2 unimpl
+:S2_storeri_io S2_storeri_io_Rs32 S2_storeri_io_Rt32 S2_storeri_io_s11_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_io_Rs32 & S2_storeri_io_Rt32 & S2_storeri_io_s11_2 {
+  local EA:4;
+  EA = (S2_storeri_io_Rs32) + (S2_storeri_io_s11_2);
+  *:4 EA = (S2_storeri_io_Rt32);
+}
 
 :S2_storeri_pi S2_storeri_pi_Rx32 S2_storeri_pi_Rt32 S2_storeri_pi_s4_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_pi_Rx32 & S2_storeri_pi_Rt32 & S2_storeri_pi_s4_2 unimpl
 
@@ -13316,7 +13324,9 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :C4_nbitsclr C4_nbitsclr_Pd4 C4_nbitsclr_Rs32 C4_nbitsclr_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C4_nbitsclr_Pd4 & C4_nbitsclr_Rs32 & C4_nbitsclr_Rt32 unimpl
 
-:C2_cmpeqi C2_cmpeqi_Pd4 C2_cmpeqi_Rs32 C2_cmpeqi_s10 is Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpeqi_Pd4 & C2_cmpeqi_Rs32 & C2_cmpeqi_s10 unimpl
+:C2_cmpeqi C2_cmpeqi_Pd4 C2_cmpeqi_Rs32 C2_cmpeqi_s10 is Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpeqi_Pd4 & C2_cmpeqi_Rs32 & C2_cmpeqi_s10 {
+  C2_cmpeqi_Pd4 = (C2_cmpeqi_Rs32) == (C2_cmpeqi_s10);
+}
 
 :C2_cmpgti C2_cmpgti_Pd4 C2_cmpgti_Rs32 C2_cmpgti_s10 is Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpgti_Pd4 & C2_cmpgti_Rs32 & C2_cmpgti_s10 unimpl
 
@@ -14228,7 +14238,9 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_subsat A2_subsat_Rd32 A2_subsat_Rt32 A2_subsat_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_subsat_Rd32 & A2_subsat_Rt32 & A2_subsat_Rs32 unimpl
 
-:A2_addi A2_addi_Rd32 A2_addi_Rs32 A2_addi_s16 is Parse != 0b00 & subinsn = 0 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 1 & A2_addi_Rd32 & A2_addi_Rs32 & A2_addi_s16 unimpl
+:A2_addi A2_addi_Rd32 A2_addi_Rs32 A2_addi_s16 is Parse != 0b00 & subinsn = 0 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 1 & A2_addi_Rd32 & A2_addi_Rs32 & A2_addi_s16 {
+  A2_addi_Rd32 = (A2_addi_Rs32) + (A2_addi_s16);
+}
 
 :C4_addipc C4_addipc_Rd32 C4_addipc_u6 is Parse != 0b00 & subinsn = 0 & b16 = 1 & b17 = 0 & b18 = 0 & b19 = 1 & b20 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & C4_addipc_Rd32 & C4_addipc_u6 unimpl
 
@@ -15376,7 +15388,9 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SA1_dec SA1_dec_Rd16 SA1_dec_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_dec_Rd16 & SA1_dec_Rs16 unimpl
 
-:SA1_addrx SA1_addrx_Rx16 SA1_addrx_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_addrx_Rx16 & SA1_addrx_Rs16 unimpl
+:SA1_addrx SA1_addrx_Rx16 SA1_addrx_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_addrx_Rx16 & SA1_addrx_Rs16 {
+  SA1_addrx_Rx16 = (SA1_addrx_Rx16) + (SA1_addrx_Rs16);
+}
 
 :SA1_zxtb SA1_zxtb_Rd16 SA1_zxtb_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_zxtb_Rd16 & SA1_zxtb_Rs16 unimpl
 
@@ -15446,7 +15460,11 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SS2_storeh_io SS2_storeh_io_Rs16 SS2_storeh_io_Rt16 SS2_storeh_io_u3_1 is immext = 0xffffffff & subinsn = 5 & a11 = 0 & a12 = 0 & SS2_storeh_io_Rs16 & SS2_storeh_io_Rt16 & SS2_storeh_io_u3_1 unimpl
 
-:SS2_stored_sp SS2_stored_sp_Rtt8 SS2_stored_sp_s6_3 is immext = 0xffffffff & subinsn = 5 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_stored_sp_Rtt8 & SS2_stored_sp_s6_3 unimpl
+:SS2_stored_sp SS2_stored_sp_Rtt8 SS2_stored_sp_s6_3 is immext = 0xffffffff & subinsn = 5 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_stored_sp_Rtt8 & SS2_stored_sp_s6_3 {
+  local EA:4;
+  EA = (R29) + (SS2_stored_sp_s6_3);
+  *:8 EA = (SS2_stored_sp_Rtt8);
+}
 
 :SS2_storew_sp SS2_storew_sp_Rt16 SS2_storew_sp_u5_2 is immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_storew_sp_Rt16 & SS2_storew_sp_u5_2 unimpl
 
@@ -15458,7 +15476,13 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SS2_storebi1 SS2_storebi1_Rs16 SS2_storebi1_u4_0 is immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi1_Rs16 & SS2_storebi1_u4_0 unimpl
 
-:SS2_allocframe SS2_allocframe_u5_3 is immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SS2_allocframe_u5_3 unimpl
+:SS2_allocframe SS2_allocframe_u5_3 is immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SS2_allocframe_u5_3 {
+  local EA:4;
+  EA = (R29) + (- (8));
+  *:8 EA = ((zext(R31) << 32) | zext(R30));
+  R30 = EA;
+  R29 = (EA) - (SS2_allocframe_u5_3);
+}
 
 :DUPLEX is subinsn = 0 & Parse = 0b00 unimpl
 
