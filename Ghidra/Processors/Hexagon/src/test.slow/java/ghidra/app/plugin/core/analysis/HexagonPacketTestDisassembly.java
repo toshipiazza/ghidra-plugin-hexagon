@@ -27,21 +27,26 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ghidra.app.cmd.disassemble.DisassembleCommand;
 import ghidra.app.plugin.core.analysis.HexagonAnalysisState.DuplexEncoding;
 import ghidra.framework.options.Options;
 import ghidra.program.database.ProgramAddressFactory;
 import ghidra.program.database.ProgramBuilder;
+import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressFactory;
+import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.CompilerSpec;
 import ghidra.program.model.lang.Language;
 import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.lang.Register;
+import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
 import ghidra.test.TestEnv;
+import ghidra.util.task.TaskMonitor;
 
 public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegrationTest {
 
@@ -72,6 +77,16 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 	void debugPrintAllKnownPackets(HexagonAnalysisState state) {
 		for (HexagonPacket packet : state.getPackets()) {
 			System.out.println(packet);
+		}
+	}
+	
+	void verifyAllPrefixes(HexagonAnalysisState state) throws UnknownInstructionException {
+		for (HexagonPacket packet : state.getPackets()) {
+			List<Instruction> insns = packet.getInstructions();
+			assertEquals(state.getMnemonicPrefix(insns.get(0)), "");
+			for (int i = 1; i < insns.size(); i++) {
+				assertEquals(state.getMnemonicPrefix(insns.get(i)), "||");
+			}
 		}
 	}
 
@@ -128,6 +143,8 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(program.getProgramContext().getValue(pktNReg, pkt2.getMinAddress(), false).intValue(), 0x1008);
 		assertEquals(program.getProgramContext().getValue(pktSReg, pkt3.getMinAddress(), false).intValue(), 0x1008);
 		assertEquals(program.getProgramContext().getValue(pktNReg, pkt3.getMinAddress(), false).intValue(), 0x100c);
+
+		verifyAllPrefixes(state);
 	}
 
 	/*
@@ -163,45 +180,8 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		// packet has two instructions
 		assertEquals(packet1.getMinAddress().getOffset(), 0x1000);
 		assertEquals(packet1.getMaxAddress().getOffset(), 0x1004);
-	}
 
-	/*
-	 * Test one packet with several instructions, but there is control flow before
-	 * the end of the packet
-	 */
-	@Test
-	public void testControlFlowInMiddleOfPacket() throws Exception {
-		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
-		program = programBuilder.getProgram();
-		int txId = program.startTransaction("Add Memory");
-		programBuilder.createMemory(".text", "1000", 64);
-		programBuilder.setBytes("1000", "00 40 80 52 01 c1 01 f3");
-
-		programBuilder.disassemble("1000", 8, true);
-		programBuilder.analyze();
-
-		program.endTransaction(txId, true);
-
-		assertEquals(2, program.getListing().getNumInstructions());
-
-		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
-		debugPrintAllKnownPackets(state);
-		List<HexagonPacket> packets = state.getPackets();
-
-		assertEquals(1, packets.size());
-
-		HexagonPacket packet1 = packets.get(0);
-
-		// packet is terminated
-		assertTrue(packet1.isTerminated());
-
-		// packet has two instructions
-		assertEquals(packet1.getMinAddress().getOffset(), 0x1000);
-		assertEquals(packet1.getMaxAddress().getOffset(), 0x1004);
-
-		// verify fallthrough of first instruction in packet
-		Instruction insn1 = program.getListing().getInstructionAt(packet1.getMinAddress());
-		assertTrue(insn1.hasFallthrough());
+		verifyAllPrefixes(state);
 	}
 
 	@Test
@@ -229,6 +209,8 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		assertEquals(state.duplexInsns.get(packet1.getMaxAddress().add(0)), DuplexEncoding.L2);
 		assertEquals(state.duplexInsns.get(packet1.getMaxAddress().add(2)), DuplexEncoding.A);
+
+		verifyAllPrefixes(state);
 	}
 
 	@Test
@@ -252,7 +234,10 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(1, packets.size());
 
 		// immext must have propagated if imm is correct
-		Instruction inst1 = program.getListing().getInstructionAt(packets.get(0).getMaxAddress());
-		assertEquals("0x123456", inst1.getDefaultOperandRepresentation(2));
+		Instruction inst2 = program.getListing().getInstructionAt(packets.get(0).getMaxAddress());
+		assertEquals("0x123456", inst2.getDefaultOperandRepresentation(2));
+
+		verifyAllPrefixes(state);
 	}
+
 }

@@ -72,6 +72,10 @@ public class HexagonPacket {
 		dirty = true;
 		addrSet.add(instr.getMinAddress());
 	}
+	
+	AddressIterator getAddressIter() {
+		return addrSet.getAddresses(true);
+	}
 
 	Address getMinAddress() {
 		return addrSet.getMinAddress();

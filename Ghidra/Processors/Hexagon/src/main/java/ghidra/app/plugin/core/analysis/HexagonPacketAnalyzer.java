@@ -8,6 +8,7 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.AddressSetView;
+import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryBlock;
@@ -48,27 +49,12 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 		set = removeUninitializedBlock(program, set);
 
-		final long locationCount = set.getNumAddresses();
-		if (locationCount > NOTIFICATION_INTERVAL) {
-			monitor.initialize(locationCount);
-		}
-
 		AddressIterator addresses = set.getAddresses(true);
-
-		int count = 0;
 
 		while (addresses.hasNext()) {
 			monitor.checkCanceled();
 
 			Address addr = addresses.next();
-
-			if (locationCount > NOTIFICATION_INTERVAL) {
-				if ((count % NOTIFICATION_INTERVAL) == 0) {
-					monitor.setMaximum(locationCount);
-					monitor.setProgress(count);
-				}
-				count++;
-			}
 
 			if ((addr.getOffset() & 0x3) != 0) {
 				continue;
@@ -91,8 +77,17 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 	@Override
 	public boolean removed(Program program, AddressSetView set, TaskMonitor monitor, MessageLog log)
 			throws CancelledException {
-		// TODO
-		return false;
+
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+
+		AddressIterator addresses = set.getAddresses(true);
+
+		boolean modified = false;
+		while (addresses.hasNext()) {
+			Address addr = addresses.next();
+			modified |= state.removePacketForAddress(addr);
+		}
+		return modified;
 	}
 
 }

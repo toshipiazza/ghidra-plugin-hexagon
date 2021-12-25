@@ -23,6 +23,7 @@ import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
 import ghidra.app.plugin.processors.sleigh.VarnodeData;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressFactory;
+import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSpace;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
@@ -98,9 +99,8 @@ public class HexagonAnalysisState implements AnalysisState {
 	void addInstructionToPacketOrCreatePacket(Instruction instr, TaskMonitor monitor) {
 		Address minAddress = instr.getMinAddress();
 		Address maxAddress = instr.getMaxAddress();
-
-		if (parseBits.containsKey(minAddress)) {
-			// no need to reanalyze
+		
+		if (findPacketForAddress(instr.getMinAddress()) != null) {
 			return;
 		}
 
@@ -250,6 +250,27 @@ public class HexagonAnalysisState implements AnalysisState {
 		return null;
 	}
 
+	boolean removePacketForAddress(Address address) {
+		for (HexagonPacket packet : packets) {
+			if (packet.containsAddress(address)) {
+				
+				AddressIterator iter = packet.getAddressIter();
+				while (iter.hasNext()) {
+					Address addr = iter.next();
+					parseBits.remove(addr);
+				}
+				if (packet.hasDuplex()) {
+					Address addr = packet.getMaxAddress();
+					duplexInsns.remove(addr.add(0));
+					duplexInsns.remove(addr.add(2));
+				}
+				packets.remove(packet);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public String getMnemonicPrefix(Instruction instr) {
 		Address minAddress = instr.getMinAddress();
 		HexagonPacket packet = findPacketForAddress(minAddress);
@@ -257,7 +278,7 @@ public class HexagonAnalysisState implements AnalysisState {
 			// instruction wasn't analyzed yet in HexagonPacketAnalyzer
 			return "";
 		}
-		if (packet.getMinAddress() == minAddress) {
+		if (packet.getMinAddress().equals(minAddress)) {
 			return "";
 		}
 		return "||";
@@ -270,10 +291,18 @@ public class HexagonAnalysisState implements AnalysisState {
 			// instruction wasn't analyzed yet in HexagonPacketAnalyzer
 			return true;
 		}
-		if (packet.getMaxAddress() == minAddress && packet.isTerminated()) {
-			return true;
+		if (!packet.isTerminated()) {
+			return false;
 		}
-		return false;
+		
+		int add;
+		if (packet.hasDuplex()) {
+			add = 2;
+		} else {
+			add = 0;
+		}
+		
+		return packet.getMaxAddress().add(add).equals(minAddress);
 	}
 
 	List<HexagonPacket> getPackets() {
