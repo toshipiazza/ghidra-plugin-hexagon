@@ -11841,19 +11841,47 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
   goto [J2_jumpr_Rs32];
 }
 
-:J2_jumpt J2_jumpt_Pu4 J2_jumpt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpt_Pu4 & J2_jumpt_r15_2 unimpl
+:J2_jumpt J2_jumpt_Pu4 J2_jumpt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpt_Pu4 & J2_jumpt_r15_2 {
+  if (J2_jumpt_Pu4) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  goto [J2_jumpt_r15_2];
+  goto <done>;
+<done>
+}
 
 :J2_jumpf J2_jumpf_Pu4 J2_jumpf_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpf_Pu4 & J2_jumpf_r15_2 unimpl
 
-:J2_jumptpt J2_jumptpt_Pu4 J2_jumptpt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumptpt_Pu4 & J2_jumptpt_r15_2 unimpl
+:J2_jumptpt J2_jumptpt_Pu4 J2_jumptpt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumptpt_Pu4 & J2_jumptpt_r15_2 {
+  if (J2_jumptpt_Pu4) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  goto [J2_jumptpt_r15_2];
+  goto <done>;
+<done>
+}
 
 :J2_jumpfpt J2_jumpfpt_Pu4 J2_jumpfpt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpfpt_Pu4 & J2_jumpfpt_r15_2 unimpl
 
-:J2_jumprt J2_jumprt_Pu4 J2_jumprt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprt_Pu4 & J2_jumprt_Rs32 unimpl
+:J2_jumprt J2_jumprt_Pu4 J2_jumprt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprt_Pu4 & J2_jumprt_Rs32 {
+  if (J2_jumprt_Pu4) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  goto [J2_jumprt_Rs32];
+  goto <done>;
+<done>
+}
 
 :J2_jumprf J2_jumprf_Pu4 J2_jumprf_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprf_Pu4 & J2_jumprf_Rs32 unimpl
 
-:J2_jumprtpt J2_jumprtpt_Pu4 J2_jumprtpt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprtpt_Pu4 & J2_jumprtpt_Rs32 unimpl
+:J2_jumprtpt J2_jumprtpt_Pu4 J2_jumprtpt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprtpt_Pu4 & J2_jumprtpt_Rs32 {
+  if (J2_jumprtpt_Pu4) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  goto [J2_jumprtpt_Rs32];
+  goto <done>;
+<done>
+}
 
 :J2_jumprfpt J2_jumprfpt_Pu4 J2_jumprfpt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprfpt_Pu4 & J2_jumprfpt_Rs32 unimpl
 
@@ -11877,11 +11905,29 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :J2_jumprz J2_jumprz_Rs32 J2_jumprz_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprz_Rs32 & J2_jumprz_r13_2 unimpl
 
-:J2_jumprnz J2_jumprnz_Rs32 J2_jumprnz_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprnz_Rs32 & J2_jumprnz_r13_2 unimpl
+:J2_jumprnz J2_jumprnz_Rs32 J2_jumprnz_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprnz_Rs32 & J2_jumprnz_r13_2 {
+  local tmp0:1;
+  tmp0 = (J2_jumprnz_Rs32) == (0);
+  if (tmp0) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  goto [J2_jumprnz_r13_2];
+  goto <done>;
+<done>
+}
 
 :J2_jumprzpt J2_jumprzpt_Rs32 J2_jumprzpt_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprzpt_Rs32 & J2_jumprzpt_r13_2 unimpl
 
-:J2_jumprnzpt J2_jumprnzpt_Rs32 J2_jumprnzpt_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprnzpt_Rs32 & J2_jumprnzpt_r13_2 unimpl
+:J2_jumprnzpt J2_jumprnzpt_Rs32 J2_jumprnzpt_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprnzpt_Rs32 & J2_jumprnzpt_r13_2 {
+  local tmp0:1;
+  tmp0 = (J2_jumprnzpt_Rs32) == (0);
+  if (tmp0) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  goto [J2_jumprnzpt_r13_2];
+  goto <done>;
+<done>
+}
 
 :J2_jumprgtez J2_jumprgtez_Rs32 J2_jumprgtez_r13_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprgtez_Rs32 & J2_jumprgtez_r13_2 unimpl
 
@@ -12035,9 +12081,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :J4_cmpgtu_fp1_jump_t J4_cmpgtu_fp1_jump_t_Rs16 J4_cmpgtu_fp1_jump_t_Rt16 J4_cmpgtu_fp1_jump_t_r9_2 is Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgtu_fp1_jump_t_Rs16 & J4_cmpgtu_fp1_jump_t_Rt16 & J4_cmpgtu_fp1_jump_t_r9_2 unimpl
 
-:J4_jumpseti J4_jumpseti_Rd16 J4_jumpseti_U6 J4_jumpseti_r9_2 is Parse != 0b00 & subinsn = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_jumpseti_Rd16 & J4_jumpseti_U6 & J4_jumpseti_r9_2 unimpl
+:J4_jumpseti J4_jumpseti_Rd16 J4_jumpseti_U6 J4_jumpseti_r9_2 is Parse != 0b00 & subinsn = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_jumpseti_Rd16 & J4_jumpseti_U6 & J4_jumpseti_r9_2 {
+  J4_jumpseti_Rd16 = J4_jumpseti_U6;
+  goto [J4_jumpseti_r9_2];
+}
 
-:J4_jumpsetr J4_jumpsetr_Rd16 J4_jumpsetr_Rs16 J4_jumpsetr_r9_2 is Parse != 0b00 & subinsn = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_jumpsetr_Rd16 & J4_jumpsetr_Rs16 & J4_jumpsetr_r9_2 unimpl
+:J4_jumpsetr J4_jumpsetr_Rd16 J4_jumpsetr_Rs16 J4_jumpsetr_r9_2 is Parse != 0b00 & subinsn = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_jumpsetr_Rd16 & J4_jumpsetr_Rs16 & J4_jumpsetr_r9_2 {
+  J4_jumpsetr_Rd16 = J4_jumpsetr_Rs16;
+  goto [J4_jumpsetr_r9_2];
+}
 
 :J4_cmpeqi_t_jumpnv_t J4_cmpeqi_t_jumpnv_t_Ns8 J4_cmpeqi_t_jumpnv_t_U5 J4_cmpeqi_t_jumpnv_t_r9_2 is Parse != 0b00 & subinsn = 0 & b13 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 0 & J4_cmpeqi_t_jumpnv_t_Ns8 & J4_cmpeqi_t_jumpnv_t_U5 & J4_cmpeqi_t_jumpnv_t_r9_2 unimpl
 
@@ -12147,7 +12199,14 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
   call [J2_call_r22_2];
 }
 
-:J2_callt J2_callt_Pu4 J2_callt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b21 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callt_Pu4 & J2_callt_r15_2 unimpl
+:J2_callt J2_callt_Pu4 J2_callt_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b21 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callt_Pu4 & J2_callt_r15_2 {
+  if (J2_callt_Pu4) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  call [J2_callt_r15_2];
+  goto <done>;
+<done>
+}
 
 :J2_callf J2_callf_Pu4 J2_callf_r15_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b21 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callf_Pu4 & J2_callf_r15_2 unimpl
 
@@ -12155,7 +12214,14 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
   call [J2_callr_Rs32];
 }
 
-:J2_callrt J2_callrt_Pu4 J2_callrt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callrt_Pu4 & J2_callrt_Rs32 unimpl
+:J2_callrt J2_callrt_Pu4 J2_callrt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callrt_Pu4 & J2_callrt_Rs32 {
+  if (J2_callrt_Pu4) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  call [J2_callrt_Rs32];
+  goto <done>;
+<done>
+}
 
 :J2_callrf J2_callrf_Pu4 J2_callrf_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_callrf_Pu4 & J2_callrf_Rs32 unimpl
 
@@ -12179,9 +12245,23 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :J2_ploop3si J2_ploop3si_r7_2 J2_ploop3si_U10 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_ploop3si_r7_2 & J2_ploop3si_U10 unimpl
 
-:L2_loadrub_io L2_loadrub_io_Rd32 L2_loadrub_io_Rs32 L2_loadrub_io_s11_0 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrub_io_Rd32 & L2_loadrub_io_Rs32 & L2_loadrub_io_s11_0 unimpl
+:L2_loadrub_io L2_loadrub_io_Rd32 L2_loadrub_io_Rs32 L2_loadrub_io_s11_0 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrub_io_Rd32 & L2_loadrub_io_Rs32 & L2_loadrub_io_s11_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L2_loadrub_io_Rs32 + L2_loadrub_io_s11_0;
+  EA = tmp0;
+  L2_loadrub_io_Rd32 = *:1 EA;
+}
 
-:L4_loadrub_ur L4_loadrub_ur_Rd32 L4_loadrub_ur_Rt32 L4_loadrub_ur_u2 L4_loadrub_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ur_Rd32 & L4_loadrub_ur_Rt32 & L4_loadrub_ur_u2 & L4_loadrub_ur_U6 unimpl
+:L4_loadrub_ur L4_loadrub_ur_Rd32 L4_loadrub_ur_Rt32 L4_loadrub_ur_u2 L4_loadrub_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ur_Rd32 & L4_loadrub_ur_Rt32 & L4_loadrub_ur_u2 & L4_loadrub_ur_U6 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrub_ur_Rt32 << L4_loadrub_ur_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrub_ur_U6 + tmp0;
+  EA = tmp1;
+  L4_loadrub_ur_Rd32 = *:1 EA;
+}
 
 :L4_loadrub_ap L4_loadrub_ap_Rd32 L4_loadrub_ap_Re32 L4_loadrub_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ap_Rd32 & L4_loadrub_ap_Re32 & L4_loadrub_ap_U6 unimpl
 
@@ -12189,7 +12269,14 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadrub_pbr L2_loadrub_pbr_Rd32 L2_loadrub_pbr_Rx32 L2_loadrub_pbr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrub_pbr_Rd32 & L2_loadrub_pbr_Rx32 & L2_loadrub_pbr_Mu2 unimpl
 
-:L2_loadrub_pi L2_loadrub_pi_Rd32 L2_loadrub_pi_Rx32 L2_loadrub_pi_s4_0 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrub_pi_Rd32 & L2_loadrub_pi_Rx32 & L2_loadrub_pi_s4_0 unimpl
+:L2_loadrub_pi L2_loadrub_pi_Rd32 L2_loadrub_pi_Rx32 L2_loadrub_pi_s4_0 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrub_pi_Rd32 & L2_loadrub_pi_Rx32 & L2_loadrub_pi_s4_0 {
+  local EA:4;
+  EA = L2_loadrub_pi_Rx32;
+  local tmp0:4;
+  tmp0 = L2_loadrub_pi_Rx32 + L2_loadrub_pi_s4_0;
+  L2_loadrub_pi_Rx32 = tmp0;
+  L2_loadrub_pi_Rd32 = *:1 EA;
+}
 
 :L2_loadrub_pci L2_loadrub_pci_Rd32 L2_loadrub_pci_Rx32 L2_loadrub_pci_Mu2 L2_loadrub_pci_s4_0 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b9 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrub_pci_Rd32 & L2_loadrub_pci_Rx32 & L2_loadrub_pci_Mu2 & L2_loadrub_pci_s4_0 unimpl
 
@@ -12197,11 +12284,21 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadrb_io L2_loadrb_io_Rd32 L2_loadrb_io_Rs32 L2_loadrb_io_s11_0 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrb_io_Rd32 & L2_loadrb_io_Rs32 & L2_loadrb_io_s11_0 {
   local EA:4;
-  EA = (L2_loadrb_io_Rs32) + (L2_loadrb_io_s11_0);
+  local tmp0:4;
+  tmp0 = L2_loadrb_io_Rs32 + L2_loadrb_io_s11_0;
+  EA = tmp0;
   L2_loadrb_io_Rd32 = *:1 EA;
 }
 
-:L4_loadrb_ur L4_loadrb_ur_Rd32 L4_loadrb_ur_Rt32 L4_loadrb_ur_u2 L4_loadrb_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ur_Rd32 & L4_loadrb_ur_Rt32 & L4_loadrb_ur_u2 & L4_loadrb_ur_U6 unimpl
+:L4_loadrb_ur L4_loadrb_ur_Rd32 L4_loadrb_ur_Rt32 L4_loadrb_ur_u2 L4_loadrb_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ur_Rd32 & L4_loadrb_ur_Rt32 & L4_loadrb_ur_u2 & L4_loadrb_ur_U6 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrb_ur_Rt32 << L4_loadrb_ur_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrb_ur_U6 + tmp0;
+  EA = tmp1;
+  L4_loadrb_ur_Rd32 = *:1 EA;
+}
 
 :L4_loadrb_ap L4_loadrb_ap_Rd32 L4_loadrb_ap_Re32 L4_loadrb_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ap_Rd32 & L4_loadrb_ap_Re32 & L4_loadrb_ap_U6 unimpl
 
@@ -12209,15 +12306,36 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadrb_pbr L2_loadrb_pbr_Rd32 L2_loadrb_pbr_Rx32 L2_loadrb_pbr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrb_pbr_Rd32 & L2_loadrb_pbr_Rx32 & L2_loadrb_pbr_Mu2 unimpl
 
-:L2_loadrb_pi L2_loadrb_pi_Rd32 L2_loadrb_pi_Rx32 L2_loadrb_pi_s4_0 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrb_pi_Rd32 & L2_loadrb_pi_Rx32 & L2_loadrb_pi_s4_0 unimpl
+:L2_loadrb_pi L2_loadrb_pi_Rd32 L2_loadrb_pi_Rx32 L2_loadrb_pi_s4_0 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrb_pi_Rd32 & L2_loadrb_pi_Rx32 & L2_loadrb_pi_s4_0 {
+  local EA:4;
+  EA = L2_loadrb_pi_Rx32;
+  local tmp0:4;
+  tmp0 = L2_loadrb_pi_Rx32 + L2_loadrb_pi_s4_0;
+  L2_loadrb_pi_Rx32 = tmp0;
+  L2_loadrb_pi_Rd32 = *:1 EA;
+}
 
 :L2_loadrb_pci L2_loadrb_pci_Rd32 L2_loadrb_pci_Rx32 L2_loadrb_pci_Mu2 L2_loadrb_pci_s4_0 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b9 = 0 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrb_pci_Rd32 & L2_loadrb_pci_Rx32 & L2_loadrb_pci_Mu2 & L2_loadrb_pci_s4_0 unimpl
 
 :L2_loadrb_pcr L2_loadrb_pcr_Rd32 L2_loadrb_pcr_Rx32 L2_loadrb_pcr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b9 = 1 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrb_pcr_Rd32 & L2_loadrb_pcr_Rx32 & L2_loadrb_pcr_Mu2 unimpl
 
-:L2_loadruh_io L2_loadruh_io_Rd32 L2_loadruh_io_Rs32 L2_loadruh_io_s11_1 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_io_Rd32 & L2_loadruh_io_Rs32 & L2_loadruh_io_s11_1 unimpl
+:L2_loadruh_io L2_loadruh_io_Rd32 L2_loadruh_io_Rs32 L2_loadruh_io_s11_1 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_io_Rd32 & L2_loadruh_io_Rs32 & L2_loadruh_io_s11_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L2_loadruh_io_Rs32 + L2_loadruh_io_s11_1;
+  EA = tmp0;
+  L2_loadruh_io_Rd32 = *:2 EA;
+}
 
-:L4_loadruh_ur L4_loadruh_ur_Rd32 L4_loadruh_ur_Rt32 L4_loadruh_ur_u2 L4_loadruh_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ur_Rd32 & L4_loadruh_ur_Rt32 & L4_loadruh_ur_u2 & L4_loadruh_ur_U6 unimpl
+:L4_loadruh_ur L4_loadruh_ur_Rd32 L4_loadruh_ur_Rt32 L4_loadruh_ur_u2 L4_loadruh_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ur_Rd32 & L4_loadruh_ur_Rt32 & L4_loadruh_ur_u2 & L4_loadruh_ur_U6 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadruh_ur_Rt32 << L4_loadruh_ur_u2;
+  local tmp1:4;
+  tmp1 = L4_loadruh_ur_U6 + tmp0;
+  EA = tmp1;
+  L4_loadruh_ur_Rd32 = *:2 EA;
+}
 
 :L4_loadruh_ap L4_loadruh_ap_Rd32 L4_loadruh_ap_Re32 L4_loadruh_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ap_Rd32 & L4_loadruh_ap_Re32 & L4_loadruh_ap_U6 unimpl
 
@@ -12225,15 +12343,36 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadruh_pbr L2_loadruh_pbr_Rd32 L2_loadruh_pbr_Rx32 L2_loadruh_pbr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_pbr_Rd32 & L2_loadruh_pbr_Rx32 & L2_loadruh_pbr_Mu2 unimpl
 
-:L2_loadruh_pi L2_loadruh_pi_Rd32 L2_loadruh_pi_Rx32 L2_loadruh_pi_s4_1 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_pi_Rd32 & L2_loadruh_pi_Rx32 & L2_loadruh_pi_s4_1 unimpl
+:L2_loadruh_pi L2_loadruh_pi_Rd32 L2_loadruh_pi_Rx32 L2_loadruh_pi_s4_1 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_pi_Rd32 & L2_loadruh_pi_Rx32 & L2_loadruh_pi_s4_1 {
+  local EA:4;
+  EA = L2_loadruh_pi_Rx32;
+  local tmp0:4;
+  tmp0 = L2_loadruh_pi_Rx32 + L2_loadruh_pi_s4_1;
+  L2_loadruh_pi_Rx32 = tmp0;
+  L2_loadruh_pi_Rd32 = *:2 EA;
+}
 
 :L2_loadruh_pci L2_loadruh_pci_Rd32 L2_loadruh_pci_Rx32 L2_loadruh_pci_Mu2 L2_loadruh_pci_s4_1 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b9 = 0 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_pci_Rd32 & L2_loadruh_pci_Rx32 & L2_loadruh_pci_Mu2 & L2_loadruh_pci_s4_1 unimpl
 
 :L2_loadruh_pcr L2_loadruh_pcr_Rd32 L2_loadruh_pcr_Rx32 L2_loadruh_pcr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b9 = 1 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadruh_pcr_Rd32 & L2_loadruh_pcr_Rx32 & L2_loadruh_pcr_Mu2 unimpl
 
-:L2_loadrh_io L2_loadrh_io_Rd32 L2_loadrh_io_Rs32 L2_loadrh_io_s11_1 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_io_Rd32 & L2_loadrh_io_Rs32 & L2_loadrh_io_s11_1 unimpl
+:L2_loadrh_io L2_loadrh_io_Rd32 L2_loadrh_io_Rs32 L2_loadrh_io_s11_1 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_io_Rd32 & L2_loadrh_io_Rs32 & L2_loadrh_io_s11_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L2_loadrh_io_Rs32 + L2_loadrh_io_s11_1;
+  EA = tmp0;
+  L2_loadrh_io_Rd32 = *:2 EA;
+}
 
-:L4_loadrh_ur L4_loadrh_ur_Rd32 L4_loadrh_ur_Rt32 L4_loadrh_ur_u2 L4_loadrh_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ur_Rd32 & L4_loadrh_ur_Rt32 & L4_loadrh_ur_u2 & L4_loadrh_ur_U6 unimpl
+:L4_loadrh_ur L4_loadrh_ur_Rd32 L4_loadrh_ur_Rt32 L4_loadrh_ur_u2 L4_loadrh_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ur_Rd32 & L4_loadrh_ur_Rt32 & L4_loadrh_ur_u2 & L4_loadrh_ur_U6 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrh_ur_Rt32 << L4_loadrh_ur_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrh_ur_U6 + tmp0;
+  EA = tmp1;
+  L4_loadrh_ur_Rd32 = *:2 EA;
+}
 
 :L4_loadrh_ap L4_loadrh_ap_Rd32 L4_loadrh_ap_Re32 L4_loadrh_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ap_Rd32 & L4_loadrh_ap_Re32 & L4_loadrh_ap_U6 unimpl
 
@@ -12241,15 +12380,36 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadrh_pbr L2_loadrh_pbr_Rd32 L2_loadrh_pbr_Rx32 L2_loadrh_pbr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_pbr_Rd32 & L2_loadrh_pbr_Rx32 & L2_loadrh_pbr_Mu2 unimpl
 
-:L2_loadrh_pi L2_loadrh_pi_Rd32 L2_loadrh_pi_Rx32 L2_loadrh_pi_s4_1 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_pi_Rd32 & L2_loadrh_pi_Rx32 & L2_loadrh_pi_s4_1 unimpl
+:L2_loadrh_pi L2_loadrh_pi_Rd32 L2_loadrh_pi_Rx32 L2_loadrh_pi_s4_1 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_pi_Rd32 & L2_loadrh_pi_Rx32 & L2_loadrh_pi_s4_1 {
+  local EA:4;
+  EA = L2_loadrh_pi_Rx32;
+  local tmp0:4;
+  tmp0 = L2_loadrh_pi_Rx32 + L2_loadrh_pi_s4_1;
+  L2_loadrh_pi_Rx32 = tmp0;
+  L2_loadrh_pi_Rd32 = *:2 EA;
+}
 
 :L2_loadrh_pci L2_loadrh_pci_Rd32 L2_loadrh_pci_Rx32 L2_loadrh_pci_Mu2 L2_loadrh_pci_s4_1 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b9 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_pci_Rd32 & L2_loadrh_pci_Rx32 & L2_loadrh_pci_Mu2 & L2_loadrh_pci_s4_1 unimpl
 
 :L2_loadrh_pcr L2_loadrh_pcr_Rd32 L2_loadrh_pcr_Rx32 L2_loadrh_pcr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b9 = 1 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrh_pcr_Rd32 & L2_loadrh_pcr_Rx32 & L2_loadrh_pcr_Mu2 unimpl
 
-:L2_loadri_io L2_loadri_io_Rd32 L2_loadri_io_Rs32 L2_loadri_io_s11_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_io_Rd32 & L2_loadri_io_Rs32 & L2_loadri_io_s11_2 unimpl
+:L2_loadri_io L2_loadri_io_Rd32 L2_loadri_io_Rs32 L2_loadri_io_s11_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_io_Rd32 & L2_loadri_io_Rs32 & L2_loadri_io_s11_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L2_loadri_io_Rs32 + L2_loadri_io_s11_2;
+  EA = tmp0;
+  L2_loadri_io_Rd32 = *:4 EA;
+}
 
-:L4_loadri_ur L4_loadri_ur_Rd32 L4_loadri_ur_Rt32 L4_loadri_ur_u2 L4_loadri_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ur_Rd32 & L4_loadri_ur_Rt32 & L4_loadri_ur_u2 & L4_loadri_ur_U6 unimpl
+:L4_loadri_ur L4_loadri_ur_Rd32 L4_loadri_ur_Rt32 L4_loadri_ur_u2 L4_loadri_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ur_Rd32 & L4_loadri_ur_Rt32 & L4_loadri_ur_u2 & L4_loadri_ur_U6 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadri_ur_Rt32 << L4_loadri_ur_u2;
+  local tmp1:4;
+  tmp1 = L4_loadri_ur_U6 + tmp0;
+  EA = tmp1;
+  L4_loadri_ur_Rd32 = *:4 EA;
+}
 
 :L4_loadri_ap L4_loadri_ap_Rd32 L4_loadri_ap_Re32 L4_loadri_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ap_Rd32 & L4_loadri_ap_Re32 & L4_loadri_ap_U6 unimpl
 
@@ -12257,15 +12417,36 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadri_pbr L2_loadri_pbr_Rd32 L2_loadri_pbr_Rx32 L2_loadri_pbr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_pbr_Rd32 & L2_loadri_pbr_Rx32 & L2_loadri_pbr_Mu2 unimpl
 
-:L2_loadri_pi L2_loadri_pi_Rd32 L2_loadri_pi_Rx32 L2_loadri_pi_s4_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_pi_Rd32 & L2_loadri_pi_Rx32 & L2_loadri_pi_s4_2 unimpl
+:L2_loadri_pi L2_loadri_pi_Rd32 L2_loadri_pi_Rx32 L2_loadri_pi_s4_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_pi_Rd32 & L2_loadri_pi_Rx32 & L2_loadri_pi_s4_2 {
+  local EA:4;
+  EA = L2_loadri_pi_Rx32;
+  local tmp0:4;
+  tmp0 = L2_loadri_pi_Rx32 + L2_loadri_pi_s4_2;
+  L2_loadri_pi_Rx32 = tmp0;
+  L2_loadri_pi_Rd32 = *:4 EA;
+}
 
 :L2_loadri_pci L2_loadri_pci_Rd32 L2_loadri_pci_Rx32 L2_loadri_pci_Mu2 L2_loadri_pci_s4_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b9 = 0 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_pci_Rd32 & L2_loadri_pci_Rx32 & L2_loadri_pci_Mu2 & L2_loadri_pci_s4_2 unimpl
 
 :L2_loadri_pcr L2_loadri_pcr_Rd32 L2_loadri_pcr_Rx32 L2_loadri_pcr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b9 = 1 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadri_pcr_Rd32 & L2_loadri_pcr_Rx32 & L2_loadri_pcr_Mu2 unimpl
 
-:L2_loadrd_io L2_loadrd_io_Rdd32 L2_loadrd_io_Rs32 L2_loadrd_io_s11_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrd_io_Rdd32 & L2_loadrd_io_Rs32 & L2_loadrd_io_s11_3 unimpl
+:L2_loadrd_io L2_loadrd_io_Rdd32 L2_loadrd_io_Rs32 L2_loadrd_io_s11_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrd_io_Rdd32 & L2_loadrd_io_Rs32 & L2_loadrd_io_s11_3 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L2_loadrd_io_Rs32 + L2_loadrd_io_s11_3;
+  EA = tmp0;
+  L2_loadrd_io_Rdd32 = *:8 EA;
+}
 
-:L4_loadrd_ur L4_loadrd_ur_Rdd32 L4_loadrd_ur_Rt32 L4_loadrd_ur_u2 L4_loadrd_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ur_Rdd32 & L4_loadrd_ur_Rt32 & L4_loadrd_ur_u2 & L4_loadrd_ur_U6 unimpl
+:L4_loadrd_ur L4_loadrd_ur_Rdd32 L4_loadrd_ur_Rt32 L4_loadrd_ur_u2 L4_loadrd_ur_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ur_Rdd32 & L4_loadrd_ur_Rt32 & L4_loadrd_ur_u2 & L4_loadrd_ur_U6 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrd_ur_Rt32 << L4_loadrd_ur_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrd_ur_U6 + tmp0;
+  EA = tmp1;
+  L4_loadrd_ur_Rdd32 = *:8 EA;
+}
 
 :L4_loadrd_ap L4_loadrd_ap_Rdd32 L4_loadrd_ap_Re32 L4_loadrd_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ap_Rdd32 & L4_loadrd_ap_Re32 & L4_loadrd_ap_U6 unimpl
 
@@ -12273,7 +12454,14 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L2_loadrd_pbr L2_loadrd_pbr_Rdd32 L2_loadrd_pbr_Rx32 L2_loadrd_pbr_Mu2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrd_pbr_Rdd32 & L2_loadrd_pbr_Rx32 & L2_loadrd_pbr_Mu2 unimpl
 
-:L2_loadrd_pi L2_loadrd_pi_Rdd32 L2_loadrd_pi_Rx32 L2_loadrd_pi_s4_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrd_pi_Rdd32 & L2_loadrd_pi_Rx32 & L2_loadrd_pi_s4_3 unimpl
+:L2_loadrd_pi L2_loadrd_pi_Rdd32 L2_loadrd_pi_Rx32 L2_loadrd_pi_s4_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrd_pi_Rdd32 & L2_loadrd_pi_Rx32 & L2_loadrd_pi_s4_3 {
+  local EA:4;
+  EA = L2_loadrd_pi_Rx32;
+  local tmp0:4;
+  tmp0 = L2_loadrd_pi_Rx32 + L2_loadrd_pi_s4_3;
+  L2_loadrd_pi_Rx32 = tmp0;
+  L2_loadrd_pi_Rdd32 = *:8 EA;
+}
 
 :L2_loadrd_pci L2_loadrd_pci_Rdd32 L2_loadrd_pci_Rx32 L2_loadrd_pci_Mu2 L2_loadrd_pci_s4_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b9 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadrd_pci_Rdd32 & L2_loadrd_pci_Rx32 & L2_loadrd_pci_Mu2 & L2_loadrd_pci_s4_3 unimpl
 
@@ -12425,11 +12613,20 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_storeri_io S2_storeri_io_Rs32 S2_storeri_io_Rt32 S2_storeri_io_s11_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_io_Rs32 & S2_storeri_io_Rt32 & S2_storeri_io_s11_2 {
   local EA:4;
-  EA = (S2_storeri_io_Rs32) + (S2_storeri_io_s11_2);
+  local tmp0:4;
+  tmp0 = S2_storeri_io_Rs32 + S2_storeri_io_s11_2;
+  EA = tmp0;
   *:4 EA = (S2_storeri_io_Rt32);
 }
 
-:S2_storeri_pi S2_storeri_pi_Rx32 S2_storeri_pi_Rt32 S2_storeri_pi_s4_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_pi_Rx32 & S2_storeri_pi_Rt32 & S2_storeri_pi_s4_2 unimpl
+:S2_storeri_pi S2_storeri_pi_Rx32 S2_storeri_pi_Rt32 S2_storeri_pi_s4_2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_pi_Rx32 & S2_storeri_pi_Rt32 & S2_storeri_pi_s4_2 {
+  local EA:4;
+  EA = S2_storeri_pi_Rx32;
+  local tmp0:4;
+  tmp0 = S2_storeri_pi_Rx32 + S2_storeri_pi_s4_2;
+  S2_storeri_pi_Rx32 = tmp0;
+  *:4 EA = (S2_storeri_pi_Rt32);
+}
 
 :S4_storeri_ap S4_storeri_ap_Re32 S4_storeri_ap_Rt32 S4_storeri_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storeri_ap_Re32 & S4_storeri_ap_Rt32 & S4_storeri_ap_U6 unimpl
 
@@ -12443,9 +12640,22 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_storeri_pcr S2_storeri_pcr_Rx32 S2_storeri_pcr_Mu2 S2_storeri_pcr_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storeri_pcr_Rx32 & S2_storeri_pcr_Mu2 & S2_storeri_pcr_Rt32 unimpl
 
-:S2_storerd_io S2_storerd_io_Rs32 S2_storerd_io_Rtt32 S2_storerd_io_s11_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storerd_io_Rs32 & S2_storerd_io_Rtt32 & S2_storerd_io_s11_3 unimpl
+:S2_storerd_io S2_storerd_io_Rs32 S2_storerd_io_Rtt32 S2_storerd_io_s11_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storerd_io_Rs32 & S2_storerd_io_Rtt32 & S2_storerd_io_s11_3 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = S2_storerd_io_Rs32 + S2_storerd_io_s11_3;
+  EA = tmp0;
+  *:8 EA = (S2_storerd_io_Rtt32);
+}
 
-:S2_storerd_pi S2_storerd_pi_Rx32 S2_storerd_pi_Rtt32 S2_storerd_pi_s4_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storerd_pi_Rx32 & S2_storerd_pi_Rtt32 & S2_storerd_pi_s4_3 unimpl
+:S2_storerd_pi S2_storerd_pi_Rx32 S2_storerd_pi_Rtt32 S2_storerd_pi_s4_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b1 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storerd_pi_Rx32 & S2_storerd_pi_Rtt32 & S2_storerd_pi_s4_3 {
+  local EA:4;
+  EA = S2_storerd_pi_Rx32;
+  local tmp0:4;
+  tmp0 = S2_storerd_pi_Rx32 + S2_storerd_pi_s4_3;
+  S2_storerd_pi_Rx32 = tmp0;
+  *:8 EA = (S2_storerd_pi_Rtt32);
+}
 
 :S4_storerd_ap S4_storerd_ap_Re32 S4_storerd_ap_Rtt32 S4_storerd_ap_U6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerd_ap_Re32 & S4_storerd_ap_Rtt32 & S4_storerd_ap_U6 unimpl
 
@@ -12557,10 +12767,18 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_allocframe S2_allocframe_Rx32 S2_allocframe_u11_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_allocframe_Rx32 & S2_allocframe_u11_3 {
   local EA:4;
-  EA = (S2_allocframe_Rx32) + (- (8));
-  *:8 EA = ((zext(R31) << 32) | zext(R30));
+  local tmp0;
+  tmp0 = - 8;
+  local tmp1:4;
+  tmp1 = S2_allocframe_Rx32 + tmp0;
+  EA = tmp1;
+  local tmp2:8;
+  tmp2 = (zext(R31) << 32) | zext(R30);
+  *:8 EA = (tmp2);
   R30 = EA;
-  S2_allocframe_Rx32 = (EA) - (S2_allocframe_u11_3);
+  local tmp3:4;
+  tmp3 = EA - S2_allocframe_u11_3;
+  S2_allocframe_Rx32 = tmp3;
 }
 
 :L2_deallocframe L2_deallocframe_Rdd32 L2_deallocframe_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_deallocframe_Rdd32 & L2_deallocframe_Rs32 {
@@ -12569,7 +12787,9 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
   local tmp:8;
   tmp = *:8 EA;
   L2_deallocframe_Rdd32 = tmp;
-  R29 = (EA) + (8);
+  local tmp0:4;
+  tmp0 = EA + 8;
+  R29 = tmp0;
 }
 
 :L4_return L4_return_Rdd32 L4_return_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_return_Rdd32 & L4_return_Rs32 {
@@ -12578,12 +12798,14 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
   local tmp:8;
   tmp = *:8 EA;
   L4_return_Rdd32 = tmp;
-  R29 = (EA) + (8);
-  local tmp0:8;
-  local tmp1:4;
-  tmp0 = (L4_return_Rdd32 >> 32);
-  tmp1 = tmp0:4;
-  return [tmp1];
+  local tmp0:4;
+  tmp0 = EA + 8;
+  R29 = tmp0;
+  local tmp1:8;
+  local tmp2:4;
+  tmp1 = (L4_return_Rdd32 >> 32);
+  tmp2 = tmp1:4;
+  return [tmp2];
 }
 
 :L4_return_t L4_return_t_Rdd32 L4_return_t_Pv4 L4_return_t_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_return_t_Rdd32 & L4_return_t_Pv4 & L4_return_t_Rs32 unimpl
@@ -12598,17 +12820,33 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_return_fnew_pnt L4_return_fnew_pnt_Rdd32 L4_return_fnew_pnt_Pv4 L4_return_fnew_pnt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_return_fnew_pnt_Rdd32 & L4_return_fnew_pnt_Pv4 & L4_return_fnew_pnt_Rs32 unimpl
 
-:L2_loadw_locked L2_loadw_locked_Rd32 L2_loadw_locked_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadw_locked_Rd32 & L2_loadw_locked_Rs32 unimpl
+:L2_loadw_locked L2_loadw_locked_Rd32 L2_loadw_locked_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadw_locked_Rd32 & L2_loadw_locked_Rs32 {
+  local EA:4;
+  EA = L2_loadw_locked_Rs32;
+  L2_loadw_locked_Rd32 = *:4 EA;
+}
 
 :S2_storew_locked S2_storew_locked_Pd4 S2_storew_locked_Rs32 S2_storew_locked_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S2_storew_locked_Pd4 & S2_storew_locked_Rs32 & S2_storew_locked_Rt32 unimpl
 
-:L4_loadd_locked L4_loadd_locked_Rdd32 L4_loadd_locked_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadd_locked_Rdd32 & L4_loadd_locked_Rs32 unimpl
+:L4_loadd_locked L4_loadd_locked_Rdd32 L4_loadd_locked_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadd_locked_Rdd32 & L4_loadd_locked_Rs32 {
+  local EA:4;
+  EA = L4_loadd_locked_Rs32;
+  L4_loadd_locked_Rdd32 = *:8 EA;
+}
 
 :L4_loadw_phys L4_loadw_phys_Rd32 L4_loadw_phys_Rs32 L4_loadw_phys_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadw_phys_Rd32 & L4_loadw_phys_Rs32 & L4_loadw_phys_Rt32 unimpl
 
 :S4_stored_locked S4_stored_locked_Pd4 S4_stored_locked_Rs32 S4_stored_locked_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_stored_locked_Pd4 & S4_stored_locked_Rs32 & S4_stored_locked_Rtt32 unimpl
 
-:L4_loadrub_rr L4_loadrub_rr_Rd32 L4_loadrub_rr_Rs32 L4_loadrub_rr_Rt32 L4_loadrub_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrub_rr_Rd32 & L4_loadrub_rr_Rs32 & L4_loadrub_rr_Rt32 & L4_loadrub_rr_u2 unimpl
+:L4_loadrub_rr L4_loadrub_rr_Rd32 L4_loadrub_rr_Rs32 L4_loadrub_rr_Rt32 L4_loadrub_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrub_rr_Rd32 & L4_loadrub_rr_Rs32 & L4_loadrub_rr_Rt32 & L4_loadrub_rr_u2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrub_rr_Rt32 << L4_loadrub_rr_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrub_rr_Rs32 + tmp0;
+  EA = tmp1;
+  L4_loadrub_rr_Rd32 = *:1 EA;
+}
 
 :L2_ploadrubt_io L2_ploadrubt_io_Rd32 L2_ploadrubt_io_Pt4 L2_ploadrubt_io_Rs32 L2_ploadrubt_io_u6_0 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_ploadrubt_io_Rd32 & L2_ploadrubt_io_Pt4 & L2_ploadrubt_io_Rs32 & L2_ploadrubt_io_u6_0 unimpl
 
@@ -12642,7 +12880,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_ploadrubfnew_abs L4_ploadrubfnew_abs_Rd32 L4_ploadrubfnew_abs_Pt4 L4_ploadrubfnew_abs_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubfnew_abs_Rd32 & L4_ploadrubfnew_abs_Pt4 & L4_ploadrubfnew_abs_u6 unimpl
 
-:L4_loadrb_rr L4_loadrb_rr_Rd32 L4_loadrb_rr_Rs32 L4_loadrb_rr_Rt32 L4_loadrb_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrb_rr_Rd32 & L4_loadrb_rr_Rs32 & L4_loadrb_rr_Rt32 & L4_loadrb_rr_u2 unimpl
+:L4_loadrb_rr L4_loadrb_rr_Rd32 L4_loadrb_rr_Rs32 L4_loadrb_rr_Rt32 L4_loadrb_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrb_rr_Rd32 & L4_loadrb_rr_Rs32 & L4_loadrb_rr_Rt32 & L4_loadrb_rr_u2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrb_rr_Rt32 << L4_loadrb_rr_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrb_rr_Rs32 + tmp0;
+  EA = tmp1;
+  L4_loadrb_rr_Rd32 = *:1 EA;
+}
 
 :L2_ploadrbt_io L2_ploadrbt_io_Rd32 L2_ploadrbt_io_Pt4 L2_ploadrbt_io_Rs32 L2_ploadrbt_io_u6_0 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_ploadrbt_io_Rd32 & L2_ploadrbt_io_Pt4 & L2_ploadrbt_io_Rs32 & L2_ploadrbt_io_u6_0 unimpl
 
@@ -12676,7 +12922,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_ploadrbfnew_abs L4_ploadrbfnew_abs_Rd32 L4_ploadrbfnew_abs_Pt4 L4_ploadrbfnew_abs_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbfnew_abs_Rd32 & L4_ploadrbfnew_abs_Pt4 & L4_ploadrbfnew_abs_u6 unimpl
 
-:L4_loadruh_rr L4_loadruh_rr_Rd32 L4_loadruh_rr_Rs32 L4_loadruh_rr_Rt32 L4_loadruh_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadruh_rr_Rd32 & L4_loadruh_rr_Rs32 & L4_loadruh_rr_Rt32 & L4_loadruh_rr_u2 unimpl
+:L4_loadruh_rr L4_loadruh_rr_Rd32 L4_loadruh_rr_Rs32 L4_loadruh_rr_Rt32 L4_loadruh_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadruh_rr_Rd32 & L4_loadruh_rr_Rs32 & L4_loadruh_rr_Rt32 & L4_loadruh_rr_u2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadruh_rr_Rt32 << L4_loadruh_rr_u2;
+  local tmp1:4;
+  tmp1 = L4_loadruh_rr_Rs32 + tmp0;
+  EA = tmp1;
+  L4_loadruh_rr_Rd32 = *:2 EA;
+}
 
 :L2_ploadruht_io L2_ploadruht_io_Rd32 L2_ploadruht_io_Pt4 L2_ploadruht_io_Rs32 L2_ploadruht_io_u6_1 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_ploadruht_io_Rd32 & L2_ploadruht_io_Pt4 & L2_ploadruht_io_Rs32 & L2_ploadruht_io_u6_1 unimpl
 
@@ -12710,7 +12964,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_ploadruhfnew_abs L4_ploadruhfnew_abs_Rd32 L4_ploadruhfnew_abs_Pt4 L4_ploadruhfnew_abs_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhfnew_abs_Rd32 & L4_ploadruhfnew_abs_Pt4 & L4_ploadruhfnew_abs_u6 unimpl
 
-:L4_loadrh_rr L4_loadrh_rr_Rd32 L4_loadrh_rr_Rs32 L4_loadrh_rr_Rt32 L4_loadrh_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrh_rr_Rd32 & L4_loadrh_rr_Rs32 & L4_loadrh_rr_Rt32 & L4_loadrh_rr_u2 unimpl
+:L4_loadrh_rr L4_loadrh_rr_Rd32 L4_loadrh_rr_Rs32 L4_loadrh_rr_Rt32 L4_loadrh_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrh_rr_Rd32 & L4_loadrh_rr_Rs32 & L4_loadrh_rr_Rt32 & L4_loadrh_rr_u2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrh_rr_Rt32 << L4_loadrh_rr_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrh_rr_Rs32 + tmp0;
+  EA = tmp1;
+  L4_loadrh_rr_Rd32 = *:2 EA;
+}
 
 :L2_ploadrht_io L2_ploadrht_io_Rd32 L2_ploadrht_io_Pt4 L2_ploadrht_io_Rs32 L2_ploadrht_io_u6_1 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_ploadrht_io_Rd32 & L2_ploadrht_io_Pt4 & L2_ploadrht_io_Rs32 & L2_ploadrht_io_u6_1 unimpl
 
@@ -12744,7 +13006,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_ploadrhfnew_abs L4_ploadrhfnew_abs_Rd32 L4_ploadrhfnew_abs_Pt4 L4_ploadrhfnew_abs_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhfnew_abs_Rd32 & L4_ploadrhfnew_abs_Pt4 & L4_ploadrhfnew_abs_u6 unimpl
 
-:L4_loadri_rr L4_loadri_rr_Rd32 L4_loadri_rr_Rs32 L4_loadri_rr_Rt32 L4_loadri_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadri_rr_Rd32 & L4_loadri_rr_Rs32 & L4_loadri_rr_Rt32 & L4_loadri_rr_u2 unimpl
+:L4_loadri_rr L4_loadri_rr_Rd32 L4_loadri_rr_Rs32 L4_loadri_rr_Rt32 L4_loadri_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadri_rr_Rd32 & L4_loadri_rr_Rs32 & L4_loadri_rr_Rt32 & L4_loadri_rr_u2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadri_rr_Rt32 << L4_loadri_rr_u2;
+  local tmp1:4;
+  tmp1 = L4_loadri_rr_Rs32 + tmp0;
+  EA = tmp1;
+  L4_loadri_rr_Rd32 = *:4 EA;
+}
 
 :L2_ploadrit_io L2_ploadrit_io_Rd32 L2_ploadrit_io_Pt4 L2_ploadrit_io_Rs32 L2_ploadrit_io_u6_2 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_ploadrit_io_Rd32 & L2_ploadrit_io_Pt4 & L2_ploadrit_io_Rs32 & L2_ploadrit_io_u6_2 unimpl
 
@@ -12778,7 +13048,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_ploadrifnew_abs L4_ploadrifnew_abs_Rd32 L4_ploadrifnew_abs_Pt4 L4_ploadrifnew_abs_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrifnew_abs_Rd32 & L4_ploadrifnew_abs_Pt4 & L4_ploadrifnew_abs_u6 unimpl
 
-:L4_loadrd_rr L4_loadrd_rr_Rdd32 L4_loadrd_rr_Rs32 L4_loadrd_rr_Rt32 L4_loadrd_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrd_rr_Rdd32 & L4_loadrd_rr_Rs32 & L4_loadrd_rr_Rt32 & L4_loadrd_rr_u2 unimpl
+:L4_loadrd_rr L4_loadrd_rr_Rdd32 L4_loadrd_rr_Rs32 L4_loadrd_rr_Rt32 L4_loadrd_rr_u2 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrd_rr_Rdd32 & L4_loadrd_rr_Rs32 & L4_loadrd_rr_Rt32 & L4_loadrd_rr_u2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_loadrd_rr_Rt32 << L4_loadrd_rr_u2;
+  local tmp1:4;
+  tmp1 = L4_loadrd_rr_Rs32 + tmp0;
+  EA = tmp1;
+  L4_loadrd_rr_Rdd32 = *:8 EA;
+}
 
 :L2_ploadrdt_io L2_ploadrdt_io_Rdd32 L2_ploadrdt_io_Pt4 L2_ploadrdt_io_Rs32 L2_ploadrdt_io_u6_3 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_ploadrdt_io_Rdd32 & L2_ploadrdt_io_Pt4 & L2_ploadrdt_io_Rs32 & L2_ploadrdt_io_u6_3 unimpl
 
@@ -13198,17 +13476,101 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_sub_memoph_io L4_sub_memoph_io_Rs32 L4_sub_memoph_io_Rt32 L4_sub_memoph_io_u6_1 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_sub_memoph_io_Rs32 & L4_sub_memoph_io_Rt32 & L4_sub_memoph_io_u6_1 unimpl
 
-:L4_and_memopw_io L4_and_memopw_io_Rs32 L4_and_memopw_io_Rt32 L4_and_memopw_io_u6_2 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_and_memopw_io_Rs32 & L4_and_memopw_io_Rt32 & L4_and_memopw_io_u6_2 unimpl
+:L4_and_memopw_io L4_and_memopw_io_Rs32 L4_and_memopw_io_Rt32 L4_and_memopw_io_u6_2 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_and_memopw_io_Rs32 & L4_and_memopw_io_Rt32 & L4_and_memopw_io_u6_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_and_memopw_io_Rs32 + L4_and_memopw_io_u6_2;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:4 EA;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(L4_and_memopw_io_Rt32);
+  local tmp3:8;
+  tmp3 = tmp & tmp2;
+  tmp = tmp3;
+  *:4 EA = (tmp);
+}
 
-:L4_and_memopb_io L4_and_memopb_io_Rs32 L4_and_memopb_io_Rt32 L4_and_memopb_io_u6_0 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_and_memopb_io_Rs32 & L4_and_memopb_io_Rt32 & L4_and_memopb_io_u6_0 unimpl
+:L4_and_memopb_io L4_and_memopb_io_Rs32 L4_and_memopb_io_Rt32 L4_and_memopb_io_u6_0 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_and_memopb_io_Rs32 & L4_and_memopb_io_Rt32 & L4_and_memopb_io_u6_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_and_memopb_io_Rs32 + L4_and_memopb_io_u6_0;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:1 EA;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(L4_and_memopb_io_Rt32);
+  local tmp3:8;
+  tmp3 = tmp & tmp2;
+  tmp = tmp3;
+  *:1 EA = (tmp);
+}
 
-:L4_and_memoph_io L4_and_memoph_io_Rs32 L4_and_memoph_io_Rt32 L4_and_memoph_io_u6_1 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_and_memoph_io_Rs32 & L4_and_memoph_io_Rt32 & L4_and_memoph_io_u6_1 unimpl
+:L4_and_memoph_io L4_and_memoph_io_Rs32 L4_and_memoph_io_Rt32 L4_and_memoph_io_u6_1 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_and_memoph_io_Rs32 & L4_and_memoph_io_Rt32 & L4_and_memoph_io_u6_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_and_memoph_io_Rs32 + L4_and_memoph_io_u6_1;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:2 EA;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(L4_and_memoph_io_Rt32);
+  local tmp3:8;
+  tmp3 = tmp & tmp2;
+  tmp = tmp3;
+  *:2 EA = (tmp);
+}
 
-:L4_or_memopw_io L4_or_memopw_io_Rs32 L4_or_memopw_io_Rt32 L4_or_memopw_io_u6_2 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_or_memopw_io_Rs32 & L4_or_memopw_io_Rt32 & L4_or_memopw_io_u6_2 unimpl
+:L4_or_memopw_io L4_or_memopw_io_Rs32 L4_or_memopw_io_Rt32 L4_or_memopw_io_u6_2 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_or_memopw_io_Rs32 & L4_or_memopw_io_Rt32 & L4_or_memopw_io_u6_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_or_memopw_io_Rs32 + L4_or_memopw_io_u6_2;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:4 EA;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(L4_or_memopw_io_Rt32);
+  local tmp3:8;
+  tmp3 = tmp | tmp2;
+  tmp = tmp3;
+  *:4 EA = (tmp);
+}
 
-:L4_or_memopb_io L4_or_memopb_io_Rs32 L4_or_memopb_io_Rt32 L4_or_memopb_io_u6_0 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_or_memopb_io_Rs32 & L4_or_memopb_io_Rt32 & L4_or_memopb_io_u6_0 unimpl
+:L4_or_memopb_io L4_or_memopb_io_Rs32 L4_or_memopb_io_Rt32 L4_or_memopb_io_u6_0 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_or_memopb_io_Rs32 & L4_or_memopb_io_Rt32 & L4_or_memopb_io_u6_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_or_memopb_io_Rs32 + L4_or_memopb_io_u6_0;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:1 EA;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(L4_or_memopb_io_Rt32);
+  local tmp3:8;
+  tmp3 = tmp | tmp2;
+  tmp = tmp3;
+  *:1 EA = (tmp);
+}
 
-:L4_or_memoph_io L4_or_memoph_io_Rs32 L4_or_memoph_io_Rt32 L4_or_memoph_io_u6_1 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_or_memoph_io_Rs32 & L4_or_memoph_io_Rt32 & L4_or_memoph_io_u6_1 unimpl
+:L4_or_memoph_io L4_or_memoph_io_Rs32 L4_or_memoph_io_Rt32 L4_or_memoph_io_u6_1 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_or_memoph_io_Rs32 & L4_or_memoph_io_Rt32 & L4_or_memoph_io_u6_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_or_memoph_io_Rs32 + L4_or_memoph_io_u6_1;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:2 EA;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(L4_or_memoph_io_Rt32);
+  local tmp3:8;
+  tmp3 = tmp | tmp2;
+  tmp = tmp3;
+  *:2 EA = (tmp);
+}
 
 :L4_iadd_memopw_io L4_iadd_memopw_io_Rs32 L4_iadd_memopw_io_u6_2 L4_iadd_memopw_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iadd_memopw_io_Rs32 & L4_iadd_memopw_io_u6_2 & L4_iadd_memopw_io_U5 unimpl
 
@@ -13222,17 +13584,101 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :L4_isub_memoph_io L4_isub_memoph_io_Rs32 L4_isub_memoph_io_u6_1 L4_isub_memoph_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_isub_memoph_io_Rs32 & L4_isub_memoph_io_u6_1 & L4_isub_memoph_io_U5 unimpl
 
-:L4_iand_memopw_io L4_iand_memopw_io_Rs32 L4_iand_memopw_io_u6_2 L4_iand_memopw_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iand_memopw_io_Rs32 & L4_iand_memopw_io_u6_2 & L4_iand_memopw_io_U5 unimpl
+:L4_iand_memopw_io L4_iand_memopw_io_Rs32 L4_iand_memopw_io_u6_2 L4_iand_memopw_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iand_memopw_io_Rs32 & L4_iand_memopw_io_u6_2 & L4_iand_memopw_io_U5 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_iand_memopw_io_Rs32 + L4_iand_memopw_io_u6_2;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:4 EA;
+  local tmp1;
+  tmp1 = 1 << L4_iand_memopw_io_U5;
+  local tmp2;
+  tmp2 = - tmp1;
+  local tmp3:8;
+  tmp3 = tmp & tmp2;
+  tmp = tmp3;
+  *:4 EA = (tmp);
+}
 
-:L4_iand_memopb_io L4_iand_memopb_io_Rs32 L4_iand_memopb_io_u6_0 L4_iand_memopb_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iand_memopb_io_Rs32 & L4_iand_memopb_io_u6_0 & L4_iand_memopb_io_U5 unimpl
+:L4_iand_memopb_io L4_iand_memopb_io_Rs32 L4_iand_memopb_io_u6_0 L4_iand_memopb_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iand_memopb_io_Rs32 & L4_iand_memopb_io_u6_0 & L4_iand_memopb_io_U5 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_iand_memopb_io_Rs32 + L4_iand_memopb_io_u6_0;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:1 EA;
+  local tmp1;
+  tmp1 = 1 << L4_iand_memopb_io_U5;
+  local tmp2;
+  tmp2 = - tmp1;
+  local tmp3:8;
+  tmp3 = tmp & tmp2;
+  tmp = tmp3;
+  *:1 EA = (tmp);
+}
 
-:L4_iand_memoph_io L4_iand_memoph_io_Rs32 L4_iand_memoph_io_u6_1 L4_iand_memoph_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iand_memoph_io_Rs32 & L4_iand_memoph_io_u6_1 & L4_iand_memoph_io_U5 unimpl
+:L4_iand_memoph_io L4_iand_memoph_io_Rs32 L4_iand_memoph_io_u6_1 L4_iand_memoph_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_iand_memoph_io_Rs32 & L4_iand_memoph_io_u6_1 & L4_iand_memoph_io_U5 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_iand_memoph_io_Rs32 + L4_iand_memoph_io_u6_1;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:2 EA;
+  local tmp1;
+  tmp1 = 1 << L4_iand_memoph_io_U5;
+  local tmp2;
+  tmp2 = - tmp1;
+  local tmp3:8;
+  tmp3 = tmp & tmp2;
+  tmp = tmp3;
+  *:2 EA = (tmp);
+}
 
-:L4_ior_memopw_io L4_ior_memopw_io_Rs32 L4_ior_memopw_io_u6_2 L4_ior_memopw_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_ior_memopw_io_Rs32 & L4_ior_memopw_io_u6_2 & L4_ior_memopw_io_U5 unimpl
+:L4_ior_memopw_io L4_ior_memopw_io_Rs32 L4_ior_memopw_io_u6_2 L4_ior_memopw_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_ior_memopw_io_Rs32 & L4_ior_memopw_io_u6_2 & L4_ior_memopw_io_U5 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_ior_memopw_io_Rs32 + L4_ior_memopw_io_u6_2;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:4 EA;
+  local tmp1;
+  tmp1 = 1 << L4_ior_memopw_io_U5;
+  local tmp2:8;
+  tmp2 = tmp | tmp1;
+  tmp = tmp2;
+  *:4 EA = (tmp);
+}
 
-:L4_ior_memopb_io L4_ior_memopb_io_Rs32 L4_ior_memopb_io_u6_0 L4_ior_memopb_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_ior_memopb_io_Rs32 & L4_ior_memopb_io_u6_0 & L4_ior_memopb_io_U5 unimpl
+:L4_ior_memopb_io L4_ior_memopb_io_Rs32 L4_ior_memopb_io_u6_0 L4_ior_memopb_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_ior_memopb_io_Rs32 & L4_ior_memopb_io_u6_0 & L4_ior_memopb_io_U5 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_ior_memopb_io_Rs32 + L4_ior_memopb_io_u6_0;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:1 EA;
+  local tmp1;
+  tmp1 = 1 << L4_ior_memopb_io_U5;
+  local tmp2:8;
+  tmp2 = tmp | tmp1;
+  tmp = tmp2;
+  *:1 EA = (tmp);
+}
 
-:L4_ior_memoph_io L4_ior_memoph_io_Rs32 L4_ior_memoph_io_u6_1 L4_ior_memoph_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_ior_memoph_io_Rs32 & L4_ior_memoph_io_u6_1 & L4_ior_memoph_io_U5 unimpl
+:L4_ior_memoph_io L4_ior_memoph_io_Rs32 L4_ior_memoph_io_u6_1 L4_ior_memoph_io_U5 is Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_ior_memoph_io_Rs32 & L4_ior_memoph_io_u6_1 & L4_ior_memoph_io_U5 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = L4_ior_memoph_io_Rs32 + L4_ior_memoph_io_u6_1;
+  EA = tmp0;
+  local tmp:8;
+  tmp = *:2 EA;
+  local tmp1;
+  tmp1 = 1 << L4_ior_memoph_io_U5;
+  local tmp2:8;
+  tmp2 = tmp | tmp1;
+  tmp = tmp2;
+  *:2 EA = (tmp);
+}
 
 :S4_storeirbt_io S4_storeirbt_io_Pv4 S4_storeirbt_io_Rs32 S4_storeirbt_io_u6_0 S4_storeirbt_io_S6 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeirbt_io_Pv4 & S4_storeirbt_io_Rs32 & S4_storeirbt_io_u6_0 & S4_storeirbt_io_S6 unimpl
 
@@ -13258,27 +13704,77 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S4_storeirifnew_io S4_storeirifnew_io_Pv4 S4_storeirifnew_io_Rs32 S4_storeirifnew_io_u6_2 S4_storeirifnew_io_S6 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeirifnew_io_Pv4 & S4_storeirifnew_io_Rs32 & S4_storeirifnew_io_u6_2 & S4_storeirifnew_io_S6 unimpl
 
-:S4_storeirb_io S4_storeirb_io_Rs32 S4_storeirb_io_u6_0 S4_storeirb_io_S8 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeirb_io_Rs32 & S4_storeirb_io_u6_0 & S4_storeirb_io_S8 unimpl
+:S4_storeirb_io S4_storeirb_io_Rs32 S4_storeirb_io_u6_0 S4_storeirb_io_S8 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeirb_io_Rs32 & S4_storeirb_io_u6_0 & S4_storeirb_io_S8 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = S4_storeirb_io_Rs32 + S4_storeirb_io_u6_0;
+  EA = tmp0;
+  *:1 EA = (S4_storeirb_io_S8);
+}
 
-:S4_storeirh_io S4_storeirh_io_Rs32 S4_storeirh_io_u6_1 S4_storeirh_io_S8 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeirh_io_Rs32 & S4_storeirh_io_u6_1 & S4_storeirh_io_S8 unimpl
+:S4_storeirh_io S4_storeirh_io_Rs32 S4_storeirh_io_u6_1 S4_storeirh_io_S8 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeirh_io_Rs32 & S4_storeirh_io_u6_1 & S4_storeirh_io_S8 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = S4_storeirh_io_Rs32 + S4_storeirh_io_u6_1;
+  EA = tmp0;
+  *:2 EA = (S4_storeirh_io_S8);
+}
 
 :S4_storeiri_io S4_storeiri_io_Rs32 S4_storeiri_io_u6_2 S4_storeiri_io_S8 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_storeiri_io_Rs32 & S4_storeiri_io_u6_2 & S4_storeiri_io_S8 {
   local EA:4;
-  EA = (S4_storeiri_io_Rs32) + (S4_storeiri_io_u6_2);
+  local tmp0:4;
+  tmp0 = S4_storeiri_io_Rs32 + S4_storeiri_io_u6_2;
+  EA = tmp0;
   *:4 EA = (S4_storeiri_io_S8);
 }
 
-:L2_loadrubgp L2_loadrubgp_Rd32 L2_loadrubgp_u16_0 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrubgp_Rd32 & L2_loadrubgp_u16_0 unimpl
+:L2_loadrubgp L2_loadrubgp_Rd32 L2_loadrubgp_u16_0 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrubgp_Rd32 & L2_loadrubgp_u16_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + L2_loadrubgp_u16_0;
+  EA = tmp0;
+  L2_loadrubgp_Rd32 = *:1 EA;
+}
 
-:L2_loadrbgp L2_loadrbgp_Rd32 L2_loadrbgp_u16_0 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrbgp_Rd32 & L2_loadrbgp_u16_0 unimpl
+:L2_loadrbgp L2_loadrbgp_Rd32 L2_loadrbgp_u16_0 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrbgp_Rd32 & L2_loadrbgp_u16_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + L2_loadrbgp_u16_0;
+  EA = tmp0;
+  L2_loadrbgp_Rd32 = *:1 EA;
+}
 
-:L2_loadruhgp L2_loadruhgp_Rd32 L2_loadruhgp_u16_1 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadruhgp_Rd32 & L2_loadruhgp_u16_1 unimpl
+:L2_loadruhgp L2_loadruhgp_Rd32 L2_loadruhgp_u16_1 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadruhgp_Rd32 & L2_loadruhgp_u16_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + L2_loadruhgp_u16_1;
+  EA = tmp0;
+  L2_loadruhgp_Rd32 = *:2 EA;
+}
 
-:L2_loadrhgp L2_loadrhgp_Rd32 L2_loadrhgp_u16_1 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrhgp_Rd32 & L2_loadrhgp_u16_1 unimpl
+:L2_loadrhgp L2_loadrhgp_Rd32 L2_loadrhgp_u16_1 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrhgp_Rd32 & L2_loadrhgp_u16_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + L2_loadrhgp_u16_1;
+  EA = tmp0;
+  L2_loadrhgp_Rd32 = *:2 EA;
+}
 
-:L2_loadrigp L2_loadrigp_Rd32 L2_loadrigp_u16_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrigp_Rd32 & L2_loadrigp_u16_2 unimpl
+:L2_loadrigp L2_loadrigp_Rd32 L2_loadrigp_u16_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrigp_Rd32 & L2_loadrigp_u16_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + L2_loadrigp_u16_2;
+  EA = tmp0;
+  L2_loadrigp_Rd32 = *:4 EA;
+}
 
-:L2_loadrdgp L2_loadrdgp_Rdd32 L2_loadrdgp_u16_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrdgp_Rdd32 & L2_loadrdgp_u16_3 unimpl
+:L2_loadrdgp L2_loadrdgp_Rdd32 L2_loadrdgp_u16_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & L2_loadrdgp_Rdd32 & L2_loadrdgp_u16_3 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + L2_loadrdgp_u16_3;
+  EA = tmp0;
+  L2_loadrdgp_Rdd32 = *:8 EA;
+}
 
 :S2_storerbgp S2_storerbgp_Rt32 S2_storerbgp_u16_0 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerbgp_Rt32 & S2_storerbgp_u16_0 unimpl
 
@@ -13286,9 +13782,21 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_storerfgp S2_storerfgp_Rt32 S2_storerfgp_u16_1 is Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerfgp_Rt32 & S2_storerfgp_u16_1 unimpl
 
-:S2_storerigp S2_storerigp_Rt32 S2_storerigp_u16_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerigp_Rt32 & S2_storerigp_u16_2 unimpl
+:S2_storerigp S2_storerigp_Rt32 S2_storerigp_u16_2 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerigp_Rt32 & S2_storerigp_u16_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + S2_storerigp_u16_2;
+  EA = tmp0;
+  *:4 EA = (S2_storerigp_Rt32);
+}
 
-:S2_storerdgp S2_storerdgp_Rtt32 S2_storerdgp_u16_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerdgp_Rtt32 & S2_storerdgp_u16_3 unimpl
+:S2_storerdgp S2_storerdgp_Rtt32 S2_storerdgp_u16_3 is Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerdgp_Rtt32 & S2_storerdgp_u16_3 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = C11 + S2_storerdgp_u16_3;
+  EA = tmp0;
+  *:8 EA = (S2_storerdgp_Rtt32);
+}
 
 :S2_storerinewgp S2_storerinewgp_Nt8 S2_storerinewgp_u16_2 is Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerinewgp_Nt8 & S2_storerinewgp_u16_2 unimpl
 
@@ -13296,13 +13804,21 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_storerhnewgp S2_storerhnewgp_Nt8 S2_storerhnewgp_u16_1 is Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S2_storerhnewgp_Nt8 & S2_storerhnewgp_u16_1 unimpl
 
-:C2_cmpeq C2_cmpeq_Pd4 C2_cmpeq_Rs32 C2_cmpeq_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b21 = 0 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_cmpeq_Pd4 & C2_cmpeq_Rs32 & C2_cmpeq_Rt32 unimpl
+:C2_cmpeq C2_cmpeq_Pd4 C2_cmpeq_Rs32 C2_cmpeq_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b21 = 0 & b22 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_cmpeq_Pd4 & C2_cmpeq_Rs32 & C2_cmpeq_Rt32 {
+  local tmp0:1;
+  tmp0 = (C2_cmpeq_Rs32) == (C2_cmpeq_Rt32);
+  C2_cmpeq_Pd4 = tmp0;
+}
 
 :C2_cmpgt C2_cmpgt_Pd4 C2_cmpgt_Rs32 C2_cmpgt_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_cmpgt_Pd4 & C2_cmpgt_Rs32 & C2_cmpgt_Rt32 unimpl
 
 :C2_cmpgtu C2_cmpgtu_Pd4 C2_cmpgtu_Rs32 C2_cmpgtu_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b21 = 1 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_cmpgtu_Pd4 & C2_cmpgtu_Rs32 & C2_cmpgtu_Rt32 unimpl
 
-:C2_cmpeqp C2_cmpeqp_Pd4 C2_cmpeqp_Rss32 C2_cmpeqp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & C2_cmpeqp_Pd4 & C2_cmpeqp_Rss32 & C2_cmpeqp_Rtt32 unimpl
+:C2_cmpeqp C2_cmpeqp_Pd4 C2_cmpeqp_Rss32 C2_cmpeqp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & C2_cmpeqp_Pd4 & C2_cmpeqp_Rss32 & C2_cmpeqp_Rtt32 {
+  local tmp0:1;
+  tmp0 = (C2_cmpeqp_Rss32) == (C2_cmpeqp_Rtt32);
+  C2_cmpeqp_Pd4 = tmp0;
+}
 
 :C2_cmpgtp C2_cmpgtp_Pd4 C2_cmpgtp_Rss32 C2_cmpgtp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & C2_cmpgtp_Pd4 & C2_cmpgtp_Rss32 & C2_cmpgtp_Rtt32 unimpl
 
@@ -13316,23 +13832,43 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A4_rcmpneq A4_rcmpneq_Rd32 A4_rcmpneq_Rs32 A4_rcmpneq_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A4_rcmpneq_Rd32 & A4_rcmpneq_Rs32 & A4_rcmpneq_Rt32 unimpl
 
-:C2_bitsset C2_bitsset_Pd4 C2_bitsset_Rs32 C2_bitsset_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C2_bitsset_Pd4 & C2_bitsset_Rs32 & C2_bitsset_Rt32 unimpl
+:C2_bitsset C2_bitsset_Pd4 C2_bitsset_Rs32 C2_bitsset_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C2_bitsset_Pd4 & C2_bitsset_Rs32 & C2_bitsset_Rt32 {
+  local tmp0:4;
+  tmp0 = C2_bitsset_Rs32 & C2_bitsset_Rt32;
+  local tmp1:1;
+  tmp1 = (tmp0) == (C2_bitsset_Rt32);
+  C2_bitsset_Pd4 = tmp1;
+}
 
-:C2_bitsclr C2_bitsclr_Pd4 C2_bitsclr_Rs32 C2_bitsclr_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C2_bitsclr_Pd4 & C2_bitsclr_Rs32 & C2_bitsclr_Rt32 unimpl
+:C2_bitsclr C2_bitsclr_Pd4 C2_bitsclr_Rs32 C2_bitsclr_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C2_bitsclr_Pd4 & C2_bitsclr_Rs32 & C2_bitsclr_Rt32 {
+  local tmp0:4;
+  tmp0 = C2_bitsclr_Rs32 & C2_bitsclr_Rt32;
+  local tmp1:1;
+  tmp1 = (tmp0) == (0);
+  C2_bitsclr_Pd4 = tmp1;
+}
 
 :C4_nbitsset C4_nbitsset_Pd4 C4_nbitsset_Rs32 C4_nbitsset_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C4_nbitsset_Pd4 & C4_nbitsset_Rs32 & C4_nbitsset_Rt32 unimpl
 
 :C4_nbitsclr C4_nbitsclr_Pd4 C4_nbitsclr_Rs32 C4_nbitsclr_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C4_nbitsclr_Pd4 & C4_nbitsclr_Rs32 & C4_nbitsclr_Rt32 unimpl
 
 :C2_cmpeqi C2_cmpeqi_Pd4 C2_cmpeqi_Rs32 C2_cmpeqi_s10 is Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpeqi_Pd4 & C2_cmpeqi_Rs32 & C2_cmpeqi_s10 {
-  C2_cmpeqi_Pd4 = (C2_cmpeqi_Rs32) == (C2_cmpeqi_s10);
+  local tmp0:1;
+  tmp0 = (C2_cmpeqi_Rs32) == (C2_cmpeqi_s10);
+  C2_cmpeqi_Pd4 = tmp0;
 }
 
 :C2_cmpgti C2_cmpgti_Pd4 C2_cmpgti_Rs32 C2_cmpgti_s10 is Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpgti_Pd4 & C2_cmpgti_Rs32 & C2_cmpgti_s10 unimpl
 
 :C2_cmpgtui C2_cmpgtui_Pd4 C2_cmpgtui_Rs32 C2_cmpgtui_u9 is Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpgtui_Pd4 & C2_cmpgtui_Rs32 & C2_cmpgtui_u9 unimpl
 
-:C2_bitsclri C2_bitsclri_Pd4 C2_bitsclri_Rs32 C2_bitsclri_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & C2_bitsclri_Pd4 & C2_bitsclri_Rs32 & C2_bitsclri_u6 unimpl
+:C2_bitsclri C2_bitsclri_Pd4 C2_bitsclri_Rs32 C2_bitsclri_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & C2_bitsclri_Pd4 & C2_bitsclri_Rs32 & C2_bitsclri_u6 {
+  local tmp0:4;
+  tmp0 = C2_bitsclri_Rs32 & C2_bitsclri_u6;
+  local tmp1:1;
+  tmp1 = (tmp0) == (0);
+  C2_bitsclri_Pd4 = tmp1;
+}
 
 :C4_nbitsclri C4_nbitsclri_Pd4 C4_nbitsclri_Rs32 C4_nbitsclri_u6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & C4_nbitsclri_Pd4 & C4_nbitsclri_Rs32 & C4_nbitsclri_u6 unimpl
 
@@ -13388,7 +13924,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :C2_cmovenewif C2_cmovenewif_Rd32 C2_cmovenewif_Pu4 C2_cmovenewif_s12 is Parse != 0b00 & subinsn = 0 & b13 = 1 & b20 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmovenewif_Rd32 & C2_cmovenewif_Pu4 & C2_cmovenewif_s12 unimpl
 
-:C2_cmoveit C2_cmoveit_Rd32 C2_cmoveit_Pu4 C2_cmoveit_s12 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b20 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmoveit_Rd32 & C2_cmoveit_Pu4 & C2_cmoveit_s12 unimpl
+:C2_cmoveit C2_cmoveit_Rd32 C2_cmoveit_Pu4 C2_cmoveit_s12 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b20 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmoveit_Rd32 & C2_cmoveit_Pu4 & C2_cmoveit_s12 {
+  if (C2_cmoveit_Pu4) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  C2_cmoveit_Rd32 = C2_cmoveit_s12;
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :C2_cmoveif C2_cmoveif_Rd32 C2_cmoveif_Pu4 C2_cmoveif_s12 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b20 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmoveif_Rd32 & C2_cmoveif_Pu4 & C2_cmoveif_s12 unimpl
 
@@ -13818,15 +14362,45 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :M2_mnaci M2_mnaci_Rx32 M2_mnaci_Rs32 M2_mnaci_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_mnaci_Rx32 & M2_mnaci_Rs32 & M2_mnaci_Rt32 unimpl
 
-:M2_acci M2_acci_Rx32 M2_acci_Rs32 M2_acci_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_acci_Rx32 & M2_acci_Rs32 & M2_acci_Rt32 unimpl
+:M2_acci M2_acci_Rx32 M2_acci_Rs32 M2_acci_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_acci_Rx32 & M2_acci_Rs32 & M2_acci_Rt32 {
+  local tmp0:4;
+  tmp0 = M2_acci_Rx32 + M2_acci_Rs32;
+  local tmp1:4;
+  tmp1 = tmp0 + M2_acci_Rt32;
+  M2_acci_Rx32 = tmp1;
+}
 
-:M2_accii M2_accii_Rx32 M2_accii_Rs32 M2_accii_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_accii_Rx32 & M2_accii_Rs32 & M2_accii_s8 unimpl
+:M2_accii M2_accii_Rx32 M2_accii_Rs32 M2_accii_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_accii_Rx32 & M2_accii_Rs32 & M2_accii_s8 {
+  local tmp0:4;
+  tmp0 = M2_accii_Rx32 + M2_accii_Rs32;
+  local tmp1:4;
+  tmp1 = tmp0 + M2_accii_s8;
+  M2_accii_Rx32 = tmp1;
+}
 
-:M2_nacci M2_nacci_Rx32 M2_nacci_Rs32 M2_nacci_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_nacci_Rx32 & M2_nacci_Rs32 & M2_nacci_Rt32 unimpl
+:M2_nacci M2_nacci_Rx32 M2_nacci_Rs32 M2_nacci_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_nacci_Rx32 & M2_nacci_Rs32 & M2_nacci_Rt32 {
+  local tmp0:4;
+  tmp0 = M2_nacci_Rs32 + M2_nacci_Rt32;
+  local tmp1:4;
+  tmp1 = M2_nacci_Rx32 - tmp0;
+  M2_nacci_Rx32 = tmp1;
+}
 
-:M2_naccii M2_naccii_Rx32 M2_naccii_Rs32 M2_naccii_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_naccii_Rx32 & M2_naccii_Rs32 & M2_naccii_s8 unimpl
+:M2_naccii M2_naccii_Rx32 M2_naccii_Rs32 M2_naccii_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_naccii_Rx32 & M2_naccii_Rs32 & M2_naccii_s8 {
+  local tmp0:4;
+  tmp0 = M2_naccii_Rs32 + M2_naccii_s8;
+  local tmp1:4;
+  tmp1 = M2_naccii_Rx32 - tmp0;
+  M2_naccii_Rx32 = tmp1;
+}
 
-:M2_subacc M2_subacc_Rx32 M2_subacc_Rt32 M2_subacc_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_subacc_Rx32 & M2_subacc_Rt32 & M2_subacc_Rs32 unimpl
+:M2_subacc M2_subacc_Rx32 M2_subacc_Rt32 M2_subacc_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M2_subacc_Rx32 & M2_subacc_Rt32 & M2_subacc_Rs32 {
+  local tmp0:4;
+  tmp0 = M2_subacc_Rx32 + M2_subacc_Rt32;
+  local tmp1:4;
+  tmp1 = tmp0 - M2_subacc_Rs32;
+  M2_subacc_Rx32 = tmp1;
+}
 
 :M4_mpyrr_addr M4_mpyrr_addr_Ry32 M4_mpyrr_addr_Ru32 M4_mpyrr_addr_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_mpyrr_addr_Ry32 & M4_mpyrr_addr_Ru32 & M4_mpyrr_addr_Rs32 unimpl
 
@@ -14133,12 +14707,28 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 :M7_wcmpyiwc_rnd M7_wcmpyiwc_rnd_Rd32 M7_wcmpyiwc_rnd_Rss32 M7_wcmpyiwc_rnd_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M7_wcmpyiwc_rnd_Rd32 & M7_wcmpyiwc_rnd_Rss32 & M7_wcmpyiwc_rnd_Rtt32 unimpl
 
 :A2_add A2_add_Rd32 A2_add_Rs32 A2_add_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_add_Rd32 & A2_add_Rs32 & A2_add_Rt32 {
-  A2_add_Rd32 = (A2_add_Rs32) + (A2_add_Rt32);
+  local tmp0:4;
+  tmp0 = A2_add_Rs32 + A2_add_Rt32;
+  A2_add_Rd32 = tmp0;
 }
 
-:A2_sub A2_sub_Rd32 A2_sub_Rt32 A2_sub_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_sub_Rd32 & A2_sub_Rt32 & A2_sub_Rs32 unimpl
+:A2_sub A2_sub_Rd32 A2_sub_Rt32 A2_sub_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_sub_Rd32 & A2_sub_Rt32 & A2_sub_Rs32 {
+  local tmp0:4;
+  tmp0 = A2_sub_Rt32 - A2_sub_Rs32;
+  A2_sub_Rd32 = tmp0;
+}
 
-:A2_paddt A2_paddt_Rd32 A2_paddt_Pu4 A2_paddt_Rs32 A2_paddt_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_paddt_Rd32 & A2_paddt_Pu4 & A2_paddt_Rs32 & A2_paddt_Rt32 unimpl
+:A2_paddt A2_paddt_Rd32 A2_paddt_Pu4 A2_paddt_Rs32 A2_paddt_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_paddt_Rd32 & A2_paddt_Pu4 & A2_paddt_Rs32 & A2_paddt_Rt32 {
+  if (A2_paddt_Pu4) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  local tmp0:4;
+  tmp0 = A2_paddt_Rs32 + A2_paddt_Rt32;
+  A2_paddt_Rd32 = tmp0;
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :A2_paddf A2_paddf_Rd32 A2_paddf_Pu4 A2_paddf_Rs32 A2_paddf_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_paddf_Rd32 & A2_paddf_Pu4 & A2_paddf_Rs32 & A2_paddf_Rt32 unimpl
 
@@ -14146,7 +14736,17 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_paddfnew A2_paddfnew_Rd32 A2_paddfnew_Pu4 A2_paddfnew_Rs32 A2_paddfnew_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_paddfnew_Rd32 & A2_paddfnew_Pu4 & A2_paddfnew_Rs32 & A2_paddfnew_Rt32 unimpl
 
-:A2_psubt A2_psubt_Rd32 A2_psubt_Pu4 A2_psubt_Rt32 A2_psubt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_psubt_Rd32 & A2_psubt_Pu4 & A2_psubt_Rt32 & A2_psubt_Rs32 unimpl
+:A2_psubt A2_psubt_Rd32 A2_psubt_Pu4 A2_psubt_Rt32 A2_psubt_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_psubt_Rd32 & A2_psubt_Pu4 & A2_psubt_Rt32 & A2_psubt_Rs32 {
+  if (A2_psubt_Pu4) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  local tmp0:4;
+  tmp0 = A2_psubt_Rt32 - A2_psubt_Rs32;
+  A2_psubt_Rd32 = tmp0;
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :A2_psubf A2_psubf_Rd32 A2_psubf_Pu4 A2_psubf_Rt32 A2_psubf_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_psubf_Rd32 & A2_psubf_Pu4 & A2_psubf_Rt32 & A2_psubf_Rs32 unimpl
 
@@ -14154,7 +14754,17 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_psubfnew A2_psubfnew_Rd32 A2_psubfnew_Pu4 A2_psubfnew_Rt32 A2_psubfnew_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 1 & b21 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_psubfnew_Rd32 & A2_psubfnew_Pu4 & A2_psubfnew_Rt32 & A2_psubfnew_Rs32 unimpl
 
-:A2_paddit A2_paddit_Rd32 A2_paddit_Pu4 A2_paddit_Rs32 A2_paddit_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_paddit_Rd32 & A2_paddit_Pu4 & A2_paddit_Rs32 & A2_paddit_s8 unimpl
+:A2_paddit A2_paddit_Rd32 A2_paddit_Pu4 A2_paddit_Rs32 A2_paddit_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_paddit_Rd32 & A2_paddit_Pu4 & A2_paddit_Rs32 & A2_paddit_s8 {
+  if (A2_paddit_Pu4) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  local tmp0:4;
+  tmp0 = A2_paddit_Rs32 + A2_paddit_s8;
+  A2_paddit_Rd32 = tmp0;
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :A2_paddif A2_paddif_Rd32 A2_paddif_Pu4 A2_paddif_Rs32 A2_paddif_s8 is Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_paddif_Rd32 & A2_paddif_Pu4 & A2_paddif_Rs32 & A2_paddif_s8 unimpl
 
@@ -14170,7 +14780,17 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_pxorfnew A2_pxorfnew_Rd32 A2_pxorfnew_Pu4 A2_pxorfnew_Rs32 A2_pxorfnew_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_pxorfnew_Rd32 & A2_pxorfnew_Pu4 & A2_pxorfnew_Rs32 & A2_pxorfnew_Rt32 unimpl
 
-:A2_pandt A2_pandt_Rd32 A2_pandt_Pu4 A2_pandt_Rs32 A2_pandt_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_pandt_Rd32 & A2_pandt_Pu4 & A2_pandt_Rs32 & A2_pandt_Rt32 unimpl
+:A2_pandt A2_pandt_Rd32 A2_pandt_Pu4 A2_pandt_Rs32 A2_pandt_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_pandt_Rd32 & A2_pandt_Pu4 & A2_pandt_Rs32 & A2_pandt_Rt32 {
+  if (A2_pandt_Pu4) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  local tmp0:4;
+  tmp0 = A2_pandt_Rs32 & A2_pandt_Rt32;
+  A2_pandt_Rd32 = tmp0;
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :A2_pandf A2_pandf_Rd32 A2_pandf_Pu4 A2_pandf_Rs32 A2_pandf_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_pandf_Rd32 & A2_pandf_Pu4 & A2_pandf_Rs32 & A2_pandf_Rt32 unimpl
 
@@ -14218,7 +14838,17 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A4_pzxthfnew A4_pzxthfnew_Rd32 A4_pzxthfnew_Pu4 A4_pzxthfnew_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 1 & b11 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_pzxthfnew_Rd32 & A4_pzxthfnew_Pu4 & A4_pzxthfnew_Rs32 unimpl
 
-:A4_paslht A4_paslht_Rd32 A4_paslht_Pu4 A4_paslht_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_paslht_Rd32 & A4_paslht_Pu4 & A4_paslht_Rs32 unimpl
+:A4_paslht A4_paslht_Rd32 A4_paslht_Pu4 A4_paslht_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_paslht_Rd32 & A4_paslht_Pu4 & A4_paslht_Rs32 {
+  if (A4_paslht_Pu4) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  local tmp0:4;
+  tmp0 = A4_paslht_Rs32 << 16;
+  A4_paslht_Rd32 = tmp0;
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :A4_paslhf A4_paslhf_Rd32 A4_paslhf_Pu4 A4_paslhf_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_paslhf_Rd32 & A4_paslhf_Pu4 & A4_paslhf_Rs32 unimpl
 
@@ -14239,7 +14869,9 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 :A2_subsat A2_subsat_Rd32 A2_subsat_Rt32 A2_subsat_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_subsat_Rd32 & A2_subsat_Rt32 & A2_subsat_Rs32 unimpl
 
 :A2_addi A2_addi_Rd32 A2_addi_Rs32 A2_addi_s16 is Parse != 0b00 & subinsn = 0 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 1 & A2_addi_Rd32 & A2_addi_Rs32 & A2_addi_s16 {
-  A2_addi_Rd32 = (A2_addi_Rs32) + (A2_addi_s16);
+  local tmp0:4;
+  tmp0 = A2_addi_Rs32 + A2_addi_s16;
+  A2_addi_Rd32 = tmp0;
 }
 
 :C4_addipc C4_addipc_Rd32 C4_addipc_u6 is Parse != 0b00 & subinsn = 0 & b16 = 1 & b17 = 0 & b18 = 0 & b19 = 1 & b20 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & C4_addipc_Rd32 & C4_addipc_u6 unimpl
@@ -14292,12 +14924,18 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_subh_h16_sat_hh A2_subh_h16_sat_hh_Rd32 A2_subh_h16_sat_hh_Rt32 A2_subh_h16_sat_hh_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_subh_h16_sat_hh_Rd32 & A2_subh_h16_sat_hh_Rt32 & A2_subh_h16_sat_hh_Rs32 unimpl
 
-:A2_aslh A2_aslh_Rd32 A2_aslh_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_aslh_Rd32 & A2_aslh_Rs32 unimpl
+:A2_aslh A2_aslh_Rd32 A2_aslh_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_aslh_Rd32 & A2_aslh_Rs32 {
+  local tmp0:4;
+  tmp0 = A2_aslh_Rs32 << 16;
+  A2_aslh_Rd32 = tmp0;
+}
 
 :A2_asrh A2_asrh_Rd32 A2_asrh_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_asrh_Rd32 & A2_asrh_Rs32 unimpl
 
 :A2_addp A2_addp_Rdd32 A2_addp_Rss32 A2_addp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_addp_Rdd32 & A2_addp_Rss32 & A2_addp_Rtt32 {
-  A2_addp_Rdd32 = (A2_addp_Rss32) + (A2_addp_Rtt32);
+  local tmp0:8;
+  tmp0 = A2_addp_Rss32 + A2_addp_Rtt32;
+  A2_addp_Rdd32 = tmp0;
 }
 
 :A2_addpsat A2_addpsat_Rdd32 A2_addpsat_Rss32 A2_addpsat_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_addpsat_Rdd32 & A2_addpsat_Rss32 & A2_addpsat_Rtt32 unimpl
@@ -14306,7 +14944,11 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_addsph A2_addsph_Rdd32 A2_addsph_Rss32 A2_addsph_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_addsph_Rdd32 & A2_addsph_Rss32 & A2_addsph_Rtt32 unimpl
 
-:A2_subp A2_subp_Rdd32 A2_subp_Rtt32 A2_subp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_subp_Rdd32 & A2_subp_Rtt32 & A2_subp_Rss32 unimpl
+:A2_subp A2_subp_Rdd32 A2_subp_Rtt32 A2_subp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_subp_Rdd32 & A2_subp_Rtt32 & A2_subp_Rss32 {
+  local tmp0:8;
+  tmp0 = A2_subp_Rtt32 - A2_subp_Rss32;
+  A2_subp_Rdd32 = tmp0;
+}
 
 :A4_addp_c A4_addp_c_Rdd32 A4_addp_c_Px4 A4_addp_c_Rss32 A4_addp_c_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & A4_addp_c_Rdd32 & A4_addp_c_Px4 & A4_addp_c_Rss32 & A4_addp_c_Rtt32 unimpl
 
@@ -14320,7 +14962,11 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_vconj A2_vconj_Rdd32 A2_vconj_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_vconj_Rdd32 & A2_vconj_Rss32 unimpl
 
-:A2_negp A2_negp_Rdd32 A2_negp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_negp_Rdd32 & A2_negp_Rss32 unimpl
+:A2_negp A2_negp_Rdd32 A2_negp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_negp_Rdd32 & A2_negp_Rss32 {
+  local tmp0:8;
+  tmp0 = - A2_negp_Rss32;
+  A2_negp_Rdd32 = tmp0;
+}
 
 :A2_absp A2_absp_Rdd32 A2_absp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_absp_Rdd32 & A2_absp_Rss32 unimpl
 
@@ -14341,7 +14987,6 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 :A2_minup A2_minup_Rdd32 A2_minup_Rtt32 A2_minup_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minup_Rdd32 & A2_minup_Rtt32 & A2_minup_Rss32 unimpl
 
 :A2_nop  is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 {
-
 }
 
 :A2_tfr A2_tfr_Rd32 A2_tfr_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_tfr_Rd32 & A2_tfr_Rs32 {
@@ -14380,7 +15025,9 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A2_tfrih A2_tfrih_Rx32 A2_tfrih_u16 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_tfrih_Rx32 & A2_tfrih_u16 unimpl
 
-:A2_tfrcrr A2_tfrcrr_Rd32 A2_tfrcrr_Cs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & A2_tfrcrr_Rd32 & A2_tfrcrr_Cs32 unimpl
+:A2_tfrcrr A2_tfrcrr_Rd32 A2_tfrcrr_Cs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & A2_tfrcrr_Rd32 & A2_tfrcrr_Cs32 {
+  A2_tfrcrr_Rd32 = A2_tfrcrr_Cs32;
+}
 
 :A2_tfrrcr A2_tfrrcr_Cd32 A2_tfrrcr_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & A2_tfrrcr_Cd32 & A2_tfrrcr_Rs32 unimpl
 
@@ -14388,7 +15035,11 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :A4_tfrpcp A4_tfrpcp_Cdd32 A4_tfrpcp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & A4_tfrpcp_Cdd32 & A4_tfrpcp_Rss32 unimpl
 
-:A2_and A2_and_Rd32 A2_and_Rs32 A2_and_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_and_Rd32 & A2_and_Rs32 & A2_and_Rt32 unimpl
+:A2_and A2_and_Rd32 A2_and_Rs32 A2_and_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_and_Rd32 & A2_and_Rs32 & A2_and_Rt32 {
+  local tmp0:4;
+  tmp0 = A2_and_Rs32 & A2_and_Rt32;
+  A2_and_Rd32 = tmp0;
+}
 
 :A2_or A2_or_Rd32 A2_or_Rs32 A2_or_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_or_Rd32 & A2_or_Rs32 & A2_or_Rt32 unimpl
 
@@ -14398,11 +15049,23 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :M4_xor_xacc M4_xor_xacc_Rxx32 M4_xor_xacc_Rss32 M4_xor_xacc_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & M4_xor_xacc_Rxx32 & M4_xor_xacc_Rss32 & M4_xor_xacc_Rtt32 unimpl
 
-:A4_andn A4_andn_Rd32 A4_andn_Rt32 A4_andn_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A4_andn_Rd32 & A4_andn_Rt32 & A4_andn_Rs32 unimpl
+:A4_andn A4_andn_Rd32 A4_andn_Rt32 A4_andn_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A4_andn_Rd32 & A4_andn_Rt32 & A4_andn_Rs32 {
+  local tmp0:4;
+  tmp0 = - A4_andn_Rs32;
+  local tmp1:4;
+  tmp1 = A4_andn_Rt32 & tmp0;
+  A4_andn_Rd32 = tmp1;
+}
 
 :A4_orn A4_orn_Rd32 A4_orn_Rt32 A4_orn_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A4_orn_Rd32 & A4_orn_Rt32 & A4_orn_Rs32 unimpl
 
-:A4_andnp A4_andnp_Rdd32 A4_andnp_Rtt32 A4_andnp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A4_andnp_Rdd32 & A4_andnp_Rtt32 & A4_andnp_Rss32 unimpl
+:A4_andnp A4_andnp_Rdd32 A4_andnp_Rtt32 A4_andnp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A4_andnp_Rdd32 & A4_andnp_Rtt32 & A4_andnp_Rss32 {
+  local tmp0:8;
+  tmp0 = - A4_andnp_Rss32;
+  local tmp1:8;
+  tmp1 = A4_andnp_Rtt32 & tmp0;
+  A4_andnp_Rdd32 = tmp1;
+}
 
 :A4_ornp A4_ornp_Rdd32 A4_ornp_Rtt32 A4_ornp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A4_ornp_Rdd32 & A4_ornp_Rtt32 & A4_ornp_Rss32 unimpl
 
@@ -14410,17 +15073,45 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S4_subaddi S4_subaddi_Rd32 S4_subaddi_Rs32 S4_subaddi_Ru32 S4_subaddi_s6 is Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_subaddi_Rd32 & S4_subaddi_Rs32 & S4_subaddi_Ru32 & S4_subaddi_s6 unimpl
 
-:M4_and_and M4_and_and_Rx32 M4_and_and_Rs32 M4_and_and_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_and_and_Rx32 & M4_and_and_Rs32 & M4_and_and_Rt32 unimpl
+:M4_and_and M4_and_and_Rx32 M4_and_and_Rs32 M4_and_and_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_and_and_Rx32 & M4_and_and_Rs32 & M4_and_and_Rt32 {
+  local tmp0:4;
+  tmp0 = M4_and_and_Rs32 & M4_and_and_Rt32;
+  local tmp1:4;
+  tmp1 = M4_and_and_Rx32 & tmp0;
+  M4_and_and_Rx32 = tmp1;
+}
 
-:M4_and_andn M4_and_andn_Rx32 M4_and_andn_Rs32 M4_and_andn_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_and_andn_Rx32 & M4_and_andn_Rs32 & M4_and_andn_Rt32 unimpl
+:M4_and_andn M4_and_andn_Rx32 M4_and_andn_Rs32 M4_and_andn_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_and_andn_Rx32 & M4_and_andn_Rs32 & M4_and_andn_Rt32 {
+  local tmp0:4;
+  tmp0 = - M4_and_andn_Rt32;
+  local tmp1:4;
+  tmp1 = M4_and_andn_Rs32 & tmp0;
+  local tmp2:4;
+  tmp2 = M4_and_andn_Rx32 & tmp1;
+  M4_and_andn_Rx32 = tmp2;
+}
 
 :M4_and_or M4_and_or_Rx32 M4_and_or_Rs32 M4_and_or_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_and_or_Rx32 & M4_and_or_Rs32 & M4_and_or_Rt32 unimpl
 
 :M4_and_xor M4_and_xor_Rx32 M4_and_xor_Rs32 M4_and_xor_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_and_xor_Rx32 & M4_and_xor_Rs32 & M4_and_xor_Rt32 unimpl
 
-:M4_or_and M4_or_and_Rx32 M4_or_and_Rs32 M4_or_and_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_or_and_Rx32 & M4_or_and_Rs32 & M4_or_and_Rt32 unimpl
+:M4_or_and M4_or_and_Rx32 M4_or_and_Rs32 M4_or_and_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_or_and_Rx32 & M4_or_and_Rs32 & M4_or_and_Rt32 {
+  local tmp0:4;
+  tmp0 = M4_or_and_Rs32 & M4_or_and_Rt32;
+  local tmp1:4;
+  tmp1 = M4_or_and_Rx32 | tmp0;
+  M4_or_and_Rx32 = tmp1;
+}
 
-:M4_or_andn M4_or_andn_Rx32 M4_or_andn_Rs32 M4_or_andn_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_or_andn_Rx32 & M4_or_andn_Rs32 & M4_or_andn_Rt32 unimpl
+:M4_or_andn M4_or_andn_Rx32 M4_or_andn_Rs32 M4_or_andn_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_or_andn_Rx32 & M4_or_andn_Rs32 & M4_or_andn_Rt32 {
+  local tmp0:4;
+  tmp0 = - M4_or_andn_Rt32;
+  local tmp1:4;
+  tmp1 = M4_or_andn_Rs32 & tmp0;
+  local tmp2:4;
+  tmp2 = M4_or_andn_Rx32 | tmp1;
+  M4_or_andn_Rx32 = tmp2;
+}
 
 :M4_or_or M4_or_or_Rx32 M4_or_or_Rs32 M4_or_or_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_or_or_Rx32 & M4_or_or_Rs32 & M4_or_or_Rt32 unimpl
 
@@ -14438,19 +15129,35 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :M4_xor_andn M4_xor_andn_Rx32 M4_xor_andn_Rs32 M4_xor_andn_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 1 & M4_xor_andn_Rx32 & M4_xor_andn_Rs32 & M4_xor_andn_Rt32 unimpl
 
-:A2_subri A2_subri_Rd32 A2_subri_Rs32 A2_subri_s10 is Parse != 0b00 & subinsn = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_subri_Rd32 & A2_subri_Rs32 & A2_subri_s10 unimpl
+:A2_subri A2_subri_Rd32 A2_subri_Rs32 A2_subri_s10 is Parse != 0b00 & subinsn = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_subri_Rd32 & A2_subri_Rs32 & A2_subri_s10 {
+  local tmp0:4;
+  tmp0 = A2_subri_s10 - A2_subri_Rs32;
+  A2_subri_Rd32 = tmp0;
+}
 
-:A2_andir A2_andir_Rd32 A2_andir_Rs32 A2_andir_s10 is Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_andir_Rd32 & A2_andir_Rs32 & A2_andir_s10 unimpl
+:A2_andir A2_andir_Rd32 A2_andir_Rs32 A2_andir_s10 is Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_andir_Rd32 & A2_andir_Rs32 & A2_andir_s10 {
+  local tmp0:4;
+  tmp0 = A2_andir_Rs32 & A2_andir_s10;
+  A2_andir_Rd32 = tmp0;
+}
 
 :A2_orir A2_orir_Rd32 A2_orir_Rs32 A2_orir_s10 is Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_orir_Rd32 & A2_orir_Rs32 & A2_orir_s10 unimpl
 
-:A2_andp A2_andp_Rdd32 A2_andp_Rss32 A2_andp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_andp_Rdd32 & A2_andp_Rss32 & A2_andp_Rtt32 unimpl
+:A2_andp A2_andp_Rdd32 A2_andp_Rss32 A2_andp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_andp_Rdd32 & A2_andp_Rss32 & A2_andp_Rtt32 {
+  local tmp0:8;
+  tmp0 = A2_andp_Rss32 & A2_andp_Rtt32;
+  A2_andp_Rdd32 = tmp0;
+}
 
 :A2_orp A2_orp_Rdd32 A2_orp_Rss32 A2_orp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_orp_Rdd32 & A2_orp_Rss32 & A2_orp_Rtt32 unimpl
 
 :A2_xorp A2_xorp_Rdd32 A2_xorp_Rss32 A2_xorp_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_xorp_Rdd32 & A2_xorp_Rss32 & A2_xorp_Rtt32 unimpl
 
-:A2_notp A2_notp_Rdd32 A2_notp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_notp_Rdd32 & A2_notp_Rss32 unimpl
+:A2_notp A2_notp_Rdd32 A2_notp_Rss32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_notp_Rdd32 & A2_notp_Rss32 {
+  local tmp0:8;
+  tmp0 = - A2_notp_Rss32;
+  A2_notp_Rdd32 = tmp0;
+}
 
 :A2_sxtw A2_sxtw_Rdd32 A2_sxtw_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_sxtw_Rdd32 & A2_sxtw_Rs32 unimpl
 
@@ -14982,7 +15689,13 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S4_addi_asl_ri S4_addi_asl_ri_Rx32 S4_addi_asl_ri_u8 S4_addi_asl_ri_U5 is Parse != 0b00 & subinsn = 0 & b1 = 0 & b2 = 1 & b4 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_addi_asl_ri_Rx32 & S4_addi_asl_ri_u8 & S4_addi_asl_ri_U5 unimpl
 
-:S4_subi_asl_ri S4_subi_asl_ri_Rx32 S4_subi_asl_ri_u8 S4_subi_asl_ri_U5 is Parse != 0b00 & subinsn = 0 & b1 = 1 & b2 = 1 & b4 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_subi_asl_ri_Rx32 & S4_subi_asl_ri_u8 & S4_subi_asl_ri_U5 unimpl
+:S4_subi_asl_ri S4_subi_asl_ri_Rx32 S4_subi_asl_ri_u8 S4_subi_asl_ri_U5 is Parse != 0b00 & subinsn = 0 & b1 = 1 & b2 = 1 & b4 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_subi_asl_ri_Rx32 & S4_subi_asl_ri_u8 & S4_subi_asl_ri_U5 {
+  local tmp0:4;
+  tmp0 = S4_subi_asl_ri_Rx32 << S4_subi_asl_ri_U5;
+  local tmp1:4;
+  tmp1 = - tmp0;
+  S4_subi_asl_ri_Rx32 = tmp1;
+}
 
 :S4_andi_lsr_ri S4_andi_lsr_ri_Rx32 S4_andi_lsr_ri_u8 S4_andi_lsr_ri_U5 is Parse != 0b00 & subinsn = 0 & b1 = 0 & b2 = 0 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_andi_lsr_ri_Rx32 & S4_andi_lsr_ri_u8 & S4_andi_lsr_ri_U5 unimpl
 
@@ -15006,7 +15719,59 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S6_vsplatrbp S6_vsplatrbp_Rdd32 S6_vsplatrbp_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S6_vsplatrbp_Rdd32 & S6_vsplatrbp_Rs32 unimpl
 
-:S2_insert S2_insert_Rx32 S2_insert_Rs32 S2_insert_u5 S2_insert_U5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_insert_Rx32 & S2_insert_Rs32 & S2_insert_u5 & S2_insert_U5 unimpl
+:S2_insert S2_insert_Rx32 S2_insert_Rs32 S2_insert_u5 S2_insert_U5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_insert_Rx32 & S2_insert_Rs32 & S2_insert_u5 & S2_insert_U5 {
+  local width:4;
+  width = S2_insert_u5;
+  local offset:4;
+  offset = S2_insert_U5;
+  local tmp0:8;
+  tmp0 = 1;
+  local tmp1:8;
+  local tmp2:8;
+  tmp2 = zext(width);
+  local tmp3:8;
+  tmp3 = tmp0 << tmp2;
+  local tmp4:8;
+  tmp4 = tmp3 - 1;
+  local tmp5:8;
+  local tmp6:8;
+  tmp6 = zext(offset);
+  local tmp7:8;
+  tmp7 = tmp4 << tmp6;
+  local tmp8:8;
+  tmp8 = - tmp7;
+  local tmp9:8;
+  local tmp10:8;
+  tmp9 = zext(S2_insert_Rx32);
+  local tmp11:8;
+  tmp11 = tmp9 & tmp8;
+  S2_insert_Rx32 = tmp11:4;
+  local tmp12:8;
+  tmp12 = 1;
+  local tmp13:8;
+  local tmp14:8;
+  tmp14 = zext(width);
+  local tmp15:8;
+  tmp15 = tmp12 << tmp14;
+  local tmp16:8;
+  tmp16 = tmp15 - 1;
+  local tmp17:8;
+  local tmp18:8;
+  tmp17 = zext(S2_insert_Rs32);
+  local tmp19:8;
+  tmp19 = tmp17 & tmp16;
+  local tmp20:8;
+  local tmp21:8;
+  tmp21 = zext(offset);
+  local tmp22:8;
+  tmp22 = tmp19 << tmp21;
+  local tmp23:8;
+  local tmp24:8;
+  tmp23 = zext(S2_insert_Rx32);
+  local tmp25:8;
+  tmp25 = tmp23 | tmp22;
+  S2_insert_Rx32 = tmp25:4;
+}
 
 :S2_tableidxb S2_tableidxb_Rx32 S2_tableidxb_Rs32 S2_tableidxb_u4 S2_tableidxb_S6 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_tableidxb_Rx32 & S2_tableidxb_Rs32 & S2_tableidxb_u4 & S2_tableidxb_S6 unimpl
 
@@ -15046,13 +15811,29 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :S2_tstbit_i S2_tstbit_i_Pd4 S2_tstbit_i_Rs32 S2_tstbit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_tstbit_i_Pd4 & S2_tstbit_i_Rs32 & S2_tstbit_i_u5 unimpl
 
-:S4_ntstbit_i S4_ntstbit_i_Pd4 S4_ntstbit_i_Rs32 S4_ntstbit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S4_ntstbit_i_Pd4 & S4_ntstbit_i_Rs32 & S4_ntstbit_i_u5 unimpl
+:S4_ntstbit_i S4_ntstbit_i_Pd4 S4_ntstbit_i_Rs32 S4_ntstbit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S4_ntstbit_i_Pd4 & S4_ntstbit_i_Rs32 & S4_ntstbit_i_u5 {
+  local tmp0;
+  tmp0 = 1 << S4_ntstbit_i_u5;
+  local tmp1:4;
+  tmp1 = S4_ntstbit_i_Rs32 & tmp0;
+  local tmp2:1;
+  tmp2 = (tmp1) == (0);
+  S4_ntstbit_i_Pd4 = tmp2;
+}
 
 :S2_setbit_i S2_setbit_i_Rd32 S2_setbit_i_Rs32 S2_setbit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_setbit_i_Rd32 & S2_setbit_i_Rs32 & S2_setbit_i_u5 unimpl
 
 :S2_togglebit_i S2_togglebit_i_Rd32 S2_togglebit_i_Rs32 S2_togglebit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_togglebit_i_Rd32 & S2_togglebit_i_Rs32 & S2_togglebit_i_u5 unimpl
 
-:S2_clrbit_i S2_clrbit_i_Rd32 S2_clrbit_i_Rs32 S2_clrbit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_clrbit_i_Rd32 & S2_clrbit_i_Rs32 & S2_clrbit_i_u5 unimpl
+:S2_clrbit_i S2_clrbit_i_Rd32 S2_clrbit_i_Rs32 S2_clrbit_i_u5 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_clrbit_i_Rd32 & S2_clrbit_i_Rs32 & S2_clrbit_i_u5 {
+  local tmp0;
+  tmp0 = 1 << S2_clrbit_i_u5;
+  local tmp1;
+  tmp1 = - tmp0;
+  local tmp2:4;
+  tmp2 = S2_clrbit_i_Rs32 & tmp1;
+  S2_clrbit_i_Rd32 = tmp2;
+}
 
 :S2_tstbit_r S2_tstbit_r_Pd4 S2_tstbit_r_Rs32 S2_tstbit_r_Rt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_tstbit_r_Pd4 & S2_tstbit_r_Rs32 & S2_tstbit_r_Rt32 unimpl
 
@@ -15300,7 +16081,10 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :Y2_icdatar Y2_icdatar_Rd32 Y2_icdatar_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icdatar_Rd32 & Y2_icdatar_Rs32 unimpl
 
-:Y2_icinva Y2_icinva_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icinva_Rs32 unimpl
+:Y2_icinva Y2_icinva_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icinva_Rs32 {
+  local EA:4;
+  EA = Y2_icinva_Rs32;
+}
 
 :Y2_icinvidx Y2_icinvidx_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icinvidx_Rs32 unimpl
 
@@ -15312,21 +16096,35 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :Y2_syncht  is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 unimpl
 
-:Y2_dcfetchbo Y2_dcfetchbo_Rs32 Y2_dcfetchbo_u11_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & Y2_dcfetchbo_Rs32 & Y2_dcfetchbo_u11_3 unimpl
+:Y2_dcfetchbo Y2_dcfetchbo_Rs32 Y2_dcfetchbo_u11_3 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & Y2_dcfetchbo_Rs32 & Y2_dcfetchbo_u11_3 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = Y2_dcfetchbo_Rs32 + Y2_dcfetchbo_u11_3;
+  EA = tmp0;
+}
 
 :Y2_dckill  is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 unimpl
 
 :Y2_dczeroa Y2_dczeroa_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dczeroa_Rs32 unimpl
 
-:Y2_dccleana Y2_dccleana_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleana_Rs32 unimpl
+:Y2_dccleana Y2_dccleana_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleana_Rs32 {
+  local EA:4;
+  EA = Y2_dccleana_Rs32;
+}
 
 :Y2_dccleanidx Y2_dccleanidx_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleanidx_Rs32 unimpl
 
-:Y2_dccleaninva Y2_dccleaninva_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleaninva_Rs32 unimpl
+:Y2_dccleaninva Y2_dccleaninva_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleaninva_Rs32 {
+  local EA:4;
+  EA = Y2_dccleaninva_Rs32;
+}
 
 :Y2_dccleaninvidx Y2_dccleaninvidx_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleaninvidx_Rs32 unimpl
 
-:Y2_dcinva Y2_dcinva_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dcinva_Rs32 unimpl
+:Y2_dcinva Y2_dcinva_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dcinva_Rs32 {
+  local EA:4;
+  EA = Y2_dcinva_Rs32;
+}
 
 :Y2_dcinvidx Y2_dcinvidx_Rs32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dcinvidx_Rs32 unimpl
 
@@ -15364,9 +16162,15 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :Y6_l2gcleaninvpa Y6_l2gcleaninvpa_Rtt32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y6_l2gcleaninvpa_Rtt32 unimpl
 
-:SA1_addi SA1_addi_Rx16 SA1_addi_s7 is subinsn = 1 & a11 = 0 & a12 = 0 & SA1_addi_Rx16 & SA1_addi_s7 unimpl
+:SA1_addi SA1_addi_Rx16 SA1_addi_s7 is subinsn = 1 & a11 = 0 & a12 = 0 & SA1_addi_Rx16 & SA1_addi_s7 {
+  local tmp0:4;
+  tmp0 = SA1_addi_Rx16 + SA1_addi_s7;
+  SA1_addi_Rx16 = tmp0;
+}
 
-:SA1_tfr SA1_tfr_Rd16 SA1_tfr_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_tfr_Rd16 & SA1_tfr_Rs16 unimpl
+:SA1_tfr SA1_tfr_Rd16 SA1_tfr_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_tfr_Rd16 & SA1_tfr_Rs16 {
+  SA1_tfr_Rd16 = SA1_tfr_Rs16;
+}
 
 :SA1_seti SA1_seti_Rd16 SA1_seti_u6 is subinsn = 1 & a10 = 0 & a11 = 1 & a12 = 0 & SA1_seti_Rd16 & SA1_seti_u6 {
   SA1_seti_Rd16 = SA1_seti_u6;
@@ -15382,19 +16186,37 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SA1_clrf SA1_clrf_Rd16 is immext = 0xffffffff & subinsn = 1 & a4 = 1 & a5 = 1 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrf_Rd16 unimpl
 
-:SA1_addsp SA1_addsp_Rd16 SA1_addsp_u6_2 is immext = 0xffffffff & subinsn = 1 & a10 = 1 & a11 = 1 & a12 = 0 & SA1_addsp_Rd16 & SA1_addsp_u6_2 unimpl
+:SA1_addsp SA1_addsp_Rd16 SA1_addsp_u6_2 is immext = 0xffffffff & subinsn = 1 & a10 = 1 & a11 = 1 & a12 = 0 & SA1_addsp_Rd16 & SA1_addsp_u6_2 {
+  local tmp0:4;
+  tmp0 = R29 + SA1_addsp_u6_2;
+  SA1_addsp_Rd16 = tmp0;
+}
 
-:SA1_inc SA1_inc_Rd16 SA1_inc_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_inc_Rd16 & SA1_inc_Rs16 unimpl
+:SA1_inc SA1_inc_Rd16 SA1_inc_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_inc_Rd16 & SA1_inc_Rs16 {
+  local tmp0:4;
+  tmp0 = SA1_inc_Rs16 + 1;
+  SA1_inc_Rd16 = tmp0;
+}
 
-:SA1_dec SA1_dec_Rd16 SA1_dec_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_dec_Rd16 & SA1_dec_Rs16 unimpl
+:SA1_dec SA1_dec_Rd16 SA1_dec_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_dec_Rd16 & SA1_dec_Rs16 {
+  local tmp0:4;
+  tmp0 = SA1_dec_Rs16 - 1;
+  SA1_dec_Rd16 = tmp0;
+}
 
 :SA1_addrx SA1_addrx_Rx16 SA1_addrx_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_addrx_Rx16 & SA1_addrx_Rs16 {
-  SA1_addrx_Rx16 = (SA1_addrx_Rx16) + (SA1_addrx_Rs16);
+  local tmp0:4;
+  tmp0 = SA1_addrx_Rx16 + SA1_addrx_Rs16;
+  SA1_addrx_Rx16 = tmp0;
 }
 
 :SA1_zxtb SA1_zxtb_Rd16 SA1_zxtb_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_zxtb_Rd16 & SA1_zxtb_Rs16 unimpl
 
-:SA1_and1 SA1_and1_Rd16 SA1_and1_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_and1_Rd16 & SA1_and1_Rs16 unimpl
+:SA1_and1 SA1_and1_Rd16 SA1_and1_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_and1_Rd16 & SA1_and1_Rs16 {
+  local tmp0:4;
+  tmp0 = SA1_and1_Rs16 & 1;
+  SA1_and1_Rd16 = tmp0;
+}
 
 :SA1_sxtb SA1_sxtb_Rd16 SA1_sxtb_Rs16 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_sxtb_Rd16 & SA1_sxtb_Rs16 unimpl
 
@@ -15414,27 +16236,146 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SA1_combine3i SA1_combine3i_Rdd8 SA1_combine3i_u2 is immext = 0xffffffff & subinsn = 1 & a3 = 1 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine3i_Rdd8 & SA1_combine3i_u2 unimpl
 
-:SA1_cmpeqi SA1_cmpeqi_Rs16 SA1_cmpeqi_u2 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_cmpeqi_Rs16 & SA1_cmpeqi_u2 unimpl
+:SA1_cmpeqi SA1_cmpeqi_Rs16 SA1_cmpeqi_u2 is immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_cmpeqi_Rs16 & SA1_cmpeqi_u2 {
+  local tmp0:1;
+  tmp0 = (SA1_cmpeqi_Rs16) == (SA1_cmpeqi_u2);
+  P0 = tmp0;
+}
 
-:SL1_loadri_io SL1_loadri_io_Rd16 SL1_loadri_io_Rs16 SL1_loadri_io_u4_2 is immext = 0xffffffff & subinsn = 2 & a12 = 0 & SL1_loadri_io_Rd16 & SL1_loadri_io_Rs16 & SL1_loadri_io_u4_2 unimpl
+:SL1_loadri_io SL1_loadri_io_Rd16 SL1_loadri_io_Rs16 SL1_loadri_io_u4_2 is immext = 0xffffffff & subinsn = 2 & a12 = 0 & SL1_loadri_io_Rd16 & SL1_loadri_io_Rs16 & SL1_loadri_io_u4_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SL1_loadri_io_Rs16 + SL1_loadri_io_u4_2;
+  EA = tmp0;
+  SL1_loadri_io_Rd16 = *:4 EA;
+}
 
-:SL1_loadrub_io SL1_loadrub_io_Rd16 SL1_loadrub_io_Rs16 SL1_loadrub_io_u4_0 is immext = 0xffffffff & subinsn = 2 & a12 = 1 & SL1_loadrub_io_Rd16 & SL1_loadrub_io_Rs16 & SL1_loadrub_io_u4_0 unimpl
+:SL1_loadrub_io SL1_loadrub_io_Rd16 SL1_loadrub_io_Rs16 SL1_loadrub_io_u4_0 is immext = 0xffffffff & subinsn = 2 & a12 = 1 & SL1_loadrub_io_Rd16 & SL1_loadrub_io_Rs16 & SL1_loadrub_io_u4_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SL1_loadrub_io_Rs16 + SL1_loadrub_io_u4_0;
+  EA = tmp0;
+  SL1_loadrub_io_Rd16 = *:1 EA;
+}
 
-:SL2_loadrh_io SL2_loadrh_io_Rd16 SL2_loadrh_io_Rs16 SL2_loadrh_io_u3_1 is immext = 0xffffffff & subinsn = 3 & a11 = 0 & a12 = 0 & SL2_loadrh_io_Rd16 & SL2_loadrh_io_Rs16 & SL2_loadrh_io_u3_1 unimpl
+:SL2_loadrh_io SL2_loadrh_io_Rd16 SL2_loadrh_io_Rs16 SL2_loadrh_io_u3_1 is immext = 0xffffffff & subinsn = 3 & a11 = 0 & a12 = 0 & SL2_loadrh_io_Rd16 & SL2_loadrh_io_Rs16 & SL2_loadrh_io_u3_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SL2_loadrh_io_Rs16 + SL2_loadrh_io_u3_1;
+  EA = tmp0;
+  SL2_loadrh_io_Rd16 = *:2 EA;
+}
 
-:SL2_loadruh_io SL2_loadruh_io_Rd16 SL2_loadruh_io_Rs16 SL2_loadruh_io_u3_1 is immext = 0xffffffff & subinsn = 3 & a11 = 1 & a12 = 0 & SL2_loadruh_io_Rd16 & SL2_loadruh_io_Rs16 & SL2_loadruh_io_u3_1 unimpl
+:SL2_loadruh_io SL2_loadruh_io_Rd16 SL2_loadruh_io_Rs16 SL2_loadruh_io_u3_1 is immext = 0xffffffff & subinsn = 3 & a11 = 1 & a12 = 0 & SL2_loadruh_io_Rd16 & SL2_loadruh_io_Rs16 & SL2_loadruh_io_u3_1 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SL2_loadruh_io_Rs16 + SL2_loadruh_io_u3_1;
+  EA = tmp0;
+  SL2_loadruh_io_Rd16 = *:2 EA;
+}
 
-:SL2_loadrb_io SL2_loadrb_io_Rd16 SL2_loadrb_io_Rs16 SL2_loadrb_io_u3_0 is immext = 0xffffffff & subinsn = 3 & a11 = 0 & a12 = 1 & SL2_loadrb_io_Rd16 & SL2_loadrb_io_Rs16 & SL2_loadrb_io_u3_0 unimpl
+:SL2_loadrb_io SL2_loadrb_io_Rd16 SL2_loadrb_io_Rs16 SL2_loadrb_io_u3_0 is immext = 0xffffffff & subinsn = 3 & a11 = 0 & a12 = 1 & SL2_loadrb_io_Rd16 & SL2_loadrb_io_Rs16 & SL2_loadrb_io_u3_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SL2_loadrb_io_Rs16 + SL2_loadrb_io_u3_0;
+  EA = tmp0;
+  SL2_loadrb_io_Rd16 = *:1 EA;
+}
 
-:SL2_loadri_sp SL2_loadri_sp_Rd16 SL2_loadri_sp_u5_2 is immext = 0xffffffff & subinsn = 3 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadri_sp_Rd16 & SL2_loadri_sp_u5_2 unimpl
+:SL2_loadri_sp SL2_loadri_sp_Rd16 SL2_loadri_sp_u5_2 is immext = 0xffffffff & subinsn = 3 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadri_sp_Rd16 & SL2_loadri_sp_u5_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = R29 + SL2_loadri_sp_u5_2;
+  EA = tmp0;
+  SL2_loadri_sp_Rd16 = *:4 EA;
+}
 
-:SL2_loadrd_sp SL2_loadrd_sp_Rdd8 SL2_loadrd_sp_u5_3 is immext = 0xffffffff & subinsn = 3 & a8 = 0 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadrd_sp_Rdd8 & SL2_loadrd_sp_u5_3 unimpl
+:SL2_loadrd_sp SL2_loadrd_sp_Rdd8 SL2_loadrd_sp_u5_3 is immext = 0xffffffff & subinsn = 3 & a8 = 0 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadrd_sp_Rdd8 & SL2_loadrd_sp_u5_3 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = R29 + SL2_loadrd_sp_u5_3;
+  EA = tmp0;
+  SL2_loadrd_sp_Rdd8 = *:8 EA;
+}
 
-:SL2_deallocframe  is immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 0 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
+:SL2_deallocframe  is immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 0 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+  local EA:4;
+  EA = R30;
+  local tmp:8;
+  tmp = *:8 EA;
+  tmp = tmp;
+  local tmp0:8;
+  local tmp1:4;
+  tmp0 = (tmp >> 32);
+  tmp1 = tmp0:4;
+  R31 = tmp1;
+  local tmp2:8;
+  local tmp3:4;
+  tmp2 = (tmp >> 0);
+  tmp3 = tmp2:4;
+  R30 = tmp3;
+  local tmp4:4;
+  tmp4 = EA + 8;
+  R29 = tmp4;
+}
 
-:SL2_return  is immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
+:SL2_return  is immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+  local EA:4;
+  EA = R30;
+  local tmp:8;
+  tmp = *:8 EA;
+  tmp = tmp;
+  local tmp0:8;
+  local tmp1:4;
+  tmp0 = (tmp >> 32);
+  tmp1 = tmp0:4;
+  R31 = tmp1;
+  local tmp2:8;
+  local tmp3:4;
+  tmp2 = (tmp >> 0);
+  tmp3 = tmp2:4;
+  R30 = tmp3;
+  local tmp4:4;
+  tmp4 = EA + 8;
+  R29 = tmp4;
+  local tmp5:8;
+  local tmp6:4;
+  tmp5 = (tmp >> 32);
+  tmp6 = tmp5:4;
+  return [tmp6];
+}
 
-:SL2_return_t  is immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
+:SL2_return_t  is immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+  local EA:4;
+  EA = R30;
+  if (P0) goto <t_branch>;
+  goto <f_branch>;
+<t_branch>
+  local tmp:8;
+  tmp = *:8 EA;
+  tmp = tmp;
+  local tmp0:8;
+  local tmp1:4;
+  tmp0 = (tmp >> 32);
+  tmp1 = tmp0:4;
+  R31 = tmp1;
+  local tmp2:8;
+  local tmp3:4;
+  tmp2 = (tmp >> 0);
+  tmp3 = tmp2:4;
+  R30 = tmp3;
+  local tmp4:4;
+  tmp4 = EA + 8;
+  R29 = tmp4;
+  local tmp5:8;
+  local tmp6:4;
+  tmp5 = (tmp >> 32);
+  tmp6 = tmp5:4;
+  return [tmp6];
+  goto <done>;
+<f_branch>
+<done>
+}
 
 :SL2_return_f  is immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
 
@@ -15446,7 +16387,14 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
   return [R31];
 }
 
-:SL2_jumpr31_t  is immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
+:SL2_jumpr31_t  is immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+  if (P0) goto <t_branch>;
+  goto <done>;
+<t_branch>
+  return [R31];
+  goto <done>;
+<done>
+}
 
 :SL2_jumpr31_f  is immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
 
@@ -15454,7 +16402,13 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SL2_jumpr31_fnew  is immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 unimpl
 
-:SS1_storew_io SS1_storew_io_Rs16 SS1_storew_io_Rt16 SS1_storew_io_u4_2 is immext = 0xffffffff & subinsn = 4 & a12 = 0 & SS1_storew_io_Rs16 & SS1_storew_io_Rt16 & SS1_storew_io_u4_2 unimpl
+:SS1_storew_io SS1_storew_io_Rs16 SS1_storew_io_Rt16 SS1_storew_io_u4_2 is immext = 0xffffffff & subinsn = 4 & a12 = 0 & SS1_storew_io_Rs16 & SS1_storew_io_Rt16 & SS1_storew_io_u4_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SS1_storew_io_Rs16 + SS1_storew_io_u4_2;
+  EA = tmp0;
+  *:4 EA = (SS1_storew_io_Rt16);
+}
 
 :SS1_storeb_io SS1_storeb_io_Rs16 SS1_storeb_io_Rt16 SS1_storeb_io_u4_0 is immext = 0xffffffff & subinsn = 4 & a12 = 1 & SS1_storeb_io_Rs16 & SS1_storeb_io_Rt16 & SS1_storeb_io_u4_0 unimpl
 
@@ -15462,26 +16416,66 @@ SS2_allocframe_u5_3: reloc is SS2_allocframe_u5_3_0 [ reloc = (SS2_allocframe_u5
 
 :SS2_stored_sp SS2_stored_sp_Rtt8 SS2_stored_sp_s6_3 is immext = 0xffffffff & subinsn = 5 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_stored_sp_Rtt8 & SS2_stored_sp_s6_3 {
   local EA:4;
-  EA = (R29) + (SS2_stored_sp_s6_3);
+  local tmp0:4;
+  tmp0 = R29 + SS2_stored_sp_s6_3;
+  EA = tmp0;
   *:8 EA = (SS2_stored_sp_Rtt8);
 }
 
-:SS2_storew_sp SS2_storew_sp_Rt16 SS2_storew_sp_u5_2 is immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_storew_sp_Rt16 & SS2_storew_sp_u5_2 unimpl
+:SS2_storew_sp SS2_storew_sp_Rt16 SS2_storew_sp_u5_2 is immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_storew_sp_Rt16 & SS2_storew_sp_u5_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = R29 + SS2_storew_sp_u5_2;
+  EA = tmp0;
+  *:4 EA = (SS2_storew_sp_Rt16);
+}
 
-:SS2_storewi0 SS2_storewi0_Rs16 SS2_storewi0_u4_2 is immext = 0xffffffff & subinsn = 5 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi0_Rs16 & SS2_storewi0_u4_2 unimpl
+:SS2_storewi0 SS2_storewi0_Rs16 SS2_storewi0_u4_2 is immext = 0xffffffff & subinsn = 5 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi0_Rs16 & SS2_storewi0_u4_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SS2_storewi0_Rs16 + SS2_storewi0_u4_2;
+  EA = tmp0;
+  *:4 EA = (0);
+}
 
-:SS2_storebi0 SS2_storebi0_Rs16 SS2_storebi0_u4_0 is immext = 0xffffffff & subinsn = 5 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi0_Rs16 & SS2_storebi0_u4_0 unimpl
+:SS2_storebi0 SS2_storebi0_Rs16 SS2_storebi0_u4_0 is immext = 0xffffffff & subinsn = 5 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi0_Rs16 & SS2_storebi0_u4_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SS2_storebi0_Rs16 + SS2_storebi0_u4_0;
+  EA = tmp0;
+  *:1 EA = (0);
+}
 
-:SS2_storewi1 SS2_storewi1_Rs16 SS2_storewi1_u4_2 is immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi1_Rs16 & SS2_storewi1_u4_2 unimpl
+:SS2_storewi1 SS2_storewi1_Rs16 SS2_storewi1_u4_2 is immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi1_Rs16 & SS2_storewi1_u4_2 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SS2_storewi1_Rs16 + SS2_storewi1_u4_2;
+  EA = tmp0;
+  *:4 EA = (1);
+}
 
-:SS2_storebi1 SS2_storebi1_Rs16 SS2_storebi1_u4_0 is immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi1_Rs16 & SS2_storebi1_u4_0 unimpl
+:SS2_storebi1 SS2_storebi1_Rs16 SS2_storebi1_u4_0 is immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi1_Rs16 & SS2_storebi1_u4_0 {
+  local EA:4;
+  local tmp0:4;
+  tmp0 = SS2_storebi1_Rs16 + SS2_storebi1_u4_0;
+  EA = tmp0;
+  *:1 EA = (1);
+}
 
 :SS2_allocframe SS2_allocframe_u5_3 is immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SS2_allocframe_u5_3 {
   local EA:4;
-  EA = (R29) + (- (8));
-  *:8 EA = ((zext(R31) << 32) | zext(R30));
+  local tmp0;
+  tmp0 = - 8;
+  local tmp1:4;
+  tmp1 = R29 + tmp0;
+  EA = tmp1;
+  local tmp2:8;
+  tmp2 = (zext(R31) << 32) | zext(R30);
+  *:8 EA = (tmp2);
   R30 = EA;
-  R29 = (EA) - (SS2_allocframe_u5_3);
+  local tmp3:4;
+  tmp3 = EA - SS2_allocframe_u5_3;
+  R29 = tmp3;
 }
 
 :DUPLEX is subinsn = 0 & Parse = 0b00 unimpl
