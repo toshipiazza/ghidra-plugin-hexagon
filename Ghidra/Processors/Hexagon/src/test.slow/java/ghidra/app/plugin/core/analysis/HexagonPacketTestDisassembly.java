@@ -17,6 +17,8 @@ package ghidra.app.plugin.core.analysis;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -311,5 +313,36 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 			BRANCHIND u0x1700
 
 		 */
+	}
+
+	@Test
+	public void testNewValueOperands() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 64);
+		// test_dualjump_two_cmp_jumps
+		programBuilder.setBytes("1000", "03 42 01 f3 00 d2 a5 a1 00 c0 9f 52");
+
+		programBuilder.disassemble("1000", 12, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		debugPrintAllKnownPackets(state);
+		
+		// S2_storerinew_io R5 0x2 0x0
+		Address addr2 = state.getPackets().get(0).getMaxAddress();
+		Instruction insn2 = program.getListing().getInstructionAt(addr2);
+		PcodeOp[] ops = insn2.getPcode();
+		
+		assertNotEquals(ops[0].getOpcode(), PcodeOp.UNIMPLEMENTED);
+
+		for (PcodeOp p : ops) {
+			System.out.println(p);
+		}
+
+		verifyAllPrefixes(state);
 	}
 }
