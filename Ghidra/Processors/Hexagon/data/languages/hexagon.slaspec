@@ -102,6 +102,8 @@ define pcodeop DO_SIAD;
 define pcodeop DO_SWI;
 define pcodeop fICDATAR;
 define pcodeop fICDATAW;
+define pcodeop fPAUSE;
+define pcodeop WRITE_SGP0;
 
 define token NORMAL(32)
   Parse                                = (14, 15)
@@ -22046,7 +22048,10 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
 
 :J2_trap1 J2_trap1_Rx32 J2_trap1_u8 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_trap1_Rx32 & J2_trap1_u8 unimpl
 
-:J2_pause J2_pause_u8 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_pause_u8 unimpl
+:J2_pause J2_pause_u8 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_pause_u8 {
+  local tmp0:4;
+  tmp0 = fPAUSE(J2_pause_u8);
+}
 
 :J2_rte  is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 unimpl
 
@@ -22115,7 +22120,15 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
 
 :Y2_k0unlock  is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 unimpl
 
-:Y2_crswap0 Y2_crswap0_Rx32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_crswap0_Rx32 unimpl
+:Y2_crswap0 Y2_crswap0_Rx32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_crswap0_Rx32 {
+  local tmp:8;
+  tmp = zext(Y2_crswap0_Rx32);
+  local tmp0:4;
+  tmp0 = READ_SGP0();
+  Y2_crswap0_Rx32 = tmp0;
+  local tmp1:4;
+  tmp1 = WRITE_SGP0(tmp);
+}
 
 :Y4_crswap1 Y4_crswap1_Rx32 is immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_crswap1_Rx32 unimpl
 
