@@ -20,8 +20,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 	private static final String NAME = "Hexagon Packet Analyzer";
 	private static final String DESCRIPTION = "Analyze Hexagon Instructions for packets.";
 
-	private final static int NOTIFICATION_INTERVAL = 1024;
-
 	public HexagonPacketAnalyzer() {
 		super(NAME, DESCRIPTION, AnalyzerType.INSTRUCTION_ANALYZER);
 		setPriority(AnalysisPriority.BLOCK_ANALYSIS.after());

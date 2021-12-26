@@ -1,15 +1,5 @@
 package ghidra.app.plugin.core.analysis;
 
-import ghidra.program.model.listing.Instruction;
-import ghidra.program.model.listing.Program;
-import ghidra.program.model.mem.MemoryAccessException;
-import ghidra.program.model.pcode.PcodeOp;
-import ghidra.program.model.pcode.SequenceNumber;
-import ghidra.program.model.pcode.Varnode;
-import ghidra.util.Msg;
-import ghidra.util.exception.NotYetImplementedException;
-import ghidra.util.task.TaskMonitor;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
-import ghidra.app.plugin.processors.sleigh.VarnodeData;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressFactory;
 import ghidra.program.model.address.AddressIterator;
@@ -29,6 +18,15 @@ import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.UnknownInstructionException;
+import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.Program;
+import ghidra.program.model.mem.MemoryAccessException;
+import ghidra.program.model.pcode.PcodeOp;
+import ghidra.program.model.pcode.SequenceNumber;
+import ghidra.program.model.pcode.Varnode;
+import ghidra.util.Msg;
+import ghidra.util.exception.NotYetImplementedException;
+import ghidra.util.task.TaskMonitor;
 
 public class HexagonAnalysisState implements AnalysisState {
 
@@ -53,6 +51,13 @@ public class HexagonAnalysisState implements AnalysisState {
 		endPackets = new HashSet<>();
 		duplexInsns = new HashMap<>();
 		this.program = program;
+
+//		try {
+//			SleighLanguageDescription description = (SleighLanguageDescription)program.getLanguage().getLanguageDescription();
+//			File iset = new ResourceFile(description.getSlaFile().getParentFile(), "iset.json").getFile(true);
+//		} catch (IOException e) {
+//			Msg.error(this, "Unexpected Exception", e);
+//		}
 	}
 
 	boolean endPacket(Address address) {
@@ -99,7 +104,7 @@ public class HexagonAnalysisState implements AnalysisState {
 	void addInstructionToPacketOrCreatePacket(Instruction instr, TaskMonitor monitor) {
 		Address minAddress = instr.getMinAddress();
 		Address maxAddress = instr.getMaxAddress();
-		
+
 		if (findPacketForAddress(instr.getMinAddress()) != null) {
 			return;
 		}
@@ -253,7 +258,7 @@ public class HexagonAnalysisState implements AnalysisState {
 	boolean removePacketForAddress(Address address) {
 		for (HexagonPacket packet : packets) {
 			if (packet.containsAddress(address)) {
-				
+
 				AddressIterator iter = packet.getAddressIter();
 				while (iter.hasNext()) {
 					Address addr = iter.next();
@@ -294,14 +299,14 @@ public class HexagonAnalysisState implements AnalysisState {
 		if (!packet.isTerminated()) {
 			return false;
 		}
-		
+
 		int add;
 		if (packet.hasDuplex()) {
 			add = 2;
 		} else {
 			add = 0;
 		}
-		
+
 		return packet.getMaxAddress().add(add).equals(minAddress);
 	}
 
@@ -310,16 +315,16 @@ public class HexagonAnalysisState implements AnalysisState {
 	}
 
 	Address getRegisterTemp(Address[] scratchRegUnique, Address addr) {
-		return scratchRegUnique[(int) (addr.getOffset() / 4)];
+		return scratchRegUnique[(int) (addr.getOffset() / 4)].add(addr.getOffset() % 4);
 	}
 
-	boolean isBranch(PcodeOp op) {
-		if (op.getOpcode() == PcodeOp.CBRANCH) {
-			throw new NotYetImplementedException("NYI");
+	boolean branchRequiresFixup(PcodeOp op) {
+		if (op.getOpcode() == PcodeOp.CBRANCH || op.getOpcode() == PcodeOp.BRANCH) {
+			// constant cbranches are pcode-relative and don't need to be fixed up
+			return !op.getInput(0).isConstant();
 		}
-		return op.getOpcode() == PcodeOp.CALL || op.getOpcode() == PcodeOp.CALLIND || op.getOpcode() == PcodeOp.BRANCH
-				|| op.getOpcode() == PcodeOp.BRANCHIND || op.getOpcode() == PcodeOp.CBRANCH
-				|| op.getOpcode() == PcodeOp.RETURN;
+		return op.getOpcode() == PcodeOp.CALL || op.getOpcode() == PcodeOp.CALLIND
+				|| op.getOpcode() == PcodeOp.BRANCHIND || op.getOpcode() == PcodeOp.RETURN;
 	}
 
 	boolean isCall(PcodeOp op) {
@@ -338,7 +343,7 @@ public class HexagonAnalysisState implements AnalysisState {
 					registerSpills.add(op.getInput(i));
 				}
 			}
-			if (isBranch(op)) {
+			if (branchRequiresFixup(op)) {
 				branches.put(op.getSeqnum(), new Varnode(uniqueFactory.getNextUniqueAddress(), 1));
 			}
 		}
@@ -372,12 +377,29 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	boolean hasInternalCof(PcodeOp[] pcode) {
 		for (PcodeOp op : pcode) {
-			if (op.getOpcode() == PcodeOp.CBRANCH
-					&& op.getInput(1).getAddress().getAddressSpace().getName().equals("constant")) {
+			if (op.getOpcode() == PcodeOp.CBRANCH && op.getInput(0).getAddress().isConstantAddress()) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	boolean isNewRegUserOp(PcodeOp op) {
+		// (unique, 0x27800, 1) CALLOTHER (const, 0x0, 4) , (unique, 0x96805, 1)
+
+		if (op.getOpcode() != PcodeOp.CALLOTHER) {
+			return false;
+		}
+		if (op.getNumInputs() != 2) {
+			return false;
+		}
+		if (!op.getInput(0).isConstant()) {
+			return false;
+		}
+		if (op.getInput(0).getOffset() != 0) {
+			return false;
+		}
+		return true;
 	}
 
 	void writePcode(Instruction instruction, Address maxAddress, PcodeOp[] pcode, List<PcodeOp> mainPcode,
@@ -387,16 +409,23 @@ public class HexagonAnalysisState implements AnalysisState {
 
 		int seqno = 0;
 		for (PcodeOp op : pcode) {
-			PcodeOp opNew = new PcodeOp(op.getSeqnum(), op.getOpcode(), op.getNumInputs(), op.getOutput());
-			for (int i = 0; i < op.getNumInputs(); i++) {
-				if (op.getInput(i).getAddress().getAddressSpace().getName().equals("register")) {
-					Address uniq = getRegisterTemp(scratchRegUnique, op.getInput(i).getAddress());
-					opNew.setInput(new Varnode(uniq, op.getInput(i).getSize()), i);
-				} else {
-					opNew.setInput(op.getInput(i), i);
+			PcodeOp opNew;
+			if (isNewRegUserOp(op)) {
+				// replace `tmp = CALLOTHER 0 reg` with `tmp = reg`
+				opNew = new PcodeOp(op.getSeqnum(), PcodeOp.COPY, 1, op.getOutput());
+				opNew.setInput(op.getInput(1), 0);
+			} else {
+				opNew = new PcodeOp(op.getSeqnum(), op.getOpcode(), op.getNumInputs(), op.getOutput());
+				for (int i = 0; i < op.getNumInputs(); i++) {
+					if (op.getInput(i).getAddress().getAddressSpace().getName().equals("register")) {
+						Address uniq = getRegisterTemp(scratchRegUnique, op.getInput(i).getAddress());
+						opNew.setInput(new Varnode(uniq, op.getInput(i).getSize()), i);
+					} else {
+						opNew.setInput(op.getInput(i), i);
+					}
 				}
 			}
-			if (isBranch(opNew)) {
+			if (branchRequiresFixup(opNew)) {
 				Varnode branchVn = branches.get(op.getSeqnum());
 				if (hasInternalCof(pcode)) {
 					Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(1), 1) };
@@ -404,12 +433,12 @@ public class HexagonAnalysisState implements AnalysisState {
 							branchVn);
 					mainPcode.add(spill);
 
-					int disp = 1;
+					int disp = 2;
 					if (isCall(op)) {
-						disp = 2;
+						disp = 3;
 					}
 
-					in = new Varnode[] { branchVn, new Varnode(addressFactory.getConstantAddress(disp), 1) };
+					in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(disp), 1), branchVn };
 					PcodeOp insn1 = new PcodeOp(maxAddress, SPILL_UNIQ + seqno++, PcodeOp.CBRANCH, in, null);
 					jumpPcode.add(insn1);
 				}
@@ -489,7 +518,7 @@ public class HexagonAnalysisState implements AnalysisState {
 		buf.write(PcodeEmitPacked.end_tag);
 	}
 
-	public PackedBytes getPcodePacked(InstructionContext context, UniqueAddressFactory uniqueFactory)
+	public List<PcodeOp> getPcode(InstructionContext context, UniqueAddressFactory uniqueFactory)
 			throws UnknownInstructionException {
 		HexagonPacket packet = findPacketForAddress(context.getAddress());
 		if (packet == null) {
@@ -539,9 +568,20 @@ public class HexagonAnalysisState implements AnalysisState {
 		donePcode.addAll(mainPcode);
 		donePcode.addAll(jumpPcode);
 
+		return donePcode;
+	}
+
+	public PackedBytes getPcodePacked(InstructionContext context, UniqueAddressFactory uniqueFactory)
+			throws UnknownInstructionException {
+		HexagonPacket packet = findPacketForAddress(context.getAddress());
+		if (packet == null) {
+			throw new UnknownInstructionException("No packet found at address " + context.getAddress());
+		}
+
+		List<PcodeOp> donePcode = getPcode(context, uniqueFactory);
+
 		PackedBytes packed = new PackedBytes(100);
 		writePackedBytes(packet, donePcode, packed);
-
 		return packed;
 	}
 }

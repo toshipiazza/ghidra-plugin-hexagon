@@ -44,6 +44,7 @@ import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
+import ghidra.program.model.pcode.PcodeOp;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
 import ghidra.test.TestEnv;
 import ghidra.util.task.TaskMonitor;
@@ -240,4 +241,75 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		verifyAllPrefixes(state);
 	}
 
+	@Test
+	public void testDotNewPredicates() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 64);
+		// test_dualjump_two_cmp_jumps
+		programBuilder.setBytes("1000", "08 62 03 10 0a 62 03 12 01 c1 01 f3 c0 3f 00 48 c0 3f 10 48 c0 3f 20 48");
+
+		programBuilder.disassemble("1000", 24, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		assertEquals(9, program.getListing().getNumInstructions());
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		debugPrintAllKnownPackets(state);
+		List<HexagonPacket> packets = state.getPackets();
+
+		verifyAllPrefixes(state);
+		
+		HexagonPacket packet1 = packets.get(0);
+		Instruction insn1 = packet1.getInstructions().get(0);
+		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(program.getAddressFactory(), program.getLanguage());
+		List<PcodeOp> pcode = state.getPcode(insn1.getInstructionContext(), uniqueFactory);
+		for (PcodeOp p : pcode) {
+			System.out.println(p);
+		}
+		
+		/* Pcode should resemble
+
+			tmp1 = 0
+			tmp2 = 0
+			tmp3 = R1
+			tmp4 = P0
+			tmp5 = P1
+			tmp6 = R3
+
+		  J4_cmpeqi_tp0_jump_t R3 0x2 0x1010
+
+			u0x1100 = 0x1010
+			u0x1080 = 2
+			P0 = tmp6 == u0x1080
+			u0x26e00 = P0	
+			CBRANCH 2 , u0x26e00
+			BRANCH 3
+			tmp2 = 1
+			BRANCH 1
+
+		  J4_cmpeqi_tp1_jump_t R3 0x2 0x1014
+
+			u0x1700 = 0x1014
+			u0x1680 = 2
+			P1 = tmp6 == u0x1680
+			u0x27800 = P1
+			CBRANCH 2 , u0x27800
+			BRANCH 3
+			tmp1 = 1
+			BRANCH 1
+
+		  A2_add R1 R1 R1
+
+			R1 = tmp3 + tmp3
+
+			CBRANCH 2 , tmp2
+			BRANCHIND u0x1100
+			CBRANCH 2 , tmp1
+			BRANCHIND u0x1700
+
+		 */
+	}
 }

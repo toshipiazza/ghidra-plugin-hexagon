@@ -72,7 +72,7 @@ public class HexagonPacket {
 		dirty = true;
 		addrSet.add(instr.getMinAddress());
 	}
-	
+
 	AddressIterator getAddressIter() {
 		return addrSet.getAddresses(true);
 	}
@@ -119,37 +119,6 @@ public class HexagonPacket {
 
 	int getEndLoop() {
 		throw new NotYetImplementedException("NYI");
-	}
-
-	Address getFallthrough() {
-		if (!isTerminated()) {
-			throw new IllegalArgumentException("Packet is not terminated");
-		}
-
-		boolean hasFallthrough = true;
-
-		AddressIterator iter = addrSet.getAddresses(true);
-		while (iter.hasNext()) {
-			Address addr = iter.next();
-			Instruction instr = program.getListing().getInstructionAt(addr);
-			if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
-				hasFallthrough = false;
-			}
-		}
-
-		if (hasDuplex()) {
-			Instruction instr = program.getListing().getInstructionAt(getMaxAddress().add(2));
-			if (instr != null) {
-				if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
-					hasFallthrough = false;
-				}
-			}
-		}
-
-		if (!hasFallthrough) {
-			return null;
-		}
-		return getMaxAddress().add(4);
 	}
 
 	void redoPacket(TaskMonitor monitor) {
