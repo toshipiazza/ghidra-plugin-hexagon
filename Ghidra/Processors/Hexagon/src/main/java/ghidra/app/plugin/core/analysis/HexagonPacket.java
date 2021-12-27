@@ -6,13 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ghidra.app.plugin.core.analysis.HexagonAnalysisState.DuplexEncoding;
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
-import ghidra.program.model.lang.InstructionSet;
-import ghidra.program.model.lang.OperandType;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.ContextChangeException;
@@ -20,7 +17,6 @@ import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.scalar.Scalar;
 import ghidra.util.Msg;
-import ghidra.util.exception.NotYetImplementedException;
 import ghidra.util.task.TaskMonitor;
 
 public class HexagonPacket {
@@ -34,6 +30,7 @@ public class HexagonPacket {
 	Register subinsnRegister;
 	Register dotnewRegister;
 	Register hasnewRegister;
+	Register endloopRegister;
 
 	AddressSet addrSet;
 
@@ -151,6 +148,7 @@ public class HexagonPacket {
 		subinsnRegister = program.getProgramContext().getRegister("subinsn");
 		dotnewRegister = program.getProgramContext().getRegister("dotnew");
 		hasnewRegister = program.getProgramContext().getRegister("hasnew");
+		endloopRegister = program.getProgramContext().getRegister("endloop");
 	}
 
 	boolean isTerminated() {
@@ -209,21 +207,30 @@ public class HexagonPacket {
 		return null;
 	}
 
-	Register resolveNewValueReg(Instruction instr) throws UnknownInstructionException {
+	Register resolveNewValueReg(Address addr) throws UnknownInstructionException {
+		Instruction instr = program.getListing().getInstructionAt(addr);
+		if (instr == null) {
+			throw new UnknownInstructionException("Instruction in packet not defined");
+		}
 		BigInteger idx = getNewValueOperand(instr);
 		if (idx == null) {
 			return null;
 		}
 
+		if (hasDuplex()) {
+			// no duplex instructions have new-value operands
+			if (instr.getMinAddress().equals(getMaxAddress().add(0))) {
+				return null;
+			}
+			if (instr.getMinAddress().equals(getMaxAddress().add(2))) {
+				return null;
+			}
+		}
+
 		int idx2 = idx.intValue();
 		idx2 = (idx2 >> 1) & 0b11;
 
-		Address start;
-		if (hasDuplex() && instr.getMinAddress().equals(getMaxAddress().add(2))) {
-			start = getMaxAddress();
-		} else {
-			start = instr.getMinAddress();
-		}
+		Address start = instr.getMinAddress();
 
 		for (int i = 0; i < idx2; ++i) {
 			start = start.subtract(4);
@@ -306,12 +313,70 @@ public class HexagonPacket {
 		return isTerminated() && hasDuplex() && getMaxAddress().add(2).equals(address);
 	}
 
-	boolean hasEndLoop() {
-		throw new NotYetImplementedException("NYI");
+	enum LoopEncoding {
+		NotLastInLoop, LastInLoop0, LastInLoop1, LastInLoop0And1;
+
+		int toInt() {
+			int loopEncodingValue = 0;
+			switch (this) {
+			case NotLastInLoop:
+				loopEncodingValue = 0;
+				break;
+			case LastInLoop0:
+				loopEncodingValue = 1;
+				break;
+			case LastInLoop1:
+				loopEncodingValue = 2;
+				break;
+			case LastInLoop0And1:
+				loopEncodingValue = 3;
+				break;
+			}
+			return loopEncodingValue;
+		}
 	}
 
-	int getEndLoop() {
-		throw new NotYetImplementedException("NYI");
+	LoopEncoding getEndLoop() {
+		if (!isTerminated()) {
+			throw new IllegalArgumentException();
+		}
+
+		AddressIterator iter = addrSet.getAddresses(true);
+		Address addr1 = iter.next();
+		if (!iter.hasNext()) {
+			return LoopEncoding.NotLastInLoop;
+		}
+		Address addr2 = iter.next();
+
+		int parse1 = state.getParseBits(addr1);
+		int parse2 = state.getParseBits(addr2);
+
+		if (parse2 == 0b00) {
+			// packet with duplex instruction cannot end loop
+			return LoopEncoding.NotLastInLoop;
+		}
+
+		if (parse1 == 0b00 || parse1 == 0b11) {
+			// ought to be unreachable because of checks above
+			assert false;
+		} else if (parse1 == 0b10) {
+			if (parse2 == 0b01 || parse2 == 0b11) {
+				return LoopEncoding.LastInLoop0;
+			} else if (parse2 == 0b10) {
+				return LoopEncoding.LastInLoop0And1;
+			}
+		} else if (parse1 == 0b01) {
+			if (parse2 == 0b01 || parse2 == 0b11) {
+				return LoopEncoding.NotLastInLoop;
+			} else if (parse2 == 0b10) {
+				return LoopEncoding.LastInLoop1;
+			}
+		}
+
+		// unreachable
+		System.out.println(toString());
+		assert false;
+		return LoopEncoding.NotLastInLoop;
 	}
 
 	void redoPacket(TaskMonitor monitor) {
@@ -327,15 +392,33 @@ public class HexagonPacket {
 			return;
 		}
 
+		Map<Address, BigInteger> newRegFixups = new HashMap<>();
+		// Do initial pass for opcode which have new-value operands
+		// N.B. we can do this here because no duplex instruction have new-value
+		// operands
+		AddressIterator iter = getAddressIter();
+		while (iter.hasNext()) {
+			Address addr = iter.next();
+			Register reg;
+			try {
+				reg = resolveNewValueReg(addr);
+				if (reg != null) {
+					newRegFixups.put(addr, reg.getAddress().getOffsetAsBigInteger().divide(BigInteger.valueOf(4)));
+				}
+			} catch (UnknownInstructionException e) {
+				Msg.error(this,
+						"Unexpected Exception, could not set context registers nor resolve instructions with new-reg operands",
+						e);
+			}
+		}
+
 		program.getListing().clearCodeUnits(getMinAddress(), getMaxAddress().add(2), true);
 
 		AddressSet addrSet2 = new AddressSet();
-		AddressIterator iter = addrSet.getAddresses(true);
+		iter = addrSet.getAddresses(true);
 		while (iter.hasNext()) {
 			addrSet2.add(iter.next());
 		}
-
-		boolean hasDuplex = hasDuplex();
 
 		// set pkt_start and pkt_end, and resolve duplex instructions
 		BigInteger pktStart = BigInteger.valueOf(getMinAddress().getOffset());
@@ -344,7 +427,7 @@ public class HexagonPacket {
 			program.getProgramContext().setValue(pktStartRegister, getMinAddress(), getMaxAddress(), pktStart);
 			program.getProgramContext().setValue(pktNextRegister, getMinAddress(), getMaxAddress(), pktNext);
 
-			if (hasDuplex) {
+			if (hasDuplex()) {
 				Address duplexLo = getMaxAddress().add(0);
 				Address duplexHi = getMaxAddress().add(2);
 				BigInteger lo = BigInteger.valueOf(state.duplexInsns.get(duplexLo).getValue());
@@ -352,7 +435,29 @@ public class HexagonPacket {
 				program.getProgramContext().setValue(subinsnRegister, duplexLo, duplexLo, lo);
 				program.getProgramContext().setValue(subinsnRegister, duplexHi, duplexHi, hi);
 				addrSet2.add(duplexHi); // disassemble the duplex as well
+			} else {
+				// N.B. duplex instructions can't terminate endloops
+				LoopEncoding loopEncoding = getEndLoop();
+				program.getProgramContext().setValue(endloopRegister, getMaxAddress(), getMaxAddress(),
+						BigInteger.valueOf(loopEncoding.toInt()));
 			}
+
+			if (newRegFixups.size() > 0) {
+				for (Map.Entry<Address, BigInteger> ent : newRegFixups.entrySet()) {
+					Address a = ent.getKey();
+					BigInteger b = ent.getValue();
+
+					try {
+						program.getProgramContext().setValue(hasnewRegister, a, a, BigInteger.valueOf(1));
+						program.getProgramContext().setValue(dotnewRegister, a, a, b);
+					} catch (ContextChangeException e) {
+						Msg.error(this,
+								"Unexpected Exception, could not set context registers nor resolve instructions with new-reg operands",
+								e);
+					}
+				}
+			}
+
 		} catch (ContextChangeException e) {
 			Msg.error(this, "Unexpected Exception, could not set context registers nor resolve duplex instructions", e);
 		}
@@ -360,46 +465,6 @@ public class HexagonPacket {
 		// disassemble packet again so the context reg changes stick
 		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
 		dis.disassemble(addrSet2, addrSet2, false);
-
-		Map<Address, BigInteger> newRegFixups = new HashMap<>();
-		// do a second pass over the instructions assuming duplex instructions have been
-		// created
-		try {
-			for (Instruction insn : getInstructions()) {
-				Register reg = resolveNewValueReg(insn);
-				if (reg != null) {
-					newRegFixups.put(insn.getAddress(),
-							reg.getAddress().getOffsetAsBigInteger().divide(BigInteger.valueOf(4)));
-				}
-			}
-		} catch (UnknownInstructionException e) {
-			// if duplex instructions failed to parse (for example) we could hit
-			// this, but don't bother continuing since the packet is malformed
-			// anyway
-			Msg.error(this, "Could not get instructions from invalid packets", e);
-		}
-
-		if (newRegFixups.size() > 0) {
-			// re-analyze packet so new-value operands are picked up properly
-			program.getListing().clearCodeUnits(getMinAddress(), getMaxAddress().add(2), true);
-
-			for (Map.Entry<Address, BigInteger> ent : newRegFixups.entrySet()) {
-				Address a = ent.getKey();
-				BigInteger b = ent.getValue();
-
-				try {
-					program.getProgramContext().setValue(hasnewRegister, a, a, BigInteger.valueOf(1));
-					program.getProgramContext().setValue(dotnewRegister, a, a, b);
-				} catch (ContextChangeException e) {
-					Msg.error(this,
-							"Unexpected Exception, could not set context registers nor resolve instructions with new-reg operands",
-							e);
-				}
-			}
-
-			// disassemble instructions with new-value operands
-			dis.disassemble(addrSet2, addrSet2, false);
-		}
 
 		dirty = false;
 	}
