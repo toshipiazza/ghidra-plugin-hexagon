@@ -16,32 +16,20 @@
 package ghidra.app.plugin.core.analysis;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ghidra.app.cmd.disassemble.DisassembleCommand;
 import ghidra.app.plugin.core.analysis.HexagonAnalysisState.DuplexEncoding;
 import ghidra.framework.options.Options;
-import ghidra.program.database.ProgramAddressFactory;
 import ghidra.program.database.ProgramBuilder;
 import ghidra.program.model.address.Address;
-import ghidra.program.model.address.AddressFactory;
-import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.UniqueAddressFactory;
-import ghidra.program.model.lang.CompilerSpec;
-import ghidra.program.model.lang.Language;
-import ghidra.program.model.lang.PackedBytes;
-import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
@@ -49,7 +37,6 @@ import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.PcodeOp;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
 import ghidra.test.TestEnv;
-import ghidra.util.task.TaskMonitor;
 
 public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegrationTest {
 
@@ -82,7 +69,7 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 			System.out.println(packet);
 		}
 	}
-	
+
 	void verifyAllPrefixes(HexagonAnalysisState state) throws UnknownInstructionException {
 		for (HexagonPacket packet : state.getPackets()) {
 			List<Instruction> insns = packet.getInstructions();
@@ -263,55 +250,37 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		List<HexagonPacket> packets = state.getPackets();
 
 		verifyAllPrefixes(state);
-		
+
 		HexagonPacket packet1 = packets.get(0);
 		Instruction insn1 = packet1.getInstructions().get(0);
-		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(program.getAddressFactory(), program.getLanguage());
+		UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(program.getAddressFactory(),
+				program.getLanguage());
 		List<PcodeOp> pcode = state.getPcode(insn1.getInstructionContext(), uniqueFactory);
 		for (PcodeOp p : pcode) {
 			System.out.println(p);
 		}
-		
-		/* Pcode should resemble
 
-			tmp1 = 0
-			tmp2 = 0
-			tmp3 = R1
-			tmp4 = P0
-			tmp5 = P1
-			tmp6 = R3
-
-		  J4_cmpeqi_tp0_jump_t R3 0x2 0x1010
-
-			u0x1100 = 0x1010
-			u0x1080 = 2
-			P0 = tmp6 == u0x1080
-			u0x26e00 = P0	
-			CBRANCH 2 , u0x26e00
-			BRANCH 3
-			tmp2 = 1
-			BRANCH 1
-
-		  J4_cmpeqi_tp1_jump_t R3 0x2 0x1014
-
-			u0x1700 = 0x1014
-			u0x1680 = 2
-			P1 = tmp6 == u0x1680
-			u0x27800 = P1
-			CBRANCH 2 , u0x27800
-			BRANCH 3
-			tmp1 = 1
-			BRANCH 1
-
-		  A2_add R1 R1 R1
-
-			R1 = tmp3 + tmp3
-
-			CBRANCH 2 , tmp2
-			BRANCHIND u0x1100
-			CBRANCH 2 , tmp1
-			BRANCHIND u0x1700
-
+		/*
+		 * Pcode should resemble
+		 * 
+		 * tmp1 = 0 tmp2 = 0 tmp3 = R1 tmp4 = P0 tmp5 = P1 tmp6 = R3
+		 * 
+		 * J4_cmpeqi_tp0_jump_t R3 0x2 0x1010
+		 * 
+		 * u0x1100 = 0x1010 u0x1080 = 2 P0 = tmp6 == u0x1080 u0x26e00 = P0 CBRANCH 2 ,
+		 * u0x26e00 BRANCH 3 tmp2 = 1 BRANCH 1
+		 * 
+		 * J4_cmpeqi_tp1_jump_t R3 0x2 0x1014
+		 * 
+		 * u0x1700 = 0x1014 u0x1680 = 2 P1 = tmp6 == u0x1680 u0x27800 = P1 CBRANCH 2 ,
+		 * u0x27800 BRANCH 3 tmp1 = 1 BRANCH 1
+		 * 
+		 * A2_add R1 R1 R1
+		 * 
+		 * R1 = tmp3 + tmp3
+		 * 
+		 * CBRANCH 2 , tmp2 BRANCHIND u0x1100 CBRANCH 2 , tmp1 BRANCHIND u0x1700
+		 * 
 		 */
 	}
 
@@ -331,18 +300,61 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
 		debugPrintAllKnownPackets(state);
-		
+
 		// S2_storerinew_io R5 0x2 0x0
 		Address addr2 = state.getPackets().get(0).getMaxAddress();
 		Instruction insn2 = program.getListing().getInstructionAt(addr2);
 		PcodeOp[] ops = insn2.getPcode();
-		
+
+
 		assertNotEquals(ops[0].getOpcode(), PcodeOp.UNIMPLEMENTED);
 
-		for (PcodeOp p : ops) {
-			System.out.println(p);
-		}
+		verifyAllPrefixes(state);
+	}
+
+	@Test
+	public void testEndloop0() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 64);
+
+		// { loop0(data_2028c,#0xa)  
+		//   R1 = #0x0 }
+		// { R1 = add(R1,#0x1)
+		//   nop }  :endloop0
+		// { jumpr LR }
+
+		programBuilder.setBytes("1000", "52 40 00 69 01 c0 00 78 21 80 01 b0 00 c0 00 7f 00 c0 9f 52");
+
+		programBuilder.disassemble("1000", 20, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
+		debugPrintAllKnownPackets(state);
 
 		verifyAllPrefixes(state);
+		
+		// endloop was correctly detected
+		assertEquals(state.getPackets().get(1).toString(), "{ A2_addi R1 R1 0x1 ; A2_nop }:endloop0 @ 00001008");
+		
+		// endloop contextreg was correctly set
+		Register endloop = program.getProgramContext().getRegister("endloop");
+		assertEquals(program.getProgramContext().getValue(endloop, state.getPackets().get(1).getMaxAddress(), false).intValue(), 1);
+
+		for (HexagonPacket packet : state.getPackets()) {
+			System.out.println("------- pcode for packet " + packet);
+			System.out.println();
+			Instruction insn1 = packet.getInstructions().get(0);
+			UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(program.getAddressFactory(),
+					program.getLanguage());
+			List<PcodeOp> pcode = state.getPcode(insn1.getInstructionContext(), uniqueFactory);
+			for (PcodeOp p : pcode) {
+				System.out.println("  " + p);
+			}
+			System.out.println();
+		}
 	}
 }

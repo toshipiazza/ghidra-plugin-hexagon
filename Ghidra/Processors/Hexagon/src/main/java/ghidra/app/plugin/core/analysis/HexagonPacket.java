@@ -487,7 +487,21 @@ public class HexagonPacket {
 				sb.append(duplex.toString());
 			}
 		}
-		sb.append(" } @ ");
+		sb.append(" }");
+		switch (getEndLoop()) {
+		case NotLastInLoop:
+			break;
+		case LastInLoop0:
+			sb.append(":endloop0");
+			break;
+		case LastInLoop1:
+			sb.append(":endloop1");
+			break;
+		case LastInLoop0And1:
+			sb.append(":endloop0:endloop1");
+			break;
+		}
+		sb.append(" @ ");
 		sb.append(addrSet.getMinAddress().toString());
 		return sb.toString();
 	}

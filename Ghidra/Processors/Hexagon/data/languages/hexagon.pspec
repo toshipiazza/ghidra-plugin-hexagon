@@ -9,4 +9,38 @@
       <set name="immext"  val="4294967295" description=""/>
     </context_set>
   </context_data>
+  <register_data>
+    <register name="C0" group="CONTROL"/>
+    <register name="C1" group="CONTROL"/>
+    <register name="C2" group="CONTROL"/>
+    <register name="C3" group="CONTROL"/>
+    <register name="C4" group="CONTROL"/>
+    <register name="C5" group="CONTROL"/>
+    <register name="C6" group="CONTROL"/>
+    <register name="C7" group="CONTROL"/>
+    <register name="C8" group="CONTROL"/>
+    <register name="C9" group="CONTROL"/>
+    <register name="C10" group="CONTROL"/>
+    <register name="C11" group="CONTROL"/>
+    <register name="C12" group="CONTROL"/>
+    <register name="C13" group="CONTROL"/>
+    <register name="C14" group="CONTROL"/>
+    <register name="C15" group="CONTROL"/>
+    <register name="C16" group="CONTROL"/>
+    <register name="C17" group="CONTROL"/>
+    <register name="C18" group="CONTROL"/>
+    <register name="C19" group="CONTROL"/>
+    <register name="C20" group="CONTROL"/>
+    <register name="C21" group="CONTROL"/>
+    <register name="C22" group="CONTROL"/>
+    <register name="C23" group="CONTROL"/>
+    <register name="C24" group="CONTROL"/>
+    <register name="C25" group="CONTROL"/>
+    <register name="C26" group="CONTROL"/>
+    <register name="C27" group="CONTROL"/>
+    <register name="C28" group="CONTROL"/>
+    <register name="C29" group="CONTROL"/>
+    <register name="C30" group="CONTROL"/>
+    <register name="C31" group="CONTROL"/>
+  </register_data>
 </processor_spec>
