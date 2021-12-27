@@ -25533,21 +25533,157 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   A2_absp_Rdd32 = zext(tmp0);
 }
 
-:A2_max A2_max_Rd32 A2_max_Rs32 A2_max_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_max_Rd32 & A2_max_Rs32 & A2_max_Rt32 unimpl
+:A2_max A2_max_Rd32 A2_max_Rs32 A2_max_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_max_Rd32 & A2_max_Rs32 & A2_max_Rt32 {
+  local tmp0:1;
+  tmp0 = A2_max_Rs32 > A2_max_Rt32;
+  if (tmp0) goto <t_branch_2>;
+  goto <f_branch_2>;
+<t_branch_2>
+  local tmp2:4;
+  tmp2 = A2_max_Rs32;
+  goto <done_2>;
+<f_branch_2>
+  tmp2 = A2_max_Rt32;
+<done_2>
+  A2_max_Rd32 = tmp2;
+}
 
-:A2_maxu A2_maxu_Rd32 A2_maxu_Rs32 A2_maxu_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxu_Rd32 & A2_maxu_Rs32 & A2_maxu_Rt32 unimpl
+:A2_maxu A2_maxu_Rd32 A2_maxu_Rs32 A2_maxu_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxu_Rd32 & A2_maxu_Rs32 & A2_maxu_Rt32 {
+  local tmp0:4;
+  tmp0 = zext(A2_maxu_Rs32);
+  local tmp1:4;
+  tmp1 = zext(A2_maxu_Rt32);
+  local tmp2:1;
+  tmp2 = tmp0 > tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <f_branch_4>;
+<t_branch_4>
+  local tmp4:4;
+  tmp4 = zext(A2_maxu_Rs32);
+  local tmp5:4;
+  tmp5 = tmp4;
+  goto <done_4>;
+<f_branch_4>
+  local tmp6:4;
+  tmp6 = zext(A2_maxu_Rt32);
+  tmp5 = tmp6;
+<done_4>
+  A2_maxu_Rd32 = tmp5;
+}
 
-:A2_min A2_min_Rd32 A2_min_Rt32 A2_min_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_min_Rd32 & A2_min_Rt32 & A2_min_Rs32 unimpl
+:A2_min A2_min_Rd32 A2_min_Rt32 A2_min_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_min_Rd32 & A2_min_Rt32 & A2_min_Rs32 {
+  local tmp0:1;
+  tmp0 = A2_min_Rt32 < A2_min_Rs32;
+  if (tmp0) goto <t_branch_2>;
+  goto <f_branch_2>;
+<t_branch_2>
+  local tmp2:4;
+  tmp2 = A2_min_Rt32;
+  goto <done_2>;
+<f_branch_2>
+  tmp2 = A2_min_Rs32;
+<done_2>
+  A2_min_Rd32 = tmp2;
+}
 
-:A2_minu A2_minu_Rd32 A2_minu_Rt32 A2_minu_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minu_Rd32 & A2_minu_Rt32 & A2_minu_Rs32 unimpl
+:A2_minu A2_minu_Rd32 A2_minu_Rt32 A2_minu_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minu_Rd32 & A2_minu_Rt32 & A2_minu_Rs32 {
+  local tmp0:4;
+  tmp0 = zext(A2_minu_Rt32);
+  local tmp1:4;
+  tmp1 = zext(A2_minu_Rs32);
+  local tmp2:1;
+  tmp2 = tmp0 < tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <f_branch_4>;
+<t_branch_4>
+  local tmp4:4;
+  tmp4 = zext(A2_minu_Rt32);
+  local tmp5:4;
+  tmp5 = tmp4;
+  goto <done_4>;
+<f_branch_4>
+  local tmp6:4;
+  tmp6 = zext(A2_minu_Rs32);
+  tmp5 = tmp6;
+<done_4>
+  A2_minu_Rd32 = tmp5;
+}
 
-:A2_maxp A2_maxp_Rdd32 A2_maxp_Rss32 A2_maxp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxp_Rdd32 & A2_maxp_Rss32 & A2_maxp_Rtt32 unimpl
+:A2_maxp A2_maxp_Rdd32 A2_maxp_Rss32 A2_maxp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxp_Rdd32 & A2_maxp_Rss32 & A2_maxp_Rtt32 {
+  local tmp0:1;
+  tmp0 = A2_maxp_Rss32 > A2_maxp_Rtt32;
+  if (tmp0) goto <t_branch_2>;
+  goto <f_branch_2>;
+<t_branch_2>
+  local tmp2:8;
+  tmp2 = A2_maxp_Rss32;
+  goto <done_2>;
+<f_branch_2>
+  tmp2 = A2_maxp_Rtt32;
+<done_2>
+  A2_maxp_Rdd32 = tmp2;
+}
 
-:A2_maxup A2_maxup_Rdd32 A2_maxup_Rss32 A2_maxup_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxup_Rdd32 & A2_maxup_Rss32 & A2_maxup_Rtt32 unimpl
+:A2_maxup A2_maxup_Rdd32 A2_maxup_Rss32 A2_maxup_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxup_Rdd32 & A2_maxup_Rss32 & A2_maxup_Rtt32 {
+  local tmp0:8;
+  tmp0 = zext(A2_maxup_Rss32);
+  local tmp1:8;
+  tmp1 = zext(A2_maxup_Rtt32);
+  local tmp2:1;
+  tmp2 = tmp0 > tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <f_branch_4>;
+<t_branch_4>
+  local tmp4:8;
+  tmp4 = zext(A2_maxup_Rss32);
+  local tmp5:8;
+  tmp5 = tmp4;
+  goto <done_4>;
+<f_branch_4>
+  local tmp6:8;
+  tmp6 = zext(A2_maxup_Rtt32);
+  tmp5 = tmp6;
+<done_4>
+  A2_maxup_Rdd32 = tmp5;
+}
 
-:A2_minp A2_minp_Rdd32 A2_minp_Rtt32 A2_minp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minp_Rdd32 & A2_minp_Rtt32 & A2_minp_Rss32 unimpl
+:A2_minp A2_minp_Rdd32 A2_minp_Rtt32 A2_minp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minp_Rdd32 & A2_minp_Rtt32 & A2_minp_Rss32 {
+  local tmp0:1;
+  tmp0 = A2_minp_Rtt32 < A2_minp_Rss32;
+  if (tmp0) goto <t_branch_2>;
+  goto <f_branch_2>;
+<t_branch_2>
+  local tmp2:8;
+  tmp2 = A2_minp_Rtt32;
+  goto <done_2>;
+<f_branch_2>
+  tmp2 = A2_minp_Rss32;
+<done_2>
+  A2_minp_Rdd32 = tmp2;
+}
 
-:A2_minup A2_minup_Rdd32 A2_minup_Rtt32 A2_minup_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minup_Rdd32 & A2_minup_Rtt32 & A2_minup_Rss32 unimpl
+:A2_minup A2_minup_Rdd32 A2_minup_Rtt32 A2_minup_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minup_Rdd32 & A2_minup_Rtt32 & A2_minup_Rss32 {
+  local tmp0:8;
+  tmp0 = zext(A2_minup_Rtt32);
+  local tmp1:8;
+  tmp1 = zext(A2_minup_Rss32);
+  local tmp2:1;
+  tmp2 = tmp0 < tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <f_branch_4>;
+<t_branch_4>
+  local tmp4:8;
+  tmp4 = zext(A2_minup_Rtt32);
+  local tmp5:8;
+  tmp5 = tmp4;
+  goto <done_4>;
+<f_branch_4>
+  local tmp6:8;
+  tmp6 = zext(A2_minup_Rss32);
+  tmp5 = tmp6;
+<done_4>
+  A2_minup_Rdd32 = tmp5;
+}
 
 :A2_nop  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 {
 }
