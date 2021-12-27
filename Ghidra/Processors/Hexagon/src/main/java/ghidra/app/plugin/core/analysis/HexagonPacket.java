@@ -217,6 +217,10 @@ public class HexagonPacket {
 			return null;
 		}
 
+		if (idx.intValue() == 0) {
+			throw new UnknownInstructionException("New-value operand value of 0 is reserved and undefined");
+		}
+
 		if (hasDuplex()) {
 			// no duplex instructions have new-value operands
 			if (instr.getMinAddress().equals(getMaxAddress().add(0))) {
@@ -245,9 +249,9 @@ public class HexagonPacket {
 			if (inst.getMnemonicString().equals("A4_ext")) {
 				// 10.10 New-Value operands
 				//
-				// “ahead” is defined here as the instruction encoded at a lower memory address
-				// than the
-				// consumer instruction, not counting empty slots or constant extenders.
+				// “ahead” is defined here as the instruction encoded at a lower
+				// memory address than the consumer instruction, not counting
+				// empty slots or constant extenders.
 				start = start.subtract(4);
 			}
 		}
@@ -266,20 +270,22 @@ public class HexagonPacket {
 					throw new UnknownInstructionException("Instruction " + inst + " writes to at least two registers ("
 							+ reg + ", " + (Register) obj);
 				}
-				reg = (Register) obj;
-				if (reg.getAddress().getSize() != 32) {
-					throw new UnknownInstructionException(
-							"Instruction cannot be used as the destination of a new-value operand");
+				Register regtemp = (Register) obj;
+				if (regtemp.getAddress().getSize() != 32) {
+					// producer for new-value operand must be 32-bit register
+					continue;
 				}
-				if (!reg.getName().startsWith("R")) {
-					throw new UnknownInstructionException(
-							"Instruction cannot be used as the destination of a new-value operand");
+				if (!regtemp.getName().startsWith("R")) {
+					// producer for new-value operand must be a GPR
+					continue;
 				}
+				reg = regtemp;
 			}
 		}
 
 		if (reg == null) {
-			throw new UnknownInstructionException();
+			throw new UnknownInstructionException(
+					"Instruction cannot be used as the destination of a new-value operand");
 		}
 
 		return reg;

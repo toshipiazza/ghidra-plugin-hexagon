@@ -259,29 +259,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		for (PcodeOp p : pcode) {
 			System.out.println(p);
 		}
-
-		/*
-		 * Pcode should resemble
-		 * 
-		 * tmp1 = 0 tmp2 = 0 tmp3 = R1 tmp4 = P0 tmp5 = P1 tmp6 = R3
-		 * 
-		 * J4_cmpeqi_tp0_jump_t R3 0x2 0x1010
-		 * 
-		 * u0x1100 = 0x1010 u0x1080 = 2 P0 = tmp6 == u0x1080 u0x26e00 = P0 CBRANCH 2 ,
-		 * u0x26e00 BRANCH 3 tmp2 = 1 BRANCH 1
-		 * 
-		 * J4_cmpeqi_tp1_jump_t R3 0x2 0x1014
-		 * 
-		 * u0x1700 = 0x1014 u0x1680 = 2 P1 = tmp6 == u0x1680 u0x27800 = P1 CBRANCH 2 ,
-		 * u0x27800 BRANCH 3 tmp1 = 1 BRANCH 1
-		 * 
-		 * A2_add R1 R1 R1
-		 * 
-		 * R1 = tmp3 + tmp3
-		 * 
-		 * CBRANCH 2 , tmp2 BRANCHIND u0x1100 CBRANCH 2 , tmp1 BRANCHIND u0x1700
-		 * 
-		 */
 	}
 
 	@Test
