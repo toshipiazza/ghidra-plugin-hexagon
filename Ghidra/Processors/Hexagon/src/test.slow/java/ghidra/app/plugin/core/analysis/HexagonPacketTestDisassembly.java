@@ -306,7 +306,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		Instruction insn2 = program.getListing().getInstructionAt(addr2);
 		PcodeOp[] ops = insn2.getPcode();
 
-
 		assertNotEquals(ops[0].getOpcode(), PcodeOp.UNIMPLEMENTED);
 
 		verifyAllPrefixes(state);
