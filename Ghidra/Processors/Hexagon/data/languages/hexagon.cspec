@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <compiler_spec>
+  <spacebase name="gp" register="C11" space="ram"/>
   <global>
     <range space="ram"/>
+    <range space="gp"/>
+    <!-- UGP, GP, C14-C31, G0-G31 -->
+    <range space="register" first="0xa8" last="0xaf"/>
+    <range space="register" first="0xb8" last="0x17f"/>
   </global>
   <stackpointer register="R29" space="ram"/>
   <default_proto>
