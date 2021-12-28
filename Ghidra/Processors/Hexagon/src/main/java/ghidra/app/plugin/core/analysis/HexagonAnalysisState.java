@@ -431,9 +431,13 @@ public class HexagonAnalysisState implements AnalysisState {
 						disp = 3;
 					}
 
-					in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(disp), 1), branchVn };
-					PcodeOp insn1 = new PcodeOp(maxAddress, SPILL_UNIQ + seqno++, PcodeOp.CBRANCH, in, null);
+					in = new Varnode[] { branchVn };
+					Varnode out = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
+					PcodeOp insn1 = new PcodeOp(maxAddress, SPILL_UNIQ + seqno++, PcodeOp.BOOL_NEGATE, in, out);
 					jumpPcode.add(insn1);
+					in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(disp), 1), out };
+					PcodeOp insn2 = new PcodeOp(maxAddress, SPILL_UNIQ + seqno++, PcodeOp.CBRANCH, in, null);
+					jumpPcode.add(insn2);
 				}
 
 				jumpPcode.add(opNew);

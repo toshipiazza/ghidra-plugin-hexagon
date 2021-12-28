@@ -295,10 +295,10 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		int txId = program.startTransaction("Add Memory");
 		programBuilder.createMemory(".text", "1000", 64);
 
-		// { loop0(data_2028c,#0xa)  
-		//   R1 = #0x0 }
+		// { loop0(data_2028c,#0xa)
+		// R1 = #0x0 }
 		// { R1 = add(R1,#0x1)
-		//   nop }  :endloop0
+		// nop } :endloop0
 		// { jumpr LR }
 
 		programBuilder.setBytes("1000", "52 40 00 69 01 c0 00 78 21 80 01 b0 00 c0 00 7f 00 c0 9f 52");
@@ -312,13 +312,14 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		debugPrintAllKnownPackets(state);
 
 		verifyAllPrefixes(state);
-		
+
 		// endloop was correctly detected
 		assertEquals(state.getPackets().get(1).toString(), "{ A2_addi R1 R1 0x1 ; A2_nop }:endloop0 @ 00001008");
-		
+
 		// endloop contextreg was correctly set
 		Register endloop = program.getProgramContext().getRegister("endloop");
-		assertEquals(program.getProgramContext().getValue(endloop, state.getPackets().get(1).getMaxAddress(), false).intValue(), 1);
+		assertEquals(program.getProgramContext().getValue(endloop, state.getPackets().get(1).getMaxAddress(), false)
+				.intValue(), 1);
 
 		for (HexagonPacket packet : state.getPackets()) {
 			System.out.println("------- pcode for packet " + packet);
