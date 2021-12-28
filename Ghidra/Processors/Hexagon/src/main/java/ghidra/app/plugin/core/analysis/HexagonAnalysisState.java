@@ -368,13 +368,8 @@ public class HexagonAnalysisState implements AnalysisState {
 
 	}
 
-	boolean hasInternalCof(PcodeOp[] pcode) {
-		for (PcodeOp op : pcode) {
-			if (op.getOpcode() == PcodeOp.CBRANCH && op.getInput(0).getAddress().isConstantAddress()) {
-				return true;
-			}
-		}
-		return false;
+	boolean hasFallthrough(Instruction insn) {
+		return insn.getPrototype().getFallThrough(insn.getInstructionContext()) != null;
 	}
 
 	boolean isNewRegUserOp(PcodeOp op) {
@@ -420,7 +415,7 @@ public class HexagonAnalysisState implements AnalysisState {
 			}
 			if (branchRequiresFixup(opNew)) {
 				Varnode branchVn = branches.get(op.getSeqnum());
-				if (hasInternalCof(pcode)) {
+				if (hasFallthrough(instruction)) {
 					Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(1), 1) };
 					PcodeOp spill = new PcodeOp(instruction.getMinAddress(), SPILL_UNIQ + seqno++, PcodeOp.COPY, in,
 							branchVn);
@@ -534,12 +529,13 @@ public class HexagonAnalysisState implements AnalysisState {
 		Map<SequenceNumber, Varnode> branches = new HashMap<>();
 
 		// Registers R1R0 aliases with R1 and R0, so their scratch regs must too
-		// 64 registers R0 to R31 and C0 to R31
+		// 96 registers R0 to R31, C0 to R31, G0 to G31
 		Address[] scratchRegUnique = new Address[] { null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null, null, };
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, };
 		for (int i = 0; i < scratchRegUnique.length; i += 2) {
 			Address uniq = uniqueFactory.getNextUniqueAddress();
 			scratchRegUnique[i + 0] = uniq.add(0);
