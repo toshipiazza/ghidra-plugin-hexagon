@@ -33027,13 +33027,21 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :Y4_tfrspcp Y4_tfrspcp_Sdd128 Y4_tfrspcp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_tfrspcp_Sdd128 & Y4_tfrspcp_Rss32 unimpl
 
-:G4_tfrgcrr G4_tfrgcrr_Rd32 G4_tfrgcrr_Gs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgcrr_Rd32 & G4_tfrgcrr_Gs32 unimpl
+:G4_tfrgcrr G4_tfrgcrr_Rd32 G4_tfrgcrr_Gs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgcrr_Rd32 & G4_tfrgcrr_Gs32 {
+  G4_tfrgcrr_Rd32 = G4_tfrgcrr_Gs32;
+}
 
-:G4_tfrgrcr G4_tfrgrcr_Gd32 G4_tfrgrcr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgrcr_Gd32 & G4_tfrgrcr_Rs32 unimpl
+:G4_tfrgrcr G4_tfrgrcr_Gd32 G4_tfrgrcr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgrcr_Gd32 & G4_tfrgrcr_Rs32 {
+  G4_tfrgrcr_Gd32 = G4_tfrgrcr_Rs32;
+}
 
-:G4_tfrgcpp G4_tfrgcpp_Rdd32 G4_tfrgcpp_Gss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgcpp_Rdd32 & G4_tfrgcpp_Gss32 unimpl
+:G4_tfrgcpp G4_tfrgcpp_Rdd32 G4_tfrgcpp_Gss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgcpp_Rdd32 & G4_tfrgcpp_Gss32 {
+  G4_tfrgcpp_Rdd32 = G4_tfrgcpp_Gss32;
+}
 
-:G4_tfrgpcp G4_tfrgpcp_Gdd32 G4_tfrgpcp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgpcp_Gdd32 & G4_tfrgpcp_Rss32 unimpl
+:G4_tfrgpcp G4_tfrgpcp_Gdd32 G4_tfrgpcp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgpcp_Gdd32 & G4_tfrgpcp_Rss32 {
+  G4_tfrgpcp_Gdd32 = G4_tfrgpcp_Rss32;
+}
 
 :Y2_setprio Y2_setprio_Pt4 Y2_setprio_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_setprio_Pt4 & Y2_setprio_Rs32 unimpl
 
