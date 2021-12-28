@@ -51,13 +51,6 @@ public class HexagonAnalysisState implements AnalysisState {
 		endPackets = new HashSet<>();
 		duplexInsns = new HashMap<>();
 		this.program = program;
-
-//		try {
-//			SleighLanguageDescription description = (SleighLanguageDescription)program.getLanguage().getLanguageDescription();
-//			File iset = new ResourceFile(description.getSlaFile().getParentFile(), "iset.json").getFile(true);
-//		} catch (IOException e) {
-//			Msg.error(this, "Unexpected Exception", e);
-//		}
 	}
 
 	boolean endPacket(Address address) {

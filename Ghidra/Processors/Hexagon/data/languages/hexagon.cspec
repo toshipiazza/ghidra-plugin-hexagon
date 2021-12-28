@@ -10,7 +10,7 @@
   </global>
   <stackpointer register="R29" space="ram"/>
   <default_proto>
-    <prototype name="__stdcall" extrapop="8" stackshift="8">
+    <prototype name="__stdcall" extrapop="0" stackshift="0">
       <input>
         <pentry minsize="1" maxsize="4">
           <register name="R0" />
@@ -48,6 +48,9 @@
         <register name="R24"/>
         <register name="R25"/>
         <register name="R26"/>
+        <register name="R29"/> <!-- SP -->
+        <register name="R30"/> <!-- FP -->
+        <register name="C11"/> <!-- GP -->
       </unaffected>
       <killedbycall>
         <register name="R0"/>
