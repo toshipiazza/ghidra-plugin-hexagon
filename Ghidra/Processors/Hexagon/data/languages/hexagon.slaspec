@@ -4,14 +4,18 @@ define space ram      type=ram_space      size=4  default;
 define space register type=register_space size=4;
 
 define register offset=0x000 size=4 [
-  R0  R1  R2  R3  R4  R5  R6  R7
-  R8  R9  R10 R11 R12 R13 R14 R15
-  R16 R17 R18 R19 R20 R21 R22 R23
-  R24 R25 R26 R27 R28 R29 R30 R31
-  C0  C1  C2  C3  C4  C5  C6  C7
-  C8  C9  C10 C11 C12 C13 C14 C15
-  C16 C17 C18 C19 C20 C21 C22 C23
-  C24 C25 C26 C27 C28 C29 C30 C31
+  R0   R1   R2   R3   R4   R5   R6   R7
+  R8   R9   R10  R11  R12  R13  R14  R15
+  R16  R17  R18  R19  R20  R21  R22  R23
+  R24  R25  R26  R27  R28  R29  R30  R31
+  C0   C1   C2   C3   C4   C5   C6   C7
+  C8   C9   C10  C11  C12  C13  C14  C15
+  C16  C17  C18  C19  C20  C21  C22  C23
+  C24  C25  C26  C27  C28  C29  C30  C31
+  G0   G1   G2   G3   G4   G5   G6   G7
+  G8   G9   G10  G11  G12  G13  G14  G15
+  G16  G17  G18  G19  G20  G21  G22  G23
+  G24  G25  G26  G27  G28  G29  G30  G31
 ];
 
 define register offset=0x094 size=1 [
@@ -9314,6 +9318,26 @@ attach variables [
   C9C8   _ C11C10 _ C13C12 _ C15C14 _
   C17C16 _ C19C18 _ C21C20 _ C23C22 _
   C25C24 _ C27C26 _ C29C28 _ C31C30 _
+];
+
+attach variables [
+  G4_tfrgcrr_Gs32
+  G4_tfrgrcr_Gd32
+] [
+  G0  G1  G2  G3  G4  G5  G6  G7
+  G8  G9  G10 G11 G12 G13 G14 G15
+  G16 G17 G18 G19 G20 G21 G22 G23
+  G24 G25 G26 G27 G28 G29 G30 G31
+];
+
+attach variables [
+  G4_tfrgcpp_Gss32
+  G4_tfrgpcp_Gdd32
+] [
+  G1G0   _ G3G2   _ G5G4   _ G7G6   _
+  G9G8   _ G11G10 _ G13G12 _ G15G14 _
+  G17G16 _ G19G18 _ G21G20 _ G23G22 _
+  G25G24 _ G27G26 _ G29G28 _ G31G30 _
 ];
 
 attach variables [
