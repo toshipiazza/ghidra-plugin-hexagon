@@ -11919,9 +11919,9 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   tmp4 = 2;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:1;
-  tmp7 = tmp5 >= tmp4;
+  tmp7 = tmp5 s>= tmp4;
   local tmp8:1;
   tmp8 = tmp7;
   if (tmp8) goto <t_branch_10>;
@@ -11935,7 +11935,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   tmp11 = 1;
   local tmp12:4;
   local tmp13:4;
-  tmp12 = zext(tmp10);
+  tmp12 = sext(tmp10);
   local tmp14:1;
   tmp14 = tmp12 == tmp11;
   local tmp15:1;
@@ -11955,7 +11955,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   tmp19 = 1;
   local tmp20:4;
   local tmp21:4;
-  tmp20 = zext(tmp18);
+  tmp20 = sext(tmp18);
   local tmp22:4;
   tmp22 = tmp20 - tmp19;
   C8[8,2] = tmp22;
@@ -11964,7 +11964,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   local tmp23:4;
   tmp23 = 1;
   local tmp24:1;
-  tmp24 = C1 > tmp23;
+  tmp24 = C1 s> tmp23;
   local tmp25:1;
   tmp25 = tmp24;
   if (tmp25) goto <t_branch_27>;
@@ -11985,7 +11985,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   local tmp0:4;
   tmp0 = 1;
   local tmp1:1;
-  tmp1 = C3 > tmp0;
+  tmp1 = C3 s> tmp0;
   local tmp2:1;
   tmp2 = tmp1;
   if (tmp2) goto <t_branch_4>;
@@ -12016,9 +12016,9 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   tmp4 = 2;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:1;
-  tmp7 = tmp5 >= tmp4;
+  tmp7 = tmp5 s>= tmp4;
   local tmp8:1;
   tmp8 = tmp7;
   if (tmp8) goto <t_branch_10>;
@@ -12032,7 +12032,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   tmp11 = 1;
   local tmp12:4;
   local tmp13:4;
-  tmp12 = zext(tmp10);
+  tmp12 = sext(tmp10);
   local tmp14:1;
   tmp14 = tmp12 == tmp11;
   local tmp15:1;
@@ -12052,7 +12052,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   tmp19 = 1;
   local tmp20:4;
   local tmp21:4;
-  tmp20 = zext(tmp18);
+  tmp20 = sext(tmp18);
   local tmp22:4;
   tmp22 = tmp20 - tmp19;
   C8[8,2] = tmp22;
@@ -12061,7 +12061,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   local tmp23:4;
   tmp23 = 1;
   local tmp24:1;
-  tmp24 = C1 > tmp23;
+  tmp24 = C1 s> tmp23;
   local tmp25:1;
   tmp25 = tmp24;
   if (tmp25) goto <t_branch_27>;
@@ -12078,7 +12078,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { tmp = reloc:4; export t
   local tmp29:4;
   tmp29 = 1;
   local tmp30:1;
-  tmp30 = C3 > tmp29;
+  tmp30 = C3 s> tmp29;
   local tmp31:1;
   tmp31 = tmp30;
   if (tmp31) goto <t_branch_33>;
@@ -12384,7 +12384,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp0:4;
   tmp0 = 0;
   local tmp1:1;
-  tmp1 = J2_jumprgtez_Rs32 >= tmp0;
+  tmp1 = J2_jumprgtez_Rs32 s>= tmp0;
   local tmp2:1;
   tmp2 = tmp1;
   if (tmp2) goto <t_branch_4>;
@@ -12399,7 +12399,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp0:4;
   tmp0 = 0;
   local tmp1:1;
-  tmp1 = J2_jumprgtezpt_Rs32 >= tmp0;
+  tmp1 = J2_jumprgtezpt_Rs32 s>= tmp0;
   local tmp2:1;
   tmp2 = tmp1;
   if (tmp2) goto <t_branch_4>;
@@ -12414,7 +12414,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp0:4;
   tmp0 = 0;
   local tmp1:1;
-  tmp1 = J2_jumprltez_Rs32 <= tmp0;
+  tmp1 = J2_jumprltez_Rs32 s<= tmp0;
   local tmp2:1;
   tmp2 = tmp1;
   if (tmp2) goto <t_branch_4>;
@@ -12429,7 +12429,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp0:4;
   tmp0 = 0;
   local tmp1:1;
-  tmp1 = J2_jumprltezpt_Rs32 <= tmp0;
+  tmp1 = J2_jumprltezpt_Rs32 s<= tmp0;
   local tmp2:1;
   tmp2 = tmp1;
   if (tmp2) goto <t_branch_4>;
@@ -13038,7 +13038,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_tp0_jump_nt_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_tp0_jump_nt_Rs16 s> tmp1;
   P0 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P0);
@@ -13058,7 +13058,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_fp0_jump_nt_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_fp0_jump_nt_Rs16 s> tmp1;
   P0 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P0);
@@ -13080,7 +13080,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_tp0_jump_t_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_tp0_jump_t_Rs16 s> tmp1;
   P0 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P0);
@@ -13100,7 +13100,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_fp0_jump_t_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_fp0_jump_t_Rs16 s> tmp1;
   P0 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P0);
@@ -13122,7 +13122,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_tp1_jump_nt_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_tp1_jump_nt_Rs16 s> tmp1;
   P1 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P1);
@@ -13142,7 +13142,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_fp1_jump_nt_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_fp1_jump_nt_Rs16 s> tmp1;
   P1 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P1);
@@ -13164,7 +13164,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_tp1_jump_t_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_tp1_jump_t_Rs16 s> tmp1;
   P1 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P1);
@@ -13184,7 +13184,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp1:4;
   tmp1 = - tmp0;
   local tmp2:1;
-  tmp2 = J4_cmpgtn1_fp1_jump_t_Rs16 > tmp1;
+  tmp2 = J4_cmpgtn1_fp1_jump_t_Rs16 s> tmp1;
   P1 = tmp2;
   local tmp3:1;
   tmp3 = newreg(P1);
@@ -13490,7 +13490,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_tp0_jump_nt J4_cmpgt_tp0_jump_nt_Rs16 J4_cmpgt_tp0_jump_nt_Rt16 J4_cmpgt_tp0_jump_nt_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_tp0_jump_nt_Rs16 & J4_cmpgt_tp0_jump_nt_Rt16 & J4_cmpgt_tp0_jump_nt_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_tp0_jump_nt_Rs16 > J4_cmpgt_tp0_jump_nt_Rt16;
+  tmp0 = J4_cmpgt_tp0_jump_nt_Rs16 s> J4_cmpgt_tp0_jump_nt_Rt16;
   P0 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P0);
@@ -13506,7 +13506,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_fp0_jump_nt J4_cmpgt_fp0_jump_nt_Rs16 J4_cmpgt_fp0_jump_nt_Rt16 J4_cmpgt_fp0_jump_nt_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_fp0_jump_nt_Rs16 & J4_cmpgt_fp0_jump_nt_Rt16 & J4_cmpgt_fp0_jump_nt_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_fp0_jump_nt_Rs16 > J4_cmpgt_fp0_jump_nt_Rt16;
+  tmp0 = J4_cmpgt_fp0_jump_nt_Rs16 s> J4_cmpgt_fp0_jump_nt_Rt16;
   P0 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P0);
@@ -13524,7 +13524,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_tp0_jump_t J4_cmpgt_tp0_jump_t_Rs16 J4_cmpgt_tp0_jump_t_Rt16 J4_cmpgt_tp0_jump_t_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_tp0_jump_t_Rs16 & J4_cmpgt_tp0_jump_t_Rt16 & J4_cmpgt_tp0_jump_t_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_tp0_jump_t_Rs16 > J4_cmpgt_tp0_jump_t_Rt16;
+  tmp0 = J4_cmpgt_tp0_jump_t_Rs16 s> J4_cmpgt_tp0_jump_t_Rt16;
   P0 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P0);
@@ -13540,7 +13540,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_fp0_jump_t J4_cmpgt_fp0_jump_t_Rs16 J4_cmpgt_fp0_jump_t_Rt16 J4_cmpgt_fp0_jump_t_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 0 & b13 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_fp0_jump_t_Rs16 & J4_cmpgt_fp0_jump_t_Rt16 & J4_cmpgt_fp0_jump_t_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_fp0_jump_t_Rs16 > J4_cmpgt_fp0_jump_t_Rt16;
+  tmp0 = J4_cmpgt_fp0_jump_t_Rs16 s> J4_cmpgt_fp0_jump_t_Rt16;
   P0 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P0);
@@ -13558,7 +13558,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_tp1_jump_nt J4_cmpgt_tp1_jump_nt_Rs16 J4_cmpgt_tp1_jump_nt_Rt16 J4_cmpgt_tp1_jump_nt_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_tp1_jump_nt_Rs16 & J4_cmpgt_tp1_jump_nt_Rt16 & J4_cmpgt_tp1_jump_nt_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_tp1_jump_nt_Rs16 > J4_cmpgt_tp1_jump_nt_Rt16;
+  tmp0 = J4_cmpgt_tp1_jump_nt_Rs16 s> J4_cmpgt_tp1_jump_nt_Rt16;
   P1 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P1);
@@ -13574,7 +13574,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_fp1_jump_nt J4_cmpgt_fp1_jump_nt_Rs16 J4_cmpgt_fp1_jump_nt_Rt16 J4_cmpgt_fp1_jump_nt_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_fp1_jump_nt_Rs16 & J4_cmpgt_fp1_jump_nt_Rt16 & J4_cmpgt_fp1_jump_nt_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_fp1_jump_nt_Rs16 > J4_cmpgt_fp1_jump_nt_Rt16;
+  tmp0 = J4_cmpgt_fp1_jump_nt_Rs16 s> J4_cmpgt_fp1_jump_nt_Rt16;
   P1 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P1);
@@ -13592,7 +13592,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_tp1_jump_t J4_cmpgt_tp1_jump_t_Rs16 J4_cmpgt_tp1_jump_t_Rt16 J4_cmpgt_tp1_jump_t_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_tp1_jump_t_Rs16 & J4_cmpgt_tp1_jump_t_Rt16 & J4_cmpgt_tp1_jump_t_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_tp1_jump_t_Rs16 > J4_cmpgt_tp1_jump_t_Rt16;
+  tmp0 = J4_cmpgt_tp1_jump_t_Rs16 s> J4_cmpgt_tp1_jump_t_Rt16;
   P1 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P1);
@@ -13608,7 +13608,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :J4_cmpgt_fp1_jump_t J4_cmpgt_fp1_jump_t_Rs16 J4_cmpgt_fp1_jump_t_Rt16 J4_cmpgt_fp1_jump_t_r9_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 0 & J4_cmpgt_fp1_jump_t_Rs16 & J4_cmpgt_fp1_jump_t_Rt16 & J4_cmpgt_fp1_jump_t_r9_2 {
   local tmp0:1;
-  tmp0 = J4_cmpgt_fp1_jump_t_Rs16 > J4_cmpgt_fp1_jump_t_Rt16;
+  tmp0 = J4_cmpgt_fp1_jump_t_Rs16 s> J4_cmpgt_fp1_jump_t_Rt16;
   P1 = tmp0;
   local tmp1:1;
   tmp1 = newreg(P1);
@@ -14168,7 +14168,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp4:4;
   tmp4 = - tmp3;
   local tmp5:1;
-  tmp5 = tmp1 > tmp4;
+  tmp5 = tmp1 s> tmp4;
   local tmp6:1;
   tmp6 = tmp5;
   if (tmp6) goto <t_branch_8>;
@@ -14193,7 +14193,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp4:4;
   tmp4 = - tmp3;
   local tmp5:1;
-  tmp5 = tmp1 > tmp4;
+  tmp5 = tmp1 s> tmp4;
   local tmp6:1;
   tmp6 = tmp5;
   if (tmp6) goto <t_branch_8>;
@@ -14218,7 +14218,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp4:4;
   tmp4 = - tmp3;
   local tmp5:1;
-  tmp5 = tmp1 > tmp4;
+  tmp5 = tmp1 s> tmp4;
   local tmp6:1;
   tmp6 = ! tmp5;
   local tmp7:1;
@@ -14245,7 +14245,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp4:4;
   tmp4 = - tmp3;
   local tmp5:1;
-  tmp5 = tmp1 > tmp4;
+  tmp5 = tmp1 s> tmp4;
   local tmp6:1;
   tmp6 = ! tmp5;
   local tmp7:1;
@@ -14410,7 +14410,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = tmp1 > J4_cmpgt_t_jumpnv_t_Rt32;
+  tmp3 = tmp1 s> J4_cmpgt_t_jumpnv_t_Rt32;
   local tmp4:1;
   tmp4 = tmp3;
   if (tmp4) goto <t_branch_6>;
@@ -14431,7 +14431,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = tmp1 > J4_cmpgt_t_jumpnv_nt_Rt32;
+  tmp3 = tmp1 s> J4_cmpgt_t_jumpnv_nt_Rt32;
   local tmp4:1;
   tmp4 = tmp3;
   if (tmp4) goto <t_branch_6>;
@@ -14502,7 +14502,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = J4_cmplt_t_jumpnv_t_Rt32 > tmp1;
+  tmp3 = J4_cmplt_t_jumpnv_t_Rt32 s> tmp1;
   local tmp4:1;
   tmp4 = tmp3;
   if (tmp4) goto <t_branch_6>;
@@ -14523,7 +14523,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = J4_cmplt_t_jumpnv_nt_Rt32 > tmp1;
+  tmp3 = J4_cmplt_t_jumpnv_nt_Rt32 s> tmp1;
   local tmp4:1;
   tmp4 = tmp3;
   if (tmp4) goto <t_branch_6>;
@@ -14636,7 +14636,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = tmp1 > J4_cmpgt_f_jumpnv_t_Rt32;
+  tmp3 = tmp1 s> J4_cmpgt_f_jumpnv_t_Rt32;
   local tmp4:1;
   tmp4 = ! tmp3;
   local tmp5:1;
@@ -14659,7 +14659,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = tmp1 > J4_cmpgt_f_jumpnv_nt_Rt32;
+  tmp3 = tmp1 s> J4_cmpgt_f_jumpnv_nt_Rt32;
   local tmp4:1;
   tmp4 = ! tmp3;
   local tmp5:1;
@@ -14736,7 +14736,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = J4_cmplt_f_jumpnv_t_Rt32 > tmp1;
+  tmp3 = J4_cmplt_f_jumpnv_t_Rt32 s> tmp1;
   local tmp4:1;
   tmp4 = ! tmp3;
   local tmp5:1;
@@ -14759,7 +14759,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = *[register] :4 tmp0;
   tmp1 = newreg(tmp2);
   local tmp3:1;
-  tmp3 = J4_cmplt_f_jumpnv_nt_Rt32 > tmp1;
+  tmp3 = J4_cmplt_f_jumpnv_nt_Rt32 s> tmp1;
   local tmp4:1;
   tmp4 = ! tmp3;
   local tmp5:1;
@@ -15004,7 +15004,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = L2_loadrub_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(L2_loadrub_pr_Mu2);
+  tmp1 = sext(L2_loadrub_pr_Mu2);
   local tmp2:4;
   tmp2 = L2_loadrub_pr_Rx32 + tmp1;
   L2_loadrub_pr_Rx32 = tmp2;
@@ -15056,7 +15056,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = L2_loadrb_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(L2_loadrb_pr_Mu2);
+  tmp1 = sext(L2_loadrb_pr_Mu2);
   local tmp2:4;
   tmp2 = L2_loadrb_pr_Rx32 + tmp1;
   L2_loadrb_pr_Rx32 = tmp2;
@@ -15108,7 +15108,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = L2_loadruh_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(L2_loadruh_pr_Mu2);
+  tmp1 = sext(L2_loadruh_pr_Mu2);
   local tmp2:4;
   tmp2 = L2_loadruh_pr_Rx32 + tmp1;
   L2_loadruh_pr_Rx32 = tmp2;
@@ -15160,7 +15160,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = L2_loadrh_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(L2_loadrh_pr_Mu2);
+  tmp1 = sext(L2_loadrh_pr_Mu2);
   local tmp2:4;
   tmp2 = L2_loadrh_pr_Rx32 + tmp1;
   L2_loadrh_pr_Rx32 = tmp2;
@@ -15212,7 +15212,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = L2_loadri_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(L2_loadri_pr_Mu2);
+  tmp1 = sext(L2_loadri_pr_Mu2);
   local tmp2:4;
   tmp2 = L2_loadri_pr_Rx32 + tmp1;
   L2_loadri_pr_Rx32 = tmp2;
@@ -15264,7 +15264,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = L2_loadrd_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(L2_loadrd_pr_Mu2);
+  tmp1 = sext(L2_loadrd_pr_Mu2);
   local tmp2:4;
   tmp2 = L2_loadrd_pr_Rx32 + tmp1;
   L2_loadrd_pr_Rx32 = tmp2;
@@ -15435,7 +15435,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerb_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerb_pr_Mu2);
+  tmp1 = sext(S2_storerb_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerb_pr_Rx32 + tmp1;
   S2_storerb_pr_Rx32 = tmp2;
@@ -15527,7 +15527,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerh_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerh_pr_Mu2);
+  tmp1 = sext(S2_storerh_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerh_pr_Rx32 + tmp1;
   S2_storerh_pr_Rx32 = tmp2;
@@ -15619,7 +15619,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerf_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerf_pr_Mu2);
+  tmp1 = sext(S2_storerf_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerf_pr_Rx32 + tmp1;
   S2_storerf_pr_Rx32 = tmp2;
@@ -15687,7 +15687,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storeri_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storeri_pr_Mu2);
+  tmp1 = sext(S2_storeri_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storeri_pr_Rx32 + tmp1;
   S2_storeri_pr_Rx32 = tmp2;
@@ -15739,7 +15739,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerd_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerd_pr_Mu2);
+  tmp1 = sext(S2_storerd_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerd_pr_Rx32 + tmp1;
   S2_storerd_pr_Rx32 = tmp2;
@@ -15817,7 +15817,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerinew_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerinew_pr_Mu2);
+  tmp1 = sext(S2_storerinew_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerinew_pr_Rx32 + tmp1;
   S2_storerinew_pr_Rx32 = tmp2;
@@ -15939,7 +15939,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerbnew_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerbnew_pr_Mu2);
+  tmp1 = sext(S2_storerbnew_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerbnew_pr_Rx32 + tmp1;
   S2_storerbnew_pr_Rx32 = tmp2;
@@ -16077,7 +16077,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   EA = S2_storerhnew_pr_Rx32;
   local tmp0:4;
   local tmp1:4;
-  tmp1 = zext(S2_storerhnew_pr_Mu2);
+  tmp1 = sext(S2_storerhnew_pr_Mu2);
   local tmp2:4;
   tmp2 = S2_storerhnew_pr_Rx32 + tmp1;
   S2_storerhnew_pr_Rx32 = tmp2;
@@ -22479,7 +22479,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :C2_cmpgt C2_cmpgt_Pd4 C2_cmpgt_Rs32 C2_cmpgt_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_cmpgt_Pd4 & C2_cmpgt_Rs32 & C2_cmpgt_Rt32 {
   local tmp0:1;
-  tmp0 = C2_cmpgt_Rs32 > C2_cmpgt_Rt32;
+  tmp0 = C2_cmpgt_Rs32 s> C2_cmpgt_Rt32;
   C2_cmpgt_Pd4 = tmp0;
 }
 
@@ -22501,7 +22501,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :C2_cmpgtp C2_cmpgtp_Pd4 C2_cmpgtp_Rss32 C2_cmpgtp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & C2_cmpgtp_Pd4 & C2_cmpgtp_Rss32 & C2_cmpgtp_Rtt32 {
   local tmp0:1;
-  tmp0 = C2_cmpgtp_Rss32 > C2_cmpgtp_Rtt32;
+  tmp0 = C2_cmpgtp_Rss32 s> C2_cmpgtp_Rtt32;
   C2_cmpgtp_Pd4 = tmp0;
 }
 
@@ -22518,25 +22518,25 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 :A4_rcmpeqi A4_rcmpeqi_Rd32 A4_rcmpeqi_Rs32 A4_rcmpeqi_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_rcmpeqi_Rd32 & A4_rcmpeqi_Rs32 & A4_rcmpeqi_s8 {
   local tmp0:1;
   tmp0 = A4_rcmpeqi_Rs32 == A4_rcmpeqi_s8;
-  A4_rcmpeqi_Rd32 = zext(tmp0);
+  A4_rcmpeqi_Rd32 = sext(tmp0);
 }
 
 :A4_rcmpneqi A4_rcmpneqi_Rd32 A4_rcmpneqi_Rs32 A4_rcmpneqi_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_rcmpneqi_Rd32 & A4_rcmpneqi_Rs32 & A4_rcmpneqi_s8 {
   local tmp0:1;
   tmp0 = A4_rcmpneqi_Rs32 != A4_rcmpneqi_s8;
-  A4_rcmpneqi_Rd32 = zext(tmp0);
+  A4_rcmpneqi_Rd32 = sext(tmp0);
 }
 
 :A4_rcmpeq A4_rcmpeq_Rd32 A4_rcmpeq_Rs32 A4_rcmpeq_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A4_rcmpeq_Rd32 & A4_rcmpeq_Rs32 & A4_rcmpeq_Rt32 {
   local tmp0:1;
   tmp0 = A4_rcmpeq_Rs32 == A4_rcmpeq_Rt32;
-  A4_rcmpeq_Rd32 = zext(tmp0);
+  A4_rcmpeq_Rd32 = sext(tmp0);
 }
 
 :A4_rcmpneq A4_rcmpneq_Rd32 A4_rcmpneq_Rs32 A4_rcmpneq_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A4_rcmpneq_Rd32 & A4_rcmpneq_Rs32 & A4_rcmpneq_Rt32 {
   local tmp0:1;
   tmp0 = A4_rcmpneq_Rs32 != A4_rcmpneq_Rt32;
-  A4_rcmpneq_Rd32 = zext(tmp0);
+  A4_rcmpneq_Rd32 = sext(tmp0);
 }
 
 :C2_bitsset C2_bitsset_Pd4 C2_bitsset_Rs32 C2_bitsset_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & C2_bitsset_Pd4 & C2_bitsset_Rs32 & C2_bitsset_Rt32 {
@@ -22583,7 +22583,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :C2_cmpgti C2_cmpgti_Pd4 C2_cmpgti_Rs32 C2_cmpgti_s10 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_cmpgti_Pd4 & C2_cmpgti_Rs32 & C2_cmpgti_s10 {
   local tmp0:1;
-  tmp0 = C2_cmpgti_Rs32 > C2_cmpgti_s10;
+  tmp0 = C2_cmpgti_Rs32 s> C2_cmpgti_s10;
   C2_cmpgti_Pd4 = tmp0;
 }
 
@@ -22625,7 +22625,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :C4_cmpltei C4_cmpltei_Pd4 C4_cmpltei_Rs32 C4_cmpltei_s10 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C4_cmpltei_Pd4 & C4_cmpltei_Rs32 & C4_cmpltei_s10 {
   local tmp0:1;
-  tmp0 = C4_cmpltei_Rs32 <= C4_cmpltei_s10;
+  tmp0 = C4_cmpltei_Rs32 s<= C4_cmpltei_s10;
   C4_cmpltei_Pd4 = tmp0;
 }
 
@@ -22647,7 +22647,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :C4_cmplte C4_cmplte_Pd4 C4_cmplte_Rs32 C4_cmplte_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b3 = 0 & b4 = 1 & b21 = 0 & b22 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C4_cmplte_Pd4 & C4_cmplte_Rs32 & C4_cmplte_Rt32 {
   local tmp0:1;
-  tmp0 = C4_cmplte_Rs32 <= C4_cmplte_Rt32;
+  tmp0 = C4_cmplte_Rs32 s<= C4_cmplte_Rt32;
   C4_cmplte_Pd4 = tmp0;
 }
 
@@ -22795,7 +22795,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = 255;
   local tmp1:4;
   local tmp2:4;
-  tmp1 = zext(C2_all8_Ps4);
+  tmp1 = sext(C2_all8_Ps4);
   local tmp3:1;
   tmp3 = tmp1 == tmp0;
   local tmp4:1;
@@ -22819,14 +22819,14 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = 85;
   local tmp1:4;
   local tmp2:4;
-  tmp1 = zext(C2_vitpack_Ps4);
+  tmp1 = sext(C2_vitpack_Ps4);
   local tmp3:4;
   tmp3 = tmp1 & tmp0;
   local tmp4:4;
   tmp4 = 170;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(C2_vitpack_Pt4);
+  tmp5 = sext(C2_vitpack_Pt4);
   local tmp7:4;
   tmp7 = tmp5 & tmp4;
   local tmp8:4;
@@ -23263,7 +23263,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp3 = tmp2:1;
   local tmp4:4;
   local tmp5:4;
-  tmp4 = zext(tmp3);
+  tmp4 = sext(tmp3);
   local tmp6:1;
   tmp6 = tmp4 == A4_cmpbeqi_u8;
   A4_cmpbeqi_Pd4 = tmp6;
@@ -23304,7 +23304,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = zext(A4_cmpbgtui_u7);
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:1;
   tmp7 = tmp5 > tmp4;
   A4_cmpbgtui_Pd4 = tmp7;
@@ -23328,7 +23328,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp6 = tmp5 & 0xff;
   tmp7 = tmp6:1;
   local tmp8:1;
-  tmp8 = tmp3 > tmp7;
+  tmp8 = tmp3 s> tmp7;
   A4_cmpbgt_Pd4 = tmp8;
 }
 
@@ -23343,9 +23343,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp3 = tmp2:1;
   local tmp4:4;
   local tmp5:4;
-  tmp4 = zext(tmp3);
+  tmp4 = sext(tmp3);
   local tmp6:1;
-  tmp6 = tmp4 > A4_cmpbgti_s8;
+  tmp6 = tmp4 s> A4_cmpbgti_s8;
   A4_cmpbgti_Pd4 = tmp6;
 }
 
@@ -23401,7 +23401,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp6 = tmp5 & 0xffff;
   tmp7 = tmp6:2;
   local tmp8:1;
-  tmp8 = tmp3 > tmp7;
+  tmp8 = tmp3 s> tmp7;
   A4_cmphgt_Pd4 = tmp8;
 }
 
@@ -23438,7 +23438,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp3 = tmp2:2;
   local tmp4:4;
   local tmp5:4;
-  tmp4 = zext(tmp3);
+  tmp4 = sext(tmp3);
   local tmp6:1;
   tmp6 = tmp4 == A4_cmpheqi_s8;
   A4_cmpheqi_Pd4 = tmp6;
@@ -23455,9 +23455,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp3 = tmp2:2;
   local tmp4:4;
   local tmp5:4;
-  tmp4 = zext(tmp3);
+  tmp4 = sext(tmp3);
   local tmp6:1;
-  tmp6 = tmp4 > A4_cmphgti_s8;
+  tmp6 = tmp4 s> A4_cmphgti_s8;
   A4_cmphgti_Pd4 = tmp6;
 }
 
@@ -23474,7 +23474,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = zext(A4_cmphgtui_u7);
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:1;
   tmp7 = tmp5 > tmp4;
   A4_cmphgtui_Pd4 = tmp7;
@@ -23511,7 +23511,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = tmp2 - tmp3;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(C2_tfrpr_Ps4);
+  tmp5 = sext(C2_tfrpr_Ps4);
   local tmp7:4;
   tmp7 = tmp5 & tmp4;
   C2_tfrpr_Rd32 = tmp7;
@@ -23970,9 +23970,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp5 = 32;
   local tmp6:8;
   local tmp7:8;
-  tmp7 = zext(tmp5);
+  tmp7 = sext(tmp5);
   local tmp8:8;
-  tmp8 = tmp4 >> tmp7;
+  tmp8 = tmp4 s>> tmp7;
   M2_mpy_up_Rd32 = tmp8:4;
 }
 
@@ -23991,9 +23991,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp5 = 31;
   local tmp6:8;
   local tmp7:8;
-  tmp7 = zext(tmp5);
+  tmp7 = sext(tmp5);
   local tmp8:8;
-  tmp8 = tmp4 >> tmp7;
+  tmp8 = tmp4 s>> tmp7;
   M2_mpy_up_s1_Rd32 = tmp8:4;
 }
 
@@ -24018,9 +24018,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp7 = 32;
   local tmp8:8;
   local tmp9:8;
-  tmp9 = zext(tmp7);
+  tmp9 = sext(tmp7);
   local tmp10:8;
-  tmp10 = tmp6 >> tmp9;
+  tmp10 = tmp6 s>> tmp9;
   M2_mpyu_up_Rd32 = tmp10:4;
 }
 
@@ -24041,9 +24041,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp6 = 32;
   local tmp7:8;
   local tmp8:8;
-  tmp8 = zext(tmp6);
+  tmp8 = sext(tmp6);
   local tmp9:8;
-  tmp9 = tmp5 >> tmp8;
+  tmp9 = tmp5 s>> tmp8;
   M2_mpysu_up_Rd32 = tmp9:4;
 }
 
@@ -24068,9 +24068,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp8 = 32;
   local tmp9:8;
   local tmp10:8;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp11:8;
-  tmp11 = tmp7 >> tmp10;
+  tmp11 = tmp7 s>> tmp10;
   M2_dpmpyss_rnd_s0_Rd32 = tmp11:4;
 }
 
@@ -25887,7 +25887,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp2:4;
   tmp2 = 16;
   local tmp3:4;
-  tmp3 = A4_pasrht_Rs32 >> tmp2;
+  tmp3 = A4_pasrht_Rs32 s>> tmp2;
   A4_pasrht_Rd32 = tmp3;
   goto <done_2>;
 <f_branch_2>
@@ -25905,7 +25905,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp3:4;
   tmp3 = 16;
   local tmp4:4;
-  tmp4 = A4_pasrhf_Rs32 >> tmp3;
+  tmp4 = A4_pasrhf_Rs32 s>> tmp3;
   A4_pasrhf_Rd32 = tmp4;
   goto <done_3>;
 <f_branch_3>
@@ -25923,7 +25923,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp3:4;
   tmp3 = 16;
   local tmp4:4;
-  tmp4 = A4_pasrhtnew_Rs32 >> tmp3;
+  tmp4 = A4_pasrhtnew_Rs32 s>> tmp3;
   A4_pasrhtnew_Rd32 = tmp4;
   goto <done_3>;
 <f_branch_3>
@@ -25943,7 +25943,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp4:4;
   tmp4 = 16;
   local tmp5:4;
-  tmp5 = A4_pasrhfnew_Rs32 >> tmp4;
+  tmp5 = A4_pasrhfnew_Rs32 s>> tmp4;
   A4_pasrhfnew_Rd32 = tmp5;
   goto <done_4>;
 <f_branch_4>
@@ -25997,7 +25997,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp13 = tmp11 - tmp12;
   local tmp14:4;
   local tmp15:4;
-  tmp14 = zext(tmp8);
+  tmp14 = sext(tmp8);
   local tmp16:4;
   tmp16 = tmp14 & tmp13;
   local tmp17:4;
@@ -26058,7 +26058,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp13 = tmp11 - tmp12;
   local tmp14:4;
   local tmp15:4;
-  tmp14 = zext(tmp8);
+  tmp14 = sext(tmp8);
   local tmp16:4;
   tmp16 = tmp14 & tmp13;
   local tmp17:4;
@@ -26123,7 +26123,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp13 = tmp11 - tmp12;
   local tmp14:4;
   local tmp15:4;
-  tmp14 = zext(tmp8);
+  tmp14 = sext(tmp8);
   local tmp16:4;
   tmp16 = tmp14 & tmp13;
   local tmp17:4;
@@ -26184,7 +26184,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp13 = tmp11 - tmp12;
   local tmp14:4;
   local tmp15:4;
-  tmp14 = zext(tmp8);
+  tmp14 = sext(tmp8);
   local tmp16:4;
   tmp16 = tmp14 & tmp13;
   local tmp17:4;
@@ -26241,7 +26241,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_addh_h16_ll_Rd32 = tmp12;
@@ -26270,7 +26270,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_addh_h16_lh_Rd32 = tmp12;
@@ -26299,7 +26299,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_addh_h16_hl_Rd32 = tmp12;
@@ -26328,7 +26328,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_addh_h16_hh_Rd32 = tmp12;
@@ -26365,7 +26365,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_subh_h16_ll_Rd32 = tmp12;
@@ -26394,7 +26394,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_subh_h16_lh_Rd32 = tmp12;
@@ -26423,7 +26423,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_subh_h16_hl_Rd32 = tmp12;
@@ -26452,7 +26452,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 16;
   local tmp10:4;
   local tmp11:4;
-  tmp10 = zext(tmp8);
+  tmp10 = sext(tmp8);
   local tmp12:4;
   tmp12 = tmp10 << tmp9;
   A2_subh_h16_hh_Rd32 = tmp12;
@@ -26478,7 +26478,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp0:4;
   tmp0 = 16;
   local tmp1:4;
-  tmp1 = A2_asrh_Rs32 >> tmp0;
+  tmp1 = A2_asrh_Rs32 s>> tmp0;
   A2_asrh_Rd32 = tmp1;
 }
 
@@ -26536,7 +26536,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp19 = tmp13 - tmp18;
   local tmp20:8;
   local tmp21:8;
-  tmp21 = zext(tmp19);
+  tmp21 = sext(tmp19);
   local tmp22:8;
   tmp22 = A2_addspl_Rtt32 + tmp21;
   A2_addspl_Rdd32 = tmp22;
@@ -26585,7 +26585,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp19 = tmp13 - tmp18;
   local tmp20:8;
   local tmp21:8;
-  tmp21 = zext(tmp19);
+  tmp21 = sext(tmp19);
   local tmp22:8;
   tmp22 = A2_addsph_Rtt32 + tmp21;
   A2_addsph_Rdd32 = tmp22;
@@ -26622,12 +26622,12 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 :A2_absp A2_absp_Rdd32 A2_absp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_absp_Rdd32 & A2_absp_Rss32 {
   local tmp0:4;
   tmp0 = fABS(A2_absp_Rss32);
-  A2_absp_Rdd32 = zext(tmp0);
+  A2_absp_Rdd32 = sext(tmp0);
 }
 
 :A2_max A2_max_Rd32 A2_max_Rs32 A2_max_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_max_Rd32 & A2_max_Rs32 & A2_max_Rt32 {
   local tmp0:1;
-  tmp0 = A2_max_Rs32 > A2_max_Rt32;
+  tmp0 = A2_max_Rs32 s> A2_max_Rt32;
   local tmp1:1;
   tmp1 = tmp0;
   if (tmp1) goto <t_branch_3>;
@@ -26669,7 +26669,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :A2_min A2_min_Rd32 A2_min_Rt32 A2_min_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_min_Rd32 & A2_min_Rt32 & A2_min_Rs32 {
   local tmp0:1;
-  tmp0 = A2_min_Rt32 < A2_min_Rs32;
+  tmp0 = A2_min_Rt32 s< A2_min_Rs32;
   local tmp1:1;
   tmp1 = tmp0;
   if (tmp1) goto <t_branch_3>;
@@ -26711,7 +26711,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :A2_maxp A2_maxp_Rdd32 A2_maxp_Rss32 A2_maxp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_maxp_Rdd32 & A2_maxp_Rss32 & A2_maxp_Rtt32 {
   local tmp0:1;
-  tmp0 = A2_maxp_Rss32 > A2_maxp_Rtt32;
+  tmp0 = A2_maxp_Rss32 s> A2_maxp_Rtt32;
   local tmp1:1;
   tmp1 = tmp0;
   if (tmp1) goto <t_branch_3>;
@@ -26753,7 +26753,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :A2_minp A2_minp_Rdd32 A2_minp_Rtt32 A2_minp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_minp_Rdd32 & A2_minp_Rtt32 & A2_minp_Rss32 {
   local tmp0:1;
-  tmp0 = A2_minp_Rtt32 < A2_minp_Rss32;
+  tmp0 = A2_minp_Rtt32 s< A2_minp_Rss32;
   local tmp1:1;
   tmp1 = tmp0;
   if (tmp1) goto <t_branch_3>;
@@ -27198,7 +27198,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = 16;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:4;
   tmp7 = tmp5 << tmp4;
   local tmp8:4;
@@ -27211,7 +27211,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp11 = tmp10:2;
   local tmp12:4;
   local tmp13:4;
-  tmp13 = zext(tmp11);
+  tmp13 = sext(tmp11);
   local tmp14:4;
   tmp14 = tmp7 | tmp13;
   A2_combine_hh_Rd32 = tmp14;
@@ -27230,7 +27230,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = 16;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:4;
   tmp7 = tmp5 << tmp4;
   local tmp8:4;
@@ -27243,7 +27243,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp11 = tmp10:2;
   local tmp12:4;
   local tmp13:4;
-  tmp13 = zext(tmp11);
+  tmp13 = sext(tmp11);
   local tmp14:4;
   tmp14 = tmp7 | tmp13;
   A2_combine_hl_Rd32 = tmp14;
@@ -27262,7 +27262,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = 16;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:4;
   tmp7 = tmp5 << tmp4;
   local tmp8:4;
@@ -27275,7 +27275,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp11 = tmp10:2;
   local tmp12:4;
   local tmp13:4;
-  tmp13 = zext(tmp11);
+  tmp13 = sext(tmp11);
   local tmp14:4;
   tmp14 = tmp7 | tmp13;
   A2_combine_lh_Rd32 = tmp14;
@@ -27294,7 +27294,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp4 = 16;
   local tmp5:4;
   local tmp6:4;
-  tmp5 = zext(tmp3);
+  tmp5 = sext(tmp3);
   local tmp7:4;
   tmp7 = tmp5 << tmp4;
   local tmp8:4;
@@ -27307,7 +27307,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp11 = tmp10:2;
   local tmp12:4;
   local tmp13:4;
-  tmp13 = zext(tmp11);
+  tmp13 = sext(tmp11);
   local tmp14:4;
   tmp14 = tmp7 | tmp13;
   A2_combine_ll_Rd32 = tmp14;
@@ -27837,7 +27837,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp0:4;
   tmp0 = 0;
   local tmp1:1;
-  tmp1 = A4_modwrapu_Rs32 < tmp0;
+  tmp1 = A4_modwrapu_Rs32 s< tmp0;
   local tmp2:1;
   tmp2 = tmp1;
   if (tmp2) goto <t_branch_4>;
@@ -27997,14 +27997,14 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp1 = 6;
   local tmp2:8;
   local tmp3:8;
-  tmp3 = zext(tmp1);
+  tmp3 = sext(tmp1);
   local tmp4:8;
   tmp4 = tmp0 - tmp3;
   local tmp5:4;
   tmp5 = 52;
   local tmp6:8;
   local tmp7:8;
-  tmp7 = zext(tmp5);
+  tmp7 = sext(tmp5);
   local tmp8:8;
   tmp8 = tmp4 << tmp7;
   F2_dfimm_p_Rdd32 = tmp8;
@@ -28014,7 +28014,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp10 = 46;
   local tmp11:8;
   local tmp12:8;
-  tmp12 = zext(tmp10);
+  tmp12 = sext(tmp10);
   local tmp13:8;
   tmp13 = tmp9 << tmp12;
   local tmp14:8;
@@ -28029,14 +28029,14 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp1 = 6;
   local tmp2:8;
   local tmp3:8;
-  tmp3 = zext(tmp1);
+  tmp3 = sext(tmp1);
   local tmp4:8;
   tmp4 = tmp0 - tmp3;
   local tmp5:4;
   tmp5 = 52;
   local tmp6:8;
   local tmp7:8;
-  tmp7 = zext(tmp5);
+  tmp7 = sext(tmp5);
   local tmp8:8;
   tmp8 = tmp4 << tmp7;
   F2_dfimm_n_Rdd32 = tmp8;
@@ -28046,7 +28046,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp10 = 46;
   local tmp11:8;
   local tmp12:8;
-  tmp12 = zext(tmp10);
+  tmp12 = sext(tmp10);
   local tmp13:8;
   tmp13 = tmp9 << tmp12;
   local tmp14:8;
@@ -28058,7 +28058,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp16 = 63;
   local tmp17:8;
   local tmp18:8;
-  tmp18 = zext(tmp16);
+  tmp18 = sext(tmp16);
   local tmp19:8;
   tmp19 = tmp15 << tmp18;
   local tmp20:8;
@@ -28251,9 +28251,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asr_i_p_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asr_i_p_u6);
+  tmp2 = sext(S2_asr_i_p_u6);
   local tmp3:8;
-  tmp3 = tmp0 >> tmp2;
+  tmp3 = tmp0 s>> tmp2;
   S2_asr_i_p_Rdd32 = tmp3;
 }
 
@@ -28262,7 +28262,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_lsr_i_p_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_lsr_i_p_u6);
+  tmp2 = sext(S2_lsr_i_p_u6);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   S2_lsr_i_p_Rdd32 = tmp3;
@@ -28273,7 +28273,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asl_i_p_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asl_i_p_u6);
+  tmp2 = sext(S2_asl_i_p_u6);
   local tmp3:8;
   tmp3 = tmp0 << tmp2;
   S2_asl_i_p_Rdd32 = tmp3;
@@ -28342,9 +28342,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asr_i_p_acc_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asr_i_p_acc_u6);
+  tmp2 = sext(S2_asr_i_p_acc_u6);
   local tmp3:8;
-  tmp3 = tmp0 >> tmp2;
+  tmp3 = tmp0 s>> tmp2;
   local tmp4:8;
   tmp4 = S2_asr_i_p_acc_Rxx32 + tmp3;
   S2_asr_i_p_acc_Rxx32 = tmp4;
@@ -28355,7 +28355,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_lsr_i_p_acc_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_lsr_i_p_acc_u6);
+  tmp2 = sext(S2_lsr_i_p_acc_u6);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:8;
@@ -28368,7 +28368,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asl_i_p_acc_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asl_i_p_acc_u6);
+  tmp2 = sext(S2_asl_i_p_acc_u6);
   local tmp3:8;
   tmp3 = tmp0 << tmp2;
   local tmp4:8;
@@ -28441,9 +28441,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asr_i_p_nac_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asr_i_p_nac_u6);
+  tmp2 = sext(S2_asr_i_p_nac_u6);
   local tmp3:8;
-  tmp3 = tmp0 >> tmp2;
+  tmp3 = tmp0 s>> tmp2;
   local tmp4:8;
   tmp4 = S2_asr_i_p_nac_Rxx32 - tmp3;
   S2_asr_i_p_nac_Rxx32 = tmp4;
@@ -28454,7 +28454,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_lsr_i_p_nac_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_lsr_i_p_nac_u6);
+  tmp2 = sext(S2_lsr_i_p_nac_u6);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:8;
@@ -28467,7 +28467,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asl_i_p_nac_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asl_i_p_nac_u6);
+  tmp2 = sext(S2_asl_i_p_nac_u6);
   local tmp3:8;
   tmp3 = tmp0 << tmp2;
   local tmp4:8;
@@ -28530,7 +28530,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_lsr_i_p_xacc_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_lsr_i_p_xacc_u6);
+  tmp2 = sext(S2_lsr_i_p_xacc_u6);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:8;
@@ -28543,7 +28543,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asl_i_p_xacc_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asl_i_p_xacc_u6);
+  tmp2 = sext(S2_asl_i_p_xacc_u6);
   local tmp3:8;
   tmp3 = tmp0 << tmp2;
   local tmp4:8;
@@ -28660,9 +28660,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asr_i_p_and_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asr_i_p_and_u6);
+  tmp2 = sext(S2_asr_i_p_and_u6);
   local tmp3:8;
-  tmp3 = tmp0 >> tmp2;
+  tmp3 = tmp0 s>> tmp2;
   local tmp4:8;
   tmp4 = S2_asr_i_p_and_Rxx32 & tmp3;
   S2_asr_i_p_and_Rxx32 = tmp4;
@@ -28673,7 +28673,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_lsr_i_p_and_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_lsr_i_p_and_u6);
+  tmp2 = sext(S2_lsr_i_p_and_u6);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:8;
@@ -28686,7 +28686,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asl_i_p_and_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asl_i_p_and_u6);
+  tmp2 = sext(S2_asl_i_p_and_u6);
   local tmp3:8;
   tmp3 = tmp0 << tmp2;
   local tmp4:8;
@@ -28715,9 +28715,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asr_i_p_or_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asr_i_p_or_u6);
+  tmp2 = sext(S2_asr_i_p_or_u6);
   local tmp3:8;
-  tmp3 = tmp0 >> tmp2;
+  tmp3 = tmp0 s>> tmp2;
   local tmp4:8;
   tmp4 = S2_asr_i_p_or_Rxx32 | tmp3;
   S2_asr_i_p_or_Rxx32 = tmp4;
@@ -28728,7 +28728,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_lsr_i_p_or_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_lsr_i_p_or_u6);
+  tmp2 = sext(S2_lsr_i_p_or_u6);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:8;
@@ -28741,7 +28741,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asl_i_p_or_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asl_i_p_or_u6);
+  tmp2 = sext(S2_asl_i_p_or_u6);
   local tmp3:8;
   tmp3 = tmp0 << tmp2;
   local tmp4:8;
@@ -28776,15 +28776,15 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = sext(S2_asr_i_p_rnd_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(S2_asr_i_p_rnd_u6);
+  tmp2 = sext(S2_asr_i_p_rnd_u6);
   local tmp3:8;
-  tmp3 = tmp0 >> tmp2;
+  tmp3 = tmp0 s>> tmp2;
   tmp = tmp3;
   local tmp4:4;
   tmp4 = 1;
   local tmp5:8;
   local tmp6:8;
-  tmp6 = zext(tmp4);
+  tmp6 = sext(tmp4);
   local tmp7:8;
   tmp7 = tmp & tmp6;
   rnd = tmp7;
@@ -28794,9 +28794,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp9 = 1;
   local tmp10:8;
   local tmp11:8;
-  tmp11 = zext(tmp9);
+  tmp11 = sext(tmp9);
   local tmp12:8;
-  tmp12 = tmp8 >> tmp11;
+  tmp12 = tmp8 s>> tmp11;
   local tmp13:8;
   tmp13 = tmp12 + rnd;
   S2_asr_i_p_rnd_Rdd32 = tmp13;
@@ -28863,7 +28863,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = S2_valignib_u3 * tmp1;
   local tmp3:8;
   local tmp4:8;
-  tmp4 = zext(tmp2);
+  tmp4 = sext(tmp2);
   local tmp5:8;
   tmp5 = tmp0 >> tmp4;
   local tmp6:8;
@@ -28878,7 +28878,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp10 = tmp8 * tmp9;
   local tmp11:8;
   local tmp12:8;
-  tmp12 = zext(tmp10);
+  tmp12 = sext(tmp10);
   local tmp13:8;
   tmp13 = tmp6 << tmp12;
   local tmp14:8;
@@ -28893,7 +28893,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp1 = 7;
   local tmp2:4;
   local tmp3:4;
-  tmp2 = zext(S2_valignrb_Pu4);
+  tmp2 = sext(S2_valignrb_Pu4);
   local tmp4:4;
   tmp4 = tmp2 & tmp1;
   local tmp5:4;
@@ -28902,7 +28902,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp6 = tmp4 * tmp5;
   local tmp7:8;
   local tmp8:8;
-  tmp8 = zext(tmp6);
+  tmp8 = sext(tmp6);
   local tmp9:8;
   tmp9 = tmp0 >> tmp8;
   local tmp10:8;
@@ -28913,7 +28913,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp12 = 7;
   local tmp13:4;
   local tmp14:4;
-  tmp13 = zext(S2_valignrb_Pu4);
+  tmp13 = sext(S2_valignrb_Pu4);
   local tmp15:4;
   tmp15 = tmp13 & tmp12;
   local tmp16:4;
@@ -28924,7 +28924,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp18 = tmp16 * tmp17;
   local tmp19:8;
   local tmp20:8;
-  tmp20 = zext(tmp18);
+  tmp20 = sext(tmp18);
   local tmp21:8;
   tmp21 = tmp10 << tmp20;
   local tmp22:8;
@@ -28941,7 +28941,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp2 = S2_vspliceib_u3 * tmp1;
   local tmp3:8;
   local tmp4:8;
-  tmp4 = zext(tmp2);
+  tmp4 = sext(tmp2);
   local tmp5:8;
   tmp5 = tmp0 << tmp4;
   local tmp6:4;
@@ -28958,7 +28958,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp11 = tmp9 - tmp10;
   local tmp12:8;
   local tmp13:8;
-  tmp13 = zext(tmp11);
+  tmp13 = sext(tmp11);
   local tmp14:8;
   tmp14 = S2_vspliceib_Rss32 & tmp13;
   local tmp15:8;
@@ -28973,7 +28973,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp1 = 7;
   local tmp2:4;
   local tmp3:4;
-  tmp2 = zext(S2_vsplicerb_Pu4);
+  tmp2 = sext(S2_vsplicerb_Pu4);
   local tmp4:4;
   tmp4 = tmp2 & tmp1;
   local tmp5:4;
@@ -28982,7 +28982,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp6 = tmp4 * tmp5;
   local tmp7:8;
   local tmp8:8;
-  tmp8 = zext(tmp6);
+  tmp8 = sext(tmp6);
   local tmp9:8;
   tmp9 = tmp0 << tmp8;
   local tmp10:4;
@@ -28991,7 +28991,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp11 = 7;
   local tmp12:4;
   local tmp13:4;
-  tmp12 = zext(S2_vsplicerb_Pu4);
+  tmp12 = sext(S2_vsplicerb_Pu4);
   local tmp14:4;
   tmp14 = tmp12 & tmp11;
   local tmp15:4;
@@ -29006,7 +29006,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp19 = tmp17 - tmp18;
   local tmp20:8;
   local tmp21:8;
-  tmp21 = zext(tmp19);
+  tmp21 = sext(tmp19);
   local tmp22:8;
   tmp22 = S2_vsplicerb_Rss32 & tmp21;
   local tmp23:8;
@@ -29031,26 +29031,26 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp1 = sext(tmp0);
   local tmp2:8;
   local tmp3:8;
-  tmp3 = zext(width);
+  tmp3 = sext(width);
   local tmp4:8;
   tmp4 = tmp1 << tmp3;
   local tmp5:4;
   tmp5 = 1;
   local tmp6:8;
   local tmp7:8;
-  tmp7 = zext(tmp5);
+  tmp7 = sext(tmp5);
   local tmp8:8;
   tmp8 = tmp4 - tmp7;
   local tmp9:8;
   local tmp10:8;
-  tmp10 = zext(offset);
+  tmp10 = sext(offset);
   local tmp11:8;
   tmp11 = tmp8 << tmp10;
   local tmp12:8;
   tmp12 = ~ tmp11;
   local tmp13:8;
   local tmp14:8;
-  tmp13 = zext(S2_insert_Rx32);
+  tmp13 = sext(S2_insert_Rx32);
   local tmp15:8;
   tmp15 = tmp13 & tmp12;
   S2_insert_Rx32 = tmp15:4;
@@ -29060,29 +29060,29 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp17 = sext(tmp16);
   local tmp18:8;
   local tmp19:8;
-  tmp19 = zext(width);
+  tmp19 = sext(width);
   local tmp20:8;
   tmp20 = tmp17 << tmp19;
   local tmp21:4;
   tmp21 = 1;
   local tmp22:8;
   local tmp23:8;
-  tmp23 = zext(tmp21);
+  tmp23 = sext(tmp21);
   local tmp24:8;
   tmp24 = tmp20 - tmp23;
   local tmp25:8;
   local tmp26:8;
-  tmp25 = zext(S2_insert_Rs32);
+  tmp25 = sext(S2_insert_Rs32);
   local tmp27:8;
   tmp27 = tmp25 & tmp24;
   local tmp28:8;
   local tmp29:8;
-  tmp29 = zext(offset);
+  tmp29 = sext(offset);
   local tmp30:8;
   tmp30 = tmp27 << tmp29;
   local tmp31:8;
   local tmp32:8;
-  tmp31 = zext(S2_insert_Rx32);
+  tmp31 = sext(S2_insert_Rx32);
   local tmp33:8;
   tmp33 = tmp31 | tmp30;
   S2_insert_Rx32 = tmp33:4;
@@ -29327,19 +29327,19 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp1 = sext(tmp0);
   local tmp2:8;
   local tmp3:8;
-  tmp3 = zext(width);
+  tmp3 = sext(width);
   local tmp4:8;
   tmp4 = tmp1 << tmp3;
   local tmp5:4;
   tmp5 = 1;
   local tmp6:8;
   local tmp7:8;
-  tmp7 = zext(tmp5);
+  tmp7 = sext(tmp5);
   local tmp8:8;
   tmp8 = tmp4 - tmp7;
   local tmp9:8;
   local tmp10:8;
-  tmp10 = zext(offset);
+  tmp10 = sext(offset);
   local tmp11:8;
   tmp11 = tmp8 << tmp10;
   local tmp12:8;
@@ -29353,21 +29353,21 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp15 = sext(tmp14);
   local tmp16:8;
   local tmp17:8;
-  tmp17 = zext(width);
+  tmp17 = sext(width);
   local tmp18:8;
   tmp18 = tmp15 << tmp17;
   local tmp19:4;
   tmp19 = 1;
   local tmp20:8;
   local tmp21:8;
-  tmp21 = zext(tmp19);
+  tmp21 = sext(tmp19);
   local tmp22:8;
   tmp22 = tmp18 - tmp21;
   local tmp23:8;
   tmp23 = S2_insertp_Rss32 & tmp22;
   local tmp24:8;
   local tmp25:8;
-  tmp25 = zext(offset);
+  tmp25 = sext(offset);
   local tmp26:8;
   tmp26 = tmp23 << tmp25;
   local tmp27:8;
@@ -29384,7 +29384,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S4_extractp_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(offset);
+  tmp2 = sext(offset);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:4;
@@ -29397,7 +29397,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp7 = tmp5 - tmp6;
   local tmp8:8;
   local tmp9:8;
-  tmp9 = zext(tmp7);
+  tmp9 = sext(tmp7);
   local tmp10:8;
   tmp10 = tmp3 & tmp9;
   local tmp11:4;
@@ -29410,7 +29410,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp14 = tmp11 << tmp13;
   local tmp15:8;
   local tmp16:8;
-  tmp16 = zext(tmp14);
+  tmp16 = sext(tmp14);
   local tmp17:8;
   tmp17 = tmp10 ^ tmp16;
   local tmp18:4;
@@ -29423,7 +29423,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp21 = tmp18 << tmp20;
   local tmp22:8;
   local tmp23:8;
-  tmp23 = zext(tmp21);
+  tmp23 = sext(tmp21);
   local tmp24:8;
   tmp24 = tmp17 - tmp23;
   S4_extractp_Rdd32 = tmp24;
@@ -29438,7 +29438,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp0 = zext(S2_extractup_Rss32);
   local tmp1:8;
   local tmp2:8;
-  tmp2 = zext(offset);
+  tmp2 = sext(offset);
   local tmp3:8;
   tmp3 = tmp0 >> tmp2;
   local tmp4:4;
@@ -29451,7 +29451,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp7 = tmp5 - tmp6;
   local tmp8:8;
   local tmp9:8;
-  tmp9 = zext(tmp7);
+  tmp9 = sext(tmp7);
   local tmp10:8;
   tmp10 = tmp3 & tmp9;
   S2_extractup_Rdd32 = tmp10;
@@ -29539,21 +29539,21 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp29 = sext(tmp28);
   local tmp30:8;
   local tmp31:8;
-  tmp31 = zext(width);
+  tmp31 = sext(width);
   local tmp32:8;
   tmp32 = tmp29 << tmp31;
   local tmp33:4;
   tmp33 = 1;
   local tmp34:8;
   local tmp35:8;
-  tmp35 = zext(tmp33);
+  tmp35 = sext(tmp33);
   local tmp36:8;
   tmp36 = tmp32 - tmp35;
   mask = tmp36;
   local tmp37:4;
   tmp37 = 0;
   local tmp38:1;
-  tmp38 = offset < tmp37;
+  tmp38 = offset s< tmp37;
   local tmp39:1;
   tmp39 = tmp38;
   if (tmp39) goto <t_branch_41>;
@@ -29566,30 +29566,30 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <f_branch_41>
   local tmp42:8;
   local tmp43:8;
-  tmp43 = zext(offset);
+  tmp43 = sext(offset);
   local tmp44:8;
   tmp44 = mask << tmp43;
   local tmp45:8;
   tmp45 = ~ tmp44;
   local tmp46:8;
   local tmp47:8;
-  tmp46 = zext(S2_insert_rp_Rx32);
+  tmp46 = sext(S2_insert_rp_Rx32);
   local tmp48:8;
   tmp48 = tmp46 & tmp45;
   S2_insert_rp_Rx32 = tmp48:4;
   local tmp49:8;
   local tmp50:8;
-  tmp49 = zext(S2_insert_rp_Rs32);
+  tmp49 = sext(S2_insert_rp_Rs32);
   local tmp51:8;
   tmp51 = tmp49 & mask;
   local tmp52:8;
   local tmp53:8;
-  tmp53 = zext(offset);
+  tmp53 = sext(offset);
   local tmp54:8;
   tmp54 = tmp51 << tmp53;
   local tmp55:8;
   local tmp56:8;
-  tmp55 = zext(S2_insert_rp_Rx32);
+  tmp55 = sext(S2_insert_rp_Rx32);
   local tmp57:8;
   tmp57 = tmp55 | tmp54;
   S2_insert_rp_Rx32 = tmp57:4;
@@ -29668,21 +29668,21 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp29 = sext(tmp28);
   local tmp30:8;
   local tmp31:8;
-  tmp31 = zext(width);
+  tmp31 = sext(width);
   local tmp32:8;
   tmp32 = tmp29 << tmp31;
   local tmp33:4;
   tmp33 = 1;
   local tmp34:8;
   local tmp35:8;
-  tmp35 = zext(tmp33);
+  tmp35 = sext(tmp33);
   local tmp36:8;
   tmp36 = tmp32 - tmp35;
   mask = tmp36;
   local tmp37:4;
   tmp37 = 0;
   local tmp38:1;
-  tmp38 = offset < tmp37;
+  tmp38 = offset s< tmp37;
   local tmp39:1;
   tmp39 = tmp38;
   if (tmp39) goto <t_branch_41>;
@@ -29695,7 +29695,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <f_branch_41>
   local tmp42:8;
   local tmp43:8;
-  tmp43 = zext(offset);
+  tmp43 = sext(offset);
   local tmp44:8;
   tmp44 = mask << tmp43;
   local tmp45:8;
@@ -29707,7 +29707,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp47 = S2_insertp_rp_Rss32 & mask;
   local tmp48:8;
   local tmp49:8;
-  tmp49 = zext(offset);
+  tmp49 = sext(offset);
   local tmp50:8;
   tmp50 = tmp47 << tmp49;
   local tmp51:8;
@@ -30360,13 +30360,13 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   tmp3 = S2_interleave_Rss32 >> 0;
   tmp4 = tmp3:4;
   tmp0 = fINTERLEAVE(tmp2, tmp4);
-  S2_interleave_Rdd32 = zext(tmp0);
+  S2_interleave_Rdd32 = sext(tmp0);
 }
 
 :S2_deinterleave S2_deinterleave_Rdd32 S2_deinterleave_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_deinterleave_Rdd32 & S2_deinterleave_Rss32 {
   local tmp0:4;
   tmp0 = fDEINTERLEAVE(S2_deinterleave_Rss32);
-  S2_deinterleave_Rdd32 = zext(tmp0);
+  S2_deinterleave_Rdd32 = sext(tmp0);
 }
 
 :J2_trap0 J2_trap0_u8 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_trap0_u8 {
@@ -30431,7 +30431,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 :Y2_tlbr Y2_tlbr_Rdd32 Y2_tlbr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tlbr_Rdd32 & Y2_tlbr_Rs32 {
   local tmp0:4;
   tmp0 = fTLBR(Y2_tlbr_Rs32);
-  Y2_tlbr_Rdd32 = zext(tmp0);
+  Y2_tlbr_Rdd32 = sext(tmp0);
 }
 
 :Y2_tlbp Y2_tlbp_Rd32 Y2_tlbp_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tlbp_Rd32 & Y2_tlbp_Rs32 {
@@ -30657,7 +30657,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp3:4;
   tmp3 = 8;
   local tmp4:4;
-  tmp4 = Y4_l2fetch_Rt32 >> tmp3;
+  tmp4 = Y4_l2fetch_Rt32 s>> tmp3;
   local tmp5:4;
   tmp5 = 255;
   local tmp6:4;
@@ -30665,7 +30665,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp7:4;
   tmp7 = 16;
   local tmp8:4;
-  tmp8 = Y4_l2fetch_Rt32 >> tmp7;
+  tmp8 = Y4_l2fetch_Rt32 s>> tmp7;
   local tmp9:4;
   tmp9 = 65535;
   local tmp10:4;
