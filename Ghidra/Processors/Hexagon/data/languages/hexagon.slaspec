@@ -16275,25 +16275,11 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp2:4;
   tmp2 = S2_allocframe_Rx32 + tmp1;
   EA = tmp2;
-  local tmp3:8;
-  tmp3 = sext(R31);
-  local tmp4:4;
-  tmp4 = 32;
-  local tmp5:8;
-  tmp5 = zext(tmp4);
-  local tmp6:8;
-  tmp6 = tmp3 << tmp5;
-  local tmp7:4;
-  tmp7 = R30;
-  local tmp8:8;
-  tmp8 = sext(tmp7);
-  local tmp9:8;
-  tmp9 = tmp6 | tmp8;
-  *:8 EA = tmp9;
+  *:8 EA = R31R30;
   R30 = EA;
-  local tmp10:4;
-  tmp10 = EA - S2_allocframe_u11_3;
-  S2_allocframe_Rx32 = tmp10;
+  local tmp3:4;
+  tmp3 = EA - S2_allocframe_u11_3;
+  S2_allocframe_Rx32 = tmp3;
 }
 
 :L2_deallocframe L2_deallocframe_Rdd32 L2_deallocframe_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_deallocframe_Rdd32 & L2_deallocframe_Rs32 {
@@ -34434,25 +34420,11 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp2:4;
   tmp2 = R29 + tmp1;
   EA = tmp2;
-  local tmp3:8;
-  tmp3 = sext(R31);
-  local tmp4:4;
-  tmp4 = 32;
-  local tmp5:8;
-  tmp5 = zext(tmp4);
-  local tmp6:8;
-  tmp6 = tmp3 << tmp5;
-  local tmp7:4;
-  tmp7 = R30;
-  local tmp8:8;
-  tmp8 = sext(tmp7);
-  local tmp9:8;
-  tmp9 = tmp6 | tmp8;
-  *:8 EA = tmp9;
+  *:8 EA = R31R30;
   R30 = EA;
-  local tmp10:4;
-  tmp10 = EA - SS2_allocframe_u5_3;
-  R29 = tmp10;
+  local tmp3:4;
+  tmp3 = EA - SS2_allocframe_u5_3;
+  R29 = tmp3;
 }
 
 :DUPLEX is phase = 1 & subinsn = 0 & Parse = 0b00 unimpl
