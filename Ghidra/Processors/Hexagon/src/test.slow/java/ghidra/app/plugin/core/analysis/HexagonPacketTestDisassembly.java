@@ -295,12 +295,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		int txId = program.startTransaction("Add Memory");
 		programBuilder.createMemory(".text", "1000", 64);
 
-		// { loop0(data_2028c,#0xa)
-		// R1 = #0x0 }
-		// { R1 = add(R1,#0x1)
-		// nop } :endloop0
-		// { jumpr LR }
-
 		programBuilder.setBytes("1000", "52 40 00 69 01 c0 00 78 21 80 01 b0 00 c0 00 7f 00 c0 9f 52");
 
 		programBuilder.disassemble("1000", 20, true);
