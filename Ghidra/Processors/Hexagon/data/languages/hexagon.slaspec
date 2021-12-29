@@ -37,16 +37,17 @@ define register offset=0x000 size=8 [
   G25G24  G27G26  G29G28  G31G30
 ];
 
-define register offset=0x500 size=20 contextreg;
+define register offset=0x500 size=24 contextreg;
 define context contextreg
-  pkt_start = (  0,  31) noflow
-  pkt_next  = ( 32,  63) noflow
-  subinsn   = ( 64,  66) noflow
-  immext    = ( 67,  98) noflow
-  dotnew    = ( 99, 103) noflow
-  hasnew    = (104, 104) noflow
-  endloop   = (105, 106) noflow
-  phase     = (107, 107) noflow
+  pkt_start   = (  0,  31) noflow
+  pkt_next    = ( 32,  63) noflow
+  subinsn     = ( 64,  66) noflow
+  immext      = ( 67,  98) noflow
+  dotnew      = ( 99, 103) noflow
+  hasnew      = (104, 104) noflow
+  endloop     = (105, 106) noflow
+  phase       = (107, 107) noflow
+  duplex_next = (108, 139) noflow
 ;
 
 define pcodeop newreg;
@@ -33379,7 +33380,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_addi_Rx16 = tmp0;
 }
 
-:SA1_tfr SA1_tfr_Rd16 SA1_tfr_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_tfr_Rd16 & SA1_tfr_Rs16 {
+:SA1_tfr SA1_tfr_Rd16 SA1_tfr_Rs16 is phase = 1 & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_tfr_Rd16 & SA1_tfr_Rs16 {
   SA1_tfr_Rd16 = SA1_tfr_Rs16;
 }
 
@@ -33387,7 +33388,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_seti_Rd16 = SA1_seti_u6;
 }
 
-:SA1_setin1 SA1_setin1_Rd16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a6 = 0 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_setin1_Rd16 {
+:SA1_setin1 SA1_setin1_Rd16 is phase = 1 & subinsn = 1 & a6 = 0 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_setin1_Rd16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33395,7 +33396,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_setin1_Rd16 = tmp1;
 }
 
-:SA1_clrtnew SA1_clrtnew_Rd16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a4 = 0 & a5 = 0 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrtnew_Rd16 {
+:SA1_clrtnew SA1_clrtnew_Rd16 is phase = 1 & subinsn = 1 & a4 = 0 & a5 = 0 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrtnew_Rd16 {
   local tmp0:1;
   tmp0 = newreg(P0);
   local tmp1:1;
@@ -33411,7 +33412,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:SA1_clrfnew SA1_clrfnew_Rd16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a4 = 1 & a5 = 0 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrfnew_Rd16 {
+:SA1_clrfnew SA1_clrfnew_Rd16 is phase = 1 & subinsn = 1 & a4 = 1 & a5 = 0 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrfnew_Rd16 {
   local tmp0:1;
   tmp0 = newreg(P0);
   local tmp1:1;
@@ -33429,7 +33430,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:SA1_clrt SA1_clrt_Rd16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a4 = 0 & a5 = 1 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrt_Rd16 {
+:SA1_clrt SA1_clrt_Rd16 is phase = 1 & subinsn = 1 & a4 = 0 & a5 = 1 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrt_Rd16 {
   local tmp0:1;
   tmp0 = P0;
   if (tmp0) goto <t_branch_2>;
@@ -33443,7 +33444,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:SA1_clrf SA1_clrf_Rd16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a4 = 1 & a5 = 1 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrf_Rd16 {
+:SA1_clrf SA1_clrf_Rd16 is phase = 1 & subinsn = 1 & a4 = 1 & a5 = 1 & a6 = 1 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_clrf_Rd16 {
   local tmp0:1;
   tmp0 = ! P0;
   local tmp1:1;
@@ -33459,13 +33460,13 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:SA1_addsp SA1_addsp_Rd16 SA1_addsp_u6_2 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a10 = 1 & a11 = 1 & a12 = 0 & SA1_addsp_Rd16 & SA1_addsp_u6_2 {
+:SA1_addsp SA1_addsp_Rd16 SA1_addsp_u6_2 is phase = 1 & subinsn = 1 & a10 = 1 & a11 = 1 & a12 = 0 & SA1_addsp_Rd16 & SA1_addsp_u6_2 {
   local tmp0:4;
   tmp0 = R29 + SA1_addsp_u6_2;
   SA1_addsp_Rd16 = tmp0;
 }
 
-:SA1_inc SA1_inc_Rd16 SA1_inc_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_inc_Rd16 & SA1_inc_Rs16 {
+:SA1_inc SA1_inc_Rd16 SA1_inc_Rs16 is phase = 1 & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_inc_Rd16 & SA1_inc_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33473,7 +33474,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_inc_Rd16 = tmp1;
 }
 
-:SA1_dec SA1_dec_Rd16 SA1_dec_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_dec_Rd16 & SA1_dec_Rs16 {
+:SA1_dec SA1_dec_Rd16 SA1_dec_Rs16 is phase = 1 & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_dec_Rd16 & SA1_dec_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33481,13 +33482,13 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_dec_Rd16 = tmp1;
 }
 
-:SA1_addrx SA1_addrx_Rx16 SA1_addrx_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_addrx_Rx16 & SA1_addrx_Rs16 {
+:SA1_addrx SA1_addrx_Rx16 SA1_addrx_Rs16 is phase = 1 & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_addrx_Rx16 & SA1_addrx_Rs16 {
   local tmp0:4;
   tmp0 = SA1_addrx_Rx16 + SA1_addrx_Rs16;
   SA1_addrx_Rx16 = tmp0;
 }
 
-:SA1_zxtb SA1_zxtb_Rd16 SA1_zxtb_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_zxtb_Rd16 & SA1_zxtb_Rs16 {
+:SA1_zxtb SA1_zxtb_Rd16 SA1_zxtb_Rs16 is phase = 1 & subinsn = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_zxtb_Rd16 & SA1_zxtb_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33503,7 +33504,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_zxtb_Rd16 = tmp5;
 }
 
-:SA1_and1 SA1_and1_Rd16 SA1_and1_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_and1_Rd16 & SA1_and1_Rs16 {
+:SA1_and1 SA1_and1_Rd16 SA1_and1_Rs16 is phase = 1 & subinsn = 1 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SA1_and1_Rd16 & SA1_and1_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33511,7 +33512,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_and1_Rd16 = tmp1;
 }
 
-:SA1_sxtb SA1_sxtb_Rd16 SA1_sxtb_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_sxtb_Rd16 & SA1_sxtb_Rs16 {
+:SA1_sxtb SA1_sxtb_Rd16 SA1_sxtb_Rs16 is phase = 1 & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_sxtb_Rd16 & SA1_sxtb_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33551,7 +33552,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_sxtb_Rd16 = tmp17;
 }
 
-:SA1_zxth SA1_zxth_Rd16 SA1_zxth_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 1 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_zxth_Rd16 & SA1_zxth_Rs16 {
+:SA1_zxth SA1_zxth_Rd16 SA1_zxth_Rs16 is phase = 1 & subinsn = 1 & a8 = 0 & a9 = 1 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_zxth_Rd16 & SA1_zxth_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33567,7 +33568,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_zxth_Rd16 = tmp5;
 }
 
-:SA1_sxth SA1_sxth_Rd16 SA1_sxth_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_sxth_Rd16 & SA1_sxth_Rs16 {
+:SA1_sxth SA1_sxth_Rd16 SA1_sxth_Rs16 is phase = 1 & subinsn = 1 & a8 = 0 & a9 = 0 & a10 = 1 & a11 = 0 & a12 = 1 & SA1_sxth_Rd16 & SA1_sxth_Rs16 {
   local tmp0:4;
   tmp0 = 1;
   local tmp1:4;
@@ -33607,7 +33608,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_sxth_Rd16 = tmp17;
 }
 
-:SA1_combinezr SA1_combinezr_Rdd8 SA1_combinezr_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a3 = 0 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinezr_Rdd8 & SA1_combinezr_Rs16 {
+:SA1_combinezr SA1_combinezr_Rdd8 SA1_combinezr_Rs16 is phase = 1 & subinsn = 1 & a3 = 0 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinezr_Rdd8 & SA1_combinezr_Rs16 {
   local tmp0:8;
   tmp0 = 4294967295;
   local tmp1:4;
@@ -33682,7 +33683,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_combinezr_Rdd8 = tmp34;
 }
 
-:SA1_combinerz SA1_combinerz_Rdd8 SA1_combinerz_Rs16 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a3 = 1 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinerz_Rdd8 & SA1_combinerz_Rs16 {
+:SA1_combinerz SA1_combinerz_Rdd8 SA1_combinerz_Rs16 is phase = 1 & subinsn = 1 & a3 = 1 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinerz_Rdd8 & SA1_combinerz_Rs16 {
   local tmp0:8;
   tmp0 = 4294967295;
   local tmp1:4;
@@ -33757,7 +33758,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_combinerz_Rdd8 = tmp34;
 }
 
-:SA1_combine0i SA1_combine0i_Rdd8 SA1_combine0i_u2 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a3 = 0 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine0i_Rdd8 & SA1_combine0i_u2 {
+:SA1_combine0i SA1_combine0i_Rdd8 SA1_combine0i_u2 is phase = 1 & subinsn = 1 & a3 = 0 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine0i_Rdd8 & SA1_combine0i_u2 {
   local tmp0:8;
   tmp0 = 4294967295;
   local tmp1:4;
@@ -33832,7 +33833,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_combine0i_Rdd8 = tmp34;
 }
 
-:SA1_combine1i SA1_combine1i_Rdd8 SA1_combine1i_u2 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a3 = 1 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine1i_Rdd8 & SA1_combine1i_u2 {
+:SA1_combine1i SA1_combine1i_Rdd8 SA1_combine1i_u2 is phase = 1 & subinsn = 1 & a3 = 1 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine1i_Rdd8 & SA1_combine1i_u2 {
   local tmp0:8;
   tmp0 = 4294967295;
   local tmp1:4;
@@ -33907,7 +33908,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_combine1i_Rdd8 = tmp34;
 }
 
-:SA1_combine2i SA1_combine2i_Rdd8 SA1_combine2i_u2 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a3 = 0 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine2i_Rdd8 & SA1_combine2i_u2 {
+:SA1_combine2i SA1_combine2i_Rdd8 SA1_combine2i_u2 is phase = 1 & subinsn = 1 & a3 = 0 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine2i_Rdd8 & SA1_combine2i_u2 {
   local tmp0:8;
   tmp0 = 4294967295;
   local tmp1:4;
@@ -33982,7 +33983,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_combine2i_Rdd8 = tmp34;
 }
 
-:SA1_combine3i SA1_combine3i_Rdd8 SA1_combine3i_u2 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a3 = 1 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine3i_Rdd8 & SA1_combine3i_u2 {
+:SA1_combine3i SA1_combine3i_Rdd8 SA1_combine3i_u2 is phase = 1 & subinsn = 1 & a3 = 1 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine3i_Rdd8 & SA1_combine3i_u2 {
   local tmp0:8;
   tmp0 = 4294967295;
   local tmp1:4;
@@ -34057,13 +34058,13 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_combine3i_Rdd8 = tmp34;
 }
 
-:SA1_cmpeqi SA1_cmpeqi_Rs16 SA1_cmpeqi_u2 is phase = 1 & immext = 0xffffffff & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_cmpeqi_Rs16 & SA1_cmpeqi_u2 {
+:SA1_cmpeqi SA1_cmpeqi_Rs16 SA1_cmpeqi_u2 is phase = 1 & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_cmpeqi_Rs16 & SA1_cmpeqi_u2 {
   local tmp0:1;
   tmp0 = SA1_cmpeqi_Rs16 == SA1_cmpeqi_u2;
   P0 = tmp0;
 }
 
-:SL1_loadri_io SL1_loadri_io_Rd16 SL1_loadri_io_Rs16 SL1_loadri_io_u4_2 is phase = 1 & immext = 0xffffffff & subinsn = 2 & a12 = 0 & SL1_loadri_io_Rd16 & SL1_loadri_io_Rs16 & SL1_loadri_io_u4_2 {
+:SL1_loadri_io SL1_loadri_io_Rd16 SL1_loadri_io_Rs16 SL1_loadri_io_u4_2 is phase = 1 & subinsn = 2 & a12 = 0 & SL1_loadri_io_Rd16 & SL1_loadri_io_Rs16 & SL1_loadri_io_u4_2 {
   local EA:4;
   local tmp0:4;
   tmp0 = SL1_loadri_io_Rs16 + SL1_loadri_io_u4_2;
@@ -34071,7 +34072,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL1_loadri_io_Rd16 = *:4 EA;
 }
 
-:SL1_loadrub_io SL1_loadrub_io_Rd16 SL1_loadrub_io_Rs16 SL1_loadrub_io_u4_0 is phase = 1 & immext = 0xffffffff & subinsn = 2 & a12 = 1 & SL1_loadrub_io_Rd16 & SL1_loadrub_io_Rs16 & SL1_loadrub_io_u4_0 {
+:SL1_loadrub_io SL1_loadrub_io_Rd16 SL1_loadrub_io_Rs16 SL1_loadrub_io_u4_0 is phase = 1 & subinsn = 2 & a12 = 1 & SL1_loadrub_io_Rd16 & SL1_loadrub_io_Rs16 & SL1_loadrub_io_u4_0 {
   local EA:4;
   local tmp0:4;
   tmp0 = SL1_loadrub_io_Rs16 + SL1_loadrub_io_u4_0;
@@ -34079,7 +34080,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL1_loadrub_io_Rd16 = *:1 EA;
 }
 
-:SL2_loadrh_io SL2_loadrh_io_Rd16 SL2_loadrh_io_Rs16 SL2_loadrh_io_u3_1 is phase = 1 & immext = 0xffffffff & subinsn = 3 & a11 = 0 & a12 = 0 & SL2_loadrh_io_Rd16 & SL2_loadrh_io_Rs16 & SL2_loadrh_io_u3_1 {
+:SL2_loadrh_io SL2_loadrh_io_Rd16 SL2_loadrh_io_Rs16 SL2_loadrh_io_u3_1 is phase = 1 & subinsn = 3 & a11 = 0 & a12 = 0 & SL2_loadrh_io_Rd16 & SL2_loadrh_io_Rs16 & SL2_loadrh_io_u3_1 {
   local EA:4;
   local tmp0:4;
   tmp0 = SL2_loadrh_io_Rs16 + SL2_loadrh_io_u3_1;
@@ -34087,7 +34088,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL2_loadrh_io_Rd16 = *:2 EA;
 }
 
-:SL2_loadruh_io SL2_loadruh_io_Rd16 SL2_loadruh_io_Rs16 SL2_loadruh_io_u3_1 is phase = 1 & immext = 0xffffffff & subinsn = 3 & a11 = 1 & a12 = 0 & SL2_loadruh_io_Rd16 & SL2_loadruh_io_Rs16 & SL2_loadruh_io_u3_1 {
+:SL2_loadruh_io SL2_loadruh_io_Rd16 SL2_loadruh_io_Rs16 SL2_loadruh_io_u3_1 is phase = 1 & subinsn = 3 & a11 = 1 & a12 = 0 & SL2_loadruh_io_Rd16 & SL2_loadruh_io_Rs16 & SL2_loadruh_io_u3_1 {
   local EA:4;
   local tmp0:4;
   tmp0 = SL2_loadruh_io_Rs16 + SL2_loadruh_io_u3_1;
@@ -34095,7 +34096,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL2_loadruh_io_Rd16 = *:2 EA;
 }
 
-:SL2_loadrb_io SL2_loadrb_io_Rd16 SL2_loadrb_io_Rs16 SL2_loadrb_io_u3_0 is phase = 1 & immext = 0xffffffff & subinsn = 3 & a11 = 0 & a12 = 1 & SL2_loadrb_io_Rd16 & SL2_loadrb_io_Rs16 & SL2_loadrb_io_u3_0 {
+:SL2_loadrb_io SL2_loadrb_io_Rd16 SL2_loadrb_io_Rs16 SL2_loadrb_io_u3_0 is phase = 1 & subinsn = 3 & a11 = 0 & a12 = 1 & SL2_loadrb_io_Rd16 & SL2_loadrb_io_Rs16 & SL2_loadrb_io_u3_0 {
   local EA:4;
   local tmp0:4;
   tmp0 = SL2_loadrb_io_Rs16 + SL2_loadrb_io_u3_0;
@@ -34103,7 +34104,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL2_loadrb_io_Rd16 = *:1 EA;
 }
 
-:SL2_loadri_sp SL2_loadri_sp_Rd16 SL2_loadri_sp_u5_2 is phase = 1 & immext = 0xffffffff & subinsn = 3 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadri_sp_Rd16 & SL2_loadri_sp_u5_2 {
+:SL2_loadri_sp SL2_loadri_sp_Rd16 SL2_loadri_sp_u5_2 is phase = 1 & subinsn = 3 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadri_sp_Rd16 & SL2_loadri_sp_u5_2 {
   local EA:4;
   local tmp0:4;
   tmp0 = R29 + SL2_loadri_sp_u5_2;
@@ -34111,7 +34112,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL2_loadri_sp_Rd16 = *:4 EA;
 }
 
-:SL2_loadrd_sp SL2_loadrd_sp_Rdd8 SL2_loadrd_sp_u5_3 is phase = 1 & immext = 0xffffffff & subinsn = 3 & a8 = 0 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadrd_sp_Rdd8 & SL2_loadrd_sp_u5_3 {
+:SL2_loadrd_sp SL2_loadrd_sp_Rdd8 SL2_loadrd_sp_u5_3 is phase = 1 & subinsn = 3 & a8 = 0 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SL2_loadrd_sp_Rdd8 & SL2_loadrd_sp_u5_3 {
   local EA:4;
   local tmp0:4;
   tmp0 = R29 + SL2_loadrd_sp_u5_3;
@@ -34119,7 +34120,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SL2_loadrd_sp_Rdd8 = *:8 EA;
 }
 
-:SL2_deallocframe  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 0 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_deallocframe  is phase = 1 & subinsn = 3 & a2 = 0 & a6 = 0 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp:8;
   local EA:4;
   EA = R30;
@@ -34170,7 +34171,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   R29 = tmp19;
 }
 
-:SL2_return  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_return  is phase = 1 & subinsn = 3 & a2 = 0 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp:8;
   local EA:4;
   EA = R30;
@@ -34240,7 +34241,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   return [tmp20];
 }
 
-:SL2_return_t  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_return_t  is phase = 1 & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp:8;
   local EA:4;
   EA = R30;
@@ -34318,7 +34319,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:SL2_return_f  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_return_f  is phase = 1 & subinsn = 3 & a0 = 1 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp:8;
   local EA:4;
   EA = R30;
@@ -34398,7 +34399,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:SL2_return_tnew  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_return_tnew  is phase = 1 & subinsn = 3 & a0 = 0 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp:8;
   local EA:4;
   EA = R30;
@@ -34478,7 +34479,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:SL2_return_fnew  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_return_fnew  is phase = 1 & subinsn = 3 & a0 = 1 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 0 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp:8;
   local EA:4;
   EA = R30;
@@ -34560,11 +34561,11 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:SL2_jumpr31  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a2 = 0 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_jumpr31  is phase = 1 & subinsn = 3 & a2 = 0 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   return [R31];
 }
 
-:SL2_jumpr31_t  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_jumpr31_t  is phase = 1 & subinsn = 3 & a0 = 0 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp0:1;
   tmp0 = P0;
   if (tmp0) goto <t_branch_2>;
@@ -34575,7 +34576,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:SL2_jumpr31_f  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_jumpr31_f  is phase = 1 & subinsn = 3 & a0 = 1 & a1 = 0 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp0:1;
   tmp0 = ! P0;
   local tmp1:1;
@@ -34588,7 +34589,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:SL2_jumpr31_tnew  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 0 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_jumpr31_tnew  is phase = 1 & subinsn = 3 & a0 = 0 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp0:1;
   tmp0 = newreg(P0);
   local tmp1:1;
@@ -34601,7 +34602,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:SL2_jumpr31_fnew  is phase = 1 & immext = 0xffffffff & subinsn = 3 & a0 = 1 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
+:SL2_jumpr31_fnew  is phase = 1 & subinsn = 3 & a0 = 1 & a1 = 1 & a2 = 1 & a6 = 1 & a7 = 1 & a8 = 1 & a9 = 1 & a10 = 1 & a11 = 1 & a12 = 1 {
   local tmp0:1;
   tmp0 = newreg(P0);
   local tmp1:1;
@@ -34616,7 +34617,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:SS1_storew_io SS1_storew_io_Rs16 SS1_storew_io_Rt16 SS1_storew_io_u4_2 is phase = 1 & immext = 0xffffffff & subinsn = 4 & a12 = 0 & SS1_storew_io_Rs16 & SS1_storew_io_Rt16 & SS1_storew_io_u4_2 {
+:SS1_storew_io SS1_storew_io_Rs16 SS1_storew_io_Rt16 SS1_storew_io_u4_2 is phase = 1 & subinsn = 4 & a12 = 0 & SS1_storew_io_Rs16 & SS1_storew_io_Rt16 & SS1_storew_io_u4_2 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS1_storew_io_Rs16 + SS1_storew_io_u4_2;
@@ -34624,7 +34625,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = SS1_storew_io_Rt16;
 }
 
-:SS1_storeb_io SS1_storeb_io_Rs16 SS1_storeb_io_Rt16 SS1_storeb_io_u4_0 is phase = 1 & immext = 0xffffffff & subinsn = 4 & a12 = 1 & SS1_storeb_io_Rs16 & SS1_storeb_io_Rt16 & SS1_storeb_io_u4_0 {
+:SS1_storeb_io SS1_storeb_io_Rs16 SS1_storeb_io_Rt16 SS1_storeb_io_u4_0 is phase = 1 & subinsn = 4 & a12 = 1 & SS1_storeb_io_Rs16 & SS1_storeb_io_Rt16 & SS1_storeb_io_u4_0 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS1_storeb_io_Rs16 + SS1_storeb_io_u4_0;
@@ -34646,7 +34647,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp1;
 }
 
-:SS2_storeh_io SS2_storeh_io_Rs16 SS2_storeh_io_Rt16 SS2_storeh_io_u3_1 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a11 = 0 & a12 = 0 & SS2_storeh_io_Rs16 & SS2_storeh_io_Rt16 & SS2_storeh_io_u3_1 {
+:SS2_storeh_io SS2_storeh_io_Rs16 SS2_storeh_io_Rt16 SS2_storeh_io_u3_1 is phase = 1 & subinsn = 5 & a11 = 0 & a12 = 0 & SS2_storeh_io_Rs16 & SS2_storeh_io_Rt16 & SS2_storeh_io_u3_1 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS2_storeh_io_Rs16 + SS2_storeh_io_u3_1;
@@ -34668,7 +34669,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp1;
 }
 
-:SS2_stored_sp SS2_stored_sp_Rtt8 SS2_stored_sp_s6_3 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_stored_sp_Rtt8 & SS2_stored_sp_s6_3 {
+:SS2_stored_sp SS2_stored_sp_Rtt8 SS2_stored_sp_s6_3 is phase = 1 & subinsn = 5 & a9 = 1 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_stored_sp_Rtt8 & SS2_stored_sp_s6_3 {
   local EA:4;
   local tmp0:4;
   tmp0 = R29 + SS2_stored_sp_s6_3;
@@ -34676,7 +34677,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:8 EA = SS2_stored_sp_Rtt8;
 }
 
-:SS2_storew_sp SS2_storew_sp_Rt16 SS2_storew_sp_u5_2 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_storew_sp_Rt16 & SS2_storew_sp_u5_2 {
+:SS2_storew_sp SS2_storew_sp_Rt16 SS2_storew_sp_u5_2 is phase = 1 & subinsn = 5 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 0 & SS2_storew_sp_Rt16 & SS2_storew_sp_u5_2 {
   local EA:4;
   local tmp0:4;
   tmp0 = R29 + SS2_storew_sp_u5_2;
@@ -34684,7 +34685,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = SS2_storew_sp_Rt16;
 }
 
-:SS2_storewi0 SS2_storewi0_Rs16 SS2_storewi0_u4_2 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi0_Rs16 & SS2_storewi0_u4_2 {
+:SS2_storewi0 SS2_storewi0_Rs16 SS2_storewi0_u4_2 is phase = 1 & subinsn = 5 & a8 = 0 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi0_Rs16 & SS2_storewi0_u4_2 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS2_storewi0_Rs16 + SS2_storewi0_u4_2;
@@ -34694,7 +34695,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = tmp1;
 }
 
-:SS2_storebi0 SS2_storebi0_Rs16 SS2_storebi0_u4_0 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi0_Rs16 & SS2_storebi0_u4_0 {
+:SS2_storebi0 SS2_storebi0_Rs16 SS2_storebi0_u4_0 is phase = 1 & subinsn = 5 & a8 = 0 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi0_Rs16 & SS2_storebi0_u4_0 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS2_storebi0_Rs16 + SS2_storebi0_u4_0;
@@ -34704,7 +34705,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp1;
 }
 
-:SS2_storewi1 SS2_storewi1_Rs16 SS2_storewi1_u4_2 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi1_Rs16 & SS2_storewi1_u4_2 {
+:SS2_storewi1 SS2_storewi1_Rs16 SS2_storewi1_u4_2 is phase = 1 & subinsn = 5 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storewi1_Rs16 & SS2_storewi1_u4_2 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS2_storewi1_Rs16 + SS2_storewi1_u4_2;
@@ -34714,7 +34715,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = tmp1;
 }
 
-:SS2_storebi1 SS2_storebi1_Rs16 SS2_storebi1_u4_0 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi1_Rs16 & SS2_storebi1_u4_0 {
+:SS2_storebi1 SS2_storebi1_Rs16 SS2_storebi1_u4_0 is phase = 1 & subinsn = 5 & a8 = 1 & a9 = 1 & a10 = 0 & a11 = 0 & a12 = 1 & SS2_storebi1_Rs16 & SS2_storebi1_u4_0 {
   local EA:4;
   local tmp0:4;
   tmp0 = SS2_storebi1_Rs16 + SS2_storebi1_u4_0;
@@ -34724,7 +34725,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp1;
 }
 
-:SS2_allocframe SS2_allocframe_u5_3 is phase = 1 & immext = 0xffffffff & subinsn = 5 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SS2_allocframe_u5_3 {
+:SS2_allocframe SS2_allocframe_u5_3 is phase = 1 & subinsn = 5 & a9 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SS2_allocframe_u5_3 {
   local EA:4;
   local tmp0:4;
   tmp0 = 8;
@@ -34742,7 +34743,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :DUPLEX is phase = 1 & subinsn = 0 & Parse = 0b00 unimpl
 
-:A4_ext reloc is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); ] { }
+:A4_ext reloc is phase = 1 & immext = 0xffffffff & duplex_next  = 0 & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); ] { }
+
+:A4_ext reloc is phase = 1 & immext = 0xffffffff                    & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); globalset(duplex_next, immext); ] { }
 
 :J2_jumpr J2_jumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpr_Rs32 & J2_jumpr_Rs32 = 31 { return [ J2_jumpr_Rs32 ]; }
 

@@ -31,6 +31,7 @@ public class HexagonPacket {
 	Register dotnewRegister;
 	Register hasnewRegister;
 	Register endloopRegister;
+	Register duplexNextRegister;
 
 	AddressSet addrSet;
 
@@ -149,6 +150,7 @@ public class HexagonPacket {
 		dotnewRegister = program.getProgramContext().getRegister("dotnew");
 		hasnewRegister = program.getProgramContext().getRegister("hasnew");
 		endloopRegister = program.getProgramContext().getRegister("endloop");
+		duplexNextRegister = program.getProgramContext().getRegister("duplex_next");
 	}
 
 	boolean isTerminated() {
@@ -436,6 +438,11 @@ public class HexagonPacket {
 			if (hasDuplex()) {
 				Address duplexLo = getMaxAddress().add(0);
 				Address duplexHi = getMaxAddress().add(2);
+
+				// A2_ext needs to know the address of the duplex instruction if set
+				program.getProgramContext().setValue(duplexNextRegister, getMinAddress(), getMaxAddress().add(2),
+						duplexHi.getOffsetAsBigInteger());
+
 				BigInteger lo = BigInteger.valueOf(state.duplexInsns.get(duplexLo).getValue());
 				BigInteger hi = BigInteger.valueOf(state.duplexInsns.get(duplexHi).getValue());
 				program.getProgramContext().setValue(subinsnRegister, duplexLo, duplexLo, lo);
@@ -463,7 +470,6 @@ public class HexagonPacket {
 					}
 				}
 			}
-
 		} catch (ContextChangeException e) {
 			Msg.error(this, "Unexpected Exception, could not set context registers nor resolve duplex instructions", e);
 		}
