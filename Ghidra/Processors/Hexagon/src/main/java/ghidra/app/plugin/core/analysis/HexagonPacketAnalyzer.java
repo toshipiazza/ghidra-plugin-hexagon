@@ -1,24 +1,49 @@
+/* ###
+ * IP: GHIDRA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package ghidra.app.plugin.core.analysis;
 
 import ghidra.app.services.AbstractAnalyzer;
 import ghidra.app.services.AnalysisPriority;
 import ghidra.app.services.AnalyzerType;
 import ghidra.app.util.importer.MessageLog;
+import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.AddressSetView;
+import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
+import ghidra.program.model.listing.ContextChangeException;
 import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
+import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.mem.MemoryBlock;
+import ghidra.util.Msg;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
+
+import java.math.BigInteger;
 
 public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 	private static final String NAME = "Hexagon Packet Analyzer";
 	private static final String DESCRIPTION = "Analyze Hexagon Instructions for packets.";
+
+	private final static int NOTIFICATION_INTERVAL = 1024;
 
 	public HexagonPacketAnalyzer() {
 		super(NAME, DESCRIPTION, AnalyzerType.INSTRUCTION_ANALYZER);
@@ -39,53 +64,248 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 		return set;
 	}
 
+	Instruction reallyDisassembleInstruction(Program program, TaskMonitor monitor, Address addr)
+			throws UnknownInstructionException {
+		BigInteger value = program.getProgramContext().getValue(program.getProgramContext().getRegister("subinsn"),
+				addr, false);
+		if (value == null || value.intValue() == 0) {
+			Instruction inst = program.getListing().getInstructionAt(addr);
+			if (inst != null) {
+				return inst;
+			}
+		} else {
+			// This instruction was previously part of a packet
+			//
+			// The subinsn context register is the only context register that
+			// might turn one instruction (DUPLEX) into several (constituent
+			// SUBINSN_*'s).
+			//
+			// Clear it to prevent issues in identifying the ends of packets
+			// later in the analysis
+			program.getListing().clearCodeUnits(addr, addr.add(2), true);
+			// Now the register should be clear, and the next call to
+			// disassemble() should disassemble as DUPLEX
+		}
+
+		Msg.info(this, "Disassembling at address " + addr + " to try to get a new instruction");
+		Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
+		AddressSet disassembled = dis.disassemble(addr, null, false);
+		if (!disassembled.contains(addr)) {
+			// give up, the instruction couldn't be disassembled
+			throw new UnknownInstructionException();
+		}
+
+		AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
+
+		Instruction inst = program.getListing().getInstructionAt(addr);
+		if (inst == null) {
+			// give up, the instruction couldn't be disassembled
+			throw new UnknownInstructionException();
+		}
+		return inst;
+	}
+
+	HexagonPacketInfo identifyPacketAtAddress(Program program, TaskMonitor monitor, Address addr) {
+		Msg.info(this, "Analyzing packet at " + addr);
+		HexagonPacketInfo packetInfo = new HexagonPacketInfo(addr);
+		try {
+			do {
+				Instruction inst = reallyDisassembleInstruction(program, monitor, packetInfo.packetEndAddress);
+
+				HexagonInstructionInfo info = new HexagonInstructionInfo(program, inst, packetInfo.packetStartAddress);
+				packetInfo.addInstruction(info);
+
+			} while (!packetInfo.isTerminated());
+		} catch (UnknownInstructionException | MemoryAccessException ex) {
+			Msg.warn(this, "Invalid packet at " + addr + ", exception " + ex);
+			if (!packetInfo.packetStartAddress.equals(packetInfo.packetEndAddress)) {
+				program.getListing().clearCodeUnits(packetInfo.packetStartAddress,
+						packetInfo.packetEndAddress.subtract(1), true);
+			} else {
+				// an exception on the first instruction might cause this
+				program.getListing().clearCodeUnits(packetInfo.packetStartAddress, packetInfo.packetEndAddress, true);
+			}
+			return null;
+		}
+
+		return packetInfo;
+	}
+
+	void finalizeInstructionContext(Program program, HexagonPacketInfo packet, TaskMonitor monitor) {
+		Msg.info(this, "Finalizing packet at " + packet.packetStartAddress);
+		program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
+
+		AddressSet disassembleSet = new AddressSet();
+		for (HexagonInstructionInfo info : packet.insns) {
+			disassembleSet.add(info.getAddress());
+		}
+
+		// convert from exclusive to inclusive range
+		Address packetStart = packet.packetStartAddress;
+		Address packetEnd = packet.packetEndAddress.subtract(1);
+
+		BigInteger pktStartCtx = BigInteger.valueOf(packetStart.getOffset());
+		BigInteger pktNextCtx = BigInteger.valueOf(packet.packetEndAddress.getOffset());
+
+		try {
+			program.getProgramContext().setValue(program.getProgramContext().getRegister("pkt_start"), packetStart,
+					packetEnd, pktStartCtx);
+			program.getProgramContext().setValue(program.getProgramContext().getRegister("pkt_next"), packetStart,
+					packetEnd, pktNextCtx);
+
+			if (packet.hasDuplex) {
+				// A2_ext needs to know the address of the duplex instruction if set
+				program.getProgramContext().setValue(program.getProgramContext().getRegister("duplex_next"),
+						packetStart, packetEnd, packet.duplex2Address.getOffsetAsBigInteger());
+
+				Register subinsnRegister = program.getProgramContext().getRegister("subinsn");
+				program.getProgramContext().setValue(subinsnRegister, packet.duplex1Address, packet.duplex1Address,
+						BigInteger.valueOf(packet.duplex1.getValue()));
+				program.getProgramContext().setValue(subinsnRegister, packet.duplex2Address, packet.duplex2Address,
+						BigInteger.valueOf(packet.duplex2.getValue()));
+
+				// mark second duplex subinstruction for disassembly as well
+				disassembleSet.add(packet.duplex2Address);
+			} else {
+				// packets with duplex instructions cannot terminate loops
+				program.getProgramContext().setValue(program.getProgramContext().getRegister("endloop"),
+						packet.LastInsnAddress, packet.LastInsnAddress,
+						BigInteger.valueOf(packet.loopEncoding.toInt()));
+			}
+
+			for (HexagonInstructionInfo info : packet.insns) {
+				if (info.newValueOperandRegister != null) {
+					program.getProgramContext().setValue(program.getProgramContext().getRegister("hasnew"),
+							info.getAddress(), info.getAddress(), BigInteger.valueOf(1));
+					// All R. regs are 4-bytes long, so divide by 4 to get the register number from
+					// its address
+					program.getProgramContext().setValue(program.getProgramContext().getRegister("dotnew"),
+							info.getAddress(), info.getAddress(), info.newValueOperandRegister.getAddress()
+									.getOffsetAsBigInteger().divide(BigInteger.valueOf(4)));
+				}
+			}
+		} catch (ContextChangeException e) {
+			Msg.warn(this, "Invalid packet at " + packetStart + ", exception " + e);
+			// undo everything, and ensure the packet had been cleared completely
+			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
+		}
+
+		try {
+			// disassemble packet again so the context reg changes stick
+			Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
+			AddressSetView disassembled = dis.disassemble(disassembleSet, null, true);
+
+			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
+
+			AddressIterator iter = disassembleSet.getAddresses(true);
+			while (iter.hasNext()) {
+				Address a = iter.next();
+				if (!disassembled.contains(a)) {
+					// some instructions did not disassemble
+					throw new UnknownInstructionException();
+				}
+				Instruction instr = program.getListing().getInstructionAt(a);
+				if (instr.getMnemonicString().equals("DUPLEX")) {
+					// duplex instructions should no longer exist at this point
+					throw new UnknownInstructionException();
+				}
+			}
+
+			// determine and set fallthrough across the packet
+			boolean packetFallsThrough = true;
+
+			AddressSet addrSet = new AddressSet(packet.packetStartAddress, packet.packetEndAddress.subtract(1));
+			InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
+			while (insnIter.hasNext()) {
+				Instruction instr = insnIter.next();
+				if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
+					packetFallsThrough = false;
+				}
+			}
+
+			// ParallelInstructionLanguageHelper requires that all instructions in a packet
+			// fallthrough except potentially the last one
+			insnIter = program.getListing().getInstructions(addrSet, true);
+			while (insnIter.hasNext()) {
+				Instruction instr = insnIter.next();
+
+				if (insnIter.hasNext()) {
+					instr.setFallThrough(instr.getAddress().add(instr.getLength()));
+				} else {
+					if (packetFallsThrough) {
+						instr.setFallThrough(packet.packetEndAddress);
+					} else {
+						instr.setFallThrough(null);
+					}
+				}
+			}
+
+		} catch (UnknownInstructionException e) {
+			Msg.warn(this, "Invalid packet at " + packetStart + ", exception " + e);
+			// undo everything, and ensure the packet had been cleared completely
+			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
+		}
+
+	}
+
 	@Override
 	public boolean added(Program program, AddressSetView set, TaskMonitor monitor, MessageLog log)
 			throws CancelledException {
 
-		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
-
 		set = removeUninitializedBlock(program, set);
 
+		final long locationCount = set.getNumAddresses();
+		if (locationCount > NOTIFICATION_INTERVAL) {
+			monitor.initialize(locationCount);
+		}
+
 		AddressIterator addresses = set.getAddresses(true);
+
+		int count = 0;
+
+		AddressSet visited = new AddressSet();
 
 		while (addresses.hasNext()) {
 			monitor.checkCanceled();
 
 			Address addr = addresses.next();
 
-			if ((addr.getOffset() & 0x3) != 0) {
+			if (locationCount > NOTIFICATION_INTERVAL) {
+				if ((count % NOTIFICATION_INTERVAL) == 0) {
+					monitor.setMaximum(locationCount);
+					monitor.setProgress(count);
+				}
+				count++;
+			}
+
+			if (program.getListing().getInstructionAt(addr) == null) {
 				continue;
 			}
 
-			Instruction instr = program.getListing().getInstructionAt(addr);
-
-			if (instr == null) {
+			if (visited.contains(addr)) {
 				continue;
 			}
 
-			state.addInstructionToPacketOrCreatePacket(instr, monitor);
+			BigInteger value = program.getProgramContext()
+					.getValue(program.getProgramContext().getRegister("pkt_start"), addr, false);
+			if (value != null && value.intValue() != 0) {
+				continue;
+			}
+
+			HexagonPacketInfo packet = identifyPacketAtAddress(program, monitor, addr);
+
+			if (packet == null) {
+				continue;
+			}
+
+			packet.debugPrint();
+
+			finalizeInstructionContext(program, packet, monitor);
+
+			visited.add(packet.packetStartAddress, packet.packetEndAddress.subtract(1));
 		}
-
-		state.disassembleDirtyPackets(monitor);
 
 		return true;
-	}
-
-	@Override
-	public boolean removed(Program program, AddressSetView set, TaskMonitor monitor, MessageLog log)
-			throws CancelledException {
-
-		HexagonAnalysisState state = HexagonAnalysisState.getState(program);
-
-		AddressIterator addresses = set.getAddresses(true);
-
-		boolean modified = false;
-		while (addresses.hasNext()) {
-			Address addr = addresses.next();
-			modified |= state.removePacketForAddress(addr);
-		}
-		return modified;
 	}
 
 }

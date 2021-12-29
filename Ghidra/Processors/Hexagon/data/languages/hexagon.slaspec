@@ -12115,7 +12115,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
 }
 
 C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
-  export *[ram]:4 reloc;
+  tmp = reloc:4; export tmp;
 }
 
 :J2_jump J2_jump_r22_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jump_r22_2 {
