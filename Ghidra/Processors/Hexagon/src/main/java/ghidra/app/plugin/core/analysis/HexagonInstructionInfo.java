@@ -15,6 +15,10 @@
  */
 package ghidra.app.plugin.core.analysis;
 
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+
 import ghidra.program.model.address.Address;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
@@ -23,10 +27,6 @@ import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.scalar.Scalar;
 import ghidra.util.Msg;
-
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
 
 class HexagonInstructionInfo {
 	private static final Map<String, Integer> dot_new_operands;
@@ -251,13 +251,16 @@ class HexagonInstructionInfo {
 		return addr;
 	}
 
-	private BigInteger getNewValueOperand(Instruction instr) {
+	private BigInteger getNewValueOperand(Instruction instr) throws UnknownInstructionException {
 		Integer idx = dot_new_operands.get(instr.getMnemonicString());
 		if (idx != null) {
 			Object[] obj = instr.getOpObjects(idx);
 			assert obj.length == 1;
 			Object obj2 = obj[0];
-			assert obj2 instanceof Scalar;
+			if (!(obj2 instanceof Scalar)) {
+				Msg.error(this, "New-value operand wasn't a scalar (" + instr + ")");
+				throw new UnknownInstructionException("New-value operand wasn't an immediate as expected");
+			}
 			Scalar s = (Scalar) obj2;
 			return s.getBigInteger();
 		}
