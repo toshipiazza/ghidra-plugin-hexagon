@@ -33,6 +33,7 @@ import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.mem.MemoryBlock;
+import ghidra.util.Msg;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
@@ -45,14 +46,10 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 	private final static int NOTIFICATION_INTERVAL = 1024;
 
-	AddressSet visited;
-
 	public HexagonPacketAnalyzer() {
 		super(NAME, DESCRIPTION, AnalyzerType.INSTRUCTION_ANALYZER);
 		setPriority(AnalysisPriority.BLOCK_ANALYSIS.after());
 		setDefaultEnablement(true);
-
-		visited = new AddressSet();
 	}
 
 	private AddressSetView removeUninitializedBlock(Program program, AddressSetView set) {
@@ -121,7 +118,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 			} while (!packetInfo.isTerminated());
 		} catch (UnknownInstructionException | MemoryAccessException ex) {
-//			Msg.warn(this, "Invalid packet at " + addr + ", exception " + ex);
 			if (!packetInfo.packetStartAddress.equals(packetInfo.packetEndAddress)) {
 				program.getListing().clearCodeUnits(packetInfo.packetStartAddress,
 						packetInfo.packetEndAddress.subtract(1), true);
@@ -193,7 +189,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				}
 			}
 		} catch (ContextChangeException e) {
-//			Msg.warn(this, "Invalid packet at " + packetStart + ", exception " + e);
 			// undo everything, and ensure the packet had been cleared completely
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 		}
@@ -249,7 +244,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
-//			Msg.warn(this, "Invalid packet at " + packetStart + ", exception " + e);
 			// undo everything, and ensure the packet had been cleared completely
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 		}
@@ -271,7 +265,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 		int count = 0;
 
-
 		while (addresses.hasNext()) {
 			monitor.checkCanceled();
 
@@ -289,13 +282,9 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				continue;
 			}
 
-			if (visited.contains(addr)) {
-				continue;
-			}
-
-			BigInteger value = program.getProgramContext()
+			BigInteger pkt_start = program.getProgramContext()
 					.getValue(program.getProgramContext().getRegister("pkt_start"), addr, false);
-			if (value != null && value.intValue() != 0) {
+			if (pkt_start != null && pkt_start.intValue() != 0) {
 				continue;
 			}
 
@@ -306,8 +295,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			}
 
 			finalizeInstructionContext(program, packet, monitor);
-
-			visited.add(packet.packetStartAddress, packet.packetEndAddress.subtract(1));
 		}
 
 		return true;
