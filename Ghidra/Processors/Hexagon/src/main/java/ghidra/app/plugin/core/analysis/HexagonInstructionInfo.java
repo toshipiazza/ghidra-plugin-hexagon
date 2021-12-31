@@ -137,6 +137,7 @@ class HexagonInstructionInfo {
 	int parseBits;
 	boolean endPacket;
 	boolean isDuplex;
+	boolean isImmext;
 	HexagonInstructionInfo.DuplexEncoding duplex1;
 	HexagonInstructionInfo.DuplexEncoding duplex2;
 	Register newValueOperandRegister;
@@ -146,6 +147,8 @@ class HexagonInstructionInfo {
 		this.addr = instr.getAddress();
 		endPacket = false;
 		isDuplex = false;
+
+		isImmext = instr.getMnemonicString().equals("A4_ext");
 
 		if (instr.getLength() != 4) {
 			// See comment in reallyDisassembleInstruction().

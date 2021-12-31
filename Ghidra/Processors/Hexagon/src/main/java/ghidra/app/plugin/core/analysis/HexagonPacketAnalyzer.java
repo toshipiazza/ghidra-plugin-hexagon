@@ -161,9 +161,15 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 					packetEnd, pktNextCtx);
 
 			if (packet.hasDuplex) {
-				// A2_ext needs to know the address of the duplex instruction if set
-				program.getProgramContext().setValue(program.getProgramContext().getRegister("duplex_next"),
-						packetStart, packetEnd, packet.duplex2Address.getOffsetAsBigInteger());
+				if (packet.insns.size() >= 2) {
+					HexagonInstructionInfo info = packet.insns.get(packet.insns.size() - 2);
+					if (info.isImmext) {
+						// A2_ext needs to know the address of both duplex instructions if immext comes
+						// just before
+						program.getProgramContext().setValue(program.getProgramContext().getRegister("duplex_next"),
+								info.getAddress(), info.getAddress(), packet.duplex2Address.getOffsetAsBigInteger());
+					}
+				}
 
 				Register subinsnRegister = program.getProgramContext().getRegister("subinsn");
 				program.getProgramContext().setValue(subinsnRegister, packet.duplex1Address, packet.duplex1Address,

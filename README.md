@@ -42,3 +42,16 @@ gradle buildNatives
 Then set the function arguments manually by reading the function. Once the
 arguments to the function are explicitly set, ActionInputPrototype
 short-circuits so you can safely re-enable the patch.
+
+### Spurious `CALL_RETURN` flow override
+
+Some analyzer aggressively inserts the `CALL_RETURN` flow override, which
+appears like this in the listing:
+
+```
+c04f4040 22 58 67 5b  {  J2_call    FUN_c002f084
+                     -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+```
+
+I get around this by disabling the "Non-returning Functions - Discovered"
+analyzer during auto-analysis
