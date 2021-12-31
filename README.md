@@ -55,3 +55,43 @@ c04f4040 22 58 67 5b  {  J2_call    FUN_c002f084
 
 I get around this by disabling the "Non-returning Functions - Discovered"
 analyzer during auto-analysis
+
+### Exception while decompiling XXX: Decompiler process died
+
+More often than not this is caused by pcode being unimplemented for some
+instruction. To view pcode for an instruction, go into the listing view, click
+on the "Edit the listing fields" icon in the top right, right click on PCode,
+and click on "Enable field"
+
+```
+e6 40 41 8c  {  S2_vsplatrb   R6 R1
+                                     UNIMPLEMENTED
+
+```
+
+You can work around this temporarily by creating a userop
+
+```diff
+diff --git a/Ghidra/Processors/Hexagon/data/languages/hexagon.slaspec b/Ghidra/Processors/Hexagon/data/languages/hexagon.slaspec
+index 57d1d31bf..e89ed1dac 100644
+--- a/Ghidra/Processors/Hexagon/data/languages/hexagon.slaspec
++++ b/Ghidra/Processors/Hexagon/data/languages/hexagon.slaspec
+@@ -144,6 +144,7 @@ define pcodeop fICDATAW;
+ define pcodeop fPAUSE;
+ define pcodeop WRITE_SGP0;
+ define pcodeop fSTORE_LOCKED;
++define pcodeop S2_vsplatrb;
+
+ define token NORMAL(32)
+   Parse                                = (14, 15)
+@@ -34376,7 +34377,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
+
+ :S2_vsplatrh S2_vsplatrh_Rdd32 S2_vsplatrh_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_vsplatrh_Rdd32 & S2_vsplatrh_Rs32 unimpl
+
+-:S2_vsplatrb S2_vsplatrb_Rd32 S2_vsplatrb_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_vsplatrb_Rd32 & S2_vsplatrb_Rs32 unimpl
++:S2_vsplatrb S2_vsplatrb_Rd32 S2_vsplatrb_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_vsplatrb_Rd32 & S2_vsplatrb_Rs32 {
++    S2_vsplatrb(S2_vsplatrb_Rd32, S2_vsplatrb_Rs32);
++}
+
+ :S6_vsplatrbp S6_vsplatrbp_Rdd32 S6_vsplatrbp_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S6_vsplatrbp_Rdd32 & S6_vsplatrbp_Rs32 unimpl
+```
