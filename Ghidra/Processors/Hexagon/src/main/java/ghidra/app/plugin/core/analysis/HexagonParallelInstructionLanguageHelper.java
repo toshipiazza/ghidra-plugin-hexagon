@@ -92,7 +92,7 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 			return false;
 		}
 		// instr is not the last instruction in the packet
-		return instr.getMaxAddress().add(1).getOffsetAsBigInteger().equals(pkt_next);
+		return instr.getAddress().add(instr.getLength()).getOffsetAsBigInteger().equals(pkt_next);
 	}
 
 	@Override
