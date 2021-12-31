@@ -25,145 +25,125 @@ import java.util.List;
 
 class HexagonPacketInfo {
 
-    List<HexagonInstructionInfo> insns;
-    Address packetStartAddress;
-    Address packetEndAddress;
-    Address LastInsnAddress;
+	List<HexagonInstructionInfo> insns;
+	Address packetStartAddress;
+	Address packetEndAddress;
+	Address LastInsnAddress;
 
-    boolean terminated;
+	boolean terminated;
 
-    boolean hasDuplex;
-    Address duplex1Address;
-    Address duplex2Address;
-    DuplexEncoding duplex1;
+	boolean hasDuplex;
+	Address duplex1Address;
+	Address duplex2Address;
+	DuplexEncoding duplex1;
 	DuplexEncoding duplex2;
 
-    LoopEncoding loopEncoding;
+	LoopEncoding loopEncoding;
 
-    HexagonPacketInfo(Address addr) {
-        insns = new ArrayList<>();
-        packetStartAddress = addr;
-        packetEndAddress = addr;
-        LastInsnAddress = null;
-        terminated = false;
-        hasDuplex = false;
-        loopEncoding = LoopEncoding.NotLastInLoop;
-    }
+	HexagonPacketInfo(Address addr) {
+		insns = new ArrayList<>();
+		packetStartAddress = addr;
+		packetEndAddress = addr;
+		LastInsnAddress = null;
+		terminated = false;
+		hasDuplex = false;
+		loopEncoding = LoopEncoding.NotLastInLoop;
+	}
 
-    public void addInstruction(HexagonInstructionInfo info) throws UnknownInstructionException {
-        insns.add(info);
+	public void addInstruction(HexagonInstructionInfo info) throws UnknownInstructionException {
+		insns.add(info);
 
-        if (info.instr.getLength() != 4) {
-            // See comment in reallyDisassembleInstruction().
-            // We cleared subinsn, so all "instructions" should be 4
-            // bytes. Duplex instructions will appear as a 4-byte opaque
-            // DUPLEX temporary instruction.
-            throw new UnknownInstructionException();
-        }
+		if (info.endPacket) {
+			terminated = true;
+			if (info.isDuplex) {
+				hasDuplex = true;
+				duplex1Address = info.getAddress();
+				duplex2Address = info.getAddress().add(2);
+				duplex1 = info.duplex1;
+				duplex2 = info.duplex2;
+			}
+			loopEncoding = getLoopEncoding();
+		} else if (insns.size() == 4) {
+			// This must be an invalid packet since the maximum number
+			// of instructions in a packet is 4 (counting two SUBINSNS's
+			// as one DUPLEX instruction)
+			throw new UnknownInstructionException();
+		}
 
-        if (info.endPacket) {
-            terminated = true;
-            if (info.isDuplex) {
-                hasDuplex = true;
-                duplex1Address = info.instr.getAddress();
-                duplex2Address = info.instr.getAddress().add(2);
-                duplex1 = info.duplex1;
-                duplex2 = info.duplex2;
-            }
-            loopEncoding = getLoopEncoding();
-        } else if (insns.size() == 4) {
-            // This must be an invalid packet since the maximum number
-            // of instructions in a packet is 4 (counting two SUBINSNS's
-            // as one DUPLEX instruction)
-            throw new UnknownInstructionException();
-        }
+		LastInsnAddress = info.getAddress();
+		packetEndAddress = packetEndAddress.add(4);
+	}
 
-        LastInsnAddress = info.instr.getAddress();
-        packetEndAddress = packetEndAddress.add(info.instr.getLength());
-    }
+	private LoopEncoding getLoopEncoding() {
+		if (!isTerminated()) {
+			throw new IllegalArgumentException();
+		}
 
-    private LoopEncoding getLoopEncoding() {
-        if (!isTerminated()) {
-            throw new IllegalArgumentException();
-        }
+		if (insns.size() < 2) {
+			return LoopEncoding.NotLastInLoop;
+		}
 
-        if (insns.size() < 2) {
-            return LoopEncoding.NotLastInLoop;
-        }
+		if (hasDuplex) {
+			// a packet with duplex instructions cannot end a loop
+			return LoopEncoding.NotLastInLoop;
+		}
 
-        if (hasDuplex) {
-            // a packet with duplex instructions cannot end a loop
-            return LoopEncoding.NotLastInLoop;
-        }
+		int parse1 = insns.get(0).parseBits;
+		int parse2 = insns.get(1).parseBits;
 
-        int parse1 = insns.get(0).parseBits;
-        int parse2 = insns.get(1).parseBits;
+		if (parse1 == 0b00 || parse1 == 0b11) {
+			// ought to be unreachable because of the checks above
+			throw new AssertionError();
+		} else if (parse1 == 0b10) {
+			if (parse2 == 0b01 || parse2 == 0b11) {
+				return LoopEncoding.LastInLoop0;
+			} else if (parse2 == 0b10) {
+				return LoopEncoding.LastInLoop0And1;
+			} else {
+				// parse2 was 0b00 which ought to be unreachable because of the
+				// checks above
+				throw new AssertionError();
+			}
+		} else if (parse1 == 0b01) {
+			if (parse2 == 0b01 || parse2 == 0b11) {
+				return LoopEncoding.NotLastInLoop;
+			} else if (parse2 == 0b10) {
+				return LoopEncoding.LastInLoop1;
+			} else {
+				// parse2 was 0b00 which ought to be unreachable because of the
+				// checks above
+				throw new AssertionError();
+			}
+		}
+		// trivially unreachable
+		throw new AssertionError();
+	}
 
-        if (parse1 == 0b00 || parse1 == 0b11) {
-            // ought to be unreachable because of the checks above
-            throw new AssertionError();
-        } else if (parse1 == 0b10) {
-            if (parse2 == 0b01 || parse2 == 0b11) {
-                return LoopEncoding.LastInLoop0;
-            } else if (parse2 == 0b10) {
-                return LoopEncoding.LastInLoop0And1;
-            } else {
-                // parse2 was 0b00 which ought to be unreachable because of the
-                // checks above
-                throw new AssertionError();
-            }
-        } else if (parse1 == 0b01) {
-            if (parse2 == 0b01 || parse2 == 0b11) {
-                return LoopEncoding.NotLastInLoop;
-            } else if (parse2 == 0b10) {
-                return LoopEncoding.LastInLoop1;
-            } else {
-                // parse2 was 0b00 which ought to be unreachable because of the
-                // checks above
-                throw new AssertionError();
-            }
-        }
-        // trivially unreachable
-        throw new AssertionError();
-    }
+	public boolean isTerminated() {
+		return terminated;
+	}
 
-    public boolean isTerminated() {
-        return terminated;
-    }
+	enum LoopEncoding {
+		NotLastInLoop, LastInLoop0, LastInLoop1, LastInLoop0And1;
 
-    void debugPrint() {
-        Msg.debug(this, "====== Packet info for packet @ " + packetStartAddress + "-" + packetEndAddress);
-        if (isTerminated()) {
-            Msg.debug(this, "- Packet is terminated");
-            if (hasDuplex)
-                Msg.debug(this, "- Packet has terminating duplex instruction");
-        }
-        for (HexagonInstructionInfo info : insns) {
-            info.debugPrint();
-        }
-    }
-
-    enum LoopEncoding {
-        NotLastInLoop, LastInLoop0, LastInLoop1, LastInLoop0And1;
-
-        int toInt() {
-            int loopEncodingValue = 0;
-            switch (this) {
-                case NotLastInLoop:
-                    loopEncodingValue = 0;
-                    break;
-                case LastInLoop0:
-                    loopEncodingValue = 1;
-                    break;
-                case LastInLoop1:
-                    loopEncodingValue = 2;
-                    break;
-                case LastInLoop0And1:
-                    loopEncodingValue = 3;
-                    break;
-            }
-            return loopEncodingValue;
-        }
-    }
+		int toInt() {
+			int loopEncodingValue = 0;
+			switch (this) {
+			case NotLastInLoop:
+				loopEncodingValue = 0;
+				break;
+			case LastInLoop0:
+				loopEncodingValue = 1;
+				break;
+			case LastInLoop1:
+				loopEncodingValue = 2;
+				break;
+			case LastInLoop0And1:
+				loopEncodingValue = 3;
+				break;
+			}
+			return loopEncodingValue;
+		}
+	}
 
 }

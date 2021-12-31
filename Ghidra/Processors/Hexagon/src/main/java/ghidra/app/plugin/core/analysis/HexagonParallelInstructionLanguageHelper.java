@@ -27,41 +27,79 @@ import java.math.BigInteger;
 
 public class HexagonParallelInstructionLanguageHelper implements ParallelInstructionLanguageHelper {
 
-    @Override
-    public String getMnemonicPrefix(Instruction instr) {
-        Program program = instr.getProgram();
-        BigInteger pkt_start = program.getProgramContext()
-                .getValue(program.getProgramContext().getRegister("pkt_start"), instr.getAddress(), false);
-        if (pkt_start == null) {
-            // not yet analyzed
-            return "";
-        }
-        if (pkt_start.equals(instr.getAddress().getOffsetAsBigInteger())) {
-            // start of packet
-            return "";
-        }
-        // middle of packet
-        return "||";
-    }
+	@Override
+	public String getMnemonicPrefix(Instruction instr) {
+		Program program = instr.getProgram();
+		BigInteger pkt_start = program.getProgramContext()
+				.getValue(program.getProgramContext().getRegister("pkt_start"), instr.getAddress(), false);
+		if (pkt_start == null || pkt_start.intValue() == 0) {
+			// not yet analyzed
+			return null;
+		}
+		if (pkt_start.equals(instr.getAddress().getOffsetAsBigInteger())) {
+			// start of packet
+			return "{";
+		}
+		// middle of packet
+		return null;
+	}
 
-    @Override
-    public boolean isEndOfParallelInstructionGroup(Instruction instr) {
-        Program program = instr.getProgram();
-        BigInteger pkt_next = program.getProgramContext().getValue(program.getProgramContext().getRegister("pkt_next"),
-                instr.getAddress(), false);
-        if (pkt_next == null) {
-            // not yet analyzed
-            return false;
-        }
-        // instr is not the last instruction in the packet
-        return instr.getMaxAddress().add(1).getOffsetAsBigInteger().equals(pkt_next);
-    }
+	@Override
+	public String getMnemonicSuffix(Instruction instr) {
+		Program program = instr.getProgram();
+		BigInteger pkt_next = program.getProgramContext().getValue(program.getProgramContext().getRegister("pkt_next"),
+				instr.getAddress(), false);
+		if (pkt_next == null || pkt_next.intValue() == 0) {
+			// not yet analyzed
+			return null;
+		}
+		if (pkt_next.equals(instr.getAddress().add(instr.getLength()).getOffsetAsBigInteger())) {
+			// end of packet
+			String res = "}";
 
-    @Override
-    public PackedBytes getPcodePacked(Program program, InstructionContext context, UniqueAddressFactory uniqueFactory)
-            throws UnknownInstructionException {
-        HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
-        return emit.getPcodePacked(context, uniqueFactory);
-    }
+			BigInteger endloop = program.getProgramContext()
+					.getValue(program.getProgramContext().getRegister("endloop"), instr.getAddress(), false);
+			if (endloop != null) {
+				// add applicable endloop suffix
+				switch (endloop.intValue()) {
+				case 0:
+					break;
+				case 1:
+					res += ":endloop0";
+					break;
+				case 2:
+					res += ":endloop1";
+					break;
+				case 3:
+					res += ":endloop1:endloop0";
+					break;
+				}
+			}
+
+			return res;
+		}
+		// middle of packet
+		return null;
+	}
+
+	@Override
+	public boolean isEndOfParallelInstructionGroup(Instruction instr) {
+		Program program = instr.getProgram();
+		BigInteger pkt_next = program.getProgramContext().getValue(program.getProgramContext().getRegister("pkt_next"),
+				instr.getAddress(), false);
+		if (pkt_next == null) {
+			// not yet analyzed
+			return false;
+		}
+		// instr is not the last instruction in the packet
+		return instr.getMaxAddress().add(1).getOffsetAsBigInteger().equals(pkt_next);
+	}
+
+	@Override
+	public PackedBytes getPcodePacked(Program program, InstructionContext context, UniqueAddressFactory uniqueFactory)
+			throws UnknownInstructionException {
+		HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
+		return emit.getPcodePacked(context, uniqueFactory);
+	}
 
 }

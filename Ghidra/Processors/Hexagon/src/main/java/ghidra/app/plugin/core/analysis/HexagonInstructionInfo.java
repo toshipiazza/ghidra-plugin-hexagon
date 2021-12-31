@@ -134,7 +134,6 @@ class HexagonInstructionInfo {
 	}
 
 	Address addr;
-	Instruction instr;
 	int parseBits;
 	boolean endPacket;
 	boolean isDuplex;
@@ -144,10 +143,17 @@ class HexagonInstructionInfo {
 
 	HexagonInstructionInfo(Program program, Instruction instr, Address packetStartAddress)
 			throws MemoryAccessException, UnknownInstructionException {
-		this.instr = instr;
 		this.addr = instr.getAddress();
 		endPacket = false;
 		isDuplex = false;
+
+		if (instr.getLength() != 4) {
+			// See comment in reallyDisassembleInstruction().
+			// We cleared subinsn, so all "instructions" should be 4
+			// bytes. Duplex instructions will appear as a 4-byte opaque
+			// DUPLEX temporary instruction.
+			throw new UnknownInstructionException();
+		}
 
 		BigInteger value = BigInteger.valueOf(((instr.getByte(1) & 0xc0) >> 6) & 0b011);
 		parseBits = value.intValue();
@@ -228,23 +234,7 @@ class HexagonInstructionInfo {
 			endPacket = true;
 		}
 
-		resolveNewValueOperand(program, packetStartAddress);
-	}
-
-	public void debugPrint() {
-		Msg.debug(this, "=== Debug info for instruction " + instr);
-		Msg.debug(this, "- Parse bits: " + parseBits);
-		if (newValueOperandRegister != null) {
-			Msg.debug(this, "- Has new-value operand " + newValueOperandRegister.getName());
-		}
-		if (endPacket) {
-			Msg.debug(this, "- Terminates packet");
-			if (isDuplex) {
-				Msg.debug(this, "- Packet is duplex");
-				Msg.debug(this, "- duplex1 is type " + duplex1);
-				Msg.debug(this, "- duplex2 is type " + duplex2);
-			}
-		}
+		resolveNewValueOperand(program, instr, packetStartAddress);
 	}
 
 	Address getAddress() {
@@ -267,7 +257,7 @@ class HexagonInstructionInfo {
 		return null;
 	}
 
-	private void resolveNewValueOperand(Program program, Address packetStartAddress)
+	private void resolveNewValueOperand(Program program, Instruction instr, Address packetStartAddress)
 			throws UnknownInstructionException {
 		newValueOperandRegister = null;
 

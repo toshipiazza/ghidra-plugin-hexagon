@@ -29,6 +29,7 @@ import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.BookmarkManager;
 import ghidra.program.model.listing.ContextChangeException;
 import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.mem.MemoryBlock;
@@ -198,8 +199,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
 			AddressSetView disassembled = dis.disassemble(disassembleSet, null, true);
 
-			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
-
 			AddressIterator iter = disassembleSet.getAddresses(true);
 			while (iter.hasNext()) {
 				Address a = iter.next();
@@ -214,34 +213,36 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				}
 			}
 
-//			// determine and set fallthrough across the packet
-//			boolean packetFallsThrough = true;
-//
-//			AddressSet addrSet = new AddressSet(packet.packetStartAddress, packet.packetEndAddress.subtract(1));
-//			InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
-//			while (insnIter.hasNext()) {
-//				Instruction instr = insnIter.next();
-//				if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
-//					packetFallsThrough = false;
-//				}
-//			}
-//
-//			// ParallelInstructionLanguageHelper requires that all instructions in a packet
-//			// fallthrough except potentially the last one
-//			insnIter = program.getListing().getInstructions(addrSet, true);
-//			while (insnIter.hasNext()) {
-//				Instruction instr = insnIter.next();
-//
-//				if (insnIter.hasNext()) {
-//					instr.setFallThrough(instr.getAddress().add(instr.getLength()));
-//				} else {
-//					if (packetFallsThrough) {
-//						instr.setFallThrough(packet.packetEndAddress);
-//					} else {
-//						instr.setFallThrough(null);
-//					}
-//				}
-//			}
+			// determine and set fallthrough across the packet
+			boolean packetFallsThrough = true;
+
+			AddressSet addrSet = new AddressSet(packet.packetStartAddress, packet.packetEndAddress.subtract(1));
+			InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
+			while (insnIter.hasNext()) {
+				Instruction instr = insnIter.next();
+				if (instr.getPrototype().getFallThrough(instr.getInstructionContext()) == null) {
+					packetFallsThrough = false;
+				}
+			}
+
+			// ParallelInstructionLanguageHelper requires that all instructions in a packet
+			// fallthrough except potentially the last one
+			insnIter = program.getListing().getInstructions(addrSet, true);
+			while (insnIter.hasNext()) {
+				Instruction instr = insnIter.next();
+
+				if (insnIter.hasNext()) {
+					instr.setFallThrough(instr.getAddress().add(instr.getLength()));
+				} else {
+					if (packetFallsThrough) {
+						instr.setFallThrough(packet.packetEndAddress);
+					} else {
+						instr.setFallThrough(null);
+					}
+				}
+			}
+
+			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
 //			Msg.warn(this, "Invalid packet at " + packetStart + ", exception " + e);

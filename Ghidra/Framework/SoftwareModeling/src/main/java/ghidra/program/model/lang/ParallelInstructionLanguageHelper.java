@@ -35,12 +35,20 @@ import ghidra.program.model.listing.Program;
 public interface ParallelInstructionLanguageHelper {
 
 	/**
-	 * Return the mnemonic prefix (i.e., || ) for the specified instriction.
+	 * Return the mnemonic prefix (i.e., || ) for the specified instruction.
 	 *
 	 * @param instr
 	 * @return mnemonic prefix or null if not applicable
 	 */
 	String getMnemonicPrefix(Instruction instr);
+
+	/**
+	 * Return the mnemonic suffix (i.e., } ) for the specified instruction.
+	 *
+	 * @param instr
+	 * @return mnemonic suffix or null if not applicable
+	 */
+	String getMnemonicSuffix(Instruction instr);
 
 	/**
 	 * Determine if the specified instruction is the last instruction in a parallel
