@@ -45,10 +45,14 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 	private final static int NOTIFICATION_INTERVAL = 1024;
 
+	AddressSet visited;
+
 	public HexagonPacketAnalyzer() {
 		super(NAME, DESCRIPTION, AnalyzerType.INSTRUCTION_ANALYZER);
 		setPriority(AnalysisPriority.BLOCK_ANALYSIS.after());
 		setDefaultEnablement(true);
+
+		visited = new AddressSet();
 	}
 
 	private AddressSetView removeUninitializedBlock(Program program, AddressSetView set) {
@@ -267,7 +271,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 		int count = 0;
 
-		AddressSet visited = new AddressSet();
 
 		while (addresses.hasNext()) {
 			monitor.checkCanceled();
@@ -301,8 +304,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			if (packet == null) {
 				continue;
 			}
-
-//			packet.debugPrint();
 
 			finalizeInstructionContext(program, packet, monitor);
 

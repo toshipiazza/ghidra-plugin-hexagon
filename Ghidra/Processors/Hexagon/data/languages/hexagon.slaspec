@@ -16,6 +16,22 @@ define register offset=0x000 size=4 [
   G8   G9   G10  G11  G12  G13  G14  G15
   G16  G17  G18  G19  G20  G21  G22  G23
   G24  G25  G26  G27  G28  G29  G30  G31
+  S0   S1   S2   S3   S4   S5   S6   S7
+  S8   S9   S10  S11  S12  S13  S14  S15
+  S16  S17  S18  S19  S20  S21  S22  S23
+  S24  S25  S26  S27  S28  S29  S30  S31
+  S32  S33  S34  S35  S36  S37  S38  S39
+  S40  S41  S42  S43  S44  S45  S46  S47
+  S48  S49  S50  S51  S52  S53  S54  S55
+  S56  S57  S58  S59  S60  S61  S62  S63
+  S64  S65  S66  S67  S68  S69  S70  S71
+  S72  S73  S74  S75  S76  S77  S78  S79
+  S80  S81  S82  S83  S84  S85  S86  S87
+  S88  S89  S90  S91  S92  S93  S94  S95
+  S96  S97  S98  S99  S100 S101 S102 S103
+  S104 S105 S106 S107 S108 S109 S110 S111
+  S112 S113 S114 S115 S116 S117 S118 S119
+  S120 S121 S122 S123 S124 S125 S126 S127
 ];
 
 define register offset=0x094 size=1 [
@@ -23,18 +39,34 @@ define register offset=0x094 size=1 [
 ];
 
 define register offset=0x000 size=8 [
-  R1R0    R3R2    R5R4    R7R6
-  R9R8    R11R10  R13R12  R15R14
-  R17R16  R19R18  R21R20  R23R22
-  R25R24  R27R26  R29R28  R31R30
-  C1C0    C3C2    C5C4    C7C6
-  C9C8    C11C10  C13C12  C15C14
-  C17C16  C19C18  C21C20  C23C22
-  C25C24  C27C26  C29C28  C31C30
-  G1G0    G3G2    G5G4    G7G6
-  G9G8    G11G10  G13G12  G15G14
-  G17G16  G19G18  G21G20  G23G22
-  G25G24  G27G26  G29G28  G31G30
+  R1R0      R3R2      R5R4      R7R6
+  R9R8      R11R10    R13R12    R15R14
+  R17R16    R19R18    R21R20    R23R22
+  R25R24    R27R26    R29R28    R31R30
+  C1C0      C3C2      C5C4      C7C6
+  C9C8      C11C10    C13C12    C15C14
+  C17C16    C19C18    C21C20    C23C22
+  C25C24    C27C26    C29C28    C31C30
+  G1G0      G3G2      G5G4      G7G6
+  G9G8      G11G10    G13G12    G15G14
+  G17G16    G19G18    G21G20    G23G22
+  G25G24    G27G26    G29G28    G31G30
+  S1S0      S3S2      S5S4      S7S6
+  S9S8      S11S10    S13S12    S15S14
+  S17S16    S19S18    S21S20    S23S22
+  S25S24    S27S26    S29S28    S31S30
+  S33S32    S35S34    S37S36    S39S38
+  S41S40    S43S42    S45S44    S47S46
+  S49S48    S51S50    S53S52    S55S54
+  S57S56    S59S58    S61S60    S63S62
+  S65S64    S67S66    S69S68    S71S70
+  S73S72    S75S74    S77S76    S79S78
+  S81S80    S83S82    S85S84    S87S86
+  S89S88    S91S90    S93S92    S95S94
+  S97S96    S99S98    S101S100  S103S102
+  S105S104  S107S106  S109S108  S111S110
+  S113S112  S115S114  S117S116  S119S118
+  S121S120  S123S122  S125S124  S127S126
 ];
 
 define register offset=0x500 size=24 contextreg;
@@ -9339,6 +9371,50 @@ attach variables [
   G9G8   _ G11G10 _ G13G12 _ G15G14 _
   G17G16 _ G19G18 _ G21G20 _ G23G22 _
   G25G24 _ G27G26 _ G29G28 _ G31G30 _
+];
+
+attach variables [
+  Y2_tfrscrr_Ss128
+  Y2_tfrsrcr_Sd128
+] [
+  S0   S1   S2   S3   S4   S5   S6   S7
+  S8   S9   S10  S11  S12  S13  S14  S15
+  S16  S17  S18  S19  S20  S21  S22  S23
+  S24  S25  S26  S27  S28  S29  S30  S31
+  S32  S33  S34  S35  S36  S37  S38  S39
+  S40  S41  S42  S43  S44  S45  S46  S47
+  S48  S49  S50  S51  S52  S53  S54  S55
+  S56  S57  S58  S59  S60  S61  S62  S63
+  S64  S65  S66  S67  S68  S69  S70  S71
+  S72  S73  S74  S75  S76  S77  S78  S79
+  S80  S81  S82  S83  S84  S85  S86  S87
+  S88  S89  S90  S91  S92  S93  S94  S95
+  S96  S97  S98  S99  S100 S101 S102 S103
+  S104 S105 S106 S107 S108 S109 S110 S111
+  S112 S113 S114 S115 S116 S117 S118 S119
+  S120 S121 S122 S123 S124 S125 S126 S127
+];
+
+attach variables [
+  Y4_tfrscpp_Sss128
+  Y4_tfrspcp_Sdd128
+] [
+  S1S0      _ S3S2      _ S5S4      _ S7S6      _
+  S9S8      _ S11S10    _ S13S12    _ S15S14    _
+  S17S16    _ S19S18    _ S21S20    _ S23S22    _
+  S25S24    _ S27S26    _ S29S28    _ S31S30    _
+  S33S32    _ S35S34    _ S37S36    _ S39S38    _
+  S41S40    _ S43S42    _ S45S44    _ S47S46    _
+  S49S48    _ S51S50    _ S53S52    _ S55S54    _
+  S57S56    _ S59S58    _ S61S60    _ S63S62    _
+  S65S64    _ S67S66    _ S69S68    _ S71S70    _
+  S73S72    _ S75S74    _ S77S76    _ S79S78    _
+  S81S80    _ S83S82    _ S85S84    _ S87S86    _
+  S89S88    _ S91S90    _ S93S92    _ S95S94    _
+  S97S96    _ S99S98    _ S101S100  _ S103S102  _
+  S105S104  _ S107S106  _ S109S108  _ S111S110  _
+  S113S112  _ S115S114  _ S117S116  _ S119S118  _
+  S121S120  _ S123S122  _ S125S124  _ S127S126  _
 ];
 
 attach variables [
@@ -28016,10 +28092,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   A2_addp_Rdd32 = tmp0;
 }
 
-:A2_addpsat A2_addpsat_Rdd32 A2_addpsat_Rss32 A2_addpsat_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_addpsat_Rdd32 & A2_addpsat_Rss32 & A2_addpsat_Rtt32 {
-  local tmp0:4;
-  tmp0 = fADDSAT64(A2_addpsat_Rdd32, A2_addpsat_Rss32, A2_addpsat_Rtt32);
-}
+:A2_addpsat A2_addpsat_Rdd32 A2_addpsat_Rss32 A2_addpsat_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_addpsat_Rdd32 & A2_addpsat_Rss32 & A2_addpsat_Rtt32 unimpl
 
 :A2_addspl A2_addspl_Rdd32 A2_addspl_Rss32 A2_addspl_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_addspl_Rdd32 & A2_addspl_Rss32 & A2_addspl_Rtt32 {
   local tmp0:8;
@@ -28165,11 +28238,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :A2_negsat A2_negsat_Rd32 A2_negsat_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_negsat_Rd32 & A2_negsat_Rs32 unimpl
 
-:A2_abs A2_abs_Rd32 A2_abs_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_abs_Rd32 & A2_abs_Rs32 {
-  local tmp0:4;
-  tmp0 = fABS(A2_abs_Rs32);
-  A2_abs_Rd32 = tmp0;
-}
+:A2_abs A2_abs_Rd32 A2_abs_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_abs_Rd32 & A2_abs_Rs32 unimpl
 
 :A2_abssat A2_abssat_Rd32 A2_abssat_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_abssat_Rd32 & A2_abssat_Rs32 unimpl
 
@@ -28181,11 +28250,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   A2_negp_Rdd32 = tmp0;
 }
 
-:A2_absp A2_absp_Rdd32 A2_absp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_absp_Rdd32 & A2_absp_Rss32 {
-  local tmp0:4;
-  tmp0 = fABS(A2_absp_Rss32);
-  A2_absp_Rdd32 = zext(tmp0);
-}
+:A2_absp A2_absp_Rdd32 A2_absp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_absp_Rdd32 & A2_absp_Rss32 unimpl
 
 :A2_max A2_max_Rd32 A2_max_Rs32 A2_max_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_max_Rd32 & A2_max_Rs32 & A2_max_Rt32 {
   local tmp0:1;
@@ -29333,7 +29398,13 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   A2_notp_Rdd32 = tmp0;
 }
 
-:A2_sxtw A2_sxtw_Rdd32 A2_sxtw_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_sxtw_Rdd32 & A2_sxtw_Rs32 unimpl
+:A2_sxtw A2_sxtw_Rdd32 A2_sxtw_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_sxtw_Rdd32 & A2_sxtw_Rs32 {
+  local tmp0:8;
+  local tmp1:4;
+  tmp1 = A2_sxtw_Rs32;
+  tmp0 = zext(tmp1);
+  A2_sxtw_Rdd32 = tmp0;
+}
 
 :A2_sat A2_sat_Rd32 A2_sat_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_sat_Rd32 & A2_sat_Rss32 unimpl
 
@@ -29881,93 +29952,3265 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :F2_conv_df2d_chop F2_conv_df2d_chop_Rdd32 F2_conv_df2d_chop_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & F2_conv_df2d_chop_Rdd32 & F2_conv_df2d_chop_Rss32 unimpl
 
-:S2_asr_r_r S2_asr_r_r_Rd32 S2_asr_r_r_Rs32 S2_asr_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_Rd32 & S2_asr_r_r_Rs32 & S2_asr_r_r_Rt32 unimpl
+:S2_asr_r_r S2_asr_r_r_Rd32 S2_asr_r_r_Rs32 S2_asr_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_Rd32 & S2_asr_r_r_Rs32 & S2_asr_r_r_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  local tmp23:4;
+  tmp23 = S2_asr_r_r_Rs32;
+  tmp22 = zext(tmp23);
+  local tmp24:8;
+  tmp24 = zext(shamt);
+  local tmp25:8;
+  tmp25 = tmp22 s>> tmp24;
+  local tmp26:8;
+  tmp26 = tmp25;
+  goto <done_22>;
+<f_branch_22>
+  local tmp27:8;
+  local tmp28:4;
+  tmp28 = S2_asr_r_r_Rs32;
+  tmp27 = zext(tmp28);
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp27 << tmp29;
+  tmp26 = tmp30;
+<done_22>
+  S2_asr_r_r_Rd32 = tmp26:4;
+}
 
-:S2_asl_r_r S2_asl_r_r_Rd32 S2_asl_r_r_Rs32 S2_asl_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_Rd32 & S2_asl_r_r_Rs32 & S2_asl_r_r_Rt32 unimpl
+:S2_asl_r_r S2_asl_r_r_Rd32 S2_asl_r_r_Rs32 S2_asl_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_Rd32 & S2_asl_r_r_Rs32 & S2_asl_r_r_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  local tmp23:4;
+  tmp23 = S2_asl_r_r_Rs32;
+  tmp22 = zext(tmp23);
+  local tmp24:8;
+  tmp24 = zext(shamt);
+  local tmp25:8;
+  tmp25 = tmp22 << tmp24;
+  local tmp26:8;
+  tmp26 = tmp25;
+  goto <done_22>;
+<f_branch_22>
+  local tmp27:8;
+  local tmp28:4;
+  tmp28 = S2_asl_r_r_Rs32;
+  tmp27 = zext(tmp28);
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp27 s>> tmp29;
+  tmp26 = tmp30;
+<done_22>
+  S2_asl_r_r_Rd32 = tmp26:4;
+}
 
-:S2_lsr_r_r S2_lsr_r_r_Rd32 S2_lsr_r_r_Rs32 S2_lsr_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_Rd32 & S2_lsr_r_r_Rs32 & S2_lsr_r_r_Rt32 unimpl
+:S2_lsr_r_r S2_lsr_r_r_Rd32 S2_lsr_r_r_Rs32 S2_lsr_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_Rd32 & S2_lsr_r_r_Rs32 & S2_lsr_r_r_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  local tmp23:4;
+  tmp23 = S2_lsr_r_r_Rs32;
+  tmp22 = sext(tmp23);
+  local tmp24:8;
+  tmp24 = zext(shamt);
+  local tmp25:8;
+  tmp25 = tmp22 >> tmp24;
+  local tmp26:8;
+  tmp26 = tmp25;
+  goto <done_22>;
+<f_branch_22>
+  local tmp27:8;
+  local tmp28:4;
+  tmp28 = S2_lsr_r_r_Rs32;
+  tmp27 = sext(tmp28);
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp27 << tmp29;
+  tmp26 = tmp30;
+<done_22>
+  S2_lsr_r_r_Rd32 = tmp26:4;
+}
 
-:S2_lsl_r_r S2_lsl_r_r_Rd32 S2_lsl_r_r_Rs32 S2_lsl_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_Rd32 & S2_lsl_r_r_Rs32 & S2_lsl_r_r_Rt32 unimpl
+:S2_lsl_r_r S2_lsl_r_r_Rd32 S2_lsl_r_r_Rs32 S2_lsl_r_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_Rd32 & S2_lsl_r_r_Rs32 & S2_lsl_r_r_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  local tmp23:4;
+  tmp23 = S2_lsl_r_r_Rs32;
+  tmp22 = sext(tmp23);
+  local tmp24:8;
+  tmp24 = zext(shamt);
+  local tmp25:8;
+  tmp25 = tmp22 << tmp24;
+  local tmp26:8;
+  tmp26 = tmp25;
+  goto <done_22>;
+<f_branch_22>
+  local tmp27:8;
+  local tmp28:4;
+  tmp28 = S2_lsl_r_r_Rs32;
+  tmp27 = sext(tmp28);
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp27 >> tmp29;
+  tmp26 = tmp30;
+<done_22>
+  S2_lsl_r_r_Rd32 = tmp26:4;
+}
 
-:S2_asr_r_p S2_asr_r_p_Rdd32 S2_asr_r_p_Rss32 S2_asr_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_Rdd32 & S2_asr_r_p_Rss32 & S2_asr_r_p_Rt32 unimpl
+:S2_asr_r_p S2_asr_r_p_Rdd32 S2_asr_r_p_Rss32 S2_asr_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_Rdd32 & S2_asr_r_p_Rss32 & S2_asr_r_p_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_p_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  tmp22 = S2_asr_r_p_Rss32;
+  local tmp23:8;
+  tmp23 = zext(shamt);
+  local tmp24:8;
+  tmp24 = tmp22 s>> tmp23;
+  local tmp25:8;
+  tmp25 = tmp24;
+  goto <done_22>;
+<f_branch_22>
+  local tmp26:8;
+  tmp26 = S2_asr_r_p_Rss32;
+  local tmp27:8;
+  tmp27 = zext(shamt);
+  local tmp28:8;
+  tmp28 = tmp26 << tmp27;
+  tmp25 = tmp28;
+<done_22>
+  S2_asr_r_p_Rdd32 = tmp25;
+}
 
-:S2_asl_r_p S2_asl_r_p_Rdd32 S2_asl_r_p_Rss32 S2_asl_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_Rdd32 & S2_asl_r_p_Rss32 & S2_asl_r_p_Rt32 unimpl
+:S2_asl_r_p S2_asl_r_p_Rdd32 S2_asl_r_p_Rss32 S2_asl_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_Rdd32 & S2_asl_r_p_Rss32 & S2_asl_r_p_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_p_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  tmp22 = S2_asl_r_p_Rss32;
+  local tmp23:8;
+  tmp23 = zext(shamt);
+  local tmp24:8;
+  tmp24 = tmp22 << tmp23;
+  local tmp25:8;
+  tmp25 = tmp24;
+  goto <done_22>;
+<f_branch_22>
+  local tmp26:8;
+  tmp26 = S2_asl_r_p_Rss32;
+  local tmp27:8;
+  tmp27 = zext(shamt);
+  local tmp28:8;
+  tmp28 = tmp26 s>> tmp27;
+  tmp25 = tmp28;
+<done_22>
+  S2_asl_r_p_Rdd32 = tmp25;
+}
 
-:S2_lsr_r_p S2_lsr_r_p_Rdd32 S2_lsr_r_p_Rss32 S2_lsr_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_Rdd32 & S2_lsr_r_p_Rss32 & S2_lsr_r_p_Rt32 unimpl
+:S2_lsr_r_p S2_lsr_r_p_Rdd32 S2_lsr_r_p_Rss32 S2_lsr_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_Rdd32 & S2_lsr_r_p_Rss32 & S2_lsr_r_p_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_p_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  tmp22 = S2_lsr_r_p_Rss32;
+  local tmp23:8;
+  tmp23 = zext(shamt);
+  local tmp24:8;
+  tmp24 = tmp22 >> tmp23;
+  local tmp25:8;
+  tmp25 = tmp24;
+  goto <done_22>;
+<f_branch_22>
+  local tmp26:8;
+  tmp26 = S2_lsr_r_p_Rss32;
+  local tmp27:8;
+  tmp27 = zext(shamt);
+  local tmp28:8;
+  tmp28 = tmp26 << tmp27;
+  tmp25 = tmp28;
+<done_22>
+  S2_lsr_r_p_Rdd32 = tmp25;
+}
 
-:S2_lsl_r_p S2_lsl_r_p_Rdd32 S2_lsl_r_p_Rss32 S2_lsl_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_Rdd32 & S2_lsl_r_p_Rss32 & S2_lsl_r_p_Rt32 unimpl
+:S2_lsl_r_p S2_lsl_r_p_Rdd32 S2_lsl_r_p_Rss32 S2_lsl_r_p_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_Rdd32 & S2_lsl_r_p_Rss32 & S2_lsl_r_p_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_p_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  tmp22 = S2_lsl_r_p_Rss32;
+  local tmp23:8;
+  tmp23 = zext(shamt);
+  local tmp24:8;
+  tmp24 = tmp22 << tmp23;
+  local tmp25:8;
+  tmp25 = tmp24;
+  goto <done_22>;
+<f_branch_22>
+  local tmp26:8;
+  tmp26 = S2_lsl_r_p_Rss32;
+  local tmp27:8;
+  tmp27 = zext(shamt);
+  local tmp28:8;
+  tmp28 = tmp26 >> tmp27;
+  tmp25 = tmp28;
+<done_22>
+  S2_lsl_r_p_Rdd32 = tmp25;
+}
 
-:S2_asr_r_r_acc S2_asr_r_r_acc_Rx32 S2_asr_r_r_acc_Rs32 S2_asr_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_acc_Rx32 & S2_asr_r_r_acc_Rs32 & S2_asr_r_r_acc_Rt32 unimpl
+:S2_asr_r_r_acc S2_asr_r_r_acc_Rx32 S2_asr_r_r_acc_Rs32 S2_asr_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_acc_Rx32 & S2_asr_r_r_acc_Rs32 & S2_asr_r_r_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_r_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asr_r_r_acc_Rx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asr_r_r_acc_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 s>> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asr_r_r_acc_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asr_r_r_acc_Rx32 = tmp28:4;
+}
 
-:S2_asl_r_r_acc S2_asl_r_r_acc_Rx32 S2_asl_r_r_acc_Rs32 S2_asl_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_acc_Rx32 & S2_asl_r_r_acc_Rs32 & S2_asl_r_r_acc_Rt32 unimpl
+:S2_asl_r_r_acc S2_asl_r_r_acc_Rx32 S2_asl_r_r_acc_Rs32 S2_asl_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_acc_Rx32 & S2_asl_r_r_acc_Rs32 & S2_asl_r_r_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_r_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asl_r_r_acc_Rx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asl_r_r_acc_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asl_r_r_acc_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 s>> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asl_r_r_acc_Rx32 = tmp28:4;
+}
 
-:S2_lsr_r_r_acc S2_lsr_r_r_acc_Rx32 S2_lsr_r_r_acc_Rs32 S2_lsr_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_acc_Rx32 & S2_lsr_r_r_acc_Rs32 & S2_lsr_r_r_acc_Rt32 unimpl
+:S2_lsr_r_r_acc S2_lsr_r_r_acc_Rx32 S2_lsr_r_r_acc_Rs32 S2_lsr_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_acc_Rx32 & S2_lsr_r_r_acc_Rs32 & S2_lsr_r_r_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_r_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsr_r_r_acc_Rx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsr_r_r_acc_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 >> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsr_r_r_acc_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsr_r_r_acc_Rx32 = tmp28:4;
+}
 
-:S2_lsl_r_r_acc S2_lsl_r_r_acc_Rx32 S2_lsl_r_r_acc_Rs32 S2_lsl_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_acc_Rx32 & S2_lsl_r_r_acc_Rs32 & S2_lsl_r_r_acc_Rt32 unimpl
+:S2_lsl_r_r_acc S2_lsl_r_r_acc_Rx32 S2_lsl_r_r_acc_Rs32 S2_lsl_r_r_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_acc_Rx32 & S2_lsl_r_r_acc_Rs32 & S2_lsl_r_r_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_r_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsl_r_r_acc_Rx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsl_r_r_acc_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsl_r_r_acc_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 >> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsl_r_r_acc_Rx32 = tmp28:4;
+}
 
-:S2_asr_r_p_acc S2_asr_r_p_acc_Rxx32 S2_asr_r_p_acc_Rss32 S2_asr_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_acc_Rxx32 & S2_asr_r_p_acc_Rss32 & S2_asr_r_p_acc_Rt32 unimpl
+:S2_asr_r_p_acc S2_asr_r_p_acc_Rxx32 S2_asr_r_p_acc_Rss32 S2_asr_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_acc_Rxx32 & S2_asr_r_p_acc_Rss32 & S2_asr_r_p_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_p_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asr_r_p_acc_Rxx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asr_r_p_acc_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 s>> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asr_r_p_acc_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asr_r_p_acc_Rxx32 = tmp27;
+}
 
-:S2_asl_r_p_acc S2_asl_r_p_acc_Rxx32 S2_asl_r_p_acc_Rss32 S2_asl_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_acc_Rxx32 & S2_asl_r_p_acc_Rss32 & S2_asl_r_p_acc_Rt32 unimpl
+:S2_asl_r_p_acc S2_asl_r_p_acc_Rxx32 S2_asl_r_p_acc_Rss32 S2_asl_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_acc_Rxx32 & S2_asl_r_p_acc_Rss32 & S2_asl_r_p_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_p_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asl_r_p_acc_Rxx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asl_r_p_acc_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asl_r_p_acc_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 s>> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asl_r_p_acc_Rxx32 = tmp27;
+}
 
-:S2_lsr_r_p_acc S2_lsr_r_p_acc_Rxx32 S2_lsr_r_p_acc_Rss32 S2_lsr_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_acc_Rxx32 & S2_lsr_r_p_acc_Rss32 & S2_lsr_r_p_acc_Rt32 unimpl
+:S2_lsr_r_p_acc S2_lsr_r_p_acc_Rxx32 S2_lsr_r_p_acc_Rss32 S2_lsr_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_acc_Rxx32 & S2_lsr_r_p_acc_Rss32 & S2_lsr_r_p_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_p_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsr_r_p_acc_Rxx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsr_r_p_acc_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 >> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsr_r_p_acc_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsr_r_p_acc_Rxx32 = tmp27;
+}
 
-:S2_lsl_r_p_acc S2_lsl_r_p_acc_Rxx32 S2_lsl_r_p_acc_Rss32 S2_lsl_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_acc_Rxx32 & S2_lsl_r_p_acc_Rss32 & S2_lsl_r_p_acc_Rt32 unimpl
+:S2_lsl_r_p_acc S2_lsl_r_p_acc_Rxx32 S2_lsl_r_p_acc_Rss32 S2_lsl_r_p_acc_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_acc_Rxx32 & S2_lsl_r_p_acc_Rss32 & S2_lsl_r_p_acc_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_p_acc_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsl_r_p_acc_Rxx32 + tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsl_r_p_acc_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsl_r_p_acc_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 >> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsl_r_p_acc_Rxx32 = tmp27;
+}
 
-:S2_asr_r_r_nac S2_asr_r_r_nac_Rx32 S2_asr_r_r_nac_Rs32 S2_asr_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_nac_Rx32 & S2_asr_r_r_nac_Rs32 & S2_asr_r_r_nac_Rt32 unimpl
+:S2_asr_r_r_nac S2_asr_r_r_nac_Rx32 S2_asr_r_r_nac_Rs32 S2_asr_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_nac_Rx32 & S2_asr_r_r_nac_Rs32 & S2_asr_r_r_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_r_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asr_r_r_nac_Rx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asr_r_r_nac_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 s>> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asr_r_r_nac_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asr_r_r_nac_Rx32 = tmp28:4;
+}
 
-:S2_asl_r_r_nac S2_asl_r_r_nac_Rx32 S2_asl_r_r_nac_Rs32 S2_asl_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_nac_Rx32 & S2_asl_r_r_nac_Rs32 & S2_asl_r_r_nac_Rt32 unimpl
+:S2_asl_r_r_nac S2_asl_r_r_nac_Rx32 S2_asl_r_r_nac_Rs32 S2_asl_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_nac_Rx32 & S2_asl_r_r_nac_Rs32 & S2_asl_r_r_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_r_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asl_r_r_nac_Rx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asl_r_r_nac_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asl_r_r_nac_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 s>> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asl_r_r_nac_Rx32 = tmp28:4;
+}
 
-:S2_lsr_r_r_nac S2_lsr_r_r_nac_Rx32 S2_lsr_r_r_nac_Rs32 S2_lsr_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_nac_Rx32 & S2_lsr_r_r_nac_Rs32 & S2_lsr_r_r_nac_Rt32 unimpl
+:S2_lsr_r_r_nac S2_lsr_r_r_nac_Rx32 S2_lsr_r_r_nac_Rs32 S2_lsr_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_nac_Rx32 & S2_lsr_r_r_nac_Rs32 & S2_lsr_r_r_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_r_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsr_r_r_nac_Rx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsr_r_r_nac_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 >> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsr_r_r_nac_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsr_r_r_nac_Rx32 = tmp28:4;
+}
 
-:S2_lsl_r_r_nac S2_lsl_r_r_nac_Rx32 S2_lsl_r_r_nac_Rs32 S2_lsl_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_nac_Rx32 & S2_lsl_r_r_nac_Rs32 & S2_lsl_r_r_nac_Rt32 unimpl
+:S2_lsl_r_r_nac S2_lsl_r_r_nac_Rx32 S2_lsl_r_r_nac_Rs32 S2_lsl_r_r_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_nac_Rx32 & S2_lsl_r_r_nac_Rs32 & S2_lsl_r_r_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_r_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsl_r_r_nac_Rx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsl_r_r_nac_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsl_r_r_nac_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 >> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsl_r_r_nac_Rx32 = tmp28:4;
+}
 
-:S2_asr_r_p_nac S2_asr_r_p_nac_Rxx32 S2_asr_r_p_nac_Rss32 S2_asr_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_nac_Rxx32 & S2_asr_r_p_nac_Rss32 & S2_asr_r_p_nac_Rt32 unimpl
+:S2_asr_r_p_nac S2_asr_r_p_nac_Rxx32 S2_asr_r_p_nac_Rss32 S2_asr_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_nac_Rxx32 & S2_asr_r_p_nac_Rss32 & S2_asr_r_p_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_p_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asr_r_p_nac_Rxx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asr_r_p_nac_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 s>> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asr_r_p_nac_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asr_r_p_nac_Rxx32 = tmp27;
+}
 
-:S2_asl_r_p_nac S2_asl_r_p_nac_Rxx32 S2_asl_r_p_nac_Rss32 S2_asl_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_nac_Rxx32 & S2_asl_r_p_nac_Rss32 & S2_asl_r_p_nac_Rt32 unimpl
+:S2_asl_r_p_nac S2_asl_r_p_nac_Rxx32 S2_asl_r_p_nac_Rss32 S2_asl_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_nac_Rxx32 & S2_asl_r_p_nac_Rss32 & S2_asl_r_p_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_p_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asl_r_p_nac_Rxx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asl_r_p_nac_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asl_r_p_nac_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 s>> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asl_r_p_nac_Rxx32 = tmp27;
+}
 
-:S2_lsr_r_p_nac S2_lsr_r_p_nac_Rxx32 S2_lsr_r_p_nac_Rss32 S2_lsr_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_nac_Rxx32 & S2_lsr_r_p_nac_Rss32 & S2_lsr_r_p_nac_Rt32 unimpl
+:S2_lsr_r_p_nac S2_lsr_r_p_nac_Rxx32 S2_lsr_r_p_nac_Rss32 S2_lsr_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_nac_Rxx32 & S2_lsr_r_p_nac_Rss32 & S2_lsr_r_p_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_p_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsr_r_p_nac_Rxx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsr_r_p_nac_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 >> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsr_r_p_nac_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsr_r_p_nac_Rxx32 = tmp27;
+}
 
-:S2_lsl_r_p_nac S2_lsl_r_p_nac_Rxx32 S2_lsl_r_p_nac_Rss32 S2_lsl_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_nac_Rxx32 & S2_lsl_r_p_nac_Rss32 & S2_lsl_r_p_nac_Rt32 unimpl
+:S2_lsl_r_p_nac S2_lsl_r_p_nac_Rxx32 S2_lsl_r_p_nac_Rss32 S2_lsl_r_p_nac_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_nac_Rxx32 & S2_lsl_r_p_nac_Rss32 & S2_lsl_r_p_nac_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_p_nac_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsl_r_p_nac_Rxx32 - tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsl_r_p_nac_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsl_r_p_nac_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 >> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsl_r_p_nac_Rxx32 = tmp27;
+}
 
-:S2_asr_r_r_and S2_asr_r_r_and_Rx32 S2_asr_r_r_and_Rs32 S2_asr_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_and_Rx32 & S2_asr_r_r_and_Rs32 & S2_asr_r_r_and_Rt32 unimpl
+:S2_asr_r_r_and S2_asr_r_r_and_Rx32 S2_asr_r_r_and_Rs32 S2_asr_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_and_Rx32 & S2_asr_r_r_and_Rs32 & S2_asr_r_r_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_r_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asr_r_r_and_Rx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asr_r_r_and_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 s>> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asr_r_r_and_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asr_r_r_and_Rx32 = tmp28:4;
+}
 
-:S2_asl_r_r_and S2_asl_r_r_and_Rx32 S2_asl_r_r_and_Rs32 S2_asl_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_and_Rx32 & S2_asl_r_r_and_Rs32 & S2_asl_r_r_and_Rt32 unimpl
+:S2_asl_r_r_and S2_asl_r_r_and_Rx32 S2_asl_r_r_and_Rs32 S2_asl_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_and_Rx32 & S2_asl_r_r_and_Rs32 & S2_asl_r_r_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_r_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asl_r_r_and_Rx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asl_r_r_and_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asl_r_r_and_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 s>> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asl_r_r_and_Rx32 = tmp28:4;
+}
 
-:S2_lsr_r_r_and S2_lsr_r_r_and_Rx32 S2_lsr_r_r_and_Rs32 S2_lsr_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_and_Rx32 & S2_lsr_r_r_and_Rs32 & S2_lsr_r_r_and_Rt32 unimpl
+:S2_lsr_r_r_and S2_lsr_r_r_and_Rx32 S2_lsr_r_r_and_Rs32 S2_lsr_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_and_Rx32 & S2_lsr_r_r_and_Rs32 & S2_lsr_r_r_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_r_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsr_r_r_and_Rx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsr_r_r_and_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 >> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsr_r_r_and_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsr_r_r_and_Rx32 = tmp28:4;
+}
 
-:S2_lsl_r_r_and S2_lsl_r_r_and_Rx32 S2_lsl_r_r_and_Rs32 S2_lsl_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_and_Rx32 & S2_lsl_r_r_and_Rs32 & S2_lsl_r_r_and_Rt32 unimpl
+:S2_lsl_r_r_and S2_lsl_r_r_and_Rx32 S2_lsl_r_r_and_Rs32 S2_lsl_r_r_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_and_Rx32 & S2_lsl_r_r_and_Rs32 & S2_lsl_r_r_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_r_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsl_r_r_and_Rx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsl_r_r_and_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsl_r_r_and_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 >> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsl_r_r_and_Rx32 = tmp28:4;
+}
 
-:S2_asr_r_r_or S2_asr_r_r_or_Rx32 S2_asr_r_r_or_Rs32 S2_asr_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_or_Rx32 & S2_asr_r_r_or_Rs32 & S2_asr_r_r_or_Rt32 unimpl
+:S2_asr_r_r_or S2_asr_r_r_or_Rx32 S2_asr_r_r_or_Rs32 S2_asr_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_or_Rx32 & S2_asr_r_r_or_Rs32 & S2_asr_r_r_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_r_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asr_r_r_or_Rx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asr_r_r_or_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 s>> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asr_r_r_or_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asr_r_r_or_Rx32 = tmp28:4;
+}
 
-:S2_asl_r_r_or S2_asl_r_r_or_Rx32 S2_asl_r_r_or_Rs32 S2_asl_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_or_Rx32 & S2_asl_r_r_or_Rs32 & S2_asl_r_r_or_Rt32 unimpl
+:S2_asl_r_r_or S2_asl_r_r_or_Rx32 S2_asl_r_r_or_Rs32 S2_asl_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_r_or_Rx32 & S2_asl_r_r_or_Rs32 & S2_asl_r_r_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_r_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_asl_r_r_or_Rx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_asl_r_r_or_Rs32;
+  tmp24 = zext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_asl_r_r_or_Rs32;
+  tmp29 = zext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 s>> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_asl_r_r_or_Rx32 = tmp28:4;
+}
 
-:S2_lsr_r_r_or S2_lsr_r_r_or_Rx32 S2_lsr_r_r_or_Rs32 S2_lsr_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_or_Rx32 & S2_lsr_r_r_or_Rs32 & S2_lsr_r_r_or_Rt32 unimpl
+:S2_lsr_r_r_or S2_lsr_r_r_or_Rx32 S2_lsr_r_r_or_Rs32 S2_lsr_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_r_or_Rx32 & S2_lsr_r_r_or_Rs32 & S2_lsr_r_r_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_r_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsr_r_r_or_Rx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsr_r_r_or_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 >> tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsr_r_r_or_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 << tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsr_r_r_or_Rx32 = tmp28:4;
+}
 
-:S2_lsl_r_r_or S2_lsl_r_r_or_Rx32 S2_lsl_r_r_or_Rs32 S2_lsl_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_or_Rx32 & S2_lsl_r_r_or_Rs32 & S2_lsl_r_r_or_Rt32 unimpl
+:S2_lsl_r_r_or S2_lsl_r_r_or_Rx32 S2_lsl_r_r_or_Rs32 S2_lsl_r_r_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_r_or_Rx32 & S2_lsl_r_r_or_Rs32 & S2_lsl_r_r_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_r_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_lsl_r_r_or_Rx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  tmp25 = S2_lsl_r_r_or_Rs32;
+  tmp24 = sext(tmp25);
+  local tmp26:8;
+  tmp26 = zext(shamt);
+  local tmp27:8;
+  tmp27 = tmp24 << tmp26;
+  local tmp28:8;
+  tmp28 = tmp27;
+  goto <done_24>;
+<f_branch_24>
+  local tmp29:8;
+  local tmp30:4;
+  tmp30 = S2_lsl_r_r_or_Rs32;
+  tmp29 = sext(tmp30);
+  local tmp31:8;
+  tmp31 = zext(shamt);
+  local tmp32:8;
+  tmp32 = tmp29 >> tmp31;
+  tmp28 = tmp32;
+<done_24>
+  S2_lsl_r_r_or_Rx32 = tmp28:4;
+}
 
-:S2_asr_r_p_and S2_asr_r_p_and_Rxx32 S2_asr_r_p_and_Rss32 S2_asr_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_and_Rxx32 & S2_asr_r_p_and_Rss32 & S2_asr_r_p_and_Rt32 unimpl
+:S2_asr_r_p_and S2_asr_r_p_and_Rxx32 S2_asr_r_p_and_Rss32 S2_asr_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_and_Rxx32 & S2_asr_r_p_and_Rss32 & S2_asr_r_p_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_p_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asr_r_p_and_Rxx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asr_r_p_and_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 s>> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asr_r_p_and_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asr_r_p_and_Rxx32 = tmp27;
+}
 
-:S2_asl_r_p_and S2_asl_r_p_and_Rxx32 S2_asl_r_p_and_Rss32 S2_asl_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_and_Rxx32 & S2_asl_r_p_and_Rss32 & S2_asl_r_p_and_Rt32 unimpl
+:S2_asl_r_p_and S2_asl_r_p_and_Rxx32 S2_asl_r_p_and_Rss32 S2_asl_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_and_Rxx32 & S2_asl_r_p_and_Rss32 & S2_asl_r_p_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_p_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asl_r_p_and_Rxx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asl_r_p_and_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asl_r_p_and_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 s>> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asl_r_p_and_Rxx32 = tmp27;
+}
 
-:S2_lsr_r_p_and S2_lsr_r_p_and_Rxx32 S2_lsr_r_p_and_Rss32 S2_lsr_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_and_Rxx32 & S2_lsr_r_p_and_Rss32 & S2_lsr_r_p_and_Rt32 unimpl
+:S2_lsr_r_p_and S2_lsr_r_p_and_Rxx32 S2_lsr_r_p_and_Rss32 S2_lsr_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_and_Rxx32 & S2_lsr_r_p_and_Rss32 & S2_lsr_r_p_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_p_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsr_r_p_and_Rxx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsr_r_p_and_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 >> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsr_r_p_and_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsr_r_p_and_Rxx32 = tmp27;
+}
 
-:S2_lsl_r_p_and S2_lsl_r_p_and_Rxx32 S2_lsl_r_p_and_Rss32 S2_lsl_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_and_Rxx32 & S2_lsl_r_p_and_Rss32 & S2_lsl_r_p_and_Rt32 unimpl
+:S2_lsl_r_p_and S2_lsl_r_p_and_Rxx32 S2_lsl_r_p_and_Rss32 S2_lsl_r_p_and_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_and_Rxx32 & S2_lsl_r_p_and_Rss32 & S2_lsl_r_p_and_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_p_and_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsl_r_p_and_Rxx32 & tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsl_r_p_and_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsl_r_p_and_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 >> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsl_r_p_and_Rxx32 = tmp27;
+}
 
-:S2_asr_r_p_or S2_asr_r_p_or_Rxx32 S2_asr_r_p_or_Rss32 S2_asr_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_or_Rxx32 & S2_asr_r_p_or_Rss32 & S2_asr_r_p_or_Rt32 unimpl
+:S2_asr_r_p_or S2_asr_r_p_or_Rxx32 S2_asr_r_p_or_Rss32 S2_asr_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_or_Rxx32 & S2_asr_r_p_or_Rss32 & S2_asr_r_p_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_p_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asr_r_p_or_Rxx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asr_r_p_or_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 s>> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asr_r_p_or_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asr_r_p_or_Rxx32 = tmp27;
+}
 
-:S2_asl_r_p_or S2_asl_r_p_or_Rxx32 S2_asl_r_p_or_Rss32 S2_asl_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_or_Rxx32 & S2_asl_r_p_or_Rss32 & S2_asl_r_p_or_Rt32 unimpl
+:S2_asl_r_p_or S2_asl_r_p_or_Rxx32 S2_asl_r_p_or_Rss32 S2_asl_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_or_Rxx32 & S2_asl_r_p_or_Rss32 & S2_asl_r_p_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_p_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asl_r_p_or_Rxx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asl_r_p_or_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asl_r_p_or_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 s>> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asl_r_p_or_Rxx32 = tmp27;
+}
 
-:S2_lsr_r_p_or S2_lsr_r_p_or_Rxx32 S2_lsr_r_p_or_Rss32 S2_lsr_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_or_Rxx32 & S2_lsr_r_p_or_Rss32 & S2_lsr_r_p_or_Rt32 unimpl
+:S2_lsr_r_p_or S2_lsr_r_p_or_Rxx32 S2_lsr_r_p_or_Rss32 S2_lsr_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_or_Rxx32 & S2_lsr_r_p_or_Rss32 & S2_lsr_r_p_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_p_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsr_r_p_or_Rxx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsr_r_p_or_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 >> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsr_r_p_or_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsr_r_p_or_Rxx32 = tmp27;
+}
 
-:S2_lsl_r_p_or S2_lsl_r_p_or_Rxx32 S2_lsl_r_p_or_Rss32 S2_lsl_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_or_Rxx32 & S2_lsl_r_p_or_Rss32 & S2_lsl_r_p_or_Rt32 unimpl
+:S2_lsl_r_p_or S2_lsl_r_p_or_Rxx32 S2_lsl_r_p_or_Rss32 S2_lsl_r_p_or_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_or_Rxx32 & S2_lsl_r_p_or_Rss32 & S2_lsl_r_p_or_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_p_or_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsl_r_p_or_Rxx32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsl_r_p_or_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsl_r_p_or_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 >> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsl_r_p_or_Rxx32 = tmp27;
+}
 
-:S2_asr_r_p_xor S2_asr_r_p_xor_Rxx32 S2_asr_r_p_xor_Rss32 S2_asr_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_xor_Rxx32 & S2_asr_r_p_xor_Rss32 & S2_asr_r_p_xor_Rt32 unimpl
+:S2_asr_r_p_xor S2_asr_r_p_xor_Rxx32 S2_asr_r_p_xor_Rss32 S2_asr_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_p_xor_Rxx32 & S2_asr_r_p_xor_Rss32 & S2_asr_r_p_xor_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asr_r_p_xor_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asr_r_p_xor_Rxx32 ^ tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asr_r_p_xor_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 s>> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asr_r_p_xor_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asr_r_p_xor_Rxx32 = tmp27;
+}
 
-:S2_asl_r_p_xor S2_asl_r_p_xor_Rxx32 S2_asl_r_p_xor_Rss32 S2_asl_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_xor_Rxx32 & S2_asl_r_p_xor_Rss32 & S2_asl_r_p_xor_Rt32 unimpl
+:S2_asl_r_p_xor S2_asl_r_p_xor_Rxx32 S2_asl_r_p_xor_Rss32 S2_asl_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asl_r_p_xor_Rxx32 & S2_asl_r_p_xor_Rss32 & S2_asl_r_p_xor_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_asl_r_p_xor_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_asl_r_p_xor_Rxx32 ^ tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_asl_r_p_xor_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_asl_r_p_xor_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 s>> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_asl_r_p_xor_Rxx32 = tmp27;
+}
 
-:S2_lsr_r_p_xor S2_lsr_r_p_xor_Rxx32 S2_lsr_r_p_xor_Rss32 S2_lsr_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_xor_Rxx32 & S2_lsr_r_p_xor_Rss32 & S2_lsr_r_p_xor_Rt32 unimpl
+:S2_lsr_r_p_xor S2_lsr_r_p_xor_Rxx32 S2_lsr_r_p_xor_Rss32 S2_lsr_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsr_r_p_xor_Rxx32 & S2_lsr_r_p_xor_Rss32 & S2_lsr_r_p_xor_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsr_r_p_xor_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsr_r_p_xor_Rxx32 ^ tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsr_r_p_xor_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 >> tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsr_r_p_xor_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 << tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsr_r_p_xor_Rxx32 = tmp27;
+}
 
-:S2_lsl_r_p_xor S2_lsl_r_p_xor_Rxx32 S2_lsl_r_p_xor_Rss32 S2_lsl_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_xor_Rxx32 & S2_lsl_r_p_xor_Rss32 & S2_lsl_r_p_xor_Rt32 unimpl
+:S2_lsl_r_p_xor S2_lsl_r_p_xor_Rxx32 S2_lsl_r_p_xor_Rss32 S2_lsl_r_p_xor_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_lsl_r_p_xor_Rxx32 & S2_lsl_r_p_xor_Rss32 & S2_lsl_r_p_xor_Rt32 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_lsl_r_p_xor_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:8;
+  tmp20 = zext(tmp19);
+  local tmp21:8;
+  tmp21 = S2_lsl_r_p_xor_Rxx32 ^ tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  tmp24 = S2_lsl_r_p_xor_Rss32;
+  local tmp25:8;
+  tmp25 = zext(shamt);
+  local tmp26:8;
+  tmp26 = tmp24 << tmp25;
+  local tmp27:8;
+  tmp27 = tmp26;
+  goto <done_24>;
+<f_branch_24>
+  local tmp28:8;
+  tmp28 = S2_lsl_r_p_xor_Rss32;
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp28 >> tmp29;
+  tmp27 = tmp30;
+<done_24>
+  S2_lsl_r_p_xor_Rxx32 = tmp27;
+}
 
 :S2_asr_r_r_sat S2_asr_r_r_sat_Rd32 S2_asr_r_r_sat_Rs32 S2_asr_r_r_sat_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_asr_r_r_sat_Rd32 & S2_asr_r_r_sat_Rs32 & S2_asr_r_r_sat_Rt32 unimpl
 
@@ -30825,7 +34068,31 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :S2_asl_i_r_sat S2_asl_i_r_sat_Rd32 S2_asl_i_r_sat_Rs32 S2_asl_i_r_sat_u5 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_asl_i_r_sat_Rd32 & S2_asl_i_r_sat_Rs32 & S2_asl_i_r_sat_u5 unimpl
 
-:S2_asr_i_r_rnd S2_asr_i_r_rnd_Rd32 S2_asr_i_r_rnd_Rs32 S2_asr_i_r_rnd_u5 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_asr_i_r_rnd_Rd32 & S2_asr_i_r_rnd_Rs32 & S2_asr_i_r_rnd_u5 unimpl
+:S2_asr_i_r_rnd S2_asr_i_r_rnd_Rd32 S2_asr_i_r_rnd_Rs32 S2_asr_i_r_rnd_u5 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_asr_i_r_rnd_Rd32 & S2_asr_i_r_rnd_Rs32 & S2_asr_i_r_rnd_u5 {
+  local tmp0:8;
+  local tmp1:8;
+  local tmp2:4;
+  tmp2 = S2_asr_i_r_rnd_Rs32;
+  tmp1 = zext(tmp2);
+  local tmp3:8;
+  tmp3 = sext(S2_asr_i_r_rnd_u5);
+  local tmp4:8;
+  tmp4 = tmp1 >> tmp3;
+  local tmp5:4;
+  tmp5 = 1;
+  local tmp6:8;
+  tmp6 = zext(tmp5);
+  local tmp7:8;
+  tmp7 = tmp4 + tmp6;
+  tmp0 = tmp7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:8;
+  tmp9 = zext(tmp8);
+  local tmp10:8;
+  tmp10 = tmp0 s>> tmp9;
+  S2_asr_i_r_rnd_Rd32 = tmp10:4;
+}
 
 :S2_asr_i_p_rnd S2_asr_i_p_rnd_Rdd32 S2_asr_i_p_rnd_Rss32 S2_asr_i_p_rnd_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_asr_i_p_rnd_Rdd32 & S2_asr_i_p_rnd_Rss32 & S2_asr_i_p_rnd_u6 {
   local tmp:8;
@@ -30857,7 +34124,78 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   S2_asr_i_p_rnd_Rdd32 = tmp10;
 }
 
-:S4_lsli S4_lsli_Rd32 S4_lsli_Rt32 S4_lsli_s6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_lsli_Rd32 & S4_lsli_Rt32 & S4_lsli_s6 unimpl
+:S4_lsli S4_lsli_Rd32 S4_lsli_Rt32 S4_lsli_s6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_lsli_Rd32 & S4_lsli_Rt32 & S4_lsli_s6 {
+  local shamt:4;
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S4_lsli_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  shamt = tmp17;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = shamt s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  local tmp23:4;
+  tmp23 = S4_lsli_s6;
+  tmp22 = sext(tmp23);
+  local tmp24:8;
+  tmp24 = zext(shamt);
+  local tmp25:8;
+  tmp25 = tmp22 << tmp24;
+  local tmp26:8;
+  tmp26 = tmp25;
+  goto <done_22>;
+<f_branch_22>
+  local tmp27:8;
+  local tmp28:4;
+  tmp28 = S4_lsli_s6;
+  tmp27 = sext(tmp28);
+  local tmp29:8;
+  tmp29 = zext(shamt);
+  local tmp30:8;
+  tmp30 = tmp27 >> tmp29;
+  tmp26 = tmp30;
+<done_22>
+  S4_lsli_Rd32 = tmp26:4;
+}
 
 :S2_addasl_rrri S2_addasl_rrri_Rd32 S2_addasl_rrri_Rt32 S2_addasl_rrri_Rs32 S2_addasl_rrri_u3 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_addasl_rrri_Rd32 & S2_addasl_rrri_Rt32 & S2_addasl_rrri_Rs32 & S2_addasl_rrri_u3 {
   local tmp0:4;
@@ -30901,13 +34239,45 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   S4_subi_asl_ri_Rx32 = tmp1;
 }
 
-:S4_andi_lsr_ri S4_andi_lsr_ri_Rx32 S4_andi_lsr_ri_u8 S4_andi_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 0 & b2 = 0 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_andi_lsr_ri_Rx32 & S4_andi_lsr_ri_u8 & S4_andi_lsr_ri_U5 unimpl
+:S4_andi_lsr_ri S4_andi_lsr_ri_Rx32 S4_andi_lsr_ri_u8 S4_andi_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 0 & b2 = 0 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_andi_lsr_ri_Rx32 & S4_andi_lsr_ri_u8 & S4_andi_lsr_ri_U5 {
+  local tmp0:4;
+  tmp0 = S4_andi_lsr_ri_Rx32;
+  local tmp1:4;
+  tmp1 = tmp0 >> S4_andi_lsr_ri_U5;
+  local tmp2:4;
+  tmp2 = S4_andi_lsr_ri_u8 & tmp1;
+  S4_andi_lsr_ri_Rx32 = tmp2;
+}
 
-:S4_ori_lsr_ri S4_ori_lsr_ri_Rx32 S4_ori_lsr_ri_u8 S4_ori_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 1 & b2 = 0 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_ori_lsr_ri_Rx32 & S4_ori_lsr_ri_u8 & S4_ori_lsr_ri_U5 unimpl
+:S4_ori_lsr_ri S4_ori_lsr_ri_Rx32 S4_ori_lsr_ri_u8 S4_ori_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 1 & b2 = 0 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_ori_lsr_ri_Rx32 & S4_ori_lsr_ri_u8 & S4_ori_lsr_ri_U5 {
+  local tmp0:4;
+  tmp0 = S4_ori_lsr_ri_Rx32;
+  local tmp1:4;
+  tmp1 = tmp0 >> S4_ori_lsr_ri_U5;
+  local tmp2:4;
+  tmp2 = S4_ori_lsr_ri_u8 | tmp1;
+  S4_ori_lsr_ri_Rx32 = tmp2;
+}
 
-:S4_addi_lsr_ri S4_addi_lsr_ri_Rx32 S4_addi_lsr_ri_u8 S4_addi_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 0 & b2 = 1 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_addi_lsr_ri_Rx32 & S4_addi_lsr_ri_u8 & S4_addi_lsr_ri_U5 unimpl
+:S4_addi_lsr_ri S4_addi_lsr_ri_Rx32 S4_addi_lsr_ri_u8 S4_addi_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 0 & b2 = 1 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_addi_lsr_ri_Rx32 & S4_addi_lsr_ri_u8 & S4_addi_lsr_ri_U5 {
+  local tmp0:4;
+  tmp0 = S4_addi_lsr_ri_Rx32;
+  local tmp1:4;
+  tmp1 = tmp0 >> S4_addi_lsr_ri_U5;
+  local tmp2:4;
+  tmp2 = S4_addi_lsr_ri_u8 + tmp1;
+  S4_addi_lsr_ri_Rx32 = tmp2;
+}
 
-:S4_subi_lsr_ri S4_subi_lsr_ri_Rx32 S4_subi_lsr_ri_u8 S4_subi_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 1 & b2 = 1 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_subi_lsr_ri_Rx32 & S4_subi_lsr_ri_u8 & S4_subi_lsr_ri_U5 unimpl
+:S4_subi_lsr_ri S4_subi_lsr_ri_Rx32 S4_subi_lsr_ri_u8 S4_subi_lsr_ri_U5 is phase = 1 & Parse != 0b00 & subinsn = 0 & b1 = 1 & b2 = 1 & b4 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & S4_subi_lsr_ri_Rx32 & S4_subi_lsr_ri_u8 & S4_subi_lsr_ri_U5 {
+  local tmp0:4;
+  tmp0 = S4_subi_lsr_ri_Rx32;
+  local tmp1:4;
+  tmp1 = tmp0 >> S4_subi_lsr_ri_U5;
+  local tmp2:4;
+  tmp2 = S4_subi_lsr_ri_u8 - tmp1;
+  S4_subi_lsr_ri_Rx32 = tmp2;
+}
 
 :S2_valignib S2_valignib_Rdd32 S2_valignib_Rtt32 S2_valignib_Rss32 S2_valignib_u3 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_valignib_Rdd32 & S2_valignib_Rtt32 & S2_valignib_Rss32 & S2_valignib_u3 {
   local tmp0:8;
@@ -31679,9 +35049,331 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_57>
 }
 
-:S4_extract_rp S4_extract_rp_Rd32 S4_extract_rp_Rs32 S4_extract_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_extract_rp_Rd32 & S4_extract_rp_Rs32 & S4_extract_rp_Rtt32 unimpl
+:S4_extract_rp S4_extract_rp_Rd32 S4_extract_rp_Rs32 S4_extract_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_extract_rp_Rd32 & S4_extract_rp_Rs32 & S4_extract_rp_Rtt32 {
+  local width:4;
+  local tmp0:8;
+  local tmp1:4;
+  local tmp2:4;
+  tmp2 = 1;
+  local tmp3:4;
+  tmp3 = 32;
+  local tmp4:4;
+  tmp4 = tmp2 * tmp3;
+  local tmp5:8;
+  tmp5 = zext(tmp4);
+  local tmp6:8;
+  tmp6 = S4_extract_rp_Rtt32 s>> tmp5;
+  local tmp7:8;
+  tmp7 = 4294967295;
+  local tmp8:8;
+  tmp8 = tmp6 & tmp7;
+  tmp1 = tmp8:4;
+  tmp0 = zext(tmp1);
+  local tmp9:4;
+  tmp9 = 1;
+  local tmp10:4;
+  tmp10 = 6;
+  local tmp11:4;
+  tmp11 = tmp9 << tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = tmp11 - tmp12;
+  local tmp14:8;
+  tmp14 = zext(tmp13);
+  local tmp15:8;
+  tmp15 = tmp0 & tmp14;
+  width = tmp15:4;
+  local offset:4;
+  local tmp16:8;
+  local tmp17:4;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:4;
+  tmp19 = 32;
+  local tmp20:4;
+  tmp20 = tmp18 * tmp19;
+  local tmp21:8;
+  tmp21 = zext(tmp20);
+  local tmp22:8;
+  tmp22 = S4_extract_rp_Rtt32 s>> tmp21;
+  local tmp23:8;
+  tmp23 = 4294967295;
+  local tmp24:8;
+  tmp24 = tmp22 & tmp23;
+  tmp17 = tmp24:4;
+  tmp16 = zext(tmp17);
+  local tmp25:4;
+  tmp25 = 1;
+  local tmp26:4;
+  tmp26 = 7;
+  local tmp27:4;
+  tmp27 = tmp25 << tmp26;
+  local tmp28:4;
+  tmp28 = 1;
+  local tmp29:4;
+  tmp29 = tmp27 - tmp28;
+  local tmp30:8;
+  tmp30 = zext(tmp29);
+  local tmp31:8;
+  tmp31 = tmp16 & tmp30;
+  local tmp32:4;
+  tmp32 = 1;
+  local tmp33:4;
+  tmp33 = 7;
+  local tmp34:4;
+  tmp34 = 1;
+  local tmp35:4;
+  tmp35 = tmp33 - tmp34;
+  local tmp36:4;
+  tmp36 = tmp32 << tmp35;
+  local tmp37:8;
+  tmp37 = zext(tmp36);
+  local tmp38:8;
+  tmp38 = tmp31 ^ tmp37;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = 7;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = tmp40 - tmp41;
+  local tmp43:4;
+  tmp43 = tmp39 << tmp42;
+  local tmp44:8;
+  tmp44 = zext(tmp43);
+  local tmp45:8;
+  tmp45 = tmp38 - tmp44;
+  offset = tmp45:4;
+  local tmp46:4;
+  tmp46 = 0;
+  local tmp47:1;
+  tmp47 = offset s> tmp46;
+  local tmp48:1;
+  tmp48 = tmp47;
+  if (tmp48) goto <t_branch_50>;
+  goto <f_branch_50>;
+<t_branch_50>
+  local tmp50:8;
+  local tmp51:4;
+  local tmp52:8;
+  local tmp53:4;
+  tmp53 = S4_extract_rp_Rs32;
+  tmp52 = sext(tmp53);
+  tmp51 = tmp52:4;
+  tmp50 = sext(tmp51);
+  local tmp54:8;
+  tmp54 = zext(offset);
+  local tmp55:8;
+  tmp55 = tmp50 >> tmp54;
+  local tmp56:8;
+  tmp56 = tmp55;
+  goto <done_50>;
+<f_branch_50>
+  local tmp57:8;
+  local tmp58:4;
+  local tmp59:8;
+  local tmp60:4;
+  tmp60 = S4_extract_rp_Rs32;
+  tmp59 = sext(tmp60);
+  tmp58 = tmp59:4;
+  tmp57 = sext(tmp58);
+  local tmp61:8;
+  tmp61 = zext(offset);
+  local tmp62:8;
+  tmp62 = tmp57 << tmp61;
+  tmp56 = tmp62;
+<done_50>
+  local tmp63:4;
+  tmp63 = 1;
+  local tmp64:4;
+  tmp64 = tmp63 << width;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = tmp64 - tmp65;
+  local tmp67:8;
+  tmp67 = zext(tmp66);
+  local tmp68:8;
+  tmp68 = tmp56 & tmp67;
+  local tmp69:4;
+  tmp69 = 1;
+  local tmp70:4;
+  tmp70 = 1;
+  local tmp71:4;
+  tmp71 = width - tmp70;
+  local tmp72:4;
+  tmp72 = tmp69 << tmp71;
+  local tmp73:8;
+  tmp73 = zext(tmp72);
+  local tmp74:8;
+  tmp74 = tmp68 ^ tmp73;
+  local tmp75:4;
+  tmp75 = 1;
+  local tmp76:4;
+  tmp76 = 1;
+  local tmp77:4;
+  tmp77 = width - tmp76;
+  local tmp78:4;
+  tmp78 = tmp75 << tmp77;
+  local tmp79:8;
+  tmp79 = zext(tmp78);
+  local tmp80:8;
+  tmp80 = tmp74 - tmp79;
+  S4_extract_rp_Rd32 = tmp80:4;
+}
 
-:S2_extractu_rp S2_extractu_rp_Rd32 S2_extractu_rp_Rs32 S2_extractu_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_extractu_rp_Rd32 & S2_extractu_rp_Rs32 & S2_extractu_rp_Rtt32 unimpl
+:S2_extractu_rp S2_extractu_rp_Rd32 S2_extractu_rp_Rs32 S2_extractu_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_extractu_rp_Rd32 & S2_extractu_rp_Rs32 & S2_extractu_rp_Rtt32 {
+  local width:4;
+  local tmp0:8;
+  local tmp1:4;
+  local tmp2:4;
+  tmp2 = 1;
+  local tmp3:4;
+  tmp3 = 32;
+  local tmp4:4;
+  tmp4 = tmp2 * tmp3;
+  local tmp5:8;
+  tmp5 = zext(tmp4);
+  local tmp6:8;
+  tmp6 = S2_extractu_rp_Rtt32 s>> tmp5;
+  local tmp7:8;
+  tmp7 = 4294967295;
+  local tmp8:8;
+  tmp8 = tmp6 & tmp7;
+  tmp1 = tmp8:4;
+  tmp0 = zext(tmp1);
+  local tmp9:4;
+  tmp9 = 1;
+  local tmp10:4;
+  tmp10 = 6;
+  local tmp11:4;
+  tmp11 = tmp9 << tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = tmp11 - tmp12;
+  local tmp14:8;
+  tmp14 = zext(tmp13);
+  local tmp15:8;
+  tmp15 = tmp0 & tmp14;
+  width = tmp15:4;
+  local offset:4;
+  local tmp16:8;
+  local tmp17:4;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:4;
+  tmp19 = 32;
+  local tmp20:4;
+  tmp20 = tmp18 * tmp19;
+  local tmp21:8;
+  tmp21 = zext(tmp20);
+  local tmp22:8;
+  tmp22 = S2_extractu_rp_Rtt32 s>> tmp21;
+  local tmp23:8;
+  tmp23 = 4294967295;
+  local tmp24:8;
+  tmp24 = tmp22 & tmp23;
+  tmp17 = tmp24:4;
+  tmp16 = zext(tmp17);
+  local tmp25:4;
+  tmp25 = 1;
+  local tmp26:4;
+  tmp26 = 7;
+  local tmp27:4;
+  tmp27 = tmp25 << tmp26;
+  local tmp28:4;
+  tmp28 = 1;
+  local tmp29:4;
+  tmp29 = tmp27 - tmp28;
+  local tmp30:8;
+  tmp30 = zext(tmp29);
+  local tmp31:8;
+  tmp31 = tmp16 & tmp30;
+  local tmp32:4;
+  tmp32 = 1;
+  local tmp33:4;
+  tmp33 = 7;
+  local tmp34:4;
+  tmp34 = 1;
+  local tmp35:4;
+  tmp35 = tmp33 - tmp34;
+  local tmp36:4;
+  tmp36 = tmp32 << tmp35;
+  local tmp37:8;
+  tmp37 = zext(tmp36);
+  local tmp38:8;
+  tmp38 = tmp31 ^ tmp37;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = 7;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = tmp40 - tmp41;
+  local tmp43:4;
+  tmp43 = tmp39 << tmp42;
+  local tmp44:8;
+  tmp44 = zext(tmp43);
+  local tmp45:8;
+  tmp45 = tmp38 - tmp44;
+  offset = tmp45:4;
+  local tmp46:4;
+  tmp46 = 0;
+  local tmp47:1;
+  tmp47 = offset s> tmp46;
+  local tmp48:1;
+  tmp48 = tmp47;
+  if (tmp48) goto <t_branch_50>;
+  goto <f_branch_50>;
+<t_branch_50>
+  local tmp50:8;
+  local tmp51:4;
+  local tmp52:8;
+  local tmp53:4;
+  tmp53 = S2_extractu_rp_Rs32;
+  tmp52 = sext(tmp53);
+  tmp51 = tmp52:4;
+  tmp50 = sext(tmp51);
+  local tmp54:8;
+  tmp54 = zext(offset);
+  local tmp55:8;
+  tmp55 = tmp50 >> tmp54;
+  local tmp56:8;
+  tmp56 = tmp55;
+  goto <done_50>;
+<f_branch_50>
+  local tmp57:8;
+  local tmp58:4;
+  local tmp59:8;
+  local tmp60:4;
+  tmp60 = S2_extractu_rp_Rs32;
+  tmp59 = sext(tmp60);
+  tmp58 = tmp59:4;
+  tmp57 = sext(tmp58);
+  local tmp61:8;
+  tmp61 = zext(offset);
+  local tmp62:8;
+  tmp62 = tmp57 << tmp61;
+  tmp56 = tmp62;
+<done_50>
+  local tmp63:4;
+  tmp63 = 1;
+  local tmp64:4;
+  tmp64 = tmp63 << width;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = tmp64 - tmp65;
+  local tmp67:8;
+  tmp67 = zext(tmp66);
+  local tmp68:8;
+  tmp68 = tmp56 & tmp67;
+  S2_extractu_rp_Rd32 = tmp68:4;
+}
 
 :S2_insertp_rp S2_insertp_rp_Rxx32 S2_insertp_rp_Rss32 S2_insertp_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_insertp_rp_Rxx32 & S2_insertp_rp_Rss32 & S2_insertp_rp_Rtt32 {
   local width:4;
@@ -31831,9 +35523,315 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_57>
 }
 
-:S4_extractp_rp S4_extractp_rp_Rdd32 S4_extractp_rp_Rss32 S4_extractp_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_extractp_rp_Rdd32 & S4_extractp_rp_Rss32 & S4_extractp_rp_Rtt32 unimpl
+:S4_extractp_rp S4_extractp_rp_Rdd32 S4_extractp_rp_Rss32 S4_extractp_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_extractp_rp_Rdd32 & S4_extractp_rp_Rss32 & S4_extractp_rp_Rtt32 {
+  local width:4;
+  local tmp0:8;
+  local tmp1:4;
+  local tmp2:4;
+  tmp2 = 1;
+  local tmp3:4;
+  tmp3 = 32;
+  local tmp4:4;
+  tmp4 = tmp2 * tmp3;
+  local tmp5:8;
+  tmp5 = zext(tmp4);
+  local tmp6:8;
+  tmp6 = S4_extractp_rp_Rtt32 s>> tmp5;
+  local tmp7:8;
+  tmp7 = 4294967295;
+  local tmp8:8;
+  tmp8 = tmp6 & tmp7;
+  tmp1 = tmp8:4;
+  tmp0 = zext(tmp1);
+  local tmp9:4;
+  tmp9 = 1;
+  local tmp10:4;
+  tmp10 = 6;
+  local tmp11:4;
+  tmp11 = tmp9 << tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = tmp11 - tmp12;
+  local tmp14:8;
+  tmp14 = zext(tmp13);
+  local tmp15:8;
+  tmp15 = tmp0 & tmp14;
+  width = tmp15:4;
+  local offset:4;
+  local tmp16:8;
+  local tmp17:4;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:4;
+  tmp19 = 32;
+  local tmp20:4;
+  tmp20 = tmp18 * tmp19;
+  local tmp21:8;
+  tmp21 = zext(tmp20);
+  local tmp22:8;
+  tmp22 = S4_extractp_rp_Rtt32 s>> tmp21;
+  local tmp23:8;
+  tmp23 = 4294967295;
+  local tmp24:8;
+  tmp24 = tmp22 & tmp23;
+  tmp17 = tmp24:4;
+  tmp16 = zext(tmp17);
+  local tmp25:4;
+  tmp25 = 1;
+  local tmp26:4;
+  tmp26 = 7;
+  local tmp27:4;
+  tmp27 = tmp25 << tmp26;
+  local tmp28:4;
+  tmp28 = 1;
+  local tmp29:4;
+  tmp29 = tmp27 - tmp28;
+  local tmp30:8;
+  tmp30 = zext(tmp29);
+  local tmp31:8;
+  tmp31 = tmp16 & tmp30;
+  local tmp32:4;
+  tmp32 = 1;
+  local tmp33:4;
+  tmp33 = 7;
+  local tmp34:4;
+  tmp34 = 1;
+  local tmp35:4;
+  tmp35 = tmp33 - tmp34;
+  local tmp36:4;
+  tmp36 = tmp32 << tmp35;
+  local tmp37:8;
+  tmp37 = zext(tmp36);
+  local tmp38:8;
+  tmp38 = tmp31 ^ tmp37;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = 7;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = tmp40 - tmp41;
+  local tmp43:4;
+  tmp43 = tmp39 << tmp42;
+  local tmp44:8;
+  tmp44 = zext(tmp43);
+  local tmp45:8;
+  tmp45 = tmp38 - tmp44;
+  offset = tmp45:4;
+  local tmp46:4;
+  tmp46 = 0;
+  local tmp47:1;
+  tmp47 = offset s> tmp46;
+  local tmp48:1;
+  tmp48 = tmp47;
+  if (tmp48) goto <t_branch_50>;
+  goto <f_branch_50>;
+<t_branch_50>
+  local tmp50:8;
+  local tmp51:8;
+  tmp51 = S4_extractp_rp_Rss32;
+  tmp50 = tmp51;
+  local tmp52:8;
+  tmp52 = zext(offset);
+  local tmp53:8;
+  tmp53 = tmp50 >> tmp52;
+  local tmp54:8;
+  tmp54 = tmp53;
+  goto <done_50>;
+<f_branch_50>
+  local tmp55:8;
+  local tmp56:8;
+  tmp56 = S4_extractp_rp_Rss32;
+  tmp55 = tmp56;
+  local tmp57:8;
+  tmp57 = zext(offset);
+  local tmp58:8;
+  tmp58 = tmp55 << tmp57;
+  tmp54 = tmp58;
+<done_50>
+  local tmp59:4;
+  tmp59 = 1;
+  local tmp60:4;
+  tmp60 = tmp59 << width;
+  local tmp61:4;
+  tmp61 = 1;
+  local tmp62:4;
+  tmp62 = tmp60 - tmp61;
+  local tmp63:8;
+  tmp63 = zext(tmp62);
+  local tmp64:8;
+  tmp64 = tmp54 & tmp63;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = 1;
+  local tmp67:4;
+  tmp67 = width - tmp66;
+  local tmp68:4;
+  tmp68 = tmp65 << tmp67;
+  local tmp69:8;
+  tmp69 = zext(tmp68);
+  local tmp70:8;
+  tmp70 = tmp64 ^ tmp69;
+  local tmp71:4;
+  tmp71 = 1;
+  local tmp72:4;
+  tmp72 = 1;
+  local tmp73:4;
+  tmp73 = width - tmp72;
+  local tmp74:4;
+  tmp74 = tmp71 << tmp73;
+  local tmp75:8;
+  tmp75 = zext(tmp74);
+  local tmp76:8;
+  tmp76 = tmp70 - tmp75;
+  S4_extractp_rp_Rdd32 = tmp76;
+}
 
-:S2_extractup_rp S2_extractup_rp_Rdd32 S2_extractup_rp_Rss32 S2_extractup_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_extractup_rp_Rdd32 & S2_extractup_rp_Rss32 & S2_extractup_rp_Rtt32 unimpl
+:S2_extractup_rp S2_extractup_rp_Rdd32 S2_extractup_rp_Rss32 S2_extractup_rp_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_extractup_rp_Rdd32 & S2_extractup_rp_Rss32 & S2_extractup_rp_Rtt32 {
+  local width:4;
+  local tmp0:8;
+  local tmp1:4;
+  local tmp2:4;
+  tmp2 = 1;
+  local tmp3:4;
+  tmp3 = 32;
+  local tmp4:4;
+  tmp4 = tmp2 * tmp3;
+  local tmp5:8;
+  tmp5 = zext(tmp4);
+  local tmp6:8;
+  tmp6 = S2_extractup_rp_Rtt32 s>> tmp5;
+  local tmp7:8;
+  tmp7 = 4294967295;
+  local tmp8:8;
+  tmp8 = tmp6 & tmp7;
+  tmp1 = tmp8:4;
+  tmp0 = zext(tmp1);
+  local tmp9:4;
+  tmp9 = 1;
+  local tmp10:4;
+  tmp10 = 6;
+  local tmp11:4;
+  tmp11 = tmp9 << tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = tmp11 - tmp12;
+  local tmp14:8;
+  tmp14 = zext(tmp13);
+  local tmp15:8;
+  tmp15 = tmp0 & tmp14;
+  width = tmp15:4;
+  local offset:4;
+  local tmp16:8;
+  local tmp17:4;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:4;
+  tmp19 = 32;
+  local tmp20:4;
+  tmp20 = tmp18 * tmp19;
+  local tmp21:8;
+  tmp21 = zext(tmp20);
+  local tmp22:8;
+  tmp22 = S2_extractup_rp_Rtt32 s>> tmp21;
+  local tmp23:8;
+  tmp23 = 4294967295;
+  local tmp24:8;
+  tmp24 = tmp22 & tmp23;
+  tmp17 = tmp24:4;
+  tmp16 = zext(tmp17);
+  local tmp25:4;
+  tmp25 = 1;
+  local tmp26:4;
+  tmp26 = 7;
+  local tmp27:4;
+  tmp27 = tmp25 << tmp26;
+  local tmp28:4;
+  tmp28 = 1;
+  local tmp29:4;
+  tmp29 = tmp27 - tmp28;
+  local tmp30:8;
+  tmp30 = zext(tmp29);
+  local tmp31:8;
+  tmp31 = tmp16 & tmp30;
+  local tmp32:4;
+  tmp32 = 1;
+  local tmp33:4;
+  tmp33 = 7;
+  local tmp34:4;
+  tmp34 = 1;
+  local tmp35:4;
+  tmp35 = tmp33 - tmp34;
+  local tmp36:4;
+  tmp36 = tmp32 << tmp35;
+  local tmp37:8;
+  tmp37 = zext(tmp36);
+  local tmp38:8;
+  tmp38 = tmp31 ^ tmp37;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = 7;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = tmp40 - tmp41;
+  local tmp43:4;
+  tmp43 = tmp39 << tmp42;
+  local tmp44:8;
+  tmp44 = zext(tmp43);
+  local tmp45:8;
+  tmp45 = tmp38 - tmp44;
+  offset = tmp45:4;
+  local tmp46:4;
+  tmp46 = 0;
+  local tmp47:1;
+  tmp47 = offset s> tmp46;
+  local tmp48:1;
+  tmp48 = tmp47;
+  if (tmp48) goto <t_branch_50>;
+  goto <f_branch_50>;
+<t_branch_50>
+  local tmp50:8;
+  local tmp51:8;
+  tmp51 = S2_extractup_rp_Rss32;
+  tmp50 = tmp51;
+  local tmp52:8;
+  tmp52 = zext(offset);
+  local tmp53:8;
+  tmp53 = tmp50 >> tmp52;
+  local tmp54:8;
+  tmp54 = tmp53;
+  goto <done_50>;
+<f_branch_50>
+  local tmp55:8;
+  local tmp56:8;
+  tmp56 = S2_extractup_rp_Rss32;
+  tmp55 = tmp56;
+  local tmp57:8;
+  tmp57 = zext(offset);
+  local tmp58:8;
+  tmp58 = tmp55 << tmp57;
+  tmp54 = tmp58;
+<done_50>
+  local tmp59:4;
+  tmp59 = 1;
+  local tmp60:4;
+  tmp60 = tmp59 << width;
+  local tmp61:4;
+  tmp61 = 1;
+  local tmp62:4;
+  tmp62 = tmp60 - tmp61;
+  local tmp63:8;
+  tmp63 = zext(tmp62);
+  local tmp64:8;
+  tmp64 = tmp54 & tmp63;
+  S2_extractup_rp_Rdd32 = tmp64;
+}
 
 :S2_tstbit_i S2_tstbit_i_Pd4 S2_tstbit_i_Rs32 S2_tstbit_i_u5 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_tstbit_i_Pd4 & S2_tstbit_i_Rs32 & S2_tstbit_i_u5 {
   local tmp0:4;
@@ -31895,15 +35893,782 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   S2_clrbit_i_Rd32 = tmp3;
 }
 
-:S2_tstbit_r S2_tstbit_r_Pd4 S2_tstbit_r_Rs32 S2_tstbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_tstbit_r_Pd4 & S2_tstbit_r_Rs32 & S2_tstbit_r_Rt32 unimpl
+:S2_tstbit_r S2_tstbit_r_Pd4 S2_tstbit_r_Rs32 S2_tstbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_tstbit_r_Pd4 & S2_tstbit_r_Rs32 & S2_tstbit_r_Rt32 {
+  local tmp0:8;
+  local tmp1:4;
+  tmp1 = S2_tstbit_r_Rs32;
+  tmp0 = sext(tmp1);
+  local tmp2:4;
+  tmp2 = 1;
+  local tmp3:4;
+  tmp3 = 7;
+  local tmp4:4;
+  tmp4 = tmp2 << tmp3;
+  local tmp5:4;
+  tmp5 = 1;
+  local tmp6:4;
+  tmp6 = tmp4 - tmp5;
+  local tmp7:4;
+  tmp7 = S2_tstbit_r_Rt32 & tmp6;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = 7;
+  local tmp10:4;
+  tmp10 = 1;
+  local tmp11:4;
+  tmp11 = tmp9 - tmp10;
+  local tmp12:4;
+  tmp12 = tmp8 << tmp11;
+  local tmp13:4;
+  tmp13 = tmp7 ^ tmp12;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = 7;
+  local tmp16:4;
+  tmp16 = 1;
+  local tmp17:4;
+  tmp17 = tmp15 - tmp16;
+  local tmp18:4;
+  tmp18 = tmp14 << tmp17;
+  local tmp19:4;
+  tmp19 = tmp13 - tmp18;
+  local tmp20:4;
+  tmp20 = 0;
+  local tmp21:1;
+  tmp21 = tmp19 s> tmp20;
+  local tmp22:8;
+  tmp22 = zext(tmp21);
+  local tmp23:8;
+  tmp23 = tmp0 & tmp22;
+  local tmp24:1;
+  tmp24 = tmp23:1;
+  if (tmp24) goto <t_branch_26>;
+  goto <f_branch_26>;
+<t_branch_26>
+  local tmp26:8;
+  local tmp27:4;
+  local tmp28:4;
+  tmp28 = 1;
+  tmp27 = tmp28;
+  tmp26 = sext(tmp27);
+  local tmp29:4;
+  tmp29 = 1;
+  local tmp30:4;
+  tmp30 = 7;
+  local tmp31:4;
+  tmp31 = tmp29 << tmp30;
+  local tmp32:4;
+  tmp32 = 1;
+  local tmp33:4;
+  tmp33 = tmp31 - tmp32;
+  local tmp34:4;
+  tmp34 = S2_tstbit_r_Rt32 & tmp33;
+  local tmp35:4;
+  tmp35 = 1;
+  local tmp36:4;
+  tmp36 = 7;
+  local tmp37:4;
+  tmp37 = 1;
+  local tmp38:4;
+  tmp38 = tmp36 - tmp37;
+  local tmp39:4;
+  tmp39 = tmp35 << tmp38;
+  local tmp40:4;
+  tmp40 = tmp34 ^ tmp39;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = 7;
+  local tmp43:4;
+  tmp43 = 1;
+  local tmp44:4;
+  tmp44 = tmp42 - tmp43;
+  local tmp45:4;
+  tmp45 = tmp41 << tmp44;
+  local tmp46:4;
+  tmp46 = tmp40 - tmp45;
+  local tmp47:8;
+  tmp47 = zext(tmp46);
+  local tmp48:8;
+  tmp48 = tmp26 << tmp47;
+  local tmp49:8;
+  tmp49 = tmp48;
+  goto <done_26>;
+<f_branch_26>
+  local tmp50:8;
+  local tmp51:4;
+  local tmp52:4;
+  tmp52 = 1;
+  tmp51 = tmp52;
+  tmp50 = sext(tmp51);
+  local tmp53:4;
+  tmp53 = 1;
+  local tmp54:4;
+  tmp54 = 7;
+  local tmp55:4;
+  tmp55 = tmp53 << tmp54;
+  local tmp56:4;
+  tmp56 = 1;
+  local tmp57:4;
+  tmp57 = tmp55 - tmp56;
+  local tmp58:4;
+  tmp58 = S2_tstbit_r_Rt32 & tmp57;
+  local tmp59:4;
+  tmp59 = 1;
+  local tmp60:4;
+  tmp60 = 7;
+  local tmp61:4;
+  tmp61 = 1;
+  local tmp62:4;
+  tmp62 = tmp60 - tmp61;
+  local tmp63:4;
+  tmp63 = tmp59 << tmp62;
+  local tmp64:4;
+  tmp64 = tmp58 ^ tmp63;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = 7;
+  local tmp67:4;
+  tmp67 = 1;
+  local tmp68:4;
+  tmp68 = tmp66 - tmp67;
+  local tmp69:4;
+  tmp69 = tmp65 << tmp68;
+  local tmp70:4;
+  tmp70 = tmp64 - tmp69;
+  local tmp71:8;
+  tmp71 = zext(tmp70);
+  local tmp72:8;
+  tmp72 = tmp50 >> tmp71;
+  tmp49 = tmp72;
+<done_26>
+  local tmp73:4;
+  tmp73 = 0;
+  local tmp74:8;
+  tmp74 = zext(tmp73);
+  local tmp75:1;
+  tmp75 = tmp49 != tmp74;
+  S2_tstbit_r_Pd4 = tmp75;
+}
 
-:S4_ntstbit_r S4_ntstbit_r_Pd4 S4_ntstbit_r_Rs32 S4_ntstbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_ntstbit_r_Pd4 & S4_ntstbit_r_Rs32 & S4_ntstbit_r_Rt32 unimpl
+:S4_ntstbit_r S4_ntstbit_r_Pd4 S4_ntstbit_r_Rs32 S4_ntstbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S4_ntstbit_r_Pd4 & S4_ntstbit_r_Rs32 & S4_ntstbit_r_Rt32 {
+  local tmp0:8;
+  local tmp1:4;
+  tmp1 = S4_ntstbit_r_Rs32;
+  tmp0 = sext(tmp1);
+  local tmp2:4;
+  tmp2 = 1;
+  local tmp3:4;
+  tmp3 = 7;
+  local tmp4:4;
+  tmp4 = tmp2 << tmp3;
+  local tmp5:4;
+  tmp5 = 1;
+  local tmp6:4;
+  tmp6 = tmp4 - tmp5;
+  local tmp7:4;
+  tmp7 = S4_ntstbit_r_Rt32 & tmp6;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = 7;
+  local tmp10:4;
+  tmp10 = 1;
+  local tmp11:4;
+  tmp11 = tmp9 - tmp10;
+  local tmp12:4;
+  tmp12 = tmp8 << tmp11;
+  local tmp13:4;
+  tmp13 = tmp7 ^ tmp12;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = 7;
+  local tmp16:4;
+  tmp16 = 1;
+  local tmp17:4;
+  tmp17 = tmp15 - tmp16;
+  local tmp18:4;
+  tmp18 = tmp14 << tmp17;
+  local tmp19:4;
+  tmp19 = tmp13 - tmp18;
+  local tmp20:4;
+  tmp20 = 0;
+  local tmp21:1;
+  tmp21 = tmp19 s> tmp20;
+  local tmp22:8;
+  tmp22 = zext(tmp21);
+  local tmp23:8;
+  tmp23 = tmp0 & tmp22;
+  local tmp24:1;
+  tmp24 = tmp23:1;
+  if (tmp24) goto <t_branch_26>;
+  goto <f_branch_26>;
+<t_branch_26>
+  local tmp26:8;
+  local tmp27:4;
+  local tmp28:4;
+  tmp28 = 1;
+  tmp27 = tmp28;
+  tmp26 = sext(tmp27);
+  local tmp29:4;
+  tmp29 = 1;
+  local tmp30:4;
+  tmp30 = 7;
+  local tmp31:4;
+  tmp31 = tmp29 << tmp30;
+  local tmp32:4;
+  tmp32 = 1;
+  local tmp33:4;
+  tmp33 = tmp31 - tmp32;
+  local tmp34:4;
+  tmp34 = S4_ntstbit_r_Rt32 & tmp33;
+  local tmp35:4;
+  tmp35 = 1;
+  local tmp36:4;
+  tmp36 = 7;
+  local tmp37:4;
+  tmp37 = 1;
+  local tmp38:4;
+  tmp38 = tmp36 - tmp37;
+  local tmp39:4;
+  tmp39 = tmp35 << tmp38;
+  local tmp40:4;
+  tmp40 = tmp34 ^ tmp39;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = 7;
+  local tmp43:4;
+  tmp43 = 1;
+  local tmp44:4;
+  tmp44 = tmp42 - tmp43;
+  local tmp45:4;
+  tmp45 = tmp41 << tmp44;
+  local tmp46:4;
+  tmp46 = tmp40 - tmp45;
+  local tmp47:8;
+  tmp47 = zext(tmp46);
+  local tmp48:8;
+  tmp48 = tmp26 << tmp47;
+  local tmp49:8;
+  tmp49 = tmp48;
+  goto <done_26>;
+<f_branch_26>
+  local tmp50:8;
+  local tmp51:4;
+  local tmp52:4;
+  tmp52 = 1;
+  tmp51 = tmp52;
+  tmp50 = sext(tmp51);
+  local tmp53:4;
+  tmp53 = 1;
+  local tmp54:4;
+  tmp54 = 7;
+  local tmp55:4;
+  tmp55 = tmp53 << tmp54;
+  local tmp56:4;
+  tmp56 = 1;
+  local tmp57:4;
+  tmp57 = tmp55 - tmp56;
+  local tmp58:4;
+  tmp58 = S4_ntstbit_r_Rt32 & tmp57;
+  local tmp59:4;
+  tmp59 = 1;
+  local tmp60:4;
+  tmp60 = 7;
+  local tmp61:4;
+  tmp61 = 1;
+  local tmp62:4;
+  tmp62 = tmp60 - tmp61;
+  local tmp63:4;
+  tmp63 = tmp59 << tmp62;
+  local tmp64:4;
+  tmp64 = tmp58 ^ tmp63;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = 7;
+  local tmp67:4;
+  tmp67 = 1;
+  local tmp68:4;
+  tmp68 = tmp66 - tmp67;
+  local tmp69:4;
+  tmp69 = tmp65 << tmp68;
+  local tmp70:4;
+  tmp70 = tmp64 - tmp69;
+  local tmp71:8;
+  tmp71 = zext(tmp70);
+  local tmp72:8;
+  tmp72 = tmp50 >> tmp71;
+  tmp49 = tmp72;
+<done_26>
+  local tmp73:4;
+  tmp73 = 0;
+  local tmp74:8;
+  tmp74 = zext(tmp73);
+  local tmp75:1;
+  tmp75 = tmp49 == tmp74;
+  S4_ntstbit_r_Pd4 = tmp75;
+}
 
-:S2_setbit_r S2_setbit_r_Rd32 S2_setbit_r_Rs32 S2_setbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_setbit_r_Rd32 & S2_setbit_r_Rs32 & S2_setbit_r_Rt32 unimpl
+:S2_setbit_r S2_setbit_r_Rd32 S2_setbit_r_Rs32 S2_setbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_setbit_r_Rd32 & S2_setbit_r_Rs32 & S2_setbit_r_Rt32 {
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_setbit_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = tmp17 s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_setbit_r_Rs32 | tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  local tmp26:4;
+  tmp26 = 1;
+  tmp25 = tmp26;
+  tmp24 = sext(tmp25);
+  local tmp27:4;
+  tmp27 = 1;
+  local tmp28:4;
+  tmp28 = 7;
+  local tmp29:4;
+  tmp29 = tmp27 << tmp28;
+  local tmp30:4;
+  tmp30 = 1;
+  local tmp31:4;
+  tmp31 = tmp29 - tmp30;
+  local tmp32:4;
+  tmp32 = S2_setbit_r_Rt32 & tmp31;
+  local tmp33:4;
+  tmp33 = 1;
+  local tmp34:4;
+  tmp34 = 7;
+  local tmp35:4;
+  tmp35 = 1;
+  local tmp36:4;
+  tmp36 = tmp34 - tmp35;
+  local tmp37:4;
+  tmp37 = tmp33 << tmp36;
+  local tmp38:4;
+  tmp38 = tmp32 ^ tmp37;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = 7;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = tmp40 - tmp41;
+  local tmp43:4;
+  tmp43 = tmp39 << tmp42;
+  local tmp44:4;
+  tmp44 = tmp38 - tmp43;
+  local tmp45:8;
+  tmp45 = zext(tmp44);
+  local tmp46:8;
+  tmp46 = tmp24 << tmp45;
+  local tmp47:8;
+  tmp47 = tmp46;
+  goto <done_24>;
+<f_branch_24>
+  local tmp48:8;
+  local tmp49:4;
+  local tmp50:4;
+  tmp50 = 1;
+  tmp49 = tmp50;
+  tmp48 = sext(tmp49);
+  local tmp51:4;
+  tmp51 = 1;
+  local tmp52:4;
+  tmp52 = 7;
+  local tmp53:4;
+  tmp53 = tmp51 << tmp52;
+  local tmp54:4;
+  tmp54 = 1;
+  local tmp55:4;
+  tmp55 = tmp53 - tmp54;
+  local tmp56:4;
+  tmp56 = S2_setbit_r_Rt32 & tmp55;
+  local tmp57:4;
+  tmp57 = 1;
+  local tmp58:4;
+  tmp58 = 7;
+  local tmp59:4;
+  tmp59 = 1;
+  local tmp60:4;
+  tmp60 = tmp58 - tmp59;
+  local tmp61:4;
+  tmp61 = tmp57 << tmp60;
+  local tmp62:4;
+  tmp62 = tmp56 ^ tmp61;
+  local tmp63:4;
+  tmp63 = 1;
+  local tmp64:4;
+  tmp64 = 7;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = tmp64 - tmp65;
+  local tmp67:4;
+  tmp67 = tmp63 << tmp66;
+  local tmp68:4;
+  tmp68 = tmp62 - tmp67;
+  local tmp69:8;
+  tmp69 = zext(tmp68);
+  local tmp70:8;
+  tmp70 = tmp48 >> tmp69;
+  tmp47 = tmp70;
+<done_24>
+  S2_setbit_r_Rd32 = tmp47:4;
+}
 
-:S2_togglebit_r S2_togglebit_r_Rd32 S2_togglebit_r_Rs32 S2_togglebit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_togglebit_r_Rd32 & S2_togglebit_r_Rs32 & S2_togglebit_r_Rt32 unimpl
+:S2_togglebit_r S2_togglebit_r_Rd32 S2_togglebit_r_Rs32 S2_togglebit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 0 & b7 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_togglebit_r_Rd32 & S2_togglebit_r_Rs32 & S2_togglebit_r_Rt32 {
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_togglebit_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = tmp17 s> tmp18;
+  local tmp20:4;
+  tmp20 = zext(tmp19);
+  local tmp21:4;
+  tmp21 = S2_togglebit_r_Rs32 ^ tmp20;
+  local tmp22:1;
+  tmp22 = tmp21:1;
+  if (tmp22) goto <t_branch_24>;
+  goto <f_branch_24>;
+<t_branch_24>
+  local tmp24:8;
+  local tmp25:4;
+  local tmp26:4;
+  tmp26 = 1;
+  tmp25 = tmp26;
+  tmp24 = sext(tmp25);
+  local tmp27:4;
+  tmp27 = 1;
+  local tmp28:4;
+  tmp28 = 7;
+  local tmp29:4;
+  tmp29 = tmp27 << tmp28;
+  local tmp30:4;
+  tmp30 = 1;
+  local tmp31:4;
+  tmp31 = tmp29 - tmp30;
+  local tmp32:4;
+  tmp32 = S2_togglebit_r_Rt32 & tmp31;
+  local tmp33:4;
+  tmp33 = 1;
+  local tmp34:4;
+  tmp34 = 7;
+  local tmp35:4;
+  tmp35 = 1;
+  local tmp36:4;
+  tmp36 = tmp34 - tmp35;
+  local tmp37:4;
+  tmp37 = tmp33 << tmp36;
+  local tmp38:4;
+  tmp38 = tmp32 ^ tmp37;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = 7;
+  local tmp41:4;
+  tmp41 = 1;
+  local tmp42:4;
+  tmp42 = tmp40 - tmp41;
+  local tmp43:4;
+  tmp43 = tmp39 << tmp42;
+  local tmp44:4;
+  tmp44 = tmp38 - tmp43;
+  local tmp45:8;
+  tmp45 = zext(tmp44);
+  local tmp46:8;
+  tmp46 = tmp24 << tmp45;
+  local tmp47:8;
+  tmp47 = tmp46;
+  goto <done_24>;
+<f_branch_24>
+  local tmp48:8;
+  local tmp49:4;
+  local tmp50:4;
+  tmp50 = 1;
+  tmp49 = tmp50;
+  tmp48 = sext(tmp49);
+  local tmp51:4;
+  tmp51 = 1;
+  local tmp52:4;
+  tmp52 = 7;
+  local tmp53:4;
+  tmp53 = tmp51 << tmp52;
+  local tmp54:4;
+  tmp54 = 1;
+  local tmp55:4;
+  tmp55 = tmp53 - tmp54;
+  local tmp56:4;
+  tmp56 = S2_togglebit_r_Rt32 & tmp55;
+  local tmp57:4;
+  tmp57 = 1;
+  local tmp58:4;
+  tmp58 = 7;
+  local tmp59:4;
+  tmp59 = 1;
+  local tmp60:4;
+  tmp60 = tmp58 - tmp59;
+  local tmp61:4;
+  tmp61 = tmp57 << tmp60;
+  local tmp62:4;
+  tmp62 = tmp56 ^ tmp61;
+  local tmp63:4;
+  tmp63 = 1;
+  local tmp64:4;
+  tmp64 = 7;
+  local tmp65:4;
+  tmp65 = 1;
+  local tmp66:4;
+  tmp66 = tmp64 - tmp65;
+  local tmp67:4;
+  tmp67 = tmp63 << tmp66;
+  local tmp68:4;
+  tmp68 = tmp62 - tmp67;
+  local tmp69:8;
+  tmp69 = zext(tmp68);
+  local tmp70:8;
+  tmp70 = tmp48 >> tmp69;
+  tmp47 = tmp70;
+<done_24>
+  S2_togglebit_r_Rd32 = tmp47:4;
+}
 
-:S2_clrbit_r S2_clrbit_r_Rd32 S2_clrbit_r_Rs32 S2_clrbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_clrbit_r_Rd32 & S2_clrbit_r_Rs32 & S2_clrbit_r_Rt32 unimpl
+:S2_clrbit_r S2_clrbit_r_Rd32 S2_clrbit_r_Rs32 S2_clrbit_r_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b6 = 1 & b7 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 1 & S2_clrbit_r_Rd32 & S2_clrbit_r_Rs32 & S2_clrbit_r_Rt32 {
+  local tmp0:4;
+  tmp0 = 1;
+  local tmp1:4;
+  tmp1 = 7;
+  local tmp2:4;
+  tmp2 = tmp0 << tmp1;
+  local tmp3:4;
+  tmp3 = 1;
+  local tmp4:4;
+  tmp4 = tmp2 - tmp3;
+  local tmp5:4;
+  tmp5 = S2_clrbit_r_Rt32 & tmp4;
+  local tmp6:4;
+  tmp6 = 1;
+  local tmp7:4;
+  tmp7 = 7;
+  local tmp8:4;
+  tmp8 = 1;
+  local tmp9:4;
+  tmp9 = tmp7 - tmp8;
+  local tmp10:4;
+  tmp10 = tmp6 << tmp9;
+  local tmp11:4;
+  tmp11 = tmp5 ^ tmp10;
+  local tmp12:4;
+  tmp12 = 1;
+  local tmp13:4;
+  tmp13 = 7;
+  local tmp14:4;
+  tmp14 = 1;
+  local tmp15:4;
+  tmp15 = tmp13 - tmp14;
+  local tmp16:4;
+  tmp16 = tmp12 << tmp15;
+  local tmp17:4;
+  tmp17 = tmp11 - tmp16;
+  local tmp18:4;
+  tmp18 = 0;
+  local tmp19:1;
+  tmp19 = tmp17 s> tmp18;
+  local tmp20:1;
+  tmp20 = tmp19;
+  if (tmp20) goto <t_branch_22>;
+  goto <f_branch_22>;
+<t_branch_22>
+  local tmp22:8;
+  local tmp23:4;
+  local tmp24:4;
+  tmp24 = 1;
+  tmp23 = tmp24;
+  tmp22 = sext(tmp23);
+  local tmp25:4;
+  tmp25 = 1;
+  local tmp26:4;
+  tmp26 = 7;
+  local tmp27:4;
+  tmp27 = tmp25 << tmp26;
+  local tmp28:4;
+  tmp28 = 1;
+  local tmp29:4;
+  tmp29 = tmp27 - tmp28;
+  local tmp30:4;
+  tmp30 = S2_clrbit_r_Rt32 & tmp29;
+  local tmp31:4;
+  tmp31 = 1;
+  local tmp32:4;
+  tmp32 = 7;
+  local tmp33:4;
+  tmp33 = 1;
+  local tmp34:4;
+  tmp34 = tmp32 - tmp33;
+  local tmp35:4;
+  tmp35 = tmp31 << tmp34;
+  local tmp36:4;
+  tmp36 = tmp30 ^ tmp35;
+  local tmp37:4;
+  tmp37 = 1;
+  local tmp38:4;
+  tmp38 = 7;
+  local tmp39:4;
+  tmp39 = 1;
+  local tmp40:4;
+  tmp40 = tmp38 - tmp39;
+  local tmp41:4;
+  tmp41 = tmp37 << tmp40;
+  local tmp42:4;
+  tmp42 = tmp36 - tmp41;
+  local tmp43:8;
+  tmp43 = zext(tmp42);
+  local tmp44:8;
+  tmp44 = tmp22 << tmp43;
+  local tmp45:8;
+  tmp45 = tmp44;
+  goto <done_22>;
+<f_branch_22>
+  local tmp46:8;
+  local tmp47:4;
+  local tmp48:4;
+  tmp48 = 1;
+  tmp47 = tmp48;
+  tmp46 = sext(tmp47);
+  local tmp49:4;
+  tmp49 = 1;
+  local tmp50:4;
+  tmp50 = 7;
+  local tmp51:4;
+  tmp51 = tmp49 << tmp50;
+  local tmp52:4;
+  tmp52 = 1;
+  local tmp53:4;
+  tmp53 = tmp51 - tmp52;
+  local tmp54:4;
+  tmp54 = S2_clrbit_r_Rt32 & tmp53;
+  local tmp55:4;
+  tmp55 = 1;
+  local tmp56:4;
+  tmp56 = 7;
+  local tmp57:4;
+  tmp57 = 1;
+  local tmp58:4;
+  tmp58 = tmp56 - tmp57;
+  local tmp59:4;
+  tmp59 = tmp55 << tmp58;
+  local tmp60:4;
+  tmp60 = tmp54 ^ tmp59;
+  local tmp61:4;
+  tmp61 = 1;
+  local tmp62:4;
+  tmp62 = 7;
+  local tmp63:4;
+  tmp63 = 1;
+  local tmp64:4;
+  tmp64 = tmp62 - tmp63;
+  local tmp65:4;
+  tmp65 = tmp61 << tmp64;
+  local tmp66:4;
+  tmp66 = tmp60 - tmp65;
+  local tmp67:8;
+  tmp67 = zext(tmp66);
+  local tmp68:8;
+  tmp68 = tmp46 >> tmp67;
+  tmp45 = tmp68;
+<done_22>
+  local tmp69:8;
+  tmp69 = ~ tmp45;
+  local tmp70:8;
+  tmp70 = zext(S2_clrbit_r_Rs32);
+  local tmp71:8;
+  tmp71 = tmp70 & tmp69;
+  S2_clrbit_r_Rd32 = tmp71:4;
+}
 
 :S2_asr_i_vh S2_asr_i_vh_Rdd32 S2_asr_i_vh_Rss32 S2_asr_i_vh_u4 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_asr_i_vh_Rdd32 & S2_asr_i_vh_Rss32 & S2_asr_i_vh_u4 unimpl
 
@@ -33044,13 +37809,21 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :Y4_crswap10 Y4_crswap10_Rxx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b0 = 0 & b1 = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_crswap10_Rxx32 unimpl
 
-:Y2_tfrscrr Y2_tfrscrr_Rd32 Y2_tfrscrr_Ss128 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tfrscrr_Rd32 & Y2_tfrscrr_Ss128 unimpl
+:Y2_tfrscrr Y2_tfrscrr_Rd32 Y2_tfrscrr_Ss128 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tfrscrr_Rd32 & Y2_tfrscrr_Ss128 {
+  Y2_tfrscrr_Rd32 = Y2_tfrscrr_Ss128;
+}
 
-:Y2_tfrsrcr Y2_tfrsrcr_Sd128 Y2_tfrsrcr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tfrsrcr_Sd128 & Y2_tfrsrcr_Rs32 unimpl
+:Y2_tfrsrcr Y2_tfrsrcr_Sd128 Y2_tfrsrcr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tfrsrcr_Sd128 & Y2_tfrsrcr_Rs32 {
+  Y2_tfrsrcr_Sd128 = Y2_tfrsrcr_Rs32;
+}
 
-:Y4_tfrscpp Y4_tfrscpp_Rdd32 Y4_tfrscpp_Sss128 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_tfrscpp_Rdd32 & Y4_tfrscpp_Sss128 unimpl
+:Y4_tfrscpp Y4_tfrscpp_Rdd32 Y4_tfrscpp_Sss128 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_tfrscpp_Rdd32 & Y4_tfrscpp_Sss128 {
+  Y4_tfrscpp_Rdd32 = Y4_tfrscpp_Sss128;
+}
 
-:Y4_tfrspcp Y4_tfrspcp_Sdd128 Y4_tfrspcp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_tfrspcp_Sdd128 & Y4_tfrspcp_Rss32 unimpl
+:Y4_tfrspcp Y4_tfrspcp_Sdd128 Y4_tfrspcp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_tfrspcp_Sdd128 & Y4_tfrspcp_Rss32 {
+  Y4_tfrspcp_Sdd128 = Y4_tfrspcp_Rss32;
+}
 
 :G4_tfrgcrr G4_tfrgcrr_Rd32 G4_tfrgcrr_Gs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & G4_tfrgcrr_Rd32 & G4_tfrgcrr_Gs32 {
   G4_tfrgcrr_Rd32 = G4_tfrgcrr_Gs32;
@@ -34747,5 +39520,110 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :A4_ext reloc is phase = 1 & immext = 0xffffffff                    & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); globalset(duplex_next, immext); ] { }
 
-:J2_jumpr J2_jumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpr_Rs32 & J2_jumpr_Rs32 = 31 { return [ J2_jumpr_Rs32 ]; }
+:J2_jumpr J2_jumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpr_Rs32 & J2_jumpr_Rs32 = 31 {
+  return [ J2_jumpr_Rs32 ];
+}
 
+:J2_jumprt J2_jumprt_Pu4 J2_jumprt_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprt_Pu4 & J2_jumprt_Rs32 & J2_jumpr_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = J2_jumprt_Pu4;
+  if (tmp0) goto <t_branch_2>;
+  goto <done_2>;
+<t_branch_2>
+  return [J2_jumprt_Rs32];
+  goto <done_2>;
+<done_2>
+}
+
+:J2_jumprf J2_jumprf_Pu4 J2_jumprf_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprf_Pu4 & J2_jumprf_Rs32  & J2_jumprf_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = ! J2_jumprf_Pu4;
+  local tmp1:1;
+  tmp1 = tmp0;
+  if (tmp1) goto <t_branch_3>;
+  goto <done_3>;
+<t_branch_3>
+  return [J2_jumprf_Rs32];
+  goto <done_3>;
+<done_3>
+}
+
+:J2_jumprtpt J2_jumprtpt_Pu4 J2_jumprtpt_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprtpt_Pu4 & J2_jumprtpt_Rs32 & J2_jumprtpt_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = J2_jumprtpt_Pu4;
+  if (tmp0) goto <t_branch_2>;
+  goto <done_2>;
+<t_branch_2>
+  return [J2_jumprtpt_Rs32];
+  goto <done_2>;
+<done_2>
+}
+
+:J2_jumprfpt J2_jumprfpt_Pu4 J2_jumprfpt_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprfpt_Pu4 & J2_jumprfpt_Rs32 & J2_jumprfpt_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = ! J2_jumprfpt_Pu4;
+  local tmp1:1;
+  tmp1 = tmp0;
+  if (tmp1) goto <t_branch_3>;
+  goto <done_3>;
+<t_branch_3>
+  return [J2_jumprfpt_Rs32];
+  goto <done_3>;
+<done_3>
+}
+
+:J2_jumprtnew J2_jumprtnew_Pu4 J2_jumprtnew_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprtnew_Pu4 & J2_jumprtnew_Rs32 & J2_jumprtnew_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = newreg(J2_jumprtnew_Pu4);
+  local tmp1:1;
+  tmp1 = tmp0;
+  if (tmp1) goto <t_branch_3>;
+  goto <done_3>;
+<t_branch_3>
+  return [J2_jumprtnew_Rs32];
+  goto <done_3>;
+<done_3>
+}
+
+:J2_jumprfnew J2_jumprfnew_Pu4 J2_jumprfnew_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprfnew_Pu4 & J2_jumprfnew_Rs32 & J2_jumprfnew_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = newreg(J2_jumprfnew_Pu4);
+  local tmp1:1;
+  tmp1 = ! tmp0;
+  local tmp2:1;
+  tmp2 = tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <done_4>;
+<t_branch_4>
+  return [J2_jumprfnew_Rs32];
+  goto <done_4>;
+<done_4>
+}
+
+:J2_jumprtnewpt J2_jumprtnewpt_Pu4 J2_jumprtnewpt_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprtnewpt_Pu4 & J2_jumprtnewpt_Rs32 & J2_jumprtnewpt_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = newreg(J2_jumprtnewpt_Pu4);
+  local tmp1:1;
+  tmp1 = tmp0;
+  if (tmp1) goto <t_branch_3>;
+  goto <done_3>;
+<t_branch_3>
+  return [J2_jumprtnewpt_Rs32];
+  goto <done_3>;
+<done_3>
+}
+
+:J2_jumprfnewpt J2_jumprfnewpt_Pu4 J2_jumprfnewpt_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumprfnewpt_Pu4 & J2_jumprfnewpt_Rs32 & J2_jumprfnewpt_Rs32 = 31 {
+  local tmp0:1;
+  tmp0 = newreg(J2_jumprfnewpt_Pu4);
+  local tmp1:1;
+  tmp1 = ! tmp0;
+  local tmp2:1;
+  tmp2 = tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <done_4>;
+<t_branch_4>
+  return [J2_jumprfnewpt_Rs32];
+  goto <done_4>;
+<done_4>
+}
