@@ -20,8 +20,10 @@ import ghidra.program.model.address.*;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.UnknownInstructionException;
+import ghidra.program.model.listing.FlowOverride;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
+import ghidra.program.model.listing.InstructionPcodeOverride;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.PcodeOp;
 import ghidra.program.model.pcode.SequenceNumber;
@@ -141,13 +143,21 @@ public class HexagonPcodeEmitPacked {
 			}
 			if (branchRequiresFixup(opNew)) {
 				Varnode branchVn = branches.get(op.getSeqnum());
+
+				InstructionPcodeOverride override = new InstructionPcodeOverride(instruction);
+				// jump to next instruction in case of a call, so we don't
+				// fallthrough to another jump
+				// the one exception to this is a CALL_RETURN flow override,
+				// which will append a RETURN right after the CALL
+				boolean insert_jump_after_packet = isCall(op) && !override.getFlowOverride().equals(FlowOverride.CALL_RETURN);
+
 				if (hasFallthrough(instruction)) {
 					Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(1), 1) };
 					PcodeOp spill = new PcodeOp(defaultSeqno, PcodeOp.COPY, in, branchVn);
 					mainPcode.add(spill);
 
 					int disp = 2;
-					if (isCall(op)) {
+					if (insert_jump_after_packet) {
 						disp = 3;
 					}
 
@@ -162,9 +172,7 @@ public class HexagonPcodeEmitPacked {
 
 				jumpPcode.add(opNew);
 
-				if (isCall(op)) {
-					// jump to next instruction in case of a call, so we don't
-					// potentially fallthrough to another jump
+				if (insert_jump_after_packet) {
 					Varnode[] in = new Varnode[] { new Varnode(pktNext, 4) };
 					PcodeOp insn2 = new PcodeOp(defaultSeqno, PcodeOp.BRANCH, in, null);
 					jumpPcode.add(insn2);
@@ -269,9 +277,9 @@ public class HexagonPcodeEmitPacked {
 		Map<SequenceNumber, Varnode> branches = new HashMap<>();
 
 		// Registers R1R0 aliases with R1 and R0, so their scratch regs must too
-		// 96 registers R0 to R31, C0 to R31, G0 to G31
+		// 96 registers R0 to R31, C0 to R31, G0 to G31, S0 to S127
 		// XXX: pull this from the slaspec somehow?
-		Address[] scratchRegUnique = new Address[92];
+		Address[] scratchRegUnique = new Address[224];
 
 		for (int i = 0; i < scratchRegUnique.length; i += 2) {
 			Address uniq = uniqueFactory.getNextUniqueAddress();
@@ -284,7 +292,8 @@ public class HexagonPcodeEmitPacked {
 		InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
 		while (insnIter.hasNext()) {
 			Instruction instr = insnIter.next();
-			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory);
+			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(),
+					new InstructionPcodeOverride(instr), uniqueFactory);
 			analyzePcode(instr, pcode, uniqueFactory, scratchRegUnique, registerSpills, branches);
 		}
 
@@ -294,7 +303,8 @@ public class HexagonPcodeEmitPacked {
 		insnIter = program.getListing().getInstructions(addrSet, true);
 		while (insnIter.hasNext()) {
 			Instruction instr = insnIter.next();
-			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory);
+			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(),
+					new InstructionPcodeOverride(instr), uniqueFactory);
 			writePcode(instr, pcode, mainPcode, jumpPcode, uniqueFactory, scratchRegUnique, registerSpills, branches,
 					program.getAddressFactory());
 		}
