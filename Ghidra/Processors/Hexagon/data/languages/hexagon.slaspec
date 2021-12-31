@@ -5689,6 +5689,8 @@ define token NORMAL(32)
   Y5_l2unlocka_Rs32                    = (16, 20)
   Y6_l2gcleanpa_Rtt32                  = ( 8, 12)
   Y6_l2gcleaninvpa_Rtt32               = ( 8, 12)
+  A2_combinew_Rdd32_hi                 = ( 0,  4)
+  A2_combinew_Rdd32_lo                 = ( 0,  4)
 ;
 
 define token SUBINSN(16)
@@ -9976,6 +9978,24 @@ attach variables [
   S2_storerhnew_pcr_Mu2
 ] [
   C6  C7
+];
+
+attach variables [
+  A2_combinew_Rdd32_lo
+] [
+  R0  _ R2  _ R4  _ R6  _
+  R8  _ R10 _ R12 _ R14 _
+  R16 _ R18 _ R20 _ R22 _
+  R24 _ R26 _ R28 _ R30 _
+];
+
+attach variables [
+  A2_combinew_Rdd32_hi
+] [
+  R1  _ R3  _ R5  _ R7  _
+  R9  _ R11 _ R13 _ R15 _
+  R17 _ R19 _ R21 _ R23 _
+  R25 _ R27 _ R29 _ R31 _
 ];
 
 J2_jump_r22_2: reloc is                       J2_jump_r22_2_0 & J2_jump_r22_2_1 [ reloc = pkt_start + (((((J2_jump_r22_2_0 << 0) + (J2_jump_r22_2_1 << 13)) << 2) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
@@ -28527,79 +28547,6 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   A2_sxth_Rd32 = tmp17;
 }
 
-:A2_combinew A2_combinew_Rdd32 A2_combinew_Rs32 A2_combinew_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_combinew_Rdd32 & A2_combinew_Rs32 & A2_combinew_Rt32 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = A2_combinew_Rdd32 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = zext(A2_combinew_Rt32);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  A2_combinew_Rdd32 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = A2_combinew_Rdd32 & tmp23;
-  local tmp25:8;
-  tmp25 = 4294967295;
-  local tmp26:8;
-  tmp26 = zext(A2_combinew_Rs32);
-  local tmp27:8;
-  tmp27 = tmp26 & tmp25;
-  local tmp28:4;
-  tmp28 = 1;
-  local tmp29:4;
-  tmp29 = 32;
-  local tmp30:4;
-  tmp30 = tmp28 * tmp29;
-  local tmp31:8;
-  tmp31 = zext(tmp30);
-  local tmp32:8;
-  tmp32 = tmp27 << tmp31;
-  local tmp33:8;
-  tmp33 = tmp24 | tmp32;
-  A2_combinew_Rdd32 = tmp33;
-}
-
 :A4_combineri A4_combineri_Rdd32 A4_combineri_Rs32 A4_combineri_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineri_Rdd32 & A4_combineri_Rs32 & A4_combineri_s8 {
   local tmp0:8;
   tmp0 = 4294967295;
@@ -39519,6 +39466,11 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 :A4_ext reloc is phase = 1 & immext = 0xffffffff & duplex_next  = 0 & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); ] { }
 
 :A4_ext reloc is phase = 1 & immext = 0xffffffff                    & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); globalset(duplex_next, immext); ] { }
+
+:A2_combinew A2_combinew_Rdd32 A2_combinew_Rs32 A2_combinew_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_combinew_Rdd32 & A2_combinew_Rs32 & A2_combinew_Rt32 & A2_combinew_Rdd32_lo & A2_combinew_Rdd32_hi {
+  A2_combinew_Rdd32_lo = A2_combinew_Rt32;
+  A2_combinew_Rdd32_hi = A2_combinew_Rs32;
+}
 
 :J2_jumpr J2_jumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpr_Rs32 & J2_jumpr_Rs32 = 31 {
   return [ J2_jumpr_Rs32 ];
