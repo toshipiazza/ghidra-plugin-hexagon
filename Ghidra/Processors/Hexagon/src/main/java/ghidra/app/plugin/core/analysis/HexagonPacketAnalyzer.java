@@ -213,12 +213,13 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				Address a = iter.next();
 				if (!disassembled.contains(a)) {
 					// some instructions did not disassemble
-					throw new UnknownInstructionException();
+					throw new UnknownInstructionException(
+							"Instruction in packet failed to disassemble after context set");
 				}
 				Instruction instr = program.getListing().getInstructionAt(a);
 				if (instr.getMnemonicString().equals("DUPLEX")) {
 					// duplex instructions should no longer exist at this point
-					throw new UnknownInstructionException();
+					throw new UnknownInstructionException("Packet still contains DUPLEX after context set");
 				}
 			}
 
