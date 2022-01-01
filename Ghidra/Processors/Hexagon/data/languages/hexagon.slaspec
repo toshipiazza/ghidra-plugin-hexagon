@@ -10523,9 +10523,11 @@ L2_loadrub_io_s11_0: reloc is immext = 0xffffffff & L2_loadrub_io_s11_0_0 & L2_l
 
 L4_loadrub_ur_u2: reloc is L4_loadrub_ur_u2_0 & L4_loadrub_ur_u2_1 [ reloc = (L4_loadrub_ur_u2_0 << 0) + (L4_loadrub_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadrub_ur_U6: reloc is L4_loadrub_ur_U6_0 & L4_loadrub_ur_U6_1 [ reloc = (L4_loadrub_ur_U6_0 << 0) + (L4_loadrub_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrub_ur_U6: reloc is                       L4_loadrub_ur_U6_0 & L4_loadrub_ur_U6_1 [ reloc = ((((L4_loadrub_ur_U6_0 << 0) + (L4_loadrub_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrub_ur_U6: reloc is immext = 0xffffffff & L4_loadrub_ur_U6_0 & L4_loadrub_ur_U6_1 [ reloc = (L4_loadrub_ur_U6_0 << 0) + (L4_loadrub_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadrub_ap_U6: reloc is L4_loadrub_ap_U6_0 & L4_loadrub_ap_U6_1 [ reloc = (L4_loadrub_ap_U6_0 << 0) + (L4_loadrub_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrub_ap_U6: reloc is                       L4_loadrub_ap_U6_0 & L4_loadrub_ap_U6_1 [ reloc = ((((L4_loadrub_ap_U6_0 << 0) + (L4_loadrub_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrub_ap_U6: reloc is immext = 0xffffffff & L4_loadrub_ap_U6_0 & L4_loadrub_ap_U6_1 [ reloc = (L4_loadrub_ap_U6_0 << 0) + (L4_loadrub_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadrub_pi_s4_0: reloc is L2_loadrub_pi_s4_0_0 [ reloc = L2_loadrub_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
@@ -10536,9 +10538,11 @@ L2_loadrb_io_s11_0: reloc is immext = 0xffffffff & L2_loadrb_io_s11_0_0 & L2_loa
 
 L4_loadrb_ur_u2: reloc is L4_loadrb_ur_u2_0 & L4_loadrb_ur_u2_1 [ reloc = (L4_loadrb_ur_u2_0 << 0) + (L4_loadrb_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadrb_ur_U6: reloc is L4_loadrb_ur_U6_0 & L4_loadrb_ur_U6_1 [ reloc = (L4_loadrb_ur_U6_0 << 0) + (L4_loadrb_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrb_ur_U6: reloc is                       L4_loadrb_ur_U6_0 & L4_loadrb_ur_U6_1 [ reloc = ((((L4_loadrb_ur_U6_0 << 0) + (L4_loadrb_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrb_ur_U6: reloc is immext = 0xffffffff & L4_loadrb_ur_U6_0 & L4_loadrb_ur_U6_1 [ reloc = (L4_loadrb_ur_U6_0 << 0) + (L4_loadrb_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadrb_ap_U6: reloc is L4_loadrb_ap_U6_0 & L4_loadrb_ap_U6_1 [ reloc = (L4_loadrb_ap_U6_0 << 0) + (L4_loadrb_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrb_ap_U6: reloc is                       L4_loadrb_ap_U6_0 & L4_loadrb_ap_U6_1 [ reloc = ((((L4_loadrb_ap_U6_0 << 0) + (L4_loadrb_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrb_ap_U6: reloc is immext = 0xffffffff & L4_loadrb_ap_U6_0 & L4_loadrb_ap_U6_1 [ reloc = (L4_loadrb_ap_U6_0 << 0) + (L4_loadrb_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadrb_pi_s4_0: reloc is L2_loadrb_pi_s4_0_0 [ reloc = L2_loadrb_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
@@ -10549,9 +10553,11 @@ L2_loadruh_io_s11_1: reloc is immext = 0xffffffff & L2_loadruh_io_s11_1_0 & L2_l
 
 L4_loadruh_ur_u2: reloc is L4_loadruh_ur_u2_0 & L4_loadruh_ur_u2_1 [ reloc = (L4_loadruh_ur_u2_0 << 0) + (L4_loadruh_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadruh_ur_U6: reloc is L4_loadruh_ur_U6_0 & L4_loadruh_ur_U6_1 [ reloc = (L4_loadruh_ur_U6_0 << 0) + (L4_loadruh_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadruh_ur_U6: reloc is                       L4_loadruh_ur_U6_0 & L4_loadruh_ur_U6_1 [ reloc = ((((L4_loadruh_ur_U6_0 << 0) + (L4_loadruh_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadruh_ur_U6: reloc is immext = 0xffffffff & L4_loadruh_ur_U6_0 & L4_loadruh_ur_U6_1 [ reloc = (L4_loadruh_ur_U6_0 << 0) + (L4_loadruh_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadruh_ap_U6: reloc is L4_loadruh_ap_U6_0 & L4_loadruh_ap_U6_1 [ reloc = (L4_loadruh_ap_U6_0 << 0) + (L4_loadruh_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadruh_ap_U6: reloc is                       L4_loadruh_ap_U6_0 & L4_loadruh_ap_U6_1 [ reloc = ((((L4_loadruh_ap_U6_0 << 0) + (L4_loadruh_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadruh_ap_U6: reloc is immext = 0xffffffff & L4_loadruh_ap_U6_0 & L4_loadruh_ap_U6_1 [ reloc = (L4_loadruh_ap_U6_0 << 0) + (L4_loadruh_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadruh_pi_s4_1: reloc is L2_loadruh_pi_s4_1_0 [ reloc = (L2_loadruh_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10562,9 +10568,11 @@ L2_loadrh_io_s11_1: reloc is immext = 0xffffffff & L2_loadrh_io_s11_1_0 & L2_loa
 
 L4_loadrh_ur_u2: reloc is L4_loadrh_ur_u2_0 & L4_loadrh_ur_u2_1 [ reloc = (L4_loadrh_ur_u2_0 << 0) + (L4_loadrh_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadrh_ur_U6: reloc is L4_loadrh_ur_U6_0 & L4_loadrh_ur_U6_1 [ reloc = (L4_loadrh_ur_U6_0 << 0) + (L4_loadrh_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrh_ur_U6: reloc is                       L4_loadrh_ur_U6_0 & L4_loadrh_ur_U6_1 [ reloc = ((((L4_loadrh_ur_U6_0 << 0) + (L4_loadrh_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrh_ur_U6: reloc is immext = 0xffffffff & L4_loadrh_ur_U6_0 & L4_loadrh_ur_U6_1 [ reloc = (L4_loadrh_ur_U6_0 << 0) + (L4_loadrh_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadrh_ap_U6: reloc is L4_loadrh_ap_U6_0 & L4_loadrh_ap_U6_1 [ reloc = (L4_loadrh_ap_U6_0 << 0) + (L4_loadrh_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrh_ap_U6: reloc is                       L4_loadrh_ap_U6_0 & L4_loadrh_ap_U6_1 [ reloc = ((((L4_loadrh_ap_U6_0 << 0) + (L4_loadrh_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrh_ap_U6: reloc is immext = 0xffffffff & L4_loadrh_ap_U6_0 & L4_loadrh_ap_U6_1 [ reloc = (L4_loadrh_ap_U6_0 << 0) + (L4_loadrh_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadrh_pi_s4_1: reloc is L2_loadrh_pi_s4_1_0 [ reloc = (L2_loadrh_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10575,9 +10583,11 @@ L2_loadri_io_s11_2: reloc is immext = 0xffffffff & L2_loadri_io_s11_2_0 & L2_loa
 
 L4_loadri_ur_u2: reloc is L4_loadri_ur_u2_0 & L4_loadri_ur_u2_1 [ reloc = (L4_loadri_ur_u2_0 << 0) + (L4_loadri_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadri_ur_U6: reloc is L4_loadri_ur_U6_0 & L4_loadri_ur_U6_1 [ reloc = (L4_loadri_ur_U6_0 << 0) + (L4_loadri_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadri_ur_U6: reloc is                       L4_loadri_ur_U6_0 & L4_loadri_ur_U6_1 [ reloc = ((((L4_loadri_ur_U6_0 << 0) + (L4_loadri_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadri_ur_U6: reloc is immext = 0xffffffff & L4_loadri_ur_U6_0 & L4_loadri_ur_U6_1 [ reloc = (L4_loadri_ur_U6_0 << 0) + (L4_loadri_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadri_ap_U6: reloc is L4_loadri_ap_U6_0 & L4_loadri_ap_U6_1 [ reloc = (L4_loadri_ap_U6_0 << 0) + (L4_loadri_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadri_ap_U6: reloc is                       L4_loadri_ap_U6_0 & L4_loadri_ap_U6_1 [ reloc = ((((L4_loadri_ap_U6_0 << 0) + (L4_loadri_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadri_ap_U6: reloc is immext = 0xffffffff & L4_loadri_ap_U6_0 & L4_loadri_ap_U6_1 [ reloc = (L4_loadri_ap_U6_0 << 0) + (L4_loadri_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadri_pi_s4_2: reloc is L2_loadri_pi_s4_2_0 [ reloc = (L2_loadri_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
@@ -10588,9 +10598,11 @@ L2_loadrd_io_s11_3: reloc is immext = 0xffffffff & L2_loadrd_io_s11_3_0 & L2_loa
 
 L4_loadrd_ur_u2: reloc is L4_loadrd_ur_u2_0 & L4_loadrd_ur_u2_1 [ reloc = (L4_loadrd_ur_u2_0 << 0) + (L4_loadrd_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadrd_ur_U6: reloc is L4_loadrd_ur_U6_0 & L4_loadrd_ur_U6_1 [ reloc = (L4_loadrd_ur_U6_0 << 0) + (L4_loadrd_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrd_ur_U6: reloc is                       L4_loadrd_ur_U6_0 & L4_loadrd_ur_U6_1 [ reloc = ((((L4_loadrd_ur_U6_0 << 0) + (L4_loadrd_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrd_ur_U6: reloc is immext = 0xffffffff & L4_loadrd_ur_U6_0 & L4_loadrd_ur_U6_1 [ reloc = (L4_loadrd_ur_U6_0 << 0) + (L4_loadrd_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadrd_ap_U6: reloc is L4_loadrd_ap_U6_0 & L4_loadrd_ap_U6_1 [ reloc = (L4_loadrd_ap_U6_0 << 0) + (L4_loadrd_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadrd_ap_U6: reloc is                       L4_loadrd_ap_U6_0 & L4_loadrd_ap_U6_1 [ reloc = ((((L4_loadrd_ap_U6_0 << 0) + (L4_loadrd_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadrd_ap_U6: reloc is immext = 0xffffffff & L4_loadrd_ap_U6_0 & L4_loadrd_ap_U6_1 [ reloc = (L4_loadrd_ap_U6_0 << 0) + (L4_loadrd_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadrd_pi_s4_3: reloc is L2_loadrd_pi_s4_3_0 [ reloc = (L2_loadrd_pi_s4_3_0 << 0) << 3; ] { export *[const]:4 reloc; }
 
@@ -10601,9 +10613,11 @@ L2_loadbzw2_io_s11_1: reloc is immext = 0xffffffff & L2_loadbzw2_io_s11_1_0 & L2
 
 L4_loadbzw2_ur_u2: reloc is L4_loadbzw2_ur_u2_0 & L4_loadbzw2_ur_u2_1 [ reloc = (L4_loadbzw2_ur_u2_0 << 0) + (L4_loadbzw2_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadbzw2_ur_U6: reloc is L4_loadbzw2_ur_U6_0 & L4_loadbzw2_ur_U6_1 [ reloc = (L4_loadbzw2_ur_U6_0 << 0) + (L4_loadbzw2_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbzw2_ur_U6: reloc is                       L4_loadbzw2_ur_U6_0 & L4_loadbzw2_ur_U6_1 [ reloc = ((((L4_loadbzw2_ur_U6_0 << 0) + (L4_loadbzw2_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbzw2_ur_U6: reloc is immext = 0xffffffff & L4_loadbzw2_ur_U6_0 & L4_loadbzw2_ur_U6_1 [ reloc = (L4_loadbzw2_ur_U6_0 << 0) + (L4_loadbzw2_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadbzw2_ap_U6: reloc is L4_loadbzw2_ap_U6_0 & L4_loadbzw2_ap_U6_1 [ reloc = (L4_loadbzw2_ap_U6_0 << 0) + (L4_loadbzw2_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbzw2_ap_U6: reloc is                       L4_loadbzw2_ap_U6_0 & L4_loadbzw2_ap_U6_1 [ reloc = ((((L4_loadbzw2_ap_U6_0 << 0) + (L4_loadbzw2_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbzw2_ap_U6: reloc is immext = 0xffffffff & L4_loadbzw2_ap_U6_0 & L4_loadbzw2_ap_U6_1 [ reloc = (L4_loadbzw2_ap_U6_0 << 0) + (L4_loadbzw2_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadbzw2_pi_s4_1: reloc is L2_loadbzw2_pi_s4_1_0 [ reloc = (L2_loadbzw2_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10614,9 +10628,11 @@ L2_loadbzw4_io_s11_2: reloc is immext = 0xffffffff & L2_loadbzw4_io_s11_2_0 & L2
 
 L4_loadbzw4_ur_u2: reloc is L4_loadbzw4_ur_u2_0 & L4_loadbzw4_ur_u2_1 [ reloc = (L4_loadbzw4_ur_u2_0 << 0) + (L4_loadbzw4_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadbzw4_ur_U6: reloc is L4_loadbzw4_ur_U6_0 & L4_loadbzw4_ur_U6_1 [ reloc = (L4_loadbzw4_ur_U6_0 << 0) + (L4_loadbzw4_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbzw4_ur_U6: reloc is                       L4_loadbzw4_ur_U6_0 & L4_loadbzw4_ur_U6_1 [ reloc = ((((L4_loadbzw4_ur_U6_0 << 0) + (L4_loadbzw4_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbzw4_ur_U6: reloc is immext = 0xffffffff & L4_loadbzw4_ur_U6_0 & L4_loadbzw4_ur_U6_1 [ reloc = (L4_loadbzw4_ur_U6_0 << 0) + (L4_loadbzw4_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadbzw4_ap_U6: reloc is L4_loadbzw4_ap_U6_0 & L4_loadbzw4_ap_U6_1 [ reloc = (L4_loadbzw4_ap_U6_0 << 0) + (L4_loadbzw4_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbzw4_ap_U6: reloc is                       L4_loadbzw4_ap_U6_0 & L4_loadbzw4_ap_U6_1 [ reloc = ((((L4_loadbzw4_ap_U6_0 << 0) + (L4_loadbzw4_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbzw4_ap_U6: reloc is immext = 0xffffffff & L4_loadbzw4_ap_U6_0 & L4_loadbzw4_ap_U6_1 [ reloc = (L4_loadbzw4_ap_U6_0 << 0) + (L4_loadbzw4_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadbzw4_pi_s4_2: reloc is L2_loadbzw4_pi_s4_2_0 [ reloc = (L2_loadbzw4_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
@@ -10627,9 +10643,11 @@ L2_loadbsw2_io_s11_1: reloc is immext = 0xffffffff & L2_loadbsw2_io_s11_1_0 & L2
 
 L4_loadbsw2_ur_u2: reloc is L4_loadbsw2_ur_u2_0 & L4_loadbsw2_ur_u2_1 [ reloc = (L4_loadbsw2_ur_u2_0 << 0) + (L4_loadbsw2_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadbsw2_ur_U6: reloc is L4_loadbsw2_ur_U6_0 & L4_loadbsw2_ur_U6_1 [ reloc = (L4_loadbsw2_ur_U6_0 << 0) + (L4_loadbsw2_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbsw2_ur_U6: reloc is                       L4_loadbsw2_ur_U6_0 & L4_loadbsw2_ur_U6_1 [ reloc = ((((L4_loadbsw2_ur_U6_0 << 0) + (L4_loadbsw2_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbsw2_ur_U6: reloc is immext = 0xffffffff & L4_loadbsw2_ur_U6_0 & L4_loadbsw2_ur_U6_1 [ reloc = (L4_loadbsw2_ur_U6_0 << 0) + (L4_loadbsw2_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadbsw2_ap_U6: reloc is L4_loadbsw2_ap_U6_0 & L4_loadbsw2_ap_U6_1 [ reloc = (L4_loadbsw2_ap_U6_0 << 0) + (L4_loadbsw2_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbsw2_ap_U6: reloc is                       L4_loadbsw2_ap_U6_0 & L4_loadbsw2_ap_U6_1 [ reloc = ((((L4_loadbsw2_ap_U6_0 << 0) + (L4_loadbsw2_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbsw2_ap_U6: reloc is immext = 0xffffffff & L4_loadbsw2_ap_U6_0 & L4_loadbsw2_ap_U6_1 [ reloc = (L4_loadbsw2_ap_U6_0 << 0) + (L4_loadbsw2_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadbsw2_pi_s4_1: reloc is L2_loadbsw2_pi_s4_1_0 [ reloc = (L2_loadbsw2_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10640,9 +10658,11 @@ L2_loadbsw4_io_s11_2: reloc is immext = 0xffffffff & L2_loadbsw4_io_s11_2_0 & L2
 
 L4_loadbsw4_ur_u2: reloc is L4_loadbsw4_ur_u2_0 & L4_loadbsw4_ur_u2_1 [ reloc = (L4_loadbsw4_ur_u2_0 << 0) + (L4_loadbsw4_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadbsw4_ur_U6: reloc is L4_loadbsw4_ur_U6_0 & L4_loadbsw4_ur_U6_1 [ reloc = (L4_loadbsw4_ur_U6_0 << 0) + (L4_loadbsw4_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbsw4_ur_U6: reloc is                       L4_loadbsw4_ur_U6_0 & L4_loadbsw4_ur_U6_1 [ reloc = ((((L4_loadbsw4_ur_U6_0 << 0) + (L4_loadbsw4_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbsw4_ur_U6: reloc is immext = 0xffffffff & L4_loadbsw4_ur_U6_0 & L4_loadbsw4_ur_U6_1 [ reloc = (L4_loadbsw4_ur_U6_0 << 0) + (L4_loadbsw4_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadbsw4_ap_U6: reloc is L4_loadbsw4_ap_U6_0 & L4_loadbsw4_ap_U6_1 [ reloc = (L4_loadbsw4_ap_U6_0 << 0) + (L4_loadbsw4_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadbsw4_ap_U6: reloc is                       L4_loadbsw4_ap_U6_0 & L4_loadbsw4_ap_U6_1 [ reloc = ((((L4_loadbsw4_ap_U6_0 << 0) + (L4_loadbsw4_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadbsw4_ap_U6: reloc is immext = 0xffffffff & L4_loadbsw4_ap_U6_0 & L4_loadbsw4_ap_U6_1 [ reloc = (L4_loadbsw4_ap_U6_0 << 0) + (L4_loadbsw4_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadbsw4_pi_s4_2: reloc is L2_loadbsw4_pi_s4_2_0 [ reloc = (L2_loadbsw4_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
@@ -10653,9 +10673,11 @@ L2_loadalignh_io_s11_1: reloc is immext = 0xffffffff & L2_loadalignh_io_s11_1_0 
 
 L4_loadalignh_ur_u2: reloc is L4_loadalignh_ur_u2_0 & L4_loadalignh_ur_u2_1 [ reloc = (L4_loadalignh_ur_u2_0 << 0) + (L4_loadalignh_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadalignh_ur_U6: reloc is L4_loadalignh_ur_U6_0 & L4_loadalignh_ur_U6_1 [ reloc = (L4_loadalignh_ur_U6_0 << 0) + (L4_loadalignh_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadalignh_ur_U6: reloc is                       L4_loadalignh_ur_U6_0 & L4_loadalignh_ur_U6_1 [ reloc = ((((L4_loadalignh_ur_U6_0 << 0) + (L4_loadalignh_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadalignh_ur_U6: reloc is immext = 0xffffffff & L4_loadalignh_ur_U6_0 & L4_loadalignh_ur_U6_1 [ reloc = (L4_loadalignh_ur_U6_0 << 0) + (L4_loadalignh_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadalignh_ap_U6: reloc is L4_loadalignh_ap_U6_0 & L4_loadalignh_ap_U6_1 [ reloc = (L4_loadalignh_ap_U6_0 << 0) + (L4_loadalignh_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadalignh_ap_U6: reloc is                       L4_loadalignh_ap_U6_0 & L4_loadalignh_ap_U6_1 [ reloc = ((((L4_loadalignh_ap_U6_0 << 0) + (L4_loadalignh_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadalignh_ap_U6: reloc is immext = 0xffffffff & L4_loadalignh_ap_U6_0 & L4_loadalignh_ap_U6_1 [ reloc = (L4_loadalignh_ap_U6_0 << 0) + (L4_loadalignh_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadalignh_pi_s4_1: reloc is L2_loadalignh_pi_s4_1_0 [ reloc = (L2_loadalignh_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10666,9 +10688,11 @@ L2_loadalignb_io_s11_0: reloc is immext = 0xffffffff & L2_loadalignb_io_s11_0_0 
 
 L4_loadalignb_ur_u2: reloc is L4_loadalignb_ur_u2_0 & L4_loadalignb_ur_u2_1 [ reloc = (L4_loadalignb_ur_u2_0 << 0) + (L4_loadalignb_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_loadalignb_ur_U6: reloc is L4_loadalignb_ur_U6_0 & L4_loadalignb_ur_U6_1 [ reloc = (L4_loadalignb_ur_U6_0 << 0) + (L4_loadalignb_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadalignb_ur_U6: reloc is                       L4_loadalignb_ur_U6_0 & L4_loadalignb_ur_U6_1 [ reloc = ((((L4_loadalignb_ur_U6_0 << 0) + (L4_loadalignb_ur_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadalignb_ur_U6: reloc is immext = 0xffffffff & L4_loadalignb_ur_U6_0 & L4_loadalignb_ur_U6_1 [ reloc = (L4_loadalignb_ur_U6_0 << 0) + (L4_loadalignb_ur_U6_1 << 2); ] { export *[const]:4 reloc; }
 
-L4_loadalignb_ap_U6: reloc is L4_loadalignb_ap_U6_0 & L4_loadalignb_ap_U6_1 [ reloc = (L4_loadalignb_ap_U6_0 << 0) + (L4_loadalignb_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
+L4_loadalignb_ap_U6: reloc is                       L4_loadalignb_ap_U6_0 & L4_loadalignb_ap_U6_1 [ reloc = ((((L4_loadalignb_ap_U6_0 << 0) + (L4_loadalignb_ap_U6_1 << 2)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_loadalignb_ap_U6: reloc is immext = 0xffffffff & L4_loadalignb_ap_U6_0 & L4_loadalignb_ap_U6_1 [ reloc = (L4_loadalignb_ap_U6_0 << 0) + (L4_loadalignb_ap_U6_1 << 2); ] { export *[const]:4 reloc; }
 
 L2_loadalignb_pi_s4_0: reloc is L2_loadalignb_pi_s4_0_0 [ reloc = L2_loadalignb_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
@@ -10679,11 +10703,13 @@ S2_storerb_io_s11_0: reloc is immext = 0xffffffff & S2_storerb_io_s11_0_0 & S2_s
 
 S2_storerb_pi_s4_0: reloc is S2_storerb_pi_s4_0_0 [ reloc = S2_storerb_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
-S4_storerb_ap_U6: reloc is S4_storerb_ap_U6_0 [ reloc = S4_storerb_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerb_ap_U6: reloc is                       S4_storerb_ap_U6_0 [ reloc = (((S4_storerb_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerb_ap_U6: reloc is immext = 0xffffffff & S4_storerb_ap_U6_0 [ reloc = S4_storerb_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerb_ur_u2: reloc is S4_storerb_ur_u2_0 & S4_storerb_ur_u2_1 [ reloc = (S4_storerb_ur_u2_0 << 0) + (S4_storerb_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerb_ur_U6: reloc is S4_storerb_ur_U6_0 [ reloc = S4_storerb_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerb_ur_U6: reloc is                       S4_storerb_ur_U6_0 [ reloc = (((S4_storerb_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerb_ur_U6: reloc is immext = 0xffffffff & S4_storerb_ur_U6_0 [ reloc = S4_storerb_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerb_pci_s4_0: reloc is S2_storerb_pci_s4_0_0 [ reloc = S2_storerb_pci_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
@@ -10692,11 +10718,13 @@ S2_storerh_io_s11_1: reloc is immext = 0xffffffff & S2_storerh_io_s11_1_0 & S2_s
 
 S2_storerh_pi_s4_1: reloc is S2_storerh_pi_s4_1_0 [ reloc = (S2_storerh_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-S4_storerh_ap_U6: reloc is S4_storerh_ap_U6_0 [ reloc = S4_storerh_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerh_ap_U6: reloc is                       S4_storerh_ap_U6_0 [ reloc = (((S4_storerh_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerh_ap_U6: reloc is immext = 0xffffffff & S4_storerh_ap_U6_0 [ reloc = S4_storerh_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerh_ur_u2: reloc is S4_storerh_ur_u2_0 & S4_storerh_ur_u2_1 [ reloc = (S4_storerh_ur_u2_0 << 0) + (S4_storerh_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerh_ur_U6: reloc is S4_storerh_ur_U6_0 [ reloc = S4_storerh_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerh_ur_U6: reloc is                       S4_storerh_ur_U6_0 [ reloc = (((S4_storerh_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerh_ur_U6: reloc is immext = 0xffffffff & S4_storerh_ur_U6_0 [ reloc = S4_storerh_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerh_pci_s4_1: reloc is S2_storerh_pci_s4_1_0 [ reloc = (S2_storerh_pci_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10705,11 +10733,13 @@ S2_storerf_io_s11_1: reloc is immext = 0xffffffff & S2_storerf_io_s11_1_0 & S2_s
 
 S2_storerf_pi_s4_1: reloc is S2_storerf_pi_s4_1_0 [ reloc = (S2_storerf_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-S4_storerf_ap_U6: reloc is S4_storerf_ap_U6_0 [ reloc = S4_storerf_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerf_ap_U6: reloc is                       S4_storerf_ap_U6_0 [ reloc = (((S4_storerf_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerf_ap_U6: reloc is immext = 0xffffffff & S4_storerf_ap_U6_0 [ reloc = S4_storerf_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerf_ur_u2: reloc is S4_storerf_ur_u2_0 & S4_storerf_ur_u2_1 [ reloc = (S4_storerf_ur_u2_0 << 0) + (S4_storerf_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerf_ur_U6: reloc is S4_storerf_ur_U6_0 [ reloc = S4_storerf_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerf_ur_U6: reloc is                       S4_storerf_ur_U6_0 [ reloc = (((S4_storerf_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerf_ur_U6: reloc is immext = 0xffffffff & S4_storerf_ur_U6_0 [ reloc = S4_storerf_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerf_pci_s4_1: reloc is S2_storerf_pci_s4_1_0 [ reloc = (S2_storerf_pci_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10718,11 +10748,13 @@ S2_storeri_io_s11_2: reloc is immext = 0xffffffff & S2_storeri_io_s11_2_0 & S2_s
 
 S2_storeri_pi_s4_2: reloc is S2_storeri_pi_s4_2_0 [ reloc = (S2_storeri_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
-S4_storeri_ap_U6: reloc is S4_storeri_ap_U6_0 [ reloc = S4_storeri_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storeri_ap_U6: reloc is                       S4_storeri_ap_U6_0 [ reloc = (((S4_storeri_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storeri_ap_U6: reloc is immext = 0xffffffff & S4_storeri_ap_U6_0 [ reloc = S4_storeri_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storeri_ur_u2: reloc is S4_storeri_ur_u2_0 & S4_storeri_ur_u2_1 [ reloc = (S4_storeri_ur_u2_0 << 0) + (S4_storeri_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storeri_ur_U6: reloc is S4_storeri_ur_U6_0 [ reloc = S4_storeri_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storeri_ur_U6: reloc is                       S4_storeri_ur_U6_0 [ reloc = (((S4_storeri_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storeri_ur_U6: reloc is immext = 0xffffffff & S4_storeri_ur_U6_0 [ reloc = S4_storeri_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storeri_pci_s4_2: reloc is S2_storeri_pci_s4_2_0 [ reloc = (S2_storeri_pci_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
@@ -10731,11 +10763,13 @@ S2_storerd_io_s11_3: reloc is immext = 0xffffffff & S2_storerd_io_s11_3_0 & S2_s
 
 S2_storerd_pi_s4_3: reloc is S2_storerd_pi_s4_3_0 [ reloc = (S2_storerd_pi_s4_3_0 << 0) << 3; ] { export *[const]:4 reloc; }
 
-S4_storerd_ap_U6: reloc is S4_storerd_ap_U6_0 [ reloc = S4_storerd_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerd_ap_U6: reloc is                       S4_storerd_ap_U6_0 [ reloc = (((S4_storerd_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerd_ap_U6: reloc is immext = 0xffffffff & S4_storerd_ap_U6_0 [ reloc = S4_storerd_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerd_ur_u2: reloc is S4_storerd_ur_u2_0 & S4_storerd_ur_u2_1 [ reloc = (S4_storerd_ur_u2_0 << 0) + (S4_storerd_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerd_ur_U6: reloc is S4_storerd_ur_U6_0 [ reloc = S4_storerd_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerd_ur_U6: reloc is                       S4_storerd_ur_U6_0 [ reloc = (((S4_storerd_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerd_ur_U6: reloc is immext = 0xffffffff & S4_storerd_ur_U6_0 [ reloc = S4_storerd_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerd_pci_s4_3: reloc is S2_storerd_pci_s4_3_0 [ reloc = (S2_storerd_pci_s4_3_0 << 0) << 3; ] { export *[const]:4 reloc; }
 
@@ -10744,11 +10778,13 @@ S2_storerinew_io_s11_2: reloc is immext = 0xffffffff & S2_storerinew_io_s11_2_0 
 
 S2_storerinew_pi_s4_2: reloc is S2_storerinew_pi_s4_2_0 [ reloc = (S2_storerinew_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
-S4_storerinew_ap_U6: reloc is S4_storerinew_ap_U6_0 [ reloc = S4_storerinew_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerinew_ap_U6: reloc is                       S4_storerinew_ap_U6_0 [ reloc = (((S4_storerinew_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerinew_ap_U6: reloc is immext = 0xffffffff & S4_storerinew_ap_U6_0 [ reloc = S4_storerinew_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerinew_ur_u2: reloc is S4_storerinew_ur_u2_0 & S4_storerinew_ur_u2_1 [ reloc = (S4_storerinew_ur_u2_0 << 0) + (S4_storerinew_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerinew_ur_U6: reloc is S4_storerinew_ur_U6_0 [ reloc = S4_storerinew_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerinew_ur_U6: reloc is                       S4_storerinew_ur_U6_0 [ reloc = (((S4_storerinew_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerinew_ur_U6: reloc is immext = 0xffffffff & S4_storerinew_ur_U6_0 [ reloc = S4_storerinew_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerinew_pci_s4_2: reloc is S2_storerinew_pci_s4_2_0 [ reloc = (S2_storerinew_pci_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
@@ -10757,11 +10793,13 @@ S2_storerbnew_io_s11_0: reloc is immext = 0xffffffff & S2_storerbnew_io_s11_0_0 
 
 S2_storerbnew_pi_s4_0: reloc is S2_storerbnew_pi_s4_0_0 [ reloc = S2_storerbnew_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
-S4_storerbnew_ap_U6: reloc is S4_storerbnew_ap_U6_0 [ reloc = S4_storerbnew_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerbnew_ap_U6: reloc is                       S4_storerbnew_ap_U6_0 [ reloc = (((S4_storerbnew_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerbnew_ap_U6: reloc is immext = 0xffffffff & S4_storerbnew_ap_U6_0 [ reloc = S4_storerbnew_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerbnew_ur_u2: reloc is S4_storerbnew_ur_u2_0 & S4_storerbnew_ur_u2_1 [ reloc = (S4_storerbnew_ur_u2_0 << 0) + (S4_storerbnew_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerbnew_ur_U6: reloc is S4_storerbnew_ur_U6_0 [ reloc = S4_storerbnew_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerbnew_ur_U6: reloc is                       S4_storerbnew_ur_U6_0 [ reloc = (((S4_storerbnew_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerbnew_ur_U6: reloc is immext = 0xffffffff & S4_storerbnew_ur_U6_0 [ reloc = S4_storerbnew_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerbnew_pci_s4_0: reloc is S2_storerbnew_pci_s4_0_0 [ reloc = S2_storerbnew_pci_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
@@ -10770,11 +10808,13 @@ S2_storerhnew_io_s11_1: reloc is immext = 0xffffffff & S2_storerhnew_io_s11_1_0 
 
 S2_storerhnew_pi_s4_1: reloc is S2_storerhnew_pi_s4_1_0 [ reloc = (S2_storerhnew_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-S4_storerhnew_ap_U6: reloc is S4_storerhnew_ap_U6_0 [ reloc = S4_storerhnew_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerhnew_ap_U6: reloc is                       S4_storerhnew_ap_U6_0 [ reloc = (((S4_storerhnew_ap_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerhnew_ap_U6: reloc is immext = 0xffffffff & S4_storerhnew_ap_U6_0 [ reloc = S4_storerhnew_ap_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S4_storerhnew_ur_u2: reloc is S4_storerhnew_ur_u2_0 & S4_storerhnew_ur_u2_1 [ reloc = (S4_storerhnew_ur_u2_0 << 0) + (S4_storerhnew_ur_u2_1 << 1); ] { export *[const]:4 reloc; }
 
-S4_storerhnew_ur_U6: reloc is S4_storerhnew_ur_U6_0 [ reloc = S4_storerhnew_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
+S4_storerhnew_ur_U6: reloc is                       S4_storerhnew_ur_U6_0 [ reloc = (((S4_storerhnew_ur_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_storerhnew_ur_U6: reloc is immext = 0xffffffff & S4_storerhnew_ur_U6_0 [ reloc = S4_storerhnew_ur_U6_0 << 0; ] { export *[const]:4 reloc; }
 
 S2_storerhnew_pci_s4_1: reloc is S2_storerhnew_pci_s4_1_0 [ reloc = (S2_storerhnew_pci_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
@@ -10810,13 +10850,17 @@ L2_ploadrubtnew_pi_s4_0: reloc is L2_ploadrubtnew_pi_s4_0_0 [ reloc = L2_ploadru
 
 L2_ploadrubfnew_pi_s4_0: reloc is L2_ploadrubfnew_pi_s4_0_0 [ reloc = L2_ploadrubfnew_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
-L4_ploadrubt_abs_u6: reloc is L4_ploadrubt_abs_u6_0 & L4_ploadrubt_abs_u6_1 [ reloc = (L4_ploadrubt_abs_u6_0 << 0) + (L4_ploadrubt_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrubt_abs_u6: reloc is                       L4_ploadrubt_abs_u6_0 & L4_ploadrubt_abs_u6_1 [ reloc = ((((L4_ploadrubt_abs_u6_0 << 0) + (L4_ploadrubt_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrubt_abs_u6: reloc is immext = 0xffffffff & L4_ploadrubt_abs_u6_0 & L4_ploadrubt_abs_u6_1 [ reloc = (L4_ploadrubt_abs_u6_0 << 0) + (L4_ploadrubt_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrubf_abs_u6: reloc is L4_ploadrubf_abs_u6_0 & L4_ploadrubf_abs_u6_1 [ reloc = (L4_ploadrubf_abs_u6_0 << 0) + (L4_ploadrubf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrubf_abs_u6: reloc is                       L4_ploadrubf_abs_u6_0 & L4_ploadrubf_abs_u6_1 [ reloc = ((((L4_ploadrubf_abs_u6_0 << 0) + (L4_ploadrubf_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrubf_abs_u6: reloc is immext = 0xffffffff & L4_ploadrubf_abs_u6_0 & L4_ploadrubf_abs_u6_1 [ reloc = (L4_ploadrubf_abs_u6_0 << 0) + (L4_ploadrubf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrubtnew_abs_u6: reloc is L4_ploadrubtnew_abs_u6_0 & L4_ploadrubtnew_abs_u6_1 [ reloc = (L4_ploadrubtnew_abs_u6_0 << 0) + (L4_ploadrubtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrubtnew_abs_u6: reloc is                       L4_ploadrubtnew_abs_u6_0 & L4_ploadrubtnew_abs_u6_1 [ reloc = ((((L4_ploadrubtnew_abs_u6_0 << 0) + (L4_ploadrubtnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrubtnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrubtnew_abs_u6_0 & L4_ploadrubtnew_abs_u6_1 [ reloc = (L4_ploadrubtnew_abs_u6_0 << 0) + (L4_ploadrubtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrubfnew_abs_u6: reloc is L4_ploadrubfnew_abs_u6_0 & L4_ploadrubfnew_abs_u6_1 [ reloc = (L4_ploadrubfnew_abs_u6_0 << 0) + (L4_ploadrubfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrubfnew_abs_u6: reloc is                       L4_ploadrubfnew_abs_u6_0 & L4_ploadrubfnew_abs_u6_1 [ reloc = ((((L4_ploadrubfnew_abs_u6_0 << 0) + (L4_ploadrubfnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrubfnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrubfnew_abs_u6_0 & L4_ploadrubfnew_abs_u6_1 [ reloc = (L4_ploadrubfnew_abs_u6_0 << 0) + (L4_ploadrubfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
 L4_loadrb_rr_u2: reloc is L4_loadrb_rr_u2_0 & L4_loadrb_rr_u2_1 [ reloc = (L4_loadrb_rr_u2_0 << 0) + (L4_loadrb_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -10848,13 +10892,17 @@ L2_ploadrbtnew_pi_s4_0: reloc is L2_ploadrbtnew_pi_s4_0_0 [ reloc = L2_ploadrbtn
 
 L2_ploadrbfnew_pi_s4_0: reloc is L2_ploadrbfnew_pi_s4_0_0 [ reloc = L2_ploadrbfnew_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
-L4_ploadrbt_abs_u6: reloc is L4_ploadrbt_abs_u6_0 & L4_ploadrbt_abs_u6_1 [ reloc = (L4_ploadrbt_abs_u6_0 << 0) + (L4_ploadrbt_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrbt_abs_u6: reloc is                       L4_ploadrbt_abs_u6_0 & L4_ploadrbt_abs_u6_1 [ reloc = ((((L4_ploadrbt_abs_u6_0 << 0) + (L4_ploadrbt_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrbt_abs_u6: reloc is immext = 0xffffffff & L4_ploadrbt_abs_u6_0 & L4_ploadrbt_abs_u6_1 [ reloc = (L4_ploadrbt_abs_u6_0 << 0) + (L4_ploadrbt_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrbf_abs_u6: reloc is L4_ploadrbf_abs_u6_0 & L4_ploadrbf_abs_u6_1 [ reloc = (L4_ploadrbf_abs_u6_0 << 0) + (L4_ploadrbf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrbf_abs_u6: reloc is                       L4_ploadrbf_abs_u6_0 & L4_ploadrbf_abs_u6_1 [ reloc = ((((L4_ploadrbf_abs_u6_0 << 0) + (L4_ploadrbf_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrbf_abs_u6: reloc is immext = 0xffffffff & L4_ploadrbf_abs_u6_0 & L4_ploadrbf_abs_u6_1 [ reloc = (L4_ploadrbf_abs_u6_0 << 0) + (L4_ploadrbf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrbtnew_abs_u6: reloc is L4_ploadrbtnew_abs_u6_0 & L4_ploadrbtnew_abs_u6_1 [ reloc = (L4_ploadrbtnew_abs_u6_0 << 0) + (L4_ploadrbtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrbtnew_abs_u6: reloc is                       L4_ploadrbtnew_abs_u6_0 & L4_ploadrbtnew_abs_u6_1 [ reloc = ((((L4_ploadrbtnew_abs_u6_0 << 0) + (L4_ploadrbtnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrbtnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrbtnew_abs_u6_0 & L4_ploadrbtnew_abs_u6_1 [ reloc = (L4_ploadrbtnew_abs_u6_0 << 0) + (L4_ploadrbtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrbfnew_abs_u6: reloc is L4_ploadrbfnew_abs_u6_0 & L4_ploadrbfnew_abs_u6_1 [ reloc = (L4_ploadrbfnew_abs_u6_0 << 0) + (L4_ploadrbfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrbfnew_abs_u6: reloc is                       L4_ploadrbfnew_abs_u6_0 & L4_ploadrbfnew_abs_u6_1 [ reloc = ((((L4_ploadrbfnew_abs_u6_0 << 0) + (L4_ploadrbfnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrbfnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrbfnew_abs_u6_0 & L4_ploadrbfnew_abs_u6_1 [ reloc = (L4_ploadrbfnew_abs_u6_0 << 0) + (L4_ploadrbfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
 L4_loadruh_rr_u2: reloc is L4_loadruh_rr_u2_0 & L4_loadruh_rr_u2_1 [ reloc = (L4_loadruh_rr_u2_0 << 0) + (L4_loadruh_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -10886,13 +10934,17 @@ L2_ploadruhtnew_pi_s4_1: reloc is L2_ploadruhtnew_pi_s4_1_0 [ reloc = (L2_ploadr
 
 L2_ploadruhfnew_pi_s4_1: reloc is L2_ploadruhfnew_pi_s4_1_0 [ reloc = (L2_ploadruhfnew_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-L4_ploadruht_abs_u6: reloc is L4_ploadruht_abs_u6_0 & L4_ploadruht_abs_u6_1 [ reloc = (L4_ploadruht_abs_u6_0 << 0) + (L4_ploadruht_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadruht_abs_u6: reloc is                       L4_ploadruht_abs_u6_0 & L4_ploadruht_abs_u6_1 [ reloc = ((((L4_ploadruht_abs_u6_0 << 0) + (L4_ploadruht_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadruht_abs_u6: reloc is immext = 0xffffffff & L4_ploadruht_abs_u6_0 & L4_ploadruht_abs_u6_1 [ reloc = (L4_ploadruht_abs_u6_0 << 0) + (L4_ploadruht_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadruhf_abs_u6: reloc is L4_ploadruhf_abs_u6_0 & L4_ploadruhf_abs_u6_1 [ reloc = (L4_ploadruhf_abs_u6_0 << 0) + (L4_ploadruhf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadruhf_abs_u6: reloc is                       L4_ploadruhf_abs_u6_0 & L4_ploadruhf_abs_u6_1 [ reloc = ((((L4_ploadruhf_abs_u6_0 << 0) + (L4_ploadruhf_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadruhf_abs_u6: reloc is immext = 0xffffffff & L4_ploadruhf_abs_u6_0 & L4_ploadruhf_abs_u6_1 [ reloc = (L4_ploadruhf_abs_u6_0 << 0) + (L4_ploadruhf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadruhtnew_abs_u6: reloc is L4_ploadruhtnew_abs_u6_0 & L4_ploadruhtnew_abs_u6_1 [ reloc = (L4_ploadruhtnew_abs_u6_0 << 0) + (L4_ploadruhtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadruhtnew_abs_u6: reloc is                       L4_ploadruhtnew_abs_u6_0 & L4_ploadruhtnew_abs_u6_1 [ reloc = ((((L4_ploadruhtnew_abs_u6_0 << 0) + (L4_ploadruhtnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadruhtnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadruhtnew_abs_u6_0 & L4_ploadruhtnew_abs_u6_1 [ reloc = (L4_ploadruhtnew_abs_u6_0 << 0) + (L4_ploadruhtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadruhfnew_abs_u6: reloc is L4_ploadruhfnew_abs_u6_0 & L4_ploadruhfnew_abs_u6_1 [ reloc = (L4_ploadruhfnew_abs_u6_0 << 0) + (L4_ploadruhfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadruhfnew_abs_u6: reloc is                       L4_ploadruhfnew_abs_u6_0 & L4_ploadruhfnew_abs_u6_1 [ reloc = ((((L4_ploadruhfnew_abs_u6_0 << 0) + (L4_ploadruhfnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadruhfnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadruhfnew_abs_u6_0 & L4_ploadruhfnew_abs_u6_1 [ reloc = (L4_ploadruhfnew_abs_u6_0 << 0) + (L4_ploadruhfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
 L4_loadrh_rr_u2: reloc is L4_loadrh_rr_u2_0 & L4_loadrh_rr_u2_1 [ reloc = (L4_loadrh_rr_u2_0 << 0) + (L4_loadrh_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -10924,13 +10976,17 @@ L2_ploadrhtnew_pi_s4_1: reloc is L2_ploadrhtnew_pi_s4_1_0 [ reloc = (L2_ploadrht
 
 L2_ploadrhfnew_pi_s4_1: reloc is L2_ploadrhfnew_pi_s4_1_0 [ reloc = (L2_ploadrhfnew_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-L4_ploadrht_abs_u6: reloc is L4_ploadrht_abs_u6_0 & L4_ploadrht_abs_u6_1 [ reloc = (L4_ploadrht_abs_u6_0 << 0) + (L4_ploadrht_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrht_abs_u6: reloc is                       L4_ploadrht_abs_u6_0 & L4_ploadrht_abs_u6_1 [ reloc = ((((L4_ploadrht_abs_u6_0 << 0) + (L4_ploadrht_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrht_abs_u6: reloc is immext = 0xffffffff & L4_ploadrht_abs_u6_0 & L4_ploadrht_abs_u6_1 [ reloc = (L4_ploadrht_abs_u6_0 << 0) + (L4_ploadrht_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrhf_abs_u6: reloc is L4_ploadrhf_abs_u6_0 & L4_ploadrhf_abs_u6_1 [ reloc = (L4_ploadrhf_abs_u6_0 << 0) + (L4_ploadrhf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrhf_abs_u6: reloc is                       L4_ploadrhf_abs_u6_0 & L4_ploadrhf_abs_u6_1 [ reloc = ((((L4_ploadrhf_abs_u6_0 << 0) + (L4_ploadrhf_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrhf_abs_u6: reloc is immext = 0xffffffff & L4_ploadrhf_abs_u6_0 & L4_ploadrhf_abs_u6_1 [ reloc = (L4_ploadrhf_abs_u6_0 << 0) + (L4_ploadrhf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrhtnew_abs_u6: reloc is L4_ploadrhtnew_abs_u6_0 & L4_ploadrhtnew_abs_u6_1 [ reloc = (L4_ploadrhtnew_abs_u6_0 << 0) + (L4_ploadrhtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrhtnew_abs_u6: reloc is                       L4_ploadrhtnew_abs_u6_0 & L4_ploadrhtnew_abs_u6_1 [ reloc = ((((L4_ploadrhtnew_abs_u6_0 << 0) + (L4_ploadrhtnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrhtnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrhtnew_abs_u6_0 & L4_ploadrhtnew_abs_u6_1 [ reloc = (L4_ploadrhtnew_abs_u6_0 << 0) + (L4_ploadrhtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrhfnew_abs_u6: reloc is L4_ploadrhfnew_abs_u6_0 & L4_ploadrhfnew_abs_u6_1 [ reloc = (L4_ploadrhfnew_abs_u6_0 << 0) + (L4_ploadrhfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrhfnew_abs_u6: reloc is                       L4_ploadrhfnew_abs_u6_0 & L4_ploadrhfnew_abs_u6_1 [ reloc = ((((L4_ploadrhfnew_abs_u6_0 << 0) + (L4_ploadrhfnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrhfnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrhfnew_abs_u6_0 & L4_ploadrhfnew_abs_u6_1 [ reloc = (L4_ploadrhfnew_abs_u6_0 << 0) + (L4_ploadrhfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
 L4_loadri_rr_u2: reloc is L4_loadri_rr_u2_0 & L4_loadri_rr_u2_1 [ reloc = (L4_loadri_rr_u2_0 << 0) + (L4_loadri_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -10962,13 +11018,17 @@ L2_ploadritnew_pi_s4_2: reloc is L2_ploadritnew_pi_s4_2_0 [ reloc = (L2_ploadrit
 
 L2_ploadrifnew_pi_s4_2: reloc is L2_ploadrifnew_pi_s4_2_0 [ reloc = (L2_ploadrifnew_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
-L4_ploadrit_abs_u6: reloc is L4_ploadrit_abs_u6_0 & L4_ploadrit_abs_u6_1 [ reloc = (L4_ploadrit_abs_u6_0 << 0) + (L4_ploadrit_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrit_abs_u6: reloc is                       L4_ploadrit_abs_u6_0 & L4_ploadrit_abs_u6_1 [ reloc = ((((L4_ploadrit_abs_u6_0 << 0) + (L4_ploadrit_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrit_abs_u6: reloc is immext = 0xffffffff & L4_ploadrit_abs_u6_0 & L4_ploadrit_abs_u6_1 [ reloc = (L4_ploadrit_abs_u6_0 << 0) + (L4_ploadrit_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrif_abs_u6: reloc is L4_ploadrif_abs_u6_0 & L4_ploadrif_abs_u6_1 [ reloc = (L4_ploadrif_abs_u6_0 << 0) + (L4_ploadrif_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrif_abs_u6: reloc is                       L4_ploadrif_abs_u6_0 & L4_ploadrif_abs_u6_1 [ reloc = ((((L4_ploadrif_abs_u6_0 << 0) + (L4_ploadrif_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrif_abs_u6: reloc is immext = 0xffffffff & L4_ploadrif_abs_u6_0 & L4_ploadrif_abs_u6_1 [ reloc = (L4_ploadrif_abs_u6_0 << 0) + (L4_ploadrif_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadritnew_abs_u6: reloc is L4_ploadritnew_abs_u6_0 & L4_ploadritnew_abs_u6_1 [ reloc = (L4_ploadritnew_abs_u6_0 << 0) + (L4_ploadritnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadritnew_abs_u6: reloc is                       L4_ploadritnew_abs_u6_0 & L4_ploadritnew_abs_u6_1 [ reloc = ((((L4_ploadritnew_abs_u6_0 << 0) + (L4_ploadritnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadritnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadritnew_abs_u6_0 & L4_ploadritnew_abs_u6_1 [ reloc = (L4_ploadritnew_abs_u6_0 << 0) + (L4_ploadritnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrifnew_abs_u6: reloc is L4_ploadrifnew_abs_u6_0 & L4_ploadrifnew_abs_u6_1 [ reloc = (L4_ploadrifnew_abs_u6_0 << 0) + (L4_ploadrifnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrifnew_abs_u6: reloc is                       L4_ploadrifnew_abs_u6_0 & L4_ploadrifnew_abs_u6_1 [ reloc = ((((L4_ploadrifnew_abs_u6_0 << 0) + (L4_ploadrifnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrifnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrifnew_abs_u6_0 & L4_ploadrifnew_abs_u6_1 [ reloc = (L4_ploadrifnew_abs_u6_0 << 0) + (L4_ploadrifnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
 L4_loadrd_rr_u2: reloc is L4_loadrd_rr_u2_0 & L4_loadrd_rr_u2_1 [ reloc = (L4_loadrd_rr_u2_0 << 0) + (L4_loadrd_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11000,13 +11060,17 @@ L2_ploadrdtnew_pi_s4_3: reloc is L2_ploadrdtnew_pi_s4_3_0 [ reloc = (L2_ploadrdt
 
 L2_ploadrdfnew_pi_s4_3: reloc is L2_ploadrdfnew_pi_s4_3_0 [ reloc = (L2_ploadrdfnew_pi_s4_3_0 << 0) << 3; ] { export *[const]:4 reloc; }
 
-L4_ploadrdt_abs_u6: reloc is L4_ploadrdt_abs_u6_0 & L4_ploadrdt_abs_u6_1 [ reloc = (L4_ploadrdt_abs_u6_0 << 0) + (L4_ploadrdt_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrdt_abs_u6: reloc is                       L4_ploadrdt_abs_u6_0 & L4_ploadrdt_abs_u6_1 [ reloc = ((((L4_ploadrdt_abs_u6_0 << 0) + (L4_ploadrdt_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrdt_abs_u6: reloc is immext = 0xffffffff & L4_ploadrdt_abs_u6_0 & L4_ploadrdt_abs_u6_1 [ reloc = (L4_ploadrdt_abs_u6_0 << 0) + (L4_ploadrdt_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrdf_abs_u6: reloc is L4_ploadrdf_abs_u6_0 & L4_ploadrdf_abs_u6_1 [ reloc = (L4_ploadrdf_abs_u6_0 << 0) + (L4_ploadrdf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrdf_abs_u6: reloc is                       L4_ploadrdf_abs_u6_0 & L4_ploadrdf_abs_u6_1 [ reloc = ((((L4_ploadrdf_abs_u6_0 << 0) + (L4_ploadrdf_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrdf_abs_u6: reloc is immext = 0xffffffff & L4_ploadrdf_abs_u6_0 & L4_ploadrdf_abs_u6_1 [ reloc = (L4_ploadrdf_abs_u6_0 << 0) + (L4_ploadrdf_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrdtnew_abs_u6: reloc is L4_ploadrdtnew_abs_u6_0 & L4_ploadrdtnew_abs_u6_1 [ reloc = (L4_ploadrdtnew_abs_u6_0 << 0) + (L4_ploadrdtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrdtnew_abs_u6: reloc is                       L4_ploadrdtnew_abs_u6_0 & L4_ploadrdtnew_abs_u6_1 [ reloc = ((((L4_ploadrdtnew_abs_u6_0 << 0) + (L4_ploadrdtnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrdtnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrdtnew_abs_u6_0 & L4_ploadrdtnew_abs_u6_1 [ reloc = (L4_ploadrdtnew_abs_u6_0 << 0) + (L4_ploadrdtnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
-L4_ploadrdfnew_abs_u6: reloc is L4_ploadrdfnew_abs_u6_0 & L4_ploadrdfnew_abs_u6_1 [ reloc = (L4_ploadrdfnew_abs_u6_0 << 0) + (L4_ploadrdfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
+L4_ploadrdfnew_abs_u6: reloc is                       L4_ploadrdfnew_abs_u6_0 & L4_ploadrdfnew_abs_u6_1 [ reloc = ((((L4_ploadrdfnew_abs_u6_0 << 0) + (L4_ploadrdfnew_abs_u6_1 << 1)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+L4_ploadrdfnew_abs_u6: reloc is immext = 0xffffffff & L4_ploadrdfnew_abs_u6_0 & L4_ploadrdfnew_abs_u6_1 [ reloc = (L4_ploadrdfnew_abs_u6_0 << 0) + (L4_ploadrdfnew_abs_u6_1 << 1); ] { export *[const]:4 reloc; }
 
 S4_storerb_rr_u2: reloc is S4_storerb_rr_u2_0 & S4_storerb_rr_u2_1 [ reloc = (S4_storerb_rr_u2_0 << 0) + (S4_storerb_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11038,13 +11102,17 @@ S2_pstorerbtnew_pi_s4_0: reloc is S2_pstorerbtnew_pi_s4_0_0 [ reloc = S2_pstorer
 
 S2_pstorerbfnew_pi_s4_0: reloc is S2_pstorerbfnew_pi_s4_0_0 [ reloc = S2_pstorerbfnew_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
-S4_pstorerbt_abs_u6: reloc is S4_pstorerbt_abs_u6_0 & S4_pstorerbt_abs_u6_1 [ reloc = (S4_pstorerbt_abs_u6_0 << 0) + (S4_pstorerbt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbt_abs_u6: reloc is                       S4_pstorerbt_abs_u6_0 & S4_pstorerbt_abs_u6_1 [ reloc = ((((S4_pstorerbt_abs_u6_0 << 0) + (S4_pstorerbt_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbt_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbt_abs_u6_0 & S4_pstorerbt_abs_u6_1 [ reloc = (S4_pstorerbt_abs_u6_0 << 0) + (S4_pstorerbt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerbf_abs_u6: reloc is S4_pstorerbf_abs_u6_0 & S4_pstorerbf_abs_u6_1 [ reloc = (S4_pstorerbf_abs_u6_0 << 0) + (S4_pstorerbf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbf_abs_u6: reloc is                       S4_pstorerbf_abs_u6_0 & S4_pstorerbf_abs_u6_1 [ reloc = ((((S4_pstorerbf_abs_u6_0 << 0) + (S4_pstorerbf_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbf_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbf_abs_u6_0 & S4_pstorerbf_abs_u6_1 [ reloc = (S4_pstorerbf_abs_u6_0 << 0) + (S4_pstorerbf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerbtnew_abs_u6: reloc is S4_pstorerbtnew_abs_u6_0 & S4_pstorerbtnew_abs_u6_1 [ reloc = (S4_pstorerbtnew_abs_u6_0 << 0) + (S4_pstorerbtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbtnew_abs_u6: reloc is                       S4_pstorerbtnew_abs_u6_0 & S4_pstorerbtnew_abs_u6_1 [ reloc = ((((S4_pstorerbtnew_abs_u6_0 << 0) + (S4_pstorerbtnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbtnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbtnew_abs_u6_0 & S4_pstorerbtnew_abs_u6_1 [ reloc = (S4_pstorerbtnew_abs_u6_0 << 0) + (S4_pstorerbtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerbfnew_abs_u6: reloc is S4_pstorerbfnew_abs_u6_0 & S4_pstorerbfnew_abs_u6_1 [ reloc = (S4_pstorerbfnew_abs_u6_0 << 0) + (S4_pstorerbfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbfnew_abs_u6: reloc is                       S4_pstorerbfnew_abs_u6_0 & S4_pstorerbfnew_abs_u6_1 [ reloc = ((((S4_pstorerbfnew_abs_u6_0 << 0) + (S4_pstorerbfnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbfnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbfnew_abs_u6_0 & S4_pstorerbfnew_abs_u6_1 [ reloc = (S4_pstorerbfnew_abs_u6_0 << 0) + (S4_pstorerbfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storerh_rr_u2: reloc is S4_storerh_rr_u2_0 & S4_storerh_rr_u2_1 [ reloc = (S4_storerh_rr_u2_0 << 0) + (S4_storerh_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11076,13 +11144,17 @@ S2_pstorerhtnew_pi_s4_1: reloc is S2_pstorerhtnew_pi_s4_1_0 [ reloc = (S2_pstore
 
 S2_pstorerhfnew_pi_s4_1: reloc is S2_pstorerhfnew_pi_s4_1_0 [ reloc = (S2_pstorerhfnew_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-S4_pstorerht_abs_u6: reloc is S4_pstorerht_abs_u6_0 & S4_pstorerht_abs_u6_1 [ reloc = (S4_pstorerht_abs_u6_0 << 0) + (S4_pstorerht_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerht_abs_u6: reloc is                       S4_pstorerht_abs_u6_0 & S4_pstorerht_abs_u6_1 [ reloc = ((((S4_pstorerht_abs_u6_0 << 0) + (S4_pstorerht_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerht_abs_u6: reloc is immext = 0xffffffff & S4_pstorerht_abs_u6_0 & S4_pstorerht_abs_u6_1 [ reloc = (S4_pstorerht_abs_u6_0 << 0) + (S4_pstorerht_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerhf_abs_u6: reloc is S4_pstorerhf_abs_u6_0 & S4_pstorerhf_abs_u6_1 [ reloc = (S4_pstorerhf_abs_u6_0 << 0) + (S4_pstorerhf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhf_abs_u6: reloc is                       S4_pstorerhf_abs_u6_0 & S4_pstorerhf_abs_u6_1 [ reloc = ((((S4_pstorerhf_abs_u6_0 << 0) + (S4_pstorerhf_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhf_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhf_abs_u6_0 & S4_pstorerhf_abs_u6_1 [ reloc = (S4_pstorerhf_abs_u6_0 << 0) + (S4_pstorerhf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerhtnew_abs_u6: reloc is S4_pstorerhtnew_abs_u6_0 & S4_pstorerhtnew_abs_u6_1 [ reloc = (S4_pstorerhtnew_abs_u6_0 << 0) + (S4_pstorerhtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhtnew_abs_u6: reloc is                       S4_pstorerhtnew_abs_u6_0 & S4_pstorerhtnew_abs_u6_1 [ reloc = ((((S4_pstorerhtnew_abs_u6_0 << 0) + (S4_pstorerhtnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhtnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhtnew_abs_u6_0 & S4_pstorerhtnew_abs_u6_1 [ reloc = (S4_pstorerhtnew_abs_u6_0 << 0) + (S4_pstorerhtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerhfnew_abs_u6: reloc is S4_pstorerhfnew_abs_u6_0 & S4_pstorerhfnew_abs_u6_1 [ reloc = (S4_pstorerhfnew_abs_u6_0 << 0) + (S4_pstorerhfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhfnew_abs_u6: reloc is                       S4_pstorerhfnew_abs_u6_0 & S4_pstorerhfnew_abs_u6_1 [ reloc = ((((S4_pstorerhfnew_abs_u6_0 << 0) + (S4_pstorerhfnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhfnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhfnew_abs_u6_0 & S4_pstorerhfnew_abs_u6_1 [ reloc = (S4_pstorerhfnew_abs_u6_0 << 0) + (S4_pstorerhfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storerf_rr_u2: reloc is S4_storerf_rr_u2_0 & S4_storerf_rr_u2_1 [ reloc = (S4_storerf_rr_u2_0 << 0) + (S4_storerf_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11114,13 +11186,17 @@ S2_pstorerftnew_pi_s4_1: reloc is S2_pstorerftnew_pi_s4_1_0 [ reloc = (S2_pstore
 
 S2_pstorerffnew_pi_s4_1: reloc is S2_pstorerffnew_pi_s4_1_0 [ reloc = (S2_pstorerffnew_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-S4_pstorerft_abs_u6: reloc is S4_pstorerft_abs_u6_0 & S4_pstorerft_abs_u6_1 [ reloc = (S4_pstorerft_abs_u6_0 << 0) + (S4_pstorerft_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerft_abs_u6: reloc is                       S4_pstorerft_abs_u6_0 & S4_pstorerft_abs_u6_1 [ reloc = ((((S4_pstorerft_abs_u6_0 << 0) + (S4_pstorerft_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerft_abs_u6: reloc is immext = 0xffffffff & S4_pstorerft_abs_u6_0 & S4_pstorerft_abs_u6_1 [ reloc = (S4_pstorerft_abs_u6_0 << 0) + (S4_pstorerft_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerff_abs_u6: reloc is S4_pstorerff_abs_u6_0 & S4_pstorerff_abs_u6_1 [ reloc = (S4_pstorerff_abs_u6_0 << 0) + (S4_pstorerff_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerff_abs_u6: reloc is                       S4_pstorerff_abs_u6_0 & S4_pstorerff_abs_u6_1 [ reloc = ((((S4_pstorerff_abs_u6_0 << 0) + (S4_pstorerff_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerff_abs_u6: reloc is immext = 0xffffffff & S4_pstorerff_abs_u6_0 & S4_pstorerff_abs_u6_1 [ reloc = (S4_pstorerff_abs_u6_0 << 0) + (S4_pstorerff_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerftnew_abs_u6: reloc is S4_pstorerftnew_abs_u6_0 & S4_pstorerftnew_abs_u6_1 [ reloc = (S4_pstorerftnew_abs_u6_0 << 0) + (S4_pstorerftnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerftnew_abs_u6: reloc is                       S4_pstorerftnew_abs_u6_0 & S4_pstorerftnew_abs_u6_1 [ reloc = ((((S4_pstorerftnew_abs_u6_0 << 0) + (S4_pstorerftnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerftnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerftnew_abs_u6_0 & S4_pstorerftnew_abs_u6_1 [ reloc = (S4_pstorerftnew_abs_u6_0 << 0) + (S4_pstorerftnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerffnew_abs_u6: reloc is S4_pstorerffnew_abs_u6_0 & S4_pstorerffnew_abs_u6_1 [ reloc = (S4_pstorerffnew_abs_u6_0 << 0) + (S4_pstorerffnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerffnew_abs_u6: reloc is                       S4_pstorerffnew_abs_u6_0 & S4_pstorerffnew_abs_u6_1 [ reloc = ((((S4_pstorerffnew_abs_u6_0 << 0) + (S4_pstorerffnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerffnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerffnew_abs_u6_0 & S4_pstorerffnew_abs_u6_1 [ reloc = (S4_pstorerffnew_abs_u6_0 << 0) + (S4_pstorerffnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storeri_rr_u2: reloc is S4_storeri_rr_u2_0 & S4_storeri_rr_u2_1 [ reloc = (S4_storeri_rr_u2_0 << 0) + (S4_storeri_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11152,13 +11228,17 @@ S2_pstoreritnew_pi_s4_2: reloc is S2_pstoreritnew_pi_s4_2_0 [ reloc = (S2_pstore
 
 S2_pstorerifnew_pi_s4_2: reloc is S2_pstorerifnew_pi_s4_2_0 [ reloc = (S2_pstorerifnew_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
-S4_pstorerit_abs_u6: reloc is S4_pstorerit_abs_u6_0 & S4_pstorerit_abs_u6_1 [ reloc = (S4_pstorerit_abs_u6_0 << 0) + (S4_pstorerit_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerit_abs_u6: reloc is                       S4_pstorerit_abs_u6_0 & S4_pstorerit_abs_u6_1 [ reloc = ((((S4_pstorerit_abs_u6_0 << 0) + (S4_pstorerit_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerit_abs_u6: reloc is immext = 0xffffffff & S4_pstorerit_abs_u6_0 & S4_pstorerit_abs_u6_1 [ reloc = (S4_pstorerit_abs_u6_0 << 0) + (S4_pstorerit_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerif_abs_u6: reloc is S4_pstorerif_abs_u6_0 & S4_pstorerif_abs_u6_1 [ reloc = (S4_pstorerif_abs_u6_0 << 0) + (S4_pstorerif_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerif_abs_u6: reloc is                       S4_pstorerif_abs_u6_0 & S4_pstorerif_abs_u6_1 [ reloc = ((((S4_pstorerif_abs_u6_0 << 0) + (S4_pstorerif_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerif_abs_u6: reloc is immext = 0xffffffff & S4_pstorerif_abs_u6_0 & S4_pstorerif_abs_u6_1 [ reloc = (S4_pstorerif_abs_u6_0 << 0) + (S4_pstorerif_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstoreritnew_abs_u6: reloc is S4_pstoreritnew_abs_u6_0 & S4_pstoreritnew_abs_u6_1 [ reloc = (S4_pstoreritnew_abs_u6_0 << 0) + (S4_pstoreritnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstoreritnew_abs_u6: reloc is                       S4_pstoreritnew_abs_u6_0 & S4_pstoreritnew_abs_u6_1 [ reloc = ((((S4_pstoreritnew_abs_u6_0 << 0) + (S4_pstoreritnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstoreritnew_abs_u6: reloc is immext = 0xffffffff & S4_pstoreritnew_abs_u6_0 & S4_pstoreritnew_abs_u6_1 [ reloc = (S4_pstoreritnew_abs_u6_0 << 0) + (S4_pstoreritnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerifnew_abs_u6: reloc is S4_pstorerifnew_abs_u6_0 & S4_pstorerifnew_abs_u6_1 [ reloc = (S4_pstorerifnew_abs_u6_0 << 0) + (S4_pstorerifnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerifnew_abs_u6: reloc is                       S4_pstorerifnew_abs_u6_0 & S4_pstorerifnew_abs_u6_1 [ reloc = ((((S4_pstorerifnew_abs_u6_0 << 0) + (S4_pstorerifnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerifnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerifnew_abs_u6_0 & S4_pstorerifnew_abs_u6_1 [ reloc = (S4_pstorerifnew_abs_u6_0 << 0) + (S4_pstorerifnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storerd_rr_u2: reloc is S4_storerd_rr_u2_0 & S4_storerd_rr_u2_1 [ reloc = (S4_storerd_rr_u2_0 << 0) + (S4_storerd_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11190,13 +11270,17 @@ S2_pstorerdtnew_pi_s4_3: reloc is S2_pstorerdtnew_pi_s4_3_0 [ reloc = (S2_pstore
 
 S2_pstorerdfnew_pi_s4_3: reloc is S2_pstorerdfnew_pi_s4_3_0 [ reloc = (S2_pstorerdfnew_pi_s4_3_0 << 0) << 3; ] { export *[const]:4 reloc; }
 
-S4_pstorerdt_abs_u6: reloc is S4_pstorerdt_abs_u6_0 & S4_pstorerdt_abs_u6_1 [ reloc = (S4_pstorerdt_abs_u6_0 << 0) + (S4_pstorerdt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerdt_abs_u6: reloc is                       S4_pstorerdt_abs_u6_0 & S4_pstorerdt_abs_u6_1 [ reloc = ((((S4_pstorerdt_abs_u6_0 << 0) + (S4_pstorerdt_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerdt_abs_u6: reloc is immext = 0xffffffff & S4_pstorerdt_abs_u6_0 & S4_pstorerdt_abs_u6_1 [ reloc = (S4_pstorerdt_abs_u6_0 << 0) + (S4_pstorerdt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerdf_abs_u6: reloc is S4_pstorerdf_abs_u6_0 & S4_pstorerdf_abs_u6_1 [ reloc = (S4_pstorerdf_abs_u6_0 << 0) + (S4_pstorerdf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerdf_abs_u6: reloc is                       S4_pstorerdf_abs_u6_0 & S4_pstorerdf_abs_u6_1 [ reloc = ((((S4_pstorerdf_abs_u6_0 << 0) + (S4_pstorerdf_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerdf_abs_u6: reloc is immext = 0xffffffff & S4_pstorerdf_abs_u6_0 & S4_pstorerdf_abs_u6_1 [ reloc = (S4_pstorerdf_abs_u6_0 << 0) + (S4_pstorerdf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerdtnew_abs_u6: reloc is S4_pstorerdtnew_abs_u6_0 & S4_pstorerdtnew_abs_u6_1 [ reloc = (S4_pstorerdtnew_abs_u6_0 << 0) + (S4_pstorerdtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerdtnew_abs_u6: reloc is                       S4_pstorerdtnew_abs_u6_0 & S4_pstorerdtnew_abs_u6_1 [ reloc = ((((S4_pstorerdtnew_abs_u6_0 << 0) + (S4_pstorerdtnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerdtnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerdtnew_abs_u6_0 & S4_pstorerdtnew_abs_u6_1 [ reloc = (S4_pstorerdtnew_abs_u6_0 << 0) + (S4_pstorerdtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerdfnew_abs_u6: reloc is S4_pstorerdfnew_abs_u6_0 & S4_pstorerdfnew_abs_u6_1 [ reloc = (S4_pstorerdfnew_abs_u6_0 << 0) + (S4_pstorerdfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerdfnew_abs_u6: reloc is                       S4_pstorerdfnew_abs_u6_0 & S4_pstorerdfnew_abs_u6_1 [ reloc = ((((S4_pstorerdfnew_abs_u6_0 << 0) + (S4_pstorerdfnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerdfnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerdfnew_abs_u6_0 & S4_pstorerdfnew_abs_u6_1 [ reloc = (S4_pstorerdfnew_abs_u6_0 << 0) + (S4_pstorerdfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storerinew_rr_u2: reloc is S4_storerinew_rr_u2_0 & S4_storerinew_rr_u2_1 [ reloc = (S4_storerinew_rr_u2_0 << 0) + (S4_storerinew_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11228,13 +11312,17 @@ S2_pstorerinewtnew_pi_s4_2: reloc is S2_pstorerinewtnew_pi_s4_2_0 [ reloc = (S2_
 
 S2_pstorerinewfnew_pi_s4_2: reloc is S2_pstorerinewfnew_pi_s4_2_0 [ reloc = (S2_pstorerinewfnew_pi_s4_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
 
-S4_pstorerinewt_abs_u6: reloc is S4_pstorerinewt_abs_u6_0 & S4_pstorerinewt_abs_u6_1 [ reloc = (S4_pstorerinewt_abs_u6_0 << 0) + (S4_pstorerinewt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerinewt_abs_u6: reloc is                       S4_pstorerinewt_abs_u6_0 & S4_pstorerinewt_abs_u6_1 [ reloc = ((((S4_pstorerinewt_abs_u6_0 << 0) + (S4_pstorerinewt_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerinewt_abs_u6: reloc is immext = 0xffffffff & S4_pstorerinewt_abs_u6_0 & S4_pstorerinewt_abs_u6_1 [ reloc = (S4_pstorerinewt_abs_u6_0 << 0) + (S4_pstorerinewt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerinewf_abs_u6: reloc is S4_pstorerinewf_abs_u6_0 & S4_pstorerinewf_abs_u6_1 [ reloc = (S4_pstorerinewf_abs_u6_0 << 0) + (S4_pstorerinewf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerinewf_abs_u6: reloc is                       S4_pstorerinewf_abs_u6_0 & S4_pstorerinewf_abs_u6_1 [ reloc = ((((S4_pstorerinewf_abs_u6_0 << 0) + (S4_pstorerinewf_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerinewf_abs_u6: reloc is immext = 0xffffffff & S4_pstorerinewf_abs_u6_0 & S4_pstorerinewf_abs_u6_1 [ reloc = (S4_pstorerinewf_abs_u6_0 << 0) + (S4_pstorerinewf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerinewtnew_abs_u6: reloc is S4_pstorerinewtnew_abs_u6_0 & S4_pstorerinewtnew_abs_u6_1 [ reloc = (S4_pstorerinewtnew_abs_u6_0 << 0) + (S4_pstorerinewtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerinewtnew_abs_u6: reloc is                       S4_pstorerinewtnew_abs_u6_0 & S4_pstorerinewtnew_abs_u6_1 [ reloc = ((((S4_pstorerinewtnew_abs_u6_0 << 0) + (S4_pstorerinewtnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerinewtnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerinewtnew_abs_u6_0 & S4_pstorerinewtnew_abs_u6_1 [ reloc = (S4_pstorerinewtnew_abs_u6_0 << 0) + (S4_pstorerinewtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerinewfnew_abs_u6: reloc is S4_pstorerinewfnew_abs_u6_0 & S4_pstorerinewfnew_abs_u6_1 [ reloc = (S4_pstorerinewfnew_abs_u6_0 << 0) + (S4_pstorerinewfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerinewfnew_abs_u6: reloc is                       S4_pstorerinewfnew_abs_u6_0 & S4_pstorerinewfnew_abs_u6_1 [ reloc = ((((S4_pstorerinewfnew_abs_u6_0 << 0) + (S4_pstorerinewfnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerinewfnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerinewfnew_abs_u6_0 & S4_pstorerinewfnew_abs_u6_1 [ reloc = (S4_pstorerinewfnew_abs_u6_0 << 0) + (S4_pstorerinewfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storerbnew_rr_u2: reloc is S4_storerbnew_rr_u2_0 & S4_storerbnew_rr_u2_1 [ reloc = (S4_storerbnew_rr_u2_0 << 0) + (S4_storerbnew_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11266,13 +11354,17 @@ S2_pstorerbnewtnew_pi_s4_0: reloc is S2_pstorerbnewtnew_pi_s4_0_0 [ reloc = S2_p
 
 S2_pstorerbnewfnew_pi_s4_0: reloc is S2_pstorerbnewfnew_pi_s4_0_0 [ reloc = S2_pstorerbnewfnew_pi_s4_0_0 << 0; ] { export *[const]:4 reloc; }
 
-S4_pstorerbnewt_abs_u6: reloc is S4_pstorerbnewt_abs_u6_0 & S4_pstorerbnewt_abs_u6_1 [ reloc = (S4_pstorerbnewt_abs_u6_0 << 0) + (S4_pstorerbnewt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbnewt_abs_u6: reloc is                       S4_pstorerbnewt_abs_u6_0 & S4_pstorerbnewt_abs_u6_1 [ reloc = ((((S4_pstorerbnewt_abs_u6_0 << 0) + (S4_pstorerbnewt_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbnewt_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbnewt_abs_u6_0 & S4_pstorerbnewt_abs_u6_1 [ reloc = (S4_pstorerbnewt_abs_u6_0 << 0) + (S4_pstorerbnewt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerbnewf_abs_u6: reloc is S4_pstorerbnewf_abs_u6_0 & S4_pstorerbnewf_abs_u6_1 [ reloc = (S4_pstorerbnewf_abs_u6_0 << 0) + (S4_pstorerbnewf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbnewf_abs_u6: reloc is                       S4_pstorerbnewf_abs_u6_0 & S4_pstorerbnewf_abs_u6_1 [ reloc = ((((S4_pstorerbnewf_abs_u6_0 << 0) + (S4_pstorerbnewf_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbnewf_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbnewf_abs_u6_0 & S4_pstorerbnewf_abs_u6_1 [ reloc = (S4_pstorerbnewf_abs_u6_0 << 0) + (S4_pstorerbnewf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerbnewtnew_abs_u6: reloc is S4_pstorerbnewtnew_abs_u6_0 & S4_pstorerbnewtnew_abs_u6_1 [ reloc = (S4_pstorerbnewtnew_abs_u6_0 << 0) + (S4_pstorerbnewtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbnewtnew_abs_u6: reloc is                       S4_pstorerbnewtnew_abs_u6_0 & S4_pstorerbnewtnew_abs_u6_1 [ reloc = ((((S4_pstorerbnewtnew_abs_u6_0 << 0) + (S4_pstorerbnewtnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbnewtnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbnewtnew_abs_u6_0 & S4_pstorerbnewtnew_abs_u6_1 [ reloc = (S4_pstorerbnewtnew_abs_u6_0 << 0) + (S4_pstorerbnewtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerbnewfnew_abs_u6: reloc is S4_pstorerbnewfnew_abs_u6_0 & S4_pstorerbnewfnew_abs_u6_1 [ reloc = (S4_pstorerbnewfnew_abs_u6_0 << 0) + (S4_pstorerbnewfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerbnewfnew_abs_u6: reloc is                       S4_pstorerbnewfnew_abs_u6_0 & S4_pstorerbnewfnew_abs_u6_1 [ reloc = ((((S4_pstorerbnewfnew_abs_u6_0 << 0) + (S4_pstorerbnewfnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerbnewfnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerbnewfnew_abs_u6_0 & S4_pstorerbnewfnew_abs_u6_1 [ reloc = (S4_pstorerbnewfnew_abs_u6_0 << 0) + (S4_pstorerbnewfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 S4_storerhnew_rr_u2: reloc is S4_storerhnew_rr_u2_0 & S4_storerhnew_rr_u2_1 [ reloc = (S4_storerhnew_rr_u2_0 << 0) + (S4_storerhnew_rr_u2_1 << 1); ] { export *[const]:4 reloc; }
 
@@ -11304,13 +11396,17 @@ S2_pstorerhnewtnew_pi_s4_1: reloc is S2_pstorerhnewtnew_pi_s4_1_0 [ reloc = (S2_
 
 S2_pstorerhnewfnew_pi_s4_1: reloc is S2_pstorerhnewfnew_pi_s4_1_0 [ reloc = (S2_pstorerhnewfnew_pi_s4_1_0 << 0) << 1; ] { export *[const]:4 reloc; }
 
-S4_pstorerhnewt_abs_u6: reloc is S4_pstorerhnewt_abs_u6_0 & S4_pstorerhnewt_abs_u6_1 [ reloc = (S4_pstorerhnewt_abs_u6_0 << 0) + (S4_pstorerhnewt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhnewt_abs_u6: reloc is                       S4_pstorerhnewt_abs_u6_0 & S4_pstorerhnewt_abs_u6_1 [ reloc = ((((S4_pstorerhnewt_abs_u6_0 << 0) + (S4_pstorerhnewt_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhnewt_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhnewt_abs_u6_0 & S4_pstorerhnewt_abs_u6_1 [ reloc = (S4_pstorerhnewt_abs_u6_0 << 0) + (S4_pstorerhnewt_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerhnewf_abs_u6: reloc is S4_pstorerhnewf_abs_u6_0 & S4_pstorerhnewf_abs_u6_1 [ reloc = (S4_pstorerhnewf_abs_u6_0 << 0) + (S4_pstorerhnewf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhnewf_abs_u6: reloc is                       S4_pstorerhnewf_abs_u6_0 & S4_pstorerhnewf_abs_u6_1 [ reloc = ((((S4_pstorerhnewf_abs_u6_0 << 0) + (S4_pstorerhnewf_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhnewf_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhnewf_abs_u6_0 & S4_pstorerhnewf_abs_u6_1 [ reloc = (S4_pstorerhnewf_abs_u6_0 << 0) + (S4_pstorerhnewf_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerhnewtnew_abs_u6: reloc is S4_pstorerhnewtnew_abs_u6_0 & S4_pstorerhnewtnew_abs_u6_1 [ reloc = (S4_pstorerhnewtnew_abs_u6_0 << 0) + (S4_pstorerhnewtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhnewtnew_abs_u6: reloc is                       S4_pstorerhnewtnew_abs_u6_0 & S4_pstorerhnewtnew_abs_u6_1 [ reloc = ((((S4_pstorerhnewtnew_abs_u6_0 << 0) + (S4_pstorerhnewtnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhnewtnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhnewtnew_abs_u6_0 & S4_pstorerhnewtnew_abs_u6_1 [ reloc = (S4_pstorerhnewtnew_abs_u6_0 << 0) + (S4_pstorerhnewtnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
-S4_pstorerhnewfnew_abs_u6: reloc is S4_pstorerhnewfnew_abs_u6_0 & S4_pstorerhnewfnew_abs_u6_1 [ reloc = (S4_pstorerhnewfnew_abs_u6_0 << 0) + (S4_pstorerhnewfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
+S4_pstorerhnewfnew_abs_u6: reloc is                       S4_pstorerhnewfnew_abs_u6_0 & S4_pstorerhnewfnew_abs_u6_1 [ reloc = ((((S4_pstorerhnewfnew_abs_u6_0 << 0) + (S4_pstorerhnewfnew_abs_u6_1 << 4)) & 0b111111) | immext); ] { export *[const]:4 reloc; }
+S4_pstorerhnewfnew_abs_u6: reloc is immext = 0xffffffff & S4_pstorerhnewfnew_abs_u6_0 & S4_pstorerhnewfnew_abs_u6_1 [ reloc = (S4_pstorerhnewfnew_abs_u6_0 << 0) + (S4_pstorerhnewfnew_abs_u6_1 << 4); ] { export *[const]:4 reloc; }
 
 L4_add_memopw_io_u6_2: reloc is                       L4_add_memopw_io_u6_2_0 [ reloc = (((L4_add_memopw_io_u6_2_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
 L4_add_memopw_io_u6_2: reloc is immext = 0xffffffff & L4_add_memopw_io_u6_2_0 [ reloc = (L4_add_memopw_io_u6_2_0 << 0) << 2; ] { export *[const]:4 reloc; }
@@ -15097,7 +15193,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L2_loadrub_io_Rd32 = *:1 EA;
 }
 
-:L4_loadrub_ur L4_loadrub_ur_Rd32 L4_loadrub_ur_Rt32 L4_loadrub_ur_u2 L4_loadrub_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ur_Rd32 & L4_loadrub_ur_Rt32 & L4_loadrub_ur_u2 & L4_loadrub_ur_U6 {
+:L4_loadrub_ur L4_loadrub_ur_Rd32 L4_loadrub_ur_Rt32 L4_loadrub_ur_u2 L4_loadrub_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ur_Rd32 & L4_loadrub_ur_Rt32 & L4_loadrub_ur_u2 & L4_loadrub_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = L4_loadrub_ur_Rt32 << L4_loadrub_ur_u2;
@@ -15107,7 +15203,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadrub_ur_Rd32 = *:1 EA;
 }
 
-:L4_loadrub_ap L4_loadrub_ap_Rd32 L4_loadrub_ap_Re32 L4_loadrub_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ap_Rd32 & L4_loadrub_ap_Re32 & L4_loadrub_ap_U6 {
+:L4_loadrub_ap L4_loadrub_ap_Rd32 L4_loadrub_ap_Re32 L4_loadrub_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrub_ap_Rd32 & L4_loadrub_ap_Re32 & L4_loadrub_ap_U6 {
   local EA:4;
   EA = L4_loadrub_ap_U6;
   L4_loadrub_ap_Rd32 = *:1 EA;
@@ -15148,7 +15244,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L2_loadrb_io_Rd32 = *:1 EA;
 }
 
-:L4_loadrb_ur L4_loadrb_ur_Rd32 L4_loadrb_ur_Rt32 L4_loadrb_ur_u2 L4_loadrb_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ur_Rd32 & L4_loadrb_ur_Rt32 & L4_loadrb_ur_u2 & L4_loadrb_ur_U6 {
+:L4_loadrb_ur L4_loadrb_ur_Rd32 L4_loadrb_ur_Rt32 L4_loadrb_ur_u2 L4_loadrb_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ur_Rd32 & L4_loadrb_ur_Rt32 & L4_loadrb_ur_u2 & L4_loadrb_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = L4_loadrb_ur_Rt32 << L4_loadrb_ur_u2;
@@ -15158,7 +15254,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadrb_ur_Rd32 = *:1 EA;
 }
 
-:L4_loadrb_ap L4_loadrb_ap_Rd32 L4_loadrb_ap_Re32 L4_loadrb_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ap_Rd32 & L4_loadrb_ap_Re32 & L4_loadrb_ap_U6 {
+:L4_loadrb_ap L4_loadrb_ap_Rd32 L4_loadrb_ap_Re32 L4_loadrb_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrb_ap_Rd32 & L4_loadrb_ap_Re32 & L4_loadrb_ap_U6 {
   local EA:4;
   EA = L4_loadrb_ap_U6;
   L4_loadrb_ap_Rd32 = *:1 EA;
@@ -15199,7 +15295,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L2_loadruh_io_Rd32 = *:2 EA;
 }
 
-:L4_loadruh_ur L4_loadruh_ur_Rd32 L4_loadruh_ur_Rt32 L4_loadruh_ur_u2 L4_loadruh_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ur_Rd32 & L4_loadruh_ur_Rt32 & L4_loadruh_ur_u2 & L4_loadruh_ur_U6 {
+:L4_loadruh_ur L4_loadruh_ur_Rd32 L4_loadruh_ur_Rt32 L4_loadruh_ur_u2 L4_loadruh_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ur_Rd32 & L4_loadruh_ur_Rt32 & L4_loadruh_ur_u2 & L4_loadruh_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = L4_loadruh_ur_Rt32 << L4_loadruh_ur_u2;
@@ -15209,7 +15305,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadruh_ur_Rd32 = *:2 EA;
 }
 
-:L4_loadruh_ap L4_loadruh_ap_Rd32 L4_loadruh_ap_Re32 L4_loadruh_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ap_Rd32 & L4_loadruh_ap_Re32 & L4_loadruh_ap_U6 {
+:L4_loadruh_ap L4_loadruh_ap_Rd32 L4_loadruh_ap_Re32 L4_loadruh_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadruh_ap_Rd32 & L4_loadruh_ap_Re32 & L4_loadruh_ap_U6 {
   local EA:4;
   EA = L4_loadruh_ap_U6;
   L4_loadruh_ap_Rd32 = *:2 EA;
@@ -15250,7 +15346,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L2_loadrh_io_Rd32 = *:2 EA;
 }
 
-:L4_loadrh_ur L4_loadrh_ur_Rd32 L4_loadrh_ur_Rt32 L4_loadrh_ur_u2 L4_loadrh_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ur_Rd32 & L4_loadrh_ur_Rt32 & L4_loadrh_ur_u2 & L4_loadrh_ur_U6 {
+:L4_loadrh_ur L4_loadrh_ur_Rd32 L4_loadrh_ur_Rt32 L4_loadrh_ur_u2 L4_loadrh_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ur_Rd32 & L4_loadrh_ur_Rt32 & L4_loadrh_ur_u2 & L4_loadrh_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = L4_loadrh_ur_Rt32 << L4_loadrh_ur_u2;
@@ -15260,7 +15356,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadrh_ur_Rd32 = *:2 EA;
 }
 
-:L4_loadrh_ap L4_loadrh_ap_Rd32 L4_loadrh_ap_Re32 L4_loadrh_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ap_Rd32 & L4_loadrh_ap_Re32 & L4_loadrh_ap_U6 {
+:L4_loadrh_ap L4_loadrh_ap_Rd32 L4_loadrh_ap_Re32 L4_loadrh_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrh_ap_Rd32 & L4_loadrh_ap_Re32 & L4_loadrh_ap_U6 {
   local EA:4;
   EA = L4_loadrh_ap_U6;
   L4_loadrh_ap_Rd32 = *:2 EA;
@@ -15301,7 +15397,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L2_loadri_io_Rd32 = *:4 EA;
 }
 
-:L4_loadri_ur L4_loadri_ur_Rd32 L4_loadri_ur_Rt32 L4_loadri_ur_u2 L4_loadri_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ur_Rd32 & L4_loadri_ur_Rt32 & L4_loadri_ur_u2 & L4_loadri_ur_U6 {
+:L4_loadri_ur L4_loadri_ur_Rd32 L4_loadri_ur_Rt32 L4_loadri_ur_u2 L4_loadri_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ur_Rd32 & L4_loadri_ur_Rt32 & L4_loadri_ur_u2 & L4_loadri_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = L4_loadri_ur_Rt32 << L4_loadri_ur_u2;
@@ -15311,7 +15407,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadri_ur_Rd32 = *:4 EA;
 }
 
-:L4_loadri_ap L4_loadri_ap_Rd32 L4_loadri_ap_Re32 L4_loadri_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ap_Rd32 & L4_loadri_ap_Re32 & L4_loadri_ap_U6 {
+:L4_loadri_ap L4_loadri_ap_Rd32 L4_loadri_ap_Re32 L4_loadri_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadri_ap_Rd32 & L4_loadri_ap_Re32 & L4_loadri_ap_U6 {
   local EA:4;
   EA = L4_loadri_ap_U6;
   L4_loadri_ap_Rd32 = *:4 EA;
@@ -15352,7 +15448,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L2_loadrd_io_Rdd32 = *:8 EA;
 }
 
-:L4_loadrd_ur L4_loadrd_ur_Rdd32 L4_loadrd_ur_Rt32 L4_loadrd_ur_u2 L4_loadrd_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ur_Rdd32 & L4_loadrd_ur_Rt32 & L4_loadrd_ur_u2 & L4_loadrd_ur_U6 {
+:L4_loadrd_ur L4_loadrd_ur_Rdd32 L4_loadrd_ur_Rt32 L4_loadrd_ur_u2 L4_loadrd_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ur_Rdd32 & L4_loadrd_ur_Rt32 & L4_loadrd_ur_u2 & L4_loadrd_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = L4_loadrd_ur_Rt32 << L4_loadrd_ur_u2;
@@ -15362,7 +15458,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadrd_ur_Rdd32 = *:8 EA;
 }
 
-:L4_loadrd_ap L4_loadrd_ap_Rdd32 L4_loadrd_ap_Re32 L4_loadrd_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ap_Rdd32 & L4_loadrd_ap_Re32 & L4_loadrd_ap_U6 {
+:L4_loadrd_ap L4_loadrd_ap_Rdd32 L4_loadrd_ap_Re32 L4_loadrd_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadrd_ap_Rdd32 & L4_loadrd_ap_Re32 & L4_loadrd_ap_U6 {
   local EA:4;
   EA = L4_loadrd_ap_U6;
   L4_loadrd_ap_Rdd32 = *:8 EA;
@@ -15397,9 +15493,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :L2_loadbzw2_io L2_loadbzw2_io_Rd32 L2_loadbzw2_io_Rs32 L2_loadbzw2_io_s11_1 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbzw2_io_Rd32 & L2_loadbzw2_io_Rs32 & L2_loadbzw2_io_s11_1 unimpl
 
-:L4_loadbzw2_ur L4_loadbzw2_ur_Rd32 L4_loadbzw2_ur_Rt32 L4_loadbzw2_ur_u2 L4_loadbzw2_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw2_ur_Rd32 & L4_loadbzw2_ur_Rt32 & L4_loadbzw2_ur_u2 & L4_loadbzw2_ur_U6 unimpl
+:L4_loadbzw2_ur L4_loadbzw2_ur_Rd32 L4_loadbzw2_ur_Rt32 L4_loadbzw2_ur_u2 L4_loadbzw2_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw2_ur_Rd32 & L4_loadbzw2_ur_Rt32 & L4_loadbzw2_ur_u2 & L4_loadbzw2_ur_U6 unimpl
 
-:L4_loadbzw2_ap L4_loadbzw2_ap_Rd32 L4_loadbzw2_ap_Re32 L4_loadbzw2_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw2_ap_Rd32 & L4_loadbzw2_ap_Re32 & L4_loadbzw2_ap_U6 unimpl
+:L4_loadbzw2_ap L4_loadbzw2_ap_Rd32 L4_loadbzw2_ap_Re32 L4_loadbzw2_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw2_ap_Rd32 & L4_loadbzw2_ap_Re32 & L4_loadbzw2_ap_U6 unimpl
 
 :L2_loadbzw2_pr L2_loadbzw2_pr_Rd32 L2_loadbzw2_pr_Rx32 L2_loadbzw2_pr_Mu2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbzw2_pr_Rd32 & L2_loadbzw2_pr_Rx32 & L2_loadbzw2_pr_Mu2 unimpl
 
@@ -15413,9 +15509,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :L2_loadbzw4_io L2_loadbzw4_io_Rdd32 L2_loadbzw4_io_Rs32 L2_loadbzw4_io_s11_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbzw4_io_Rdd32 & L2_loadbzw4_io_Rs32 & L2_loadbzw4_io_s11_2 unimpl
 
-:L4_loadbzw4_ur L4_loadbzw4_ur_Rdd32 L4_loadbzw4_ur_Rt32 L4_loadbzw4_ur_u2 L4_loadbzw4_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw4_ur_Rdd32 & L4_loadbzw4_ur_Rt32 & L4_loadbzw4_ur_u2 & L4_loadbzw4_ur_U6 unimpl
+:L4_loadbzw4_ur L4_loadbzw4_ur_Rdd32 L4_loadbzw4_ur_Rt32 L4_loadbzw4_ur_u2 L4_loadbzw4_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw4_ur_Rdd32 & L4_loadbzw4_ur_Rt32 & L4_loadbzw4_ur_u2 & L4_loadbzw4_ur_U6 unimpl
 
-:L4_loadbzw4_ap L4_loadbzw4_ap_Rdd32 L4_loadbzw4_ap_Re32 L4_loadbzw4_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw4_ap_Rdd32 & L4_loadbzw4_ap_Re32 & L4_loadbzw4_ap_U6 unimpl
+:L4_loadbzw4_ap L4_loadbzw4_ap_Rdd32 L4_loadbzw4_ap_Re32 L4_loadbzw4_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbzw4_ap_Rdd32 & L4_loadbzw4_ap_Re32 & L4_loadbzw4_ap_U6 unimpl
 
 :L2_loadbzw4_pr L2_loadbzw4_pr_Rdd32 L2_loadbzw4_pr_Rx32 L2_loadbzw4_pr_Mu2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbzw4_pr_Rdd32 & L2_loadbzw4_pr_Rx32 & L2_loadbzw4_pr_Mu2 unimpl
 
@@ -15429,9 +15525,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :L2_loadbsw2_io L2_loadbsw2_io_Rd32 L2_loadbsw2_io_Rs32 L2_loadbsw2_io_s11_1 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbsw2_io_Rd32 & L2_loadbsw2_io_Rs32 & L2_loadbsw2_io_s11_1 unimpl
 
-:L4_loadbsw2_ur L4_loadbsw2_ur_Rd32 L4_loadbsw2_ur_Rt32 L4_loadbsw2_ur_u2 L4_loadbsw2_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw2_ur_Rd32 & L4_loadbsw2_ur_Rt32 & L4_loadbsw2_ur_u2 & L4_loadbsw2_ur_U6 unimpl
+:L4_loadbsw2_ur L4_loadbsw2_ur_Rd32 L4_loadbsw2_ur_Rt32 L4_loadbsw2_ur_u2 L4_loadbsw2_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw2_ur_Rd32 & L4_loadbsw2_ur_Rt32 & L4_loadbsw2_ur_u2 & L4_loadbsw2_ur_U6 unimpl
 
-:L4_loadbsw2_ap L4_loadbsw2_ap_Rd32 L4_loadbsw2_ap_Re32 L4_loadbsw2_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw2_ap_Rd32 & L4_loadbsw2_ap_Re32 & L4_loadbsw2_ap_U6 unimpl
+:L4_loadbsw2_ap L4_loadbsw2_ap_Rd32 L4_loadbsw2_ap_Re32 L4_loadbsw2_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw2_ap_Rd32 & L4_loadbsw2_ap_Re32 & L4_loadbsw2_ap_U6 unimpl
 
 :L2_loadbsw2_pr L2_loadbsw2_pr_Rd32 L2_loadbsw2_pr_Rx32 L2_loadbsw2_pr_Mu2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbsw2_pr_Rd32 & L2_loadbsw2_pr_Rx32 & L2_loadbsw2_pr_Mu2 unimpl
 
@@ -15445,9 +15541,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :L2_loadbsw4_io L2_loadbsw4_io_Rdd32 L2_loadbsw4_io_Rs32 L2_loadbsw4_io_s11_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbsw4_io_Rdd32 & L2_loadbsw4_io_Rs32 & L2_loadbsw4_io_s11_2 unimpl
 
-:L4_loadbsw4_ur L4_loadbsw4_ur_Rdd32 L4_loadbsw4_ur_Rt32 L4_loadbsw4_ur_u2 L4_loadbsw4_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw4_ur_Rdd32 & L4_loadbsw4_ur_Rt32 & L4_loadbsw4_ur_u2 & L4_loadbsw4_ur_U6 unimpl
+:L4_loadbsw4_ur L4_loadbsw4_ur_Rdd32 L4_loadbsw4_ur_Rt32 L4_loadbsw4_ur_u2 L4_loadbsw4_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw4_ur_Rdd32 & L4_loadbsw4_ur_Rt32 & L4_loadbsw4_ur_u2 & L4_loadbsw4_ur_U6 unimpl
 
-:L4_loadbsw4_ap L4_loadbsw4_ap_Rdd32 L4_loadbsw4_ap_Re32 L4_loadbsw4_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw4_ap_Rdd32 & L4_loadbsw4_ap_Re32 & L4_loadbsw4_ap_U6 unimpl
+:L4_loadbsw4_ap L4_loadbsw4_ap_Rdd32 L4_loadbsw4_ap_Re32 L4_loadbsw4_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadbsw4_ap_Rdd32 & L4_loadbsw4_ap_Re32 & L4_loadbsw4_ap_U6 unimpl
 
 :L2_loadbsw4_pr L2_loadbsw4_pr_Rdd32 L2_loadbsw4_pr_Rx32 L2_loadbsw4_pr_Mu2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadbsw4_pr_Rdd32 & L2_loadbsw4_pr_Rx32 & L2_loadbsw4_pr_Mu2 unimpl
 
@@ -15461,9 +15557,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :L2_loadalignh_io L2_loadalignh_io_Ryy32 L2_loadalignh_io_Rs32 L2_loadalignh_io_s11_1 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadalignh_io_Ryy32 & L2_loadalignh_io_Rs32 & L2_loadalignh_io_s11_1 unimpl
 
-:L4_loadalignh_ur L4_loadalignh_ur_Ryy32 L4_loadalignh_ur_Rt32 L4_loadalignh_ur_u2 L4_loadalignh_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignh_ur_Ryy32 & L4_loadalignh_ur_Rt32 & L4_loadalignh_ur_u2 & L4_loadalignh_ur_U6 unimpl
+:L4_loadalignh_ur L4_loadalignh_ur_Ryy32 L4_loadalignh_ur_Rt32 L4_loadalignh_ur_u2 L4_loadalignh_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignh_ur_Ryy32 & L4_loadalignh_ur_Rt32 & L4_loadalignh_ur_u2 & L4_loadalignh_ur_U6 unimpl
 
-:L4_loadalignh_ap L4_loadalignh_ap_Ryy32 L4_loadalignh_ap_Re32 L4_loadalignh_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignh_ap_Ryy32 & L4_loadalignh_ap_Re32 & L4_loadalignh_ap_U6 unimpl
+:L4_loadalignh_ap L4_loadalignh_ap_Ryy32 L4_loadalignh_ap_Re32 L4_loadalignh_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignh_ap_Ryy32 & L4_loadalignh_ap_Re32 & L4_loadalignh_ap_U6 unimpl
 
 :L2_loadalignh_pr L2_loadalignh_pr_Ryy32 L2_loadalignh_pr_Rx32 L2_loadalignh_pr_Mu2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadalignh_pr_Ryy32 & L2_loadalignh_pr_Rx32 & L2_loadalignh_pr_Mu2 unimpl
 
@@ -15477,9 +15573,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :L2_loadalignb_io L2_loadalignb_io_Ryy32 L2_loadalignb_io_Rs32 L2_loadalignb_io_s11_0 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadalignb_io_Ryy32 & L2_loadalignb_io_Rs32 & L2_loadalignb_io_s11_0 unimpl
 
-:L4_loadalignb_ur L4_loadalignb_ur_Ryy32 L4_loadalignb_ur_Rt32 L4_loadalignb_ur_u2 L4_loadalignb_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignb_ur_Ryy32 & L4_loadalignb_ur_Rt32 & L4_loadalignb_ur_u2 & L4_loadalignb_ur_U6 unimpl
+:L4_loadalignb_ur L4_loadalignb_ur_Ryy32 L4_loadalignb_ur_Rt32 L4_loadalignb_ur_u2 L4_loadalignb_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignb_ur_Ryy32 & L4_loadalignb_ur_Rt32 & L4_loadalignb_ur_u2 & L4_loadalignb_ur_U6 unimpl
 
-:L4_loadalignb_ap L4_loadalignb_ap_Ryy32 L4_loadalignb_ap_Re32 L4_loadalignb_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignb_ap_Ryy32 & L4_loadalignb_ap_Re32 & L4_loadalignb_ap_U6 unimpl
+:L4_loadalignb_ap L4_loadalignb_ap_Ryy32 L4_loadalignb_ap_Re32 L4_loadalignb_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadalignb_ap_Ryy32 & L4_loadalignb_ap_Re32 & L4_loadalignb_ap_U6 unimpl
 
 :L2_loadalignb_pr L2_loadalignb_pr_Ryy32 L2_loadalignb_pr_Rx32 L2_loadalignb_pr_Mu2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b12 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L2_loadalignb_pr_Ryy32 & L2_loadalignb_pr_Rx32 & L2_loadalignb_pr_Mu2 unimpl
 
@@ -15536,7 +15632,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp1;
 }
 
-:S4_storerb_ap S4_storerb_ap_Re32 S4_storerb_ap_Rt32 S4_storerb_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerb_ap_Re32 & S4_storerb_ap_Rt32 & S4_storerb_ap_U6 {
+:S4_storerb_ap S4_storerb_ap_Re32 S4_storerb_ap_Rt32 S4_storerb_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerb_ap_Re32 & S4_storerb_ap_Rt32 & S4_storerb_ap_U6 {
   local EA:4;
   EA = S4_storerb_ap_U6;
   local tmp0:1;
@@ -15582,7 +15678,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp2;
 }
 
-:S4_storerb_ur S4_storerb_ur_Ru32 S4_storerb_ur_Rt32 S4_storerb_ur_u2 S4_storerb_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerb_ur_Ru32 & S4_storerb_ur_Rt32 & S4_storerb_ur_u2 & S4_storerb_ur_U6 {
+:S4_storerb_ur S4_storerb_ur_Ru32 S4_storerb_ur_Rt32 S4_storerb_ur_u2 S4_storerb_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerb_ur_Ru32 & S4_storerb_ur_Rt32 & S4_storerb_ur_u2 & S4_storerb_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerb_ur_Ru32 << S4_storerb_ur_u2;
@@ -15657,7 +15753,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp1;
 }
 
-:S4_storerh_ap S4_storerh_ap_Re32 S4_storerh_ap_Rt32 S4_storerh_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerh_ap_Re32 & S4_storerh_ap_Rt32 & S4_storerh_ap_U6 {
+:S4_storerh_ap S4_storerh_ap_Re32 S4_storerh_ap_Rt32 S4_storerh_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerh_ap_Re32 & S4_storerh_ap_Rt32 & S4_storerh_ap_U6 {
   local EA:4;
   EA = S4_storerh_ap_U6;
   local tmp0:2;
@@ -15703,7 +15799,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp2;
 }
 
-:S4_storerh_ur S4_storerh_ur_Ru32 S4_storerh_ur_Rt32 S4_storerh_ur_u2 S4_storerh_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerh_ur_Ru32 & S4_storerh_ur_Rt32 & S4_storerh_ur_u2 & S4_storerh_ur_U6 {
+:S4_storerh_ur S4_storerh_ur_Ru32 S4_storerh_ur_Rt32 S4_storerh_ur_u2 S4_storerh_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerh_ur_Ru32 & S4_storerh_ur_Rt32 & S4_storerh_ur_u2 & S4_storerh_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerh_ur_Ru32 << S4_storerh_ur_u2;
@@ -15778,7 +15874,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp1;
 }
 
-:S4_storerf_ap S4_storerf_ap_Re32 S4_storerf_ap_Rt32 S4_storerf_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerf_ap_Re32 & S4_storerf_ap_Rt32 & S4_storerf_ap_U6 {
+:S4_storerf_ap S4_storerf_ap_Re32 S4_storerf_ap_Rt32 S4_storerf_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerf_ap_Re32 & S4_storerf_ap_Rt32 & S4_storerf_ap_U6 {
   local EA:4;
   EA = S4_storerf_ap_U6;
   local tmp0:2;
@@ -15824,7 +15920,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp2;
 }
 
-:S4_storerf_ur S4_storerf_ur_Ru32 S4_storerf_ur_Rt32 S4_storerf_ur_u2 S4_storerf_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerf_ur_Ru32 & S4_storerf_ur_Rt32 & S4_storerf_ur_u2 & S4_storerf_ur_U6 {
+:S4_storerf_ur S4_storerf_ur_Ru32 S4_storerf_ur_Rt32 S4_storerf_ur_u2 S4_storerf_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerf_ur_Ru32 & S4_storerf_ur_Rt32 & S4_storerf_ur_u2 & S4_storerf_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerf_ur_Ru32 << S4_storerf_ur_u2;
@@ -15871,7 +15967,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = S2_storeri_pi_Rt32;
 }
 
-:S4_storeri_ap S4_storeri_ap_Re32 S4_storeri_ap_Rt32 S4_storeri_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storeri_ap_Re32 & S4_storeri_ap_Rt32 & S4_storeri_ap_U6 {
+:S4_storeri_ap S4_storeri_ap_Re32 S4_storeri_ap_Rt32 S4_storeri_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storeri_ap_Re32 & S4_storeri_ap_Rt32 & S4_storeri_ap_U6 {
   local EA:4;
   EA = S4_storeri_ap_U6;
   *:4 EA = S4_storeri_ap_Rt32;
@@ -15889,7 +15985,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = S2_storeri_pr_Rt32;
 }
 
-:S4_storeri_ur S4_storeri_ur_Ru32 S4_storeri_ur_Rt32 S4_storeri_ur_u2 S4_storeri_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storeri_ur_Ru32 & S4_storeri_ur_Rt32 & S4_storeri_ur_u2 & S4_storeri_ur_U6 {
+:S4_storeri_ur S4_storeri_ur_Ru32 S4_storeri_ur_Rt32 S4_storeri_ur_u2 S4_storeri_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storeri_ur_Ru32 & S4_storeri_ur_Rt32 & S4_storeri_ur_u2 & S4_storeri_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storeri_ur_Ru32 << S4_storeri_ur_u2;
@@ -15922,7 +16018,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:8 EA = S2_storerd_pi_Rtt32;
 }
 
-:S4_storerd_ap S4_storerd_ap_Re32 S4_storerd_ap_Rtt32 S4_storerd_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerd_ap_Re32 & S4_storerd_ap_Rtt32 & S4_storerd_ap_U6 {
+:S4_storerd_ap S4_storerd_ap_Re32 S4_storerd_ap_Rtt32 S4_storerd_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerd_ap_Re32 & S4_storerd_ap_Rtt32 & S4_storerd_ap_U6 {
   local EA:4;
   EA = S4_storerd_ap_U6;
   *:8 EA = S4_storerd_ap_Rtt32;
@@ -15940,7 +16036,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:8 EA = S2_storerd_pr_Rtt32;
 }
 
-:S4_storerd_ur S4_storerd_ur_Ru32 S4_storerd_ur_Rtt32 S4_storerd_ur_u2 S4_storerd_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerd_ur_Ru32 & S4_storerd_ur_Rtt32 & S4_storerd_ur_u2 & S4_storerd_ur_U6 {
+:S4_storerd_ur S4_storerd_ur_Ru32 S4_storerd_ur_Rtt32 S4_storerd_ur_u2 S4_storerd_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerd_ur_Ru32 & S4_storerd_ur_Rtt32 & S4_storerd_ur_u2 & S4_storerd_ur_U6 {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerd_ur_Ru32 << S4_storerd_ur_u2;
@@ -15989,9 +16085,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = tmp2;
 }
 
-:S4_storerinew_ap S4_storerinew_ap_Re32 S4_storerinew_ap_Nt8 S4_storerinew_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ap_Re32 & S4_storerinew_ap_Nt8 & S4_storerinew_ap_U6 & hasnew = 0                      unimpl
+:S4_storerinew_ap S4_storerinew_ap_Re32 S4_storerinew_ap_Nt8 S4_storerinew_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ap_Re32 & S4_storerinew_ap_Nt8 & S4_storerinew_ap_U6 & hasnew = 0                      unimpl
 
-:S4_storerinew_ap S4_storerinew_ap_Re32 dotnewreg S4_storerinew_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ap_Re32 & S4_storerinew_ap_Nt8 & S4_storerinew_ap_U6 & dotnewreg {
+:S4_storerinew_ap S4_storerinew_ap_Re32 dotnewreg S4_storerinew_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ap_Re32 & S4_storerinew_ap_Nt8 & S4_storerinew_ap_U6 & dotnewreg {
   local EA:4;
   EA = S4_storerinew_ap_U6;
   local tmp0:4;
@@ -16023,9 +16119,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:4 EA = tmp3;
 }
 
-:S4_storerinew_ur S4_storerinew_ur_Ru32 S4_storerinew_ur_Nt8 S4_storerinew_ur_u2 S4_storerinew_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ur_Ru32 & S4_storerinew_ur_Nt8 & S4_storerinew_ur_u2 & S4_storerinew_ur_U6 & hasnew = 0                      unimpl
+:S4_storerinew_ur S4_storerinew_ur_Ru32 S4_storerinew_ur_Nt8 S4_storerinew_ur_u2 S4_storerinew_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ur_Ru32 & S4_storerinew_ur_Nt8 & S4_storerinew_ur_u2 & S4_storerinew_ur_U6 & hasnew = 0                      unimpl
 
-:S4_storerinew_ur S4_storerinew_ur_Ru32 dotnewreg S4_storerinew_ur_u2 S4_storerinew_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ur_Ru32 & S4_storerinew_ur_Nt8 & S4_storerinew_ur_u2 & S4_storerinew_ur_U6 & dotnewreg {
+:S4_storerinew_ur S4_storerinew_ur_Ru32 dotnewreg S4_storerinew_ur_u2 S4_storerinew_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerinew_ur_Ru32 & S4_storerinew_ur_Nt8 & S4_storerinew_ur_u2 & S4_storerinew_ur_U6 & dotnewreg {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerinew_ur_Ru32 << S4_storerinew_ur_u2;
@@ -16114,9 +16210,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp1;
 }
 
-:S4_storerbnew_ap S4_storerbnew_ap_Re32 S4_storerbnew_ap_Nt8 S4_storerbnew_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ap_Re32 & S4_storerbnew_ap_Nt8 & S4_storerbnew_ap_U6 & hasnew = 0                      unimpl
+:S4_storerbnew_ap S4_storerbnew_ap_Re32 S4_storerbnew_ap_Nt8 S4_storerbnew_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ap_Re32 & S4_storerbnew_ap_Nt8 & S4_storerbnew_ap_U6 & hasnew = 0                      unimpl
 
-:S4_storerbnew_ap S4_storerbnew_ap_Re32 dotnewreg S4_storerbnew_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ap_Re32 & S4_storerbnew_ap_Nt8 & S4_storerbnew_ap_U6 & dotnewreg {
+:S4_storerbnew_ap S4_storerbnew_ap_Re32 dotnewreg S4_storerbnew_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ap_Re32 & S4_storerbnew_ap_Nt8 & S4_storerbnew_ap_U6 & dotnewreg {
   local EA:4;
   EA = S4_storerbnew_ap_U6;
   local tmp0:1;
@@ -16176,9 +16272,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:1 EA = tmp2;
 }
 
-:S4_storerbnew_ur S4_storerbnew_ur_Ru32 S4_storerbnew_ur_Nt8 S4_storerbnew_ur_u2 S4_storerbnew_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ur_Ru32 & S4_storerbnew_ur_Nt8 & S4_storerbnew_ur_u2 & S4_storerbnew_ur_U6 & hasnew = 0                      unimpl
+:S4_storerbnew_ur S4_storerbnew_ur_Ru32 S4_storerbnew_ur_Nt8 S4_storerbnew_ur_u2 S4_storerbnew_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ur_Ru32 & S4_storerbnew_ur_Nt8 & S4_storerbnew_ur_u2 & S4_storerbnew_ur_U6 & hasnew = 0                      unimpl
 
-:S4_storerbnew_ur S4_storerbnew_ur_Ru32 dotnewreg S4_storerbnew_ur_u2 S4_storerbnew_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ur_Ru32 & S4_storerbnew_ur_Nt8 & S4_storerbnew_ur_u2 & S4_storerbnew_ur_U6 & dotnewreg {
+:S4_storerbnew_ur S4_storerbnew_ur_Ru32 dotnewreg S4_storerbnew_ur_u2 S4_storerbnew_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerbnew_ur_Ru32 & S4_storerbnew_ur_Nt8 & S4_storerbnew_ur_u2 & S4_storerbnew_ur_U6 & dotnewreg {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerbnew_ur_Ru32 << S4_storerbnew_ur_u2;
@@ -16281,9 +16377,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp1;
 }
 
-:S4_storerhnew_ap S4_storerhnew_ap_Re32 S4_storerhnew_ap_Nt8 S4_storerhnew_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ap_Re32 & S4_storerhnew_ap_Nt8 & S4_storerhnew_ap_U6 & hasnew = 0                      unimpl
+:S4_storerhnew_ap S4_storerhnew_ap_Re32 S4_storerhnew_ap_Nt8 S4_storerhnew_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ap_Re32 & S4_storerhnew_ap_Nt8 & S4_storerhnew_ap_U6 & hasnew = 0                      unimpl
 
-:S4_storerhnew_ap S4_storerhnew_ap_Re32 dotnewreg S4_storerhnew_ap_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ap_Re32 & S4_storerhnew_ap_Nt8 & S4_storerhnew_ap_U6 & dotnewreg {
+:S4_storerhnew_ap S4_storerhnew_ap_Re32 dotnewreg S4_storerhnew_ap_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ap_Re32 & S4_storerhnew_ap_Nt8 & S4_storerhnew_ap_U6 & dotnewreg {
   local EA:4;
   EA = S4_storerhnew_ap_U6;
   local tmp0:2;
@@ -16343,9 +16439,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   *:2 EA = tmp2;
 }
 
-:S4_storerhnew_ur S4_storerhnew_ur_Ru32 S4_storerhnew_ur_Nt8 S4_storerhnew_ur_u2 S4_storerhnew_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ur_Ru32 & S4_storerhnew_ur_Nt8 & S4_storerhnew_ur_u2 & S4_storerhnew_ur_U6 & hasnew = 0                      unimpl
+:S4_storerhnew_ur S4_storerhnew_ur_Ru32 S4_storerhnew_ur_Nt8 S4_storerhnew_ur_u2 S4_storerhnew_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ur_Ru32 & S4_storerhnew_ur_Nt8 & S4_storerhnew_ur_u2 & S4_storerhnew_ur_U6 & hasnew = 0                      unimpl
 
-:S4_storerhnew_ur S4_storerhnew_ur_Ru32 dotnewreg S4_storerhnew_ur_u2 S4_storerhnew_ur_U6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ur_Ru32 & S4_storerhnew_ur_Nt8 & S4_storerhnew_ur_u2 & S4_storerhnew_ur_U6 & dotnewreg {
+:S4_storerhnew_ur S4_storerhnew_ur_Ru32 dotnewreg S4_storerhnew_ur_u2 S4_storerhnew_ur_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_storerhnew_ur_Ru32 & S4_storerhnew_ur_Nt8 & S4_storerhnew_ur_u2 & S4_storerhnew_ur_U6 & dotnewreg {
   local EA:4;
   local tmp0:4;
   tmp0 = S4_storerhnew_ur_Ru32 << S4_storerhnew_ur_u2;
@@ -16976,7 +17072,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:L4_ploadrubt_abs L4_ploadrubt_abs_Rd32 L4_ploadrubt_abs_Pt4 L4_ploadrubt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubt_abs_Rd32 & L4_ploadrubt_abs_Pt4 & L4_ploadrubt_abs_u6 {
+:L4_ploadrubt_abs L4_ploadrubt_abs_Rd32 L4_ploadrubt_abs_Pt4 L4_ploadrubt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubt_abs_Rd32 & L4_ploadrubt_abs_Pt4 & L4_ploadrubt_abs_u6 {
   local EA:4;
   EA = L4_ploadrubt_abs_u6;
   local tmp0:1;
@@ -16990,7 +17086,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:L4_ploadrubf_abs L4_ploadrubf_abs_Rd32 L4_ploadrubf_abs_Pt4 L4_ploadrubf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubf_abs_Rd32 & L4_ploadrubf_abs_Pt4 & L4_ploadrubf_abs_u6 {
+:L4_ploadrubf_abs L4_ploadrubf_abs_Rd32 L4_ploadrubf_abs_Pt4 L4_ploadrubf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubf_abs_Rd32 & L4_ploadrubf_abs_Pt4 & L4_ploadrubf_abs_u6 {
   local EA:4;
   EA = L4_ploadrubf_abs_u6;
   local tmp0:1;
@@ -17006,7 +17102,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrubtnew_abs L4_ploadrubtnew_abs_Rd32 L4_ploadrubtnew_abs_Pt4 L4_ploadrubtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubtnew_abs_Rd32 & L4_ploadrubtnew_abs_Pt4 & L4_ploadrubtnew_abs_u6 {
+:L4_ploadrubtnew_abs L4_ploadrubtnew_abs_Rd32 L4_ploadrubtnew_abs_Pt4 L4_ploadrubtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubtnew_abs_Rd32 & L4_ploadrubtnew_abs_Pt4 & L4_ploadrubtnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrubtnew_abs_u6;
   local tmp0:1;
@@ -17022,7 +17118,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrubfnew_abs L4_ploadrubfnew_abs_Rd32 L4_ploadrubfnew_abs_Pt4 L4_ploadrubfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubfnew_abs_Rd32 & L4_ploadrubfnew_abs_Pt4 & L4_ploadrubfnew_abs_u6 {
+:L4_ploadrubfnew_abs L4_ploadrubfnew_abs_Rd32 L4_ploadrubfnew_abs_Pt4 L4_ploadrubfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrubfnew_abs_Rd32 & L4_ploadrubfnew_abs_Pt4 & L4_ploadrubfnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrubfnew_abs_u6;
   local tmp0:1;
@@ -17278,7 +17374,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:L4_ploadrbt_abs L4_ploadrbt_abs_Rd32 L4_ploadrbt_abs_Pt4 L4_ploadrbt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbt_abs_Rd32 & L4_ploadrbt_abs_Pt4 & L4_ploadrbt_abs_u6 {
+:L4_ploadrbt_abs L4_ploadrbt_abs_Rd32 L4_ploadrbt_abs_Pt4 L4_ploadrbt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbt_abs_Rd32 & L4_ploadrbt_abs_Pt4 & L4_ploadrbt_abs_u6 {
   local EA:4;
   EA = L4_ploadrbt_abs_u6;
   local tmp0:1;
@@ -17292,7 +17388,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:L4_ploadrbf_abs L4_ploadrbf_abs_Rd32 L4_ploadrbf_abs_Pt4 L4_ploadrbf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbf_abs_Rd32 & L4_ploadrbf_abs_Pt4 & L4_ploadrbf_abs_u6 {
+:L4_ploadrbf_abs L4_ploadrbf_abs_Rd32 L4_ploadrbf_abs_Pt4 L4_ploadrbf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbf_abs_Rd32 & L4_ploadrbf_abs_Pt4 & L4_ploadrbf_abs_u6 {
   local EA:4;
   EA = L4_ploadrbf_abs_u6;
   local tmp0:1;
@@ -17308,7 +17404,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrbtnew_abs L4_ploadrbtnew_abs_Rd32 L4_ploadrbtnew_abs_Pt4 L4_ploadrbtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbtnew_abs_Rd32 & L4_ploadrbtnew_abs_Pt4 & L4_ploadrbtnew_abs_u6 {
+:L4_ploadrbtnew_abs L4_ploadrbtnew_abs_Rd32 L4_ploadrbtnew_abs_Pt4 L4_ploadrbtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbtnew_abs_Rd32 & L4_ploadrbtnew_abs_Pt4 & L4_ploadrbtnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrbtnew_abs_u6;
   local tmp0:1;
@@ -17324,7 +17420,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrbfnew_abs L4_ploadrbfnew_abs_Rd32 L4_ploadrbfnew_abs_Pt4 L4_ploadrbfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbfnew_abs_Rd32 & L4_ploadrbfnew_abs_Pt4 & L4_ploadrbfnew_abs_u6 {
+:L4_ploadrbfnew_abs L4_ploadrbfnew_abs_Rd32 L4_ploadrbfnew_abs_Pt4 L4_ploadrbfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrbfnew_abs_Rd32 & L4_ploadrbfnew_abs_Pt4 & L4_ploadrbfnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrbfnew_abs_u6;
   local tmp0:1;
@@ -17580,7 +17676,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:L4_ploadruht_abs L4_ploadruht_abs_Rd32 L4_ploadruht_abs_Pt4 L4_ploadruht_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruht_abs_Rd32 & L4_ploadruht_abs_Pt4 & L4_ploadruht_abs_u6 {
+:L4_ploadruht_abs L4_ploadruht_abs_Rd32 L4_ploadruht_abs_Pt4 L4_ploadruht_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruht_abs_Rd32 & L4_ploadruht_abs_Pt4 & L4_ploadruht_abs_u6 {
   local EA:4;
   EA = L4_ploadruht_abs_u6;
   local tmp0:1;
@@ -17594,7 +17690,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:L4_ploadruhf_abs L4_ploadruhf_abs_Rd32 L4_ploadruhf_abs_Pt4 L4_ploadruhf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhf_abs_Rd32 & L4_ploadruhf_abs_Pt4 & L4_ploadruhf_abs_u6 {
+:L4_ploadruhf_abs L4_ploadruhf_abs_Rd32 L4_ploadruhf_abs_Pt4 L4_ploadruhf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhf_abs_Rd32 & L4_ploadruhf_abs_Pt4 & L4_ploadruhf_abs_u6 {
   local EA:4;
   EA = L4_ploadruhf_abs_u6;
   local tmp0:1;
@@ -17610,7 +17706,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadruhtnew_abs L4_ploadruhtnew_abs_Rd32 L4_ploadruhtnew_abs_Pt4 L4_ploadruhtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhtnew_abs_Rd32 & L4_ploadruhtnew_abs_Pt4 & L4_ploadruhtnew_abs_u6 {
+:L4_ploadruhtnew_abs L4_ploadruhtnew_abs_Rd32 L4_ploadruhtnew_abs_Pt4 L4_ploadruhtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhtnew_abs_Rd32 & L4_ploadruhtnew_abs_Pt4 & L4_ploadruhtnew_abs_u6 {
   local EA:4;
   EA = L4_ploadruhtnew_abs_u6;
   local tmp0:1;
@@ -17626,7 +17722,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadruhfnew_abs L4_ploadruhfnew_abs_Rd32 L4_ploadruhfnew_abs_Pt4 L4_ploadruhfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhfnew_abs_Rd32 & L4_ploadruhfnew_abs_Pt4 & L4_ploadruhfnew_abs_u6 {
+:L4_ploadruhfnew_abs L4_ploadruhfnew_abs_Rd32 L4_ploadruhfnew_abs_Pt4 L4_ploadruhfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadruhfnew_abs_Rd32 & L4_ploadruhfnew_abs_Pt4 & L4_ploadruhfnew_abs_u6 {
   local EA:4;
   EA = L4_ploadruhfnew_abs_u6;
   local tmp0:1;
@@ -17882,7 +17978,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:L4_ploadrht_abs L4_ploadrht_abs_Rd32 L4_ploadrht_abs_Pt4 L4_ploadrht_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrht_abs_Rd32 & L4_ploadrht_abs_Pt4 & L4_ploadrht_abs_u6 {
+:L4_ploadrht_abs L4_ploadrht_abs_Rd32 L4_ploadrht_abs_Pt4 L4_ploadrht_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrht_abs_Rd32 & L4_ploadrht_abs_Pt4 & L4_ploadrht_abs_u6 {
   local EA:4;
   EA = L4_ploadrht_abs_u6;
   local tmp0:1;
@@ -17896,7 +17992,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:L4_ploadrhf_abs L4_ploadrhf_abs_Rd32 L4_ploadrhf_abs_Pt4 L4_ploadrhf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhf_abs_Rd32 & L4_ploadrhf_abs_Pt4 & L4_ploadrhf_abs_u6 {
+:L4_ploadrhf_abs L4_ploadrhf_abs_Rd32 L4_ploadrhf_abs_Pt4 L4_ploadrhf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhf_abs_Rd32 & L4_ploadrhf_abs_Pt4 & L4_ploadrhf_abs_u6 {
   local EA:4;
   EA = L4_ploadrhf_abs_u6;
   local tmp0:1;
@@ -17912,7 +18008,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrhtnew_abs L4_ploadrhtnew_abs_Rd32 L4_ploadrhtnew_abs_Pt4 L4_ploadrhtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhtnew_abs_Rd32 & L4_ploadrhtnew_abs_Pt4 & L4_ploadrhtnew_abs_u6 {
+:L4_ploadrhtnew_abs L4_ploadrhtnew_abs_Rd32 L4_ploadrhtnew_abs_Pt4 L4_ploadrhtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhtnew_abs_Rd32 & L4_ploadrhtnew_abs_Pt4 & L4_ploadrhtnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrhtnew_abs_u6;
   local tmp0:1;
@@ -17928,7 +18024,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrhfnew_abs L4_ploadrhfnew_abs_Rd32 L4_ploadrhfnew_abs_Pt4 L4_ploadrhfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhfnew_abs_Rd32 & L4_ploadrhfnew_abs_Pt4 & L4_ploadrhfnew_abs_u6 {
+:L4_ploadrhfnew_abs L4_ploadrhfnew_abs_Rd32 L4_ploadrhfnew_abs_Pt4 L4_ploadrhfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrhfnew_abs_Rd32 & L4_ploadrhfnew_abs_Pt4 & L4_ploadrhfnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrhfnew_abs_u6;
   local tmp0:1;
@@ -18184,7 +18280,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:L4_ploadrit_abs L4_ploadrit_abs_Rd32 L4_ploadrit_abs_Pt4 L4_ploadrit_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrit_abs_Rd32 & L4_ploadrit_abs_Pt4 & L4_ploadrit_abs_u6 {
+:L4_ploadrit_abs L4_ploadrit_abs_Rd32 L4_ploadrit_abs_Pt4 L4_ploadrit_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrit_abs_Rd32 & L4_ploadrit_abs_Pt4 & L4_ploadrit_abs_u6 {
   local EA:4;
   EA = L4_ploadrit_abs_u6;
   local tmp0:1;
@@ -18198,7 +18294,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:L4_ploadrif_abs L4_ploadrif_abs_Rd32 L4_ploadrif_abs_Pt4 L4_ploadrif_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrif_abs_Rd32 & L4_ploadrif_abs_Pt4 & L4_ploadrif_abs_u6 {
+:L4_ploadrif_abs L4_ploadrif_abs_Rd32 L4_ploadrif_abs_Pt4 L4_ploadrif_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrif_abs_Rd32 & L4_ploadrif_abs_Pt4 & L4_ploadrif_abs_u6 {
   local EA:4;
   EA = L4_ploadrif_abs_u6;
   local tmp0:1;
@@ -18214,7 +18310,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadritnew_abs L4_ploadritnew_abs_Rd32 L4_ploadritnew_abs_Pt4 L4_ploadritnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadritnew_abs_Rd32 & L4_ploadritnew_abs_Pt4 & L4_ploadritnew_abs_u6 {
+:L4_ploadritnew_abs L4_ploadritnew_abs_Rd32 L4_ploadritnew_abs_Pt4 L4_ploadritnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadritnew_abs_Rd32 & L4_ploadritnew_abs_Pt4 & L4_ploadritnew_abs_u6 {
   local EA:4;
   EA = L4_ploadritnew_abs_u6;
   local tmp0:1;
@@ -18230,7 +18326,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrifnew_abs L4_ploadrifnew_abs_Rd32 L4_ploadrifnew_abs_Pt4 L4_ploadrifnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrifnew_abs_Rd32 & L4_ploadrifnew_abs_Pt4 & L4_ploadrifnew_abs_u6 {
+:L4_ploadrifnew_abs L4_ploadrifnew_abs_Rd32 L4_ploadrifnew_abs_Pt4 L4_ploadrifnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrifnew_abs_Rd32 & L4_ploadrifnew_abs_Pt4 & L4_ploadrifnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrifnew_abs_u6;
   local tmp0:1;
@@ -18486,7 +18582,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:L4_ploadrdt_abs L4_ploadrdt_abs_Rdd32 L4_ploadrdt_abs_Pt4 L4_ploadrdt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdt_abs_Rdd32 & L4_ploadrdt_abs_Pt4 & L4_ploadrdt_abs_u6 {
+:L4_ploadrdt_abs L4_ploadrdt_abs_Rdd32 L4_ploadrdt_abs_Pt4 L4_ploadrdt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdt_abs_Rdd32 & L4_ploadrdt_abs_Pt4 & L4_ploadrdt_abs_u6 {
   local EA:4;
   EA = L4_ploadrdt_abs_u6;
   local tmp0:1;
@@ -18500,7 +18596,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:L4_ploadrdf_abs L4_ploadrdf_abs_Rdd32 L4_ploadrdf_abs_Pt4 L4_ploadrdf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdf_abs_Rdd32 & L4_ploadrdf_abs_Pt4 & L4_ploadrdf_abs_u6 {
+:L4_ploadrdf_abs L4_ploadrdf_abs_Rdd32 L4_ploadrdf_abs_Pt4 L4_ploadrdf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdf_abs_Rdd32 & L4_ploadrdf_abs_Pt4 & L4_ploadrdf_abs_u6 {
   local EA:4;
   EA = L4_ploadrdf_abs_u6;
   local tmp0:1;
@@ -18516,7 +18612,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrdtnew_abs L4_ploadrdtnew_abs_Rdd32 L4_ploadrdtnew_abs_Pt4 L4_ploadrdtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdtnew_abs_Rdd32 & L4_ploadrdtnew_abs_Pt4 & L4_ploadrdtnew_abs_u6 {
+:L4_ploadrdtnew_abs L4_ploadrdtnew_abs_Rdd32 L4_ploadrdtnew_abs_Pt4 L4_ploadrdtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdtnew_abs_Rdd32 & L4_ploadrdtnew_abs_Pt4 & L4_ploadrdtnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrdtnew_abs_u6;
   local tmp0:1;
@@ -18532,7 +18628,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:L4_ploadrdfnew_abs L4_ploadrdfnew_abs_Rdd32 L4_ploadrdfnew_abs_Pt4 L4_ploadrdfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdfnew_abs_Rdd32 & L4_ploadrdfnew_abs_Pt4 & L4_ploadrdfnew_abs_u6 {
+:L4_ploadrdfnew_abs L4_ploadrdfnew_abs_Rdd32 L4_ploadrdfnew_abs_Pt4 L4_ploadrdfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b7 = 1 & b11 = 1 & b12 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_ploadrdfnew_abs_Rdd32 & L4_ploadrdfnew_abs_Pt4 & L4_ploadrdfnew_abs_u6 {
   local EA:4;
   EA = L4_ploadrdfnew_abs_u6;
   local tmp0:1;
@@ -18970,7 +19066,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerbt_abs S4_pstorerbt_abs_Pv4 S4_pstorerbt_abs_Rt32 S4_pstorerbt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbt_abs_Pv4 & S4_pstorerbt_abs_Rt32 & S4_pstorerbt_abs_u6 {
+:S4_pstorerbt_abs S4_pstorerbt_abs_Pv4 S4_pstorerbt_abs_Rt32 S4_pstorerbt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbt_abs_Pv4 & S4_pstorerbt_abs_Rt32 & S4_pstorerbt_abs_u6 {
   local EA:4;
   EA = S4_pstorerbt_abs_u6;
   local tmp0:1;
@@ -18998,7 +19094,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerbf_abs S4_pstorerbf_abs_Pv4 S4_pstorerbf_abs_Rt32 S4_pstorerbf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbf_abs_Pv4 & S4_pstorerbf_abs_Rt32 & S4_pstorerbf_abs_u6 {
+:S4_pstorerbf_abs S4_pstorerbf_abs_Pv4 S4_pstorerbf_abs_Rt32 S4_pstorerbf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbf_abs_Pv4 & S4_pstorerbf_abs_Rt32 & S4_pstorerbf_abs_u6 {
   local EA:4;
   EA = S4_pstorerbf_abs_u6;
   local tmp0:1;
@@ -19028,7 +19124,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerbtnew_abs S4_pstorerbtnew_abs_Pv4 S4_pstorerbtnew_abs_Rt32 S4_pstorerbtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbtnew_abs_Pv4 & S4_pstorerbtnew_abs_Rt32 & S4_pstorerbtnew_abs_u6 {
+:S4_pstorerbtnew_abs S4_pstorerbtnew_abs_Pv4 S4_pstorerbtnew_abs_Rt32 S4_pstorerbtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbtnew_abs_Pv4 & S4_pstorerbtnew_abs_Rt32 & S4_pstorerbtnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerbtnew_abs_u6;
   local tmp0:1;
@@ -19058,7 +19154,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerbfnew_abs S4_pstorerbfnew_abs_Pv4 S4_pstorerbfnew_abs_Rt32 S4_pstorerbfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbfnew_abs_Pv4 & S4_pstorerbfnew_abs_Rt32 & S4_pstorerbfnew_abs_u6 {
+:S4_pstorerbfnew_abs S4_pstorerbfnew_abs_Pv4 S4_pstorerbfnew_abs_Rt32 S4_pstorerbfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbfnew_abs_Pv4 & S4_pstorerbfnew_abs_Rt32 & S4_pstorerbfnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerbfnew_abs_u6;
   local tmp0:1;
@@ -19510,7 +19606,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerht_abs S4_pstorerht_abs_Pv4 S4_pstorerht_abs_Rt32 S4_pstorerht_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerht_abs_Pv4 & S4_pstorerht_abs_Rt32 & S4_pstorerht_abs_u6 {
+:S4_pstorerht_abs S4_pstorerht_abs_Pv4 S4_pstorerht_abs_Rt32 S4_pstorerht_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerht_abs_Pv4 & S4_pstorerht_abs_Rt32 & S4_pstorerht_abs_u6 {
   local EA:4;
   EA = S4_pstorerht_abs_u6;
   local tmp0:1;
@@ -19538,7 +19634,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerhf_abs S4_pstorerhf_abs_Pv4 S4_pstorerhf_abs_Rt32 S4_pstorerhf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhf_abs_Pv4 & S4_pstorerhf_abs_Rt32 & S4_pstorerhf_abs_u6 {
+:S4_pstorerhf_abs S4_pstorerhf_abs_Pv4 S4_pstorerhf_abs_Rt32 S4_pstorerhf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhf_abs_Pv4 & S4_pstorerhf_abs_Rt32 & S4_pstorerhf_abs_u6 {
   local EA:4;
   EA = S4_pstorerhf_abs_u6;
   local tmp0:1;
@@ -19568,7 +19664,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerhtnew_abs S4_pstorerhtnew_abs_Pv4 S4_pstorerhtnew_abs_Rt32 S4_pstorerhtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhtnew_abs_Pv4 & S4_pstorerhtnew_abs_Rt32 & S4_pstorerhtnew_abs_u6 {
+:S4_pstorerhtnew_abs S4_pstorerhtnew_abs_Pv4 S4_pstorerhtnew_abs_Rt32 S4_pstorerhtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhtnew_abs_Pv4 & S4_pstorerhtnew_abs_Rt32 & S4_pstorerhtnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerhtnew_abs_u6;
   local tmp0:1;
@@ -19598,7 +19694,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerhfnew_abs S4_pstorerhfnew_abs_Pv4 S4_pstorerhfnew_abs_Rt32 S4_pstorerhfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhfnew_abs_Pv4 & S4_pstorerhfnew_abs_Rt32 & S4_pstorerhfnew_abs_u6 {
+:S4_pstorerhfnew_abs S4_pstorerhfnew_abs_Pv4 S4_pstorerhfnew_abs_Rt32 S4_pstorerhfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhfnew_abs_Pv4 & S4_pstorerhfnew_abs_Rt32 & S4_pstorerhfnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerhfnew_abs_u6;
   local tmp0:1;
@@ -20050,7 +20146,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerft_abs S4_pstorerft_abs_Pv4 S4_pstorerft_abs_Rt32 S4_pstorerft_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerft_abs_Pv4 & S4_pstorerft_abs_Rt32 & S4_pstorerft_abs_u6 {
+:S4_pstorerft_abs S4_pstorerft_abs_Pv4 S4_pstorerft_abs_Rt32 S4_pstorerft_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerft_abs_Pv4 & S4_pstorerft_abs_Rt32 & S4_pstorerft_abs_u6 {
   local EA:4;
   EA = S4_pstorerft_abs_u6;
   local tmp0:1;
@@ -20078,7 +20174,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerff_abs S4_pstorerff_abs_Pv4 S4_pstorerff_abs_Rt32 S4_pstorerff_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerff_abs_Pv4 & S4_pstorerff_abs_Rt32 & S4_pstorerff_abs_u6 {
+:S4_pstorerff_abs S4_pstorerff_abs_Pv4 S4_pstorerff_abs_Rt32 S4_pstorerff_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerff_abs_Pv4 & S4_pstorerff_abs_Rt32 & S4_pstorerff_abs_u6 {
   local EA:4;
   EA = S4_pstorerff_abs_u6;
   local tmp0:1;
@@ -20108,7 +20204,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerftnew_abs S4_pstorerftnew_abs_Pv4 S4_pstorerftnew_abs_Rt32 S4_pstorerftnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerftnew_abs_Pv4 & S4_pstorerftnew_abs_Rt32 & S4_pstorerftnew_abs_u6 {
+:S4_pstorerftnew_abs S4_pstorerftnew_abs_Pv4 S4_pstorerftnew_abs_Rt32 S4_pstorerftnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerftnew_abs_Pv4 & S4_pstorerftnew_abs_Rt32 & S4_pstorerftnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerftnew_abs_u6;
   local tmp0:1;
@@ -20138,7 +20234,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerffnew_abs S4_pstorerffnew_abs_Pv4 S4_pstorerffnew_abs_Rt32 S4_pstorerffnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerffnew_abs_Pv4 & S4_pstorerffnew_abs_Rt32 & S4_pstorerffnew_abs_u6 {
+:S4_pstorerffnew_abs S4_pstorerffnew_abs_Pv4 S4_pstorerffnew_abs_Rt32 S4_pstorerffnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerffnew_abs_Pv4 & S4_pstorerffnew_abs_Rt32 & S4_pstorerffnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerffnew_abs_u6;
   local tmp0:1;
@@ -20408,7 +20504,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerit_abs S4_pstorerit_abs_Pv4 S4_pstorerit_abs_Rt32 S4_pstorerit_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerit_abs_Pv4 & S4_pstorerit_abs_Rt32 & S4_pstorerit_abs_u6 {
+:S4_pstorerit_abs S4_pstorerit_abs_Pv4 S4_pstorerit_abs_Rt32 S4_pstorerit_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerit_abs_Pv4 & S4_pstorerit_abs_Rt32 & S4_pstorerit_abs_u6 {
   local EA:4;
   EA = S4_pstorerit_abs_u6;
   local tmp0:1;
@@ -20422,7 +20518,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerif_abs S4_pstorerif_abs_Pv4 S4_pstorerif_abs_Rt32 S4_pstorerif_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerif_abs_Pv4 & S4_pstorerif_abs_Rt32 & S4_pstorerif_abs_u6 {
+:S4_pstorerif_abs S4_pstorerif_abs_Pv4 S4_pstorerif_abs_Rt32 S4_pstorerif_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerif_abs_Pv4 & S4_pstorerif_abs_Rt32 & S4_pstorerif_abs_u6 {
   local EA:4;
   EA = S4_pstorerif_abs_u6;
   local tmp0:1;
@@ -20438,7 +20534,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstoreritnew_abs S4_pstoreritnew_abs_Pv4 S4_pstoreritnew_abs_Rt32 S4_pstoreritnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstoreritnew_abs_Pv4 & S4_pstoreritnew_abs_Rt32 & S4_pstoreritnew_abs_u6 {
+:S4_pstoreritnew_abs S4_pstoreritnew_abs_Pv4 S4_pstoreritnew_abs_Rt32 S4_pstoreritnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstoreritnew_abs_Pv4 & S4_pstoreritnew_abs_Rt32 & S4_pstoreritnew_abs_u6 {
   local EA:4;
   EA = S4_pstoreritnew_abs_u6;
   local tmp0:1;
@@ -20454,7 +20550,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerifnew_abs S4_pstorerifnew_abs_Pv4 S4_pstorerifnew_abs_Rt32 S4_pstorerifnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerifnew_abs_Pv4 & S4_pstorerifnew_abs_Rt32 & S4_pstorerifnew_abs_u6 {
+:S4_pstorerifnew_abs S4_pstorerifnew_abs_Pv4 S4_pstorerifnew_abs_Rt32 S4_pstorerifnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerifnew_abs_Pv4 & S4_pstorerifnew_abs_Rt32 & S4_pstorerifnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerifnew_abs_u6;
   local tmp0:1;
@@ -20710,7 +20806,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerdt_abs S4_pstorerdt_abs_Pv4 S4_pstorerdt_abs_Rtt32 S4_pstorerdt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdt_abs_Pv4 & S4_pstorerdt_abs_Rtt32 & S4_pstorerdt_abs_u6 {
+:S4_pstorerdt_abs S4_pstorerdt_abs_Pv4 S4_pstorerdt_abs_Rtt32 S4_pstorerdt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdt_abs_Pv4 & S4_pstorerdt_abs_Rtt32 & S4_pstorerdt_abs_u6 {
   local EA:4;
   EA = S4_pstorerdt_abs_u6;
   local tmp0:1;
@@ -20724,7 +20820,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerdf_abs S4_pstorerdf_abs_Pv4 S4_pstorerdf_abs_Rtt32 S4_pstorerdf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdf_abs_Pv4 & S4_pstorerdf_abs_Rtt32 & S4_pstorerdf_abs_u6 {
+:S4_pstorerdf_abs S4_pstorerdf_abs_Pv4 S4_pstorerdf_abs_Rtt32 S4_pstorerdf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdf_abs_Pv4 & S4_pstorerdf_abs_Rtt32 & S4_pstorerdf_abs_u6 {
   local EA:4;
   EA = S4_pstorerdf_abs_u6;
   local tmp0:1;
@@ -20740,7 +20836,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerdtnew_abs S4_pstorerdtnew_abs_Pv4 S4_pstorerdtnew_abs_Rtt32 S4_pstorerdtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdtnew_abs_Pv4 & S4_pstorerdtnew_abs_Rtt32 & S4_pstorerdtnew_abs_u6 {
+:S4_pstorerdtnew_abs S4_pstorerdtnew_abs_Pv4 S4_pstorerdtnew_abs_Rtt32 S4_pstorerdtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdtnew_abs_Pv4 & S4_pstorerdtnew_abs_Rtt32 & S4_pstorerdtnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerdtnew_abs_u6;
   local tmp0:1;
@@ -20756,7 +20852,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerdfnew_abs S4_pstorerdfnew_abs_Pv4 S4_pstorerdfnew_abs_Rtt32 S4_pstorerdfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdfnew_abs_Pv4 & S4_pstorerdfnew_abs_Rtt32 & S4_pstorerdfnew_abs_u6 {
+:S4_pstorerdfnew_abs S4_pstorerdfnew_abs_Pv4 S4_pstorerdfnew_abs_Rtt32 S4_pstorerdfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerdfnew_abs_Pv4 & S4_pstorerdfnew_abs_Rtt32 & S4_pstorerdfnew_abs_u6 {
   local EA:4;
   EA = S4_pstorerdfnew_abs_u6;
   local tmp0:1;
@@ -21116,9 +21212,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerinewt_abs S4_pstorerinewt_abs_Pv4 S4_pstorerinewt_abs_Nt8 S4_pstorerinewt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewt_abs_Pv4 & S4_pstorerinewt_abs_Nt8 & S4_pstorerinewt_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerinewt_abs S4_pstorerinewt_abs_Pv4 S4_pstorerinewt_abs_Nt8 S4_pstorerinewt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewt_abs_Pv4 & S4_pstorerinewt_abs_Nt8 & S4_pstorerinewt_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerinewt_abs S4_pstorerinewt_abs_Pv4 dotnewreg S4_pstorerinewt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewt_abs_Pv4 & S4_pstorerinewt_abs_Nt8 & S4_pstorerinewt_abs_u6 & dotnewreg {
+:S4_pstorerinewt_abs S4_pstorerinewt_abs_Pv4 dotnewreg S4_pstorerinewt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewt_abs_Pv4 & S4_pstorerinewt_abs_Nt8 & S4_pstorerinewt_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerinewt_abs_u6;
   local tmp0:1;
@@ -21138,9 +21234,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerinewf_abs S4_pstorerinewf_abs_Pv4 S4_pstorerinewf_abs_Nt8 S4_pstorerinewf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewf_abs_Pv4 & S4_pstorerinewf_abs_Nt8 & S4_pstorerinewf_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerinewf_abs S4_pstorerinewf_abs_Pv4 S4_pstorerinewf_abs_Nt8 S4_pstorerinewf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewf_abs_Pv4 & S4_pstorerinewf_abs_Nt8 & S4_pstorerinewf_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerinewf_abs S4_pstorerinewf_abs_Pv4 dotnewreg S4_pstorerinewf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewf_abs_Pv4 & S4_pstorerinewf_abs_Nt8 & S4_pstorerinewf_abs_u6 & dotnewreg {
+:S4_pstorerinewf_abs S4_pstorerinewf_abs_Pv4 dotnewreg S4_pstorerinewf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewf_abs_Pv4 & S4_pstorerinewf_abs_Nt8 & S4_pstorerinewf_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerinewf_abs_u6;
   local tmp0:1;
@@ -21162,9 +21258,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerinewtnew_abs S4_pstorerinewtnew_abs_Pv4 S4_pstorerinewtnew_abs_Nt8 S4_pstorerinewtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewtnew_abs_Pv4 & S4_pstorerinewtnew_abs_Nt8 & S4_pstorerinewtnew_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerinewtnew_abs S4_pstorerinewtnew_abs_Pv4 S4_pstorerinewtnew_abs_Nt8 S4_pstorerinewtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewtnew_abs_Pv4 & S4_pstorerinewtnew_abs_Nt8 & S4_pstorerinewtnew_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerinewtnew_abs S4_pstorerinewtnew_abs_Pv4 dotnewreg S4_pstorerinewtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewtnew_abs_Pv4 & S4_pstorerinewtnew_abs_Nt8 & S4_pstorerinewtnew_abs_u6 & dotnewreg {
+:S4_pstorerinewtnew_abs S4_pstorerinewtnew_abs_Pv4 dotnewreg S4_pstorerinewtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewtnew_abs_Pv4 & S4_pstorerinewtnew_abs_Nt8 & S4_pstorerinewtnew_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerinewtnew_abs_u6;
   local tmp0:1;
@@ -21186,9 +21282,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerinewfnew_abs S4_pstorerinewfnew_abs_Pv4 S4_pstorerinewfnew_abs_Nt8 S4_pstorerinewfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewfnew_abs_Pv4 & S4_pstorerinewfnew_abs_Nt8 & S4_pstorerinewfnew_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerinewfnew_abs S4_pstorerinewfnew_abs_Pv4 S4_pstorerinewfnew_abs_Nt8 S4_pstorerinewfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewfnew_abs_Pv4 & S4_pstorerinewfnew_abs_Nt8 & S4_pstorerinewfnew_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerinewfnew_abs S4_pstorerinewfnew_abs_Pv4 dotnewreg S4_pstorerinewfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewfnew_abs_Pv4 & S4_pstorerinewfnew_abs_Nt8 & S4_pstorerinewfnew_abs_u6 & dotnewreg {
+:S4_pstorerinewfnew_abs S4_pstorerinewfnew_abs_Pv4 dotnewreg S4_pstorerinewfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 1 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerinewfnew_abs_Pv4 & S4_pstorerinewfnew_abs_Nt8 & S4_pstorerinewfnew_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerinewfnew_abs_u6;
   local tmp0:1;
@@ -21736,9 +21832,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerbnewt_abs S4_pstorerbnewt_abs_Pv4 S4_pstorerbnewt_abs_Nt8 S4_pstorerbnewt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewt_abs_Pv4 & S4_pstorerbnewt_abs_Nt8 & S4_pstorerbnewt_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerbnewt_abs S4_pstorerbnewt_abs_Pv4 S4_pstorerbnewt_abs_Nt8 S4_pstorerbnewt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewt_abs_Pv4 & S4_pstorerbnewt_abs_Nt8 & S4_pstorerbnewt_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerbnewt_abs S4_pstorerbnewt_abs_Pv4 dotnewreg S4_pstorerbnewt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewt_abs_Pv4 & S4_pstorerbnewt_abs_Nt8 & S4_pstorerbnewt_abs_u6 & dotnewreg {
+:S4_pstorerbnewt_abs S4_pstorerbnewt_abs_Pv4 dotnewreg S4_pstorerbnewt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewt_abs_Pv4 & S4_pstorerbnewt_abs_Nt8 & S4_pstorerbnewt_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerbnewt_abs_u6;
   local tmp0:1;
@@ -21772,9 +21868,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerbnewf_abs S4_pstorerbnewf_abs_Pv4 S4_pstorerbnewf_abs_Nt8 S4_pstorerbnewf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewf_abs_Pv4 & S4_pstorerbnewf_abs_Nt8 & S4_pstorerbnewf_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerbnewf_abs S4_pstorerbnewf_abs_Pv4 S4_pstorerbnewf_abs_Nt8 S4_pstorerbnewf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewf_abs_Pv4 & S4_pstorerbnewf_abs_Nt8 & S4_pstorerbnewf_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerbnewf_abs S4_pstorerbnewf_abs_Pv4 dotnewreg S4_pstorerbnewf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewf_abs_Pv4 & S4_pstorerbnewf_abs_Nt8 & S4_pstorerbnewf_abs_u6 & dotnewreg {
+:S4_pstorerbnewf_abs S4_pstorerbnewf_abs_Pv4 dotnewreg S4_pstorerbnewf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewf_abs_Pv4 & S4_pstorerbnewf_abs_Nt8 & S4_pstorerbnewf_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerbnewf_abs_u6;
   local tmp0:1;
@@ -21810,9 +21906,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerbnewtnew_abs S4_pstorerbnewtnew_abs_Pv4 S4_pstorerbnewtnew_abs_Nt8 S4_pstorerbnewtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewtnew_abs_Pv4 & S4_pstorerbnewtnew_abs_Nt8 & S4_pstorerbnewtnew_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerbnewtnew_abs S4_pstorerbnewtnew_abs_Pv4 S4_pstorerbnewtnew_abs_Nt8 S4_pstorerbnewtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewtnew_abs_Pv4 & S4_pstorerbnewtnew_abs_Nt8 & S4_pstorerbnewtnew_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerbnewtnew_abs S4_pstorerbnewtnew_abs_Pv4 dotnewreg S4_pstorerbnewtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewtnew_abs_Pv4 & S4_pstorerbnewtnew_abs_Nt8 & S4_pstorerbnewtnew_abs_u6 & dotnewreg {
+:S4_pstorerbnewtnew_abs S4_pstorerbnewtnew_abs_Pv4 dotnewreg S4_pstorerbnewtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewtnew_abs_Pv4 & S4_pstorerbnewtnew_abs_Nt8 & S4_pstorerbnewtnew_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerbnewtnew_abs_u6;
   local tmp0:1;
@@ -21848,9 +21944,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerbnewfnew_abs S4_pstorerbnewfnew_abs_Pv4 S4_pstorerbnewfnew_abs_Nt8 S4_pstorerbnewfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewfnew_abs_Pv4 & S4_pstorerbnewfnew_abs_Nt8 & S4_pstorerbnewfnew_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerbnewfnew_abs S4_pstorerbnewfnew_abs_Pv4 S4_pstorerbnewfnew_abs_Nt8 S4_pstorerbnewfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewfnew_abs_Pv4 & S4_pstorerbnewfnew_abs_Nt8 & S4_pstorerbnewfnew_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerbnewfnew_abs S4_pstorerbnewfnew_abs_Pv4 dotnewreg S4_pstorerbnewfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewfnew_abs_Pv4 & S4_pstorerbnewfnew_abs_Nt8 & S4_pstorerbnewfnew_abs_u6 & dotnewreg {
+:S4_pstorerbnewfnew_abs S4_pstorerbnewfnew_abs_Pv4 dotnewreg S4_pstorerbnewfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 0 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerbnewfnew_abs_Pv4 & S4_pstorerbnewfnew_abs_Nt8 & S4_pstorerbnewfnew_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerbnewfnew_abs_u6;
   local tmp0:1;
@@ -22412,9 +22508,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:S4_pstorerhnewt_abs S4_pstorerhnewt_abs_Pv4 S4_pstorerhnewt_abs_Nt8 S4_pstorerhnewt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewt_abs_Pv4 & S4_pstorerhnewt_abs_Nt8 & S4_pstorerhnewt_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerhnewt_abs S4_pstorerhnewt_abs_Pv4 S4_pstorerhnewt_abs_Nt8 S4_pstorerhnewt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewt_abs_Pv4 & S4_pstorerhnewt_abs_Nt8 & S4_pstorerhnewt_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerhnewt_abs S4_pstorerhnewt_abs_Pv4 dotnewreg S4_pstorerhnewt_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewt_abs_Pv4 & S4_pstorerhnewt_abs_Nt8 & S4_pstorerhnewt_abs_u6 & dotnewreg {
+:S4_pstorerhnewt_abs S4_pstorerhnewt_abs_Pv4 dotnewreg S4_pstorerhnewt_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewt_abs_Pv4 & S4_pstorerhnewt_abs_Nt8 & S4_pstorerhnewt_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerhnewt_abs_u6;
   local tmp0:1;
@@ -22448,9 +22544,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_2>
 }
 
-:S4_pstorerhnewf_abs S4_pstorerhnewf_abs_Pv4 S4_pstorerhnewf_abs_Nt8 S4_pstorerhnewf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewf_abs_Pv4 & S4_pstorerhnewf_abs_Nt8 & S4_pstorerhnewf_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerhnewf_abs S4_pstorerhnewf_abs_Pv4 S4_pstorerhnewf_abs_Nt8 S4_pstorerhnewf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewf_abs_Pv4 & S4_pstorerhnewf_abs_Nt8 & S4_pstorerhnewf_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerhnewf_abs S4_pstorerhnewf_abs_Pv4 dotnewreg S4_pstorerhnewf_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewf_abs_Pv4 & S4_pstorerhnewf_abs_Nt8 & S4_pstorerhnewf_abs_u6 & dotnewreg {
+:S4_pstorerhnewf_abs S4_pstorerhnewf_abs_Pv4 dotnewreg S4_pstorerhnewf_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewf_abs_Pv4 & S4_pstorerhnewf_abs_Nt8 & S4_pstorerhnewf_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerhnewf_abs_u6;
   local tmp0:1;
@@ -22486,9 +22582,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerhnewtnew_abs S4_pstorerhnewtnew_abs_Pv4 S4_pstorerhnewtnew_abs_Nt8 S4_pstorerhnewtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewtnew_abs_Pv4 & S4_pstorerhnewtnew_abs_Nt8 & S4_pstorerhnewtnew_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerhnewtnew_abs S4_pstorerhnewtnew_abs_Pv4 S4_pstorerhnewtnew_abs_Nt8 S4_pstorerhnewtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewtnew_abs_Pv4 & S4_pstorerhnewtnew_abs_Nt8 & S4_pstorerhnewtnew_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerhnewtnew_abs S4_pstorerhnewtnew_abs_Pv4 dotnewreg S4_pstorerhnewtnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewtnew_abs_Pv4 & S4_pstorerhnewtnew_abs_Nt8 & S4_pstorerhnewtnew_abs_u6 & dotnewreg {
+:S4_pstorerhnewtnew_abs S4_pstorerhnewtnew_abs_Pv4 dotnewreg S4_pstorerhnewtnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewtnew_abs_Pv4 & S4_pstorerhnewtnew_abs_Nt8 & S4_pstorerhnewtnew_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerhnewtnew_abs_u6;
   local tmp0:1;
@@ -22524,9 +22620,9 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:S4_pstorerhnewfnew_abs S4_pstorerhnewfnew_abs_Pv4 S4_pstorerhnewfnew_abs_Nt8 S4_pstorerhnewfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewfnew_abs_Pv4 & S4_pstorerhnewfnew_abs_Nt8 & S4_pstorerhnewfnew_abs_u6 & hasnew = 0                      unimpl
+:S4_pstorerhnewfnew_abs S4_pstorerhnewfnew_abs_Pv4 S4_pstorerhnewfnew_abs_Nt8 S4_pstorerhnewfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewfnew_abs_Pv4 & S4_pstorerhnewfnew_abs_Nt8 & S4_pstorerhnewfnew_abs_u6 & hasnew = 0                      unimpl
 
-:S4_pstorerhnewfnew_abs S4_pstorerhnewfnew_abs_Pv4 dotnewreg S4_pstorerhnewfnew_abs_u6 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewfnew_abs_Pv4 & S4_pstorerhnewfnew_abs_Nt8 & S4_pstorerhnewfnew_abs_u6 & dotnewreg {
+:S4_pstorerhnewfnew_abs S4_pstorerhnewfnew_abs_Pv4 dotnewreg S4_pstorerhnewfnew_abs_u6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 1 & b7 = 1 & b11 = 1 & b12 = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_pstorerhnewfnew_abs_Pv4 & S4_pstorerhnewfnew_abs_Nt8 & S4_pstorerhnewfnew_abs_u6 & dotnewreg {
   local EA:4;
   EA = S4_pstorerhnewfnew_abs_u6;
   local tmp0:1;
