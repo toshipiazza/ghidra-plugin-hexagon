@@ -249,6 +249,25 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(newvalue_operand.toString(), "S2_storerinew_io R5 R3 0x0");
 	}
 
+	// Challenge here is that both R4 and R3 are written, but only R4 is only
+	// written (R3 is both read and written)
+	// The analyzer should choose R4
+	@Test
+	public void testNewValueOperandsTwoRegsWritten() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 8);
+		programBuilder.setBytes("1000", "24 40 03 9b 08 c2 a0 ab");
+
+		programBuilder.disassemble("1000", 8, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		printInstructions();
+	}
+
 	@Test
 	public void testEndloop0() throws Exception {
 		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");

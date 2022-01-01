@@ -118,6 +118,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 			} while (!packetInfo.isTerminated());
 		} catch (UnknownInstructionException | MemoryAccessException ex) {
+			Msg.error(this, "Unable to parse full packet at address " + addr + ": " + ex);
 			if (!packetInfo.packetStartAddress.equals(packetInfo.packetEndAddress)) {
 				program.getListing().clearCodeUnits(packetInfo.packetStartAddress,
 						packetInfo.packetEndAddress.subtract(1), true);
@@ -196,6 +197,8 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			}
 		} catch (ContextChangeException e) {
 			// undo everything, and ensure the packet had been cleared completely
+			Msg.error(this,
+					"Unable to finalize context registers for packet at @ " + packet.packetStartAddress + ": " + e);
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 		}
 
@@ -250,6 +253,8 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
+			Msg.error(this,
+					"Packet failed to disassemble after finalizing context at " + packet.packetStartAddress + ": " + e);
 			// undo everything, and ensure the packet had been cleared completely
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 		}
@@ -285,6 +290,17 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			}
 
 			if (program.getListing().getInstructionAt(addr) == null) {
+				continue;
+			}
+
+			if ((addr.getOffset() & ~3) != addr.getOffset()) {
+				Instruction inst = program.getListing().getInstructionAt(addr);
+				if (inst != null) {
+					if (inst.getLength() != 2) {
+						// user might have disassembled on a 2-byte boundary, which is invalid
+						program.getListing().clearCodeUnits(addr, addr, true);
+					}
+				}
 				continue;
 			}
 

@@ -247,7 +247,7 @@ public class HexagonPcodeEmitPacked {
 				.getValue(program.getProgramContext().getRegister("pkt_start"), context.getAddress(), false);
 		if (pkt_start == null) {
 			// not yet analyzed
-			throw new UnknownInstructionException();
+			throw new UnknownInstructionException("Packet not yet analyzed");
 		}
 		if (!context.getAddress().getOffsetAsBigInteger().equals(pkt_start)) {
 			throw new UnknownInstructionException("Attempting to get pcode from the middle of a packet");
@@ -261,7 +261,7 @@ public class HexagonPcodeEmitPacked {
 				context.getAddress(), false);
 		if (pkt_next == null) {
 			// not yet analyzed
-			throw new UnknownInstructionException();
+			throw new UnknownInstructionException("Packet not yet analyzed");
 		}
 
 		pktNext = program.getAddressFactory().getDefaultAddressSpace().getAddress(pkt_next.longValue());
