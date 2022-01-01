@@ -200,6 +200,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			Msg.error(this,
 					"Unable to finalize context registers for packet at @ " + packet.packetStartAddress + ": " + e);
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
+			return;
 		}
 
 		try {
