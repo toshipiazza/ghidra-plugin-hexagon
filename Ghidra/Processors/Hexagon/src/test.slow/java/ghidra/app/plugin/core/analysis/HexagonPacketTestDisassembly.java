@@ -168,6 +168,30 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 	}
 
 	@Test
+	public void testImmextScale() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 12);
+		programBuilder.setBytes("1000", "8f 62 fe 0f 58 40 20 5d 80 d5 14 fd");
+
+		programBuilder.disassemble("1000", 12, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		printInstructions();
+
+		assertEquals(3, program.getListing().getNumInstructions());
+
+		// boils down to pkt_start + (0xffe8a3c0 | 44)
+		// there's no shift in the calculation in this case because the immext is applied (why?)
+		// verified by comparing against hexag00n output
+		Instruction extended = program.getListing().getInstructionAt(programBuilder.addr("1004"));
+		assertEquals(extended.toString(), "J2_callf P0 0xffe8b3ec");
+	}
+
+	@Test
 	public void testImmextBeforeDuplex() throws Exception {
 		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
 		program = programBuilder.getProgram();
