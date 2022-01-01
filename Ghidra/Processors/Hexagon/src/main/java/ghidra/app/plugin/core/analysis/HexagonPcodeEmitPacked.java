@@ -107,29 +107,61 @@ public class HexagonPcodeEmitPacked {
 	}
 
 	boolean isNewRegUserOp(PcodeOp op) {
-		// (unique, 0x27800, 1) CALLOTHER (const, 0x0, 4) , (unique, 0x96805, 1)
-
 		if (op.getOpcode() != PcodeOp.CALLOTHER) {
 			return false;
 		}
+
 		if (op.getNumInputs() != 2) {
 			return false;
 		}
+
 		if (!op.getInput(0).isConstant()) {
 			return false;
 		}
+
 		return op.getInput(0).getOffset() == 0;
 	}
 
 	void writePcode(Instruction instruction, PcodeOp[] pcode, List<PcodeOp> mainPcode, List<PcodeOp> jumpPcode,
 			UniqueAddressFactory uniqueFactory, Address[] scratchRegUnique, Set<Varnode> registerSpills,
 			Map<SequenceNumber, Varnode> branches, AddressFactory addressFactory) {
-		for (PcodeOp op : pcode) {
+		for (int j = 0; j < pcode.length; j++) {
+			PcodeOp op = pcode[j];
 			PcodeOp opNew;
 			if (isNewRegUserOp(op)) {
-				// replace `tmp = CALLOTHER 0 reg` with `tmp = reg`
+
 				opNew = new PcodeOp(defaultSeqno, PcodeOp.COPY, 1, op.getOutput());
-				opNew.setInput(op.getInput(1), 0);
+
+				if (op.getInput(1).isRegister()) {
+					// Replace dot-new predicate of the form
+					//
+					// $U2dd00:1 = CALLOTHER "newreg", P0
+					//
+					// With:
+					//
+					// $U2dd00:1 = P0
+					//
+					opNew.setInput(op.getInput(1), 0);
+				} else {
+					// Replace new-value operand of the form
+					//
+					// $U47d80:4 = LOAD register(R6)
+					// $U47d00:4 = CALLOTHER "newreg", $U47d80:4
+					//
+					// With:
+					//
+					// $U47d00:4 = R6
+					assert j != 0;
+					PcodeOp opLoad = pcode[j - 1];
+					assert opLoad.getOpcode() == PcodeOp.LOAD;
+					assert opLoad.getInput(0).getAddress().isConstantAddress();
+					assert opLoad.getInput(0).getAddress().getOffset() != program.getAddressFactory().getRegisterSpace()
+							.getSpaceID();
+					assert opLoad.getInput(1).isRegister();
+					assert opLoad.getOutput().equals(op.getInput(1));
+
+					opNew.setInput(opLoad.getInput(1), 0);
+				}
 			} else {
 				opNew = new PcodeOp(defaultSeqno, op.getOpcode(), op.getNumInputs(), op.getOutput());
 				for (int i = 0; i < op.getNumInputs(); i++) {
@@ -149,7 +181,8 @@ public class HexagonPcodeEmitPacked {
 				// fallthrough to another jump
 				// the one exception to this is a CALL_RETURN flow override,
 				// which will append a RETURN right after the CALL
-				boolean insert_jump_after_packet = isCall(op) && !override.getFlowOverride().equals(FlowOverride.CALL_RETURN);
+				boolean insert_jump_after_packet = isCall(op)
+						&& !override.getFlowOverride().equals(FlowOverride.CALL_RETURN);
 
 				if (hasFallthrough(instruction)) {
 					Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(1), 1) };
