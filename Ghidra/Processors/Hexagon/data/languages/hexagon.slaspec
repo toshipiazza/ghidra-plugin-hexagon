@@ -10041,125 +10041,125 @@ J2_jumprltez_r13_2: reloc is J2_jumprltez_r13_2_0 & J2_jumprltez_r13_2_1 & J2_ju
 
 J2_jumprltezpt_r13_2: reloc is J2_jumprltezpt_r13_2_0 & J2_jumprltezpt_r13_2_1 & J2_jumprltezpt_r13_2_2 [ reloc = pkt_start + ((((J2_jumprltezpt_r13_2_0 << 0) + (J2_jumprltezpt_r13_2_1 << 11)) + (J2_jumprltezpt_r13_2_2 << 12)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_tp0_jump_nt_U5: reloc is                       J4_cmpeqi_tp0_jump_nt_U5_0 [ reloc = (((J4_cmpeqi_tp0_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_tp0_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpeqi_tp0_jump_nt_U5_0 [ reloc = J4_cmpeqi_tp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_tp0_jump_nt_U5: reloc is J4_cmpeqi_tp0_jump_nt_U5_0 [ reloc = J4_cmpeqi_tp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_tp0_jump_nt_r9_2: reloc is J4_cmpeqi_tp0_jump_nt_r9_2_0 & J4_cmpeqi_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp0_jump_nt_r9_2: reloc is                       J4_cmpeqi_tp0_jump_nt_r9_2_0 & J4_cmpeqi_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_tp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_tp0_jump_nt_r9_2_0 & J4_cmpeqi_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_fp0_jump_nt_U5: reloc is                       J4_cmpeqi_fp0_jump_nt_U5_0 [ reloc = (((J4_cmpeqi_fp0_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_fp0_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpeqi_fp0_jump_nt_U5_0 [ reloc = J4_cmpeqi_fp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_fp0_jump_nt_U5: reloc is J4_cmpeqi_fp0_jump_nt_U5_0 [ reloc = J4_cmpeqi_fp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_fp0_jump_nt_r9_2: reloc is J4_cmpeqi_fp0_jump_nt_r9_2_0 & J4_cmpeqi_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_fp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp0_jump_nt_r9_2: reloc is                       J4_cmpeqi_fp0_jump_nt_r9_2_0 & J4_cmpeqi_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_fp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_fp0_jump_nt_r9_2_0 & J4_cmpeqi_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_fp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_tp0_jump_t_U5: reloc is                       J4_cmpeqi_tp0_jump_t_U5_0 [ reloc = (((J4_cmpeqi_tp0_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_tp0_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpeqi_tp0_jump_t_U5_0 [ reloc = J4_cmpeqi_tp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_tp0_jump_t_U5: reloc is J4_cmpeqi_tp0_jump_t_U5_0 [ reloc = J4_cmpeqi_tp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_tp0_jump_t_r9_2: reloc is J4_cmpeqi_tp0_jump_t_r9_2_0 & J4_cmpeqi_tp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp0_jump_t_r9_2_0 << 0) + (J4_cmpeqi_tp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp0_jump_t_r9_2: reloc is                       J4_cmpeqi_tp0_jump_t_r9_2_0 & J4_cmpeqi_tp0_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_tp0_jump_t_r9_2_0 << 0) + (J4_cmpeqi_tp0_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp0_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_tp0_jump_t_r9_2_0 & J4_cmpeqi_tp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp0_jump_t_r9_2_0 << 0) + (J4_cmpeqi_tp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_fp0_jump_t_U5: reloc is                       J4_cmpeqi_fp0_jump_t_U5_0 [ reloc = (((J4_cmpeqi_fp0_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_fp0_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpeqi_fp0_jump_t_U5_0 [ reloc = J4_cmpeqi_fp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_fp0_jump_t_U5: reloc is J4_cmpeqi_fp0_jump_t_U5_0 [ reloc = J4_cmpeqi_fp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_fp0_jump_t_r9_2: reloc is J4_cmpeqi_fp0_jump_t_r9_2_0 & J4_cmpeqi_fp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp0_jump_t_r9_2_0 << 0) + (J4_cmpeqi_fp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp0_jump_t_r9_2: reloc is                       J4_cmpeqi_fp0_jump_t_r9_2_0 & J4_cmpeqi_fp0_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_fp0_jump_t_r9_2_0 << 0) + (J4_cmpeqi_fp0_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp0_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_fp0_jump_t_r9_2_0 & J4_cmpeqi_fp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp0_jump_t_r9_2_0 << 0) + (J4_cmpeqi_fp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_tp1_jump_nt_U5: reloc is                       J4_cmpeqi_tp1_jump_nt_U5_0 [ reloc = (((J4_cmpeqi_tp1_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_tp1_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpeqi_tp1_jump_nt_U5_0 [ reloc = J4_cmpeqi_tp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_tp1_jump_nt_U5: reloc is J4_cmpeqi_tp1_jump_nt_U5_0 [ reloc = J4_cmpeqi_tp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_tp1_jump_nt_r9_2: reloc is J4_cmpeqi_tp1_jump_nt_r9_2_0 & J4_cmpeqi_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_tp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp1_jump_nt_r9_2: reloc is                       J4_cmpeqi_tp1_jump_nt_r9_2_0 & J4_cmpeqi_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_tp1_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp1_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_tp1_jump_nt_r9_2_0 & J4_cmpeqi_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_tp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_fp1_jump_nt_U5: reloc is                       J4_cmpeqi_fp1_jump_nt_U5_0 [ reloc = (((J4_cmpeqi_fp1_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_fp1_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpeqi_fp1_jump_nt_U5_0 [ reloc = J4_cmpeqi_fp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_fp1_jump_nt_U5: reloc is J4_cmpeqi_fp1_jump_nt_U5_0 [ reloc = J4_cmpeqi_fp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_fp1_jump_nt_r9_2: reloc is J4_cmpeqi_fp1_jump_nt_r9_2_0 & J4_cmpeqi_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_fp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp1_jump_nt_r9_2: reloc is                       J4_cmpeqi_fp1_jump_nt_r9_2_0 & J4_cmpeqi_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_fp1_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp1_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_fp1_jump_nt_r9_2_0 & J4_cmpeqi_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpeqi_fp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_tp1_jump_t_U5: reloc is                       J4_cmpeqi_tp1_jump_t_U5_0 [ reloc = (((J4_cmpeqi_tp1_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_tp1_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpeqi_tp1_jump_t_U5_0 [ reloc = J4_cmpeqi_tp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_tp1_jump_t_U5: reloc is J4_cmpeqi_tp1_jump_t_U5_0 [ reloc = J4_cmpeqi_tp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_tp1_jump_t_r9_2: reloc is J4_cmpeqi_tp1_jump_t_r9_2_0 & J4_cmpeqi_tp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp1_jump_t_r9_2_0 << 0) + (J4_cmpeqi_tp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp1_jump_t_r9_2: reloc is                       J4_cmpeqi_tp1_jump_t_r9_2_0 & J4_cmpeqi_tp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_tp1_jump_t_r9_2_0 << 0) + (J4_cmpeqi_tp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_tp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_tp1_jump_t_r9_2_0 & J4_cmpeqi_tp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_tp1_jump_t_r9_2_0 << 0) + (J4_cmpeqi_tp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_fp1_jump_t_U5: reloc is                       J4_cmpeqi_fp1_jump_t_U5_0 [ reloc = (((J4_cmpeqi_fp1_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_fp1_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpeqi_fp1_jump_t_U5_0 [ reloc = J4_cmpeqi_fp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_fp1_jump_t_U5: reloc is J4_cmpeqi_fp1_jump_t_U5_0 [ reloc = J4_cmpeqi_fp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_fp1_jump_t_r9_2: reloc is J4_cmpeqi_fp1_jump_t_r9_2_0 & J4_cmpeqi_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp1_jump_t_r9_2_0 << 0) + (J4_cmpeqi_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp1_jump_t_r9_2: reloc is                       J4_cmpeqi_fp1_jump_t_r9_2_0 & J4_cmpeqi_fp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_fp1_jump_t_r9_2_0 << 0) + (J4_cmpeqi_fp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_fp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_fp1_jump_t_r9_2_0 & J4_cmpeqi_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_fp1_jump_t_r9_2_0 << 0) + (J4_cmpeqi_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_tp0_jump_nt_U5: reloc is                       J4_cmpgti_tp0_jump_nt_U5_0 [ reloc = (((J4_cmpgti_tp0_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_tp0_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgti_tp0_jump_nt_U5_0 [ reloc = J4_cmpgti_tp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_tp0_jump_nt_U5: reloc is J4_cmpgti_tp0_jump_nt_U5_0 [ reloc = J4_cmpgti_tp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_tp0_jump_nt_r9_2: reloc is J4_cmpgti_tp0_jump_nt_r9_2_0 & J4_cmpgti_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpgti_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp0_jump_nt_r9_2: reloc is                       J4_cmpgti_tp0_jump_nt_r9_2_0 & J4_cmpgti_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpgti_tp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_tp0_jump_nt_r9_2_0 & J4_cmpgti_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpgti_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_fp0_jump_nt_U5: reloc is                       J4_cmpgti_fp0_jump_nt_U5_0 [ reloc = (((J4_cmpgti_fp0_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_fp0_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgti_fp0_jump_nt_U5_0 [ reloc = J4_cmpgti_fp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_fp0_jump_nt_U5: reloc is J4_cmpgti_fp0_jump_nt_U5_0 [ reloc = J4_cmpgti_fp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_fp0_jump_nt_r9_2: reloc is J4_cmpgti_fp0_jump_nt_r9_2_0 & J4_cmpgti_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpgti_fp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp0_jump_nt_r9_2: reloc is                       J4_cmpgti_fp0_jump_nt_r9_2_0 & J4_cmpgti_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpgti_fp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_fp0_jump_nt_r9_2_0 & J4_cmpgti_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpgti_fp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_tp0_jump_t_U5: reloc is                       J4_cmpgti_tp0_jump_t_U5_0 [ reloc = (((J4_cmpgti_tp0_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_tp0_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgti_tp0_jump_t_U5_0 [ reloc = J4_cmpgti_tp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_tp0_jump_t_U5: reloc is J4_cmpgti_tp0_jump_t_U5_0 [ reloc = J4_cmpgti_tp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_tp0_jump_t_r9_2: reloc is J4_cmpgti_tp0_jump_t_r9_2_0 & J4_cmpgti_tp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp0_jump_t_r9_2_0 << 0) + (J4_cmpgti_tp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp0_jump_t_r9_2: reloc is                       J4_cmpgti_tp0_jump_t_r9_2_0 & J4_cmpgti_tp0_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_tp0_jump_t_r9_2_0 << 0) + (J4_cmpgti_tp0_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp0_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_tp0_jump_t_r9_2_0 & J4_cmpgti_tp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp0_jump_t_r9_2_0 << 0) + (J4_cmpgti_tp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_fp0_jump_t_U5: reloc is                       J4_cmpgti_fp0_jump_t_U5_0 [ reloc = (((J4_cmpgti_fp0_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_fp0_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgti_fp0_jump_t_U5_0 [ reloc = J4_cmpgti_fp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_fp0_jump_t_U5: reloc is J4_cmpgti_fp0_jump_t_U5_0 [ reloc = J4_cmpgti_fp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_fp0_jump_t_r9_2: reloc is J4_cmpgti_fp0_jump_t_r9_2_0 & J4_cmpgti_fp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp0_jump_t_r9_2_0 << 0) + (J4_cmpgti_fp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp0_jump_t_r9_2: reloc is                       J4_cmpgti_fp0_jump_t_r9_2_0 & J4_cmpgti_fp0_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_fp0_jump_t_r9_2_0 << 0) + (J4_cmpgti_fp0_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp0_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_fp0_jump_t_r9_2_0 & J4_cmpgti_fp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp0_jump_t_r9_2_0 << 0) + (J4_cmpgti_fp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_tp1_jump_nt_U5: reloc is                       J4_cmpgti_tp1_jump_nt_U5_0 [ reloc = (((J4_cmpgti_tp1_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_tp1_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgti_tp1_jump_nt_U5_0 [ reloc = J4_cmpgti_tp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_tp1_jump_nt_U5: reloc is J4_cmpgti_tp1_jump_nt_U5_0 [ reloc = J4_cmpgti_tp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_tp1_jump_nt_r9_2: reloc is J4_cmpgti_tp1_jump_nt_r9_2_0 & J4_cmpgti_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpgti_tp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp1_jump_nt_r9_2: reloc is                       J4_cmpgti_tp1_jump_nt_r9_2_0 & J4_cmpgti_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpgti_tp1_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp1_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_tp1_jump_nt_r9_2_0 & J4_cmpgti_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpgti_tp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_fp1_jump_nt_U5: reloc is                       J4_cmpgti_fp1_jump_nt_U5_0 [ reloc = (((J4_cmpgti_fp1_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_fp1_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgti_fp1_jump_nt_U5_0 [ reloc = J4_cmpgti_fp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_fp1_jump_nt_U5: reloc is J4_cmpgti_fp1_jump_nt_U5_0 [ reloc = J4_cmpgti_fp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_fp1_jump_nt_r9_2: reloc is J4_cmpgti_fp1_jump_nt_r9_2_0 & J4_cmpgti_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpgti_fp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp1_jump_nt_r9_2: reloc is                       J4_cmpgti_fp1_jump_nt_r9_2_0 & J4_cmpgti_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpgti_fp1_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp1_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_fp1_jump_nt_r9_2_0 & J4_cmpgti_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpgti_fp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_tp1_jump_t_U5: reloc is                       J4_cmpgti_tp1_jump_t_U5_0 [ reloc = (((J4_cmpgti_tp1_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_tp1_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgti_tp1_jump_t_U5_0 [ reloc = J4_cmpgti_tp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_tp1_jump_t_U5: reloc is J4_cmpgti_tp1_jump_t_U5_0 [ reloc = J4_cmpgti_tp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_tp1_jump_t_r9_2: reloc is J4_cmpgti_tp1_jump_t_r9_2_0 & J4_cmpgti_tp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp1_jump_t_r9_2_0 << 0) + (J4_cmpgti_tp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp1_jump_t_r9_2: reloc is                       J4_cmpgti_tp1_jump_t_r9_2_0 & J4_cmpgti_tp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_tp1_jump_t_r9_2_0 << 0) + (J4_cmpgti_tp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_tp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_tp1_jump_t_r9_2_0 & J4_cmpgti_tp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_tp1_jump_t_r9_2_0 << 0) + (J4_cmpgti_tp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_fp1_jump_t_U5: reloc is                       J4_cmpgti_fp1_jump_t_U5_0 [ reloc = (((J4_cmpgti_fp1_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_fp1_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgti_fp1_jump_t_U5_0 [ reloc = J4_cmpgti_fp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_fp1_jump_t_U5: reloc is J4_cmpgti_fp1_jump_t_U5_0 [ reloc = J4_cmpgti_fp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_fp1_jump_t_r9_2: reloc is J4_cmpgti_fp1_jump_t_r9_2_0 & J4_cmpgti_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgti_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp1_jump_t_r9_2: reloc is                       J4_cmpgti_fp1_jump_t_r9_2_0 & J4_cmpgti_fp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgti_fp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_fp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_fp1_jump_t_r9_2_0 & J4_cmpgti_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgti_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_tp0_jump_nt_U5: reloc is                       J4_cmpgtui_tp0_jump_nt_U5_0 [ reloc = (((J4_cmpgtui_tp0_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_tp0_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgtui_tp0_jump_nt_U5_0 [ reloc = J4_cmpgtui_tp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_tp0_jump_nt_U5: reloc is J4_cmpgtui_tp0_jump_nt_U5_0 [ reloc = J4_cmpgtui_tp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_tp0_jump_nt_r9_2: reloc is J4_cmpgtui_tp0_jump_nt_r9_2_0 & J4_cmpgtui_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp0_jump_nt_r9_2: reloc is                       J4_cmpgtui_tp0_jump_nt_r9_2_0 & J4_cmpgtui_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_tp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_tp0_jump_nt_r9_2_0 & J4_cmpgtui_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_fp0_jump_nt_U5: reloc is                       J4_cmpgtui_fp0_jump_nt_U5_0 [ reloc = (((J4_cmpgtui_fp0_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_fp0_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgtui_fp0_jump_nt_U5_0 [ reloc = J4_cmpgtui_fp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_fp0_jump_nt_U5: reloc is J4_cmpgtui_fp0_jump_nt_U5_0 [ reloc = J4_cmpgtui_fp0_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_fp0_jump_nt_r9_2: reloc is J4_cmpgtui_fp0_jump_nt_r9_2_0 & J4_cmpgtui_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_fp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp0_jump_nt_r9_2: reloc is                       J4_cmpgtui_fp0_jump_nt_r9_2_0 & J4_cmpgtui_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_fp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_fp0_jump_nt_r9_2_0 & J4_cmpgtui_fp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp0_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_fp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_tp0_jump_t_U5: reloc is                       J4_cmpgtui_tp0_jump_t_U5_0 [ reloc = (((J4_cmpgtui_tp0_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_tp0_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgtui_tp0_jump_t_U5_0 [ reloc = J4_cmpgtui_tp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_tp0_jump_t_U5: reloc is J4_cmpgtui_tp0_jump_t_U5_0 [ reloc = J4_cmpgtui_tp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_tp0_jump_t_r9_2: reloc is J4_cmpgtui_tp0_jump_t_r9_2_0 & J4_cmpgtui_tp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp0_jump_t_r9_2_0 << 0) + (J4_cmpgtui_tp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp0_jump_t_r9_2: reloc is                       J4_cmpgtui_tp0_jump_t_r9_2_0 & J4_cmpgtui_tp0_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_tp0_jump_t_r9_2_0 << 0) + (J4_cmpgtui_tp0_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp0_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_tp0_jump_t_r9_2_0 & J4_cmpgtui_tp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp0_jump_t_r9_2_0 << 0) + (J4_cmpgtui_tp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_fp0_jump_t_U5: reloc is                       J4_cmpgtui_fp0_jump_t_U5_0 [ reloc = (((J4_cmpgtui_fp0_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_fp0_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgtui_fp0_jump_t_U5_0 [ reloc = J4_cmpgtui_fp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_fp0_jump_t_U5: reloc is J4_cmpgtui_fp0_jump_t_U5_0 [ reloc = J4_cmpgtui_fp0_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_fp0_jump_t_r9_2: reloc is J4_cmpgtui_fp0_jump_t_r9_2_0 & J4_cmpgtui_fp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp0_jump_t_r9_2_0 << 0) + (J4_cmpgtui_fp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp0_jump_t_r9_2: reloc is                       J4_cmpgtui_fp0_jump_t_r9_2_0 & J4_cmpgtui_fp0_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_fp0_jump_t_r9_2_0 << 0) + (J4_cmpgtui_fp0_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp0_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_fp0_jump_t_r9_2_0 & J4_cmpgtui_fp0_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp0_jump_t_r9_2_0 << 0) + (J4_cmpgtui_fp0_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_tp1_jump_nt_U5: reloc is                       J4_cmpgtui_tp1_jump_nt_U5_0 [ reloc = (((J4_cmpgtui_tp1_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_tp1_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgtui_tp1_jump_nt_U5_0 [ reloc = J4_cmpgtui_tp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_tp1_jump_nt_U5: reloc is J4_cmpgtui_tp1_jump_nt_U5_0 [ reloc = J4_cmpgtui_tp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_tp1_jump_nt_r9_2: reloc is J4_cmpgtui_tp1_jump_nt_r9_2_0 & J4_cmpgtui_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_tp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp1_jump_nt_r9_2: reloc is                       J4_cmpgtui_tp1_jump_nt_r9_2_0 & J4_cmpgtui_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_tp1_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp1_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_tp1_jump_nt_r9_2_0 & J4_cmpgtui_tp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp1_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_tp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_fp1_jump_nt_U5: reloc is                       J4_cmpgtui_fp1_jump_nt_U5_0 [ reloc = (((J4_cmpgtui_fp1_jump_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_fp1_jump_nt_U5: reloc is immext = 0xffffffff & J4_cmpgtui_fp1_jump_nt_U5_0 [ reloc = J4_cmpgtui_fp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_fp1_jump_nt_U5: reloc is J4_cmpgtui_fp1_jump_nt_U5_0 [ reloc = J4_cmpgtui_fp1_jump_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_fp1_jump_nt_r9_2: reloc is J4_cmpgtui_fp1_jump_nt_r9_2_0 & J4_cmpgtui_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_fp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp1_jump_nt_r9_2: reloc is                       J4_cmpgtui_fp1_jump_nt_r9_2_0 & J4_cmpgtui_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_fp1_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp1_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_fp1_jump_nt_r9_2_0 & J4_cmpgtui_fp1_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp1_jump_nt_r9_2_0 << 0) + (J4_cmpgtui_fp1_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_tp1_jump_t_U5: reloc is                       J4_cmpgtui_tp1_jump_t_U5_0 [ reloc = (((J4_cmpgtui_tp1_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_tp1_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgtui_tp1_jump_t_U5_0 [ reloc = J4_cmpgtui_tp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_tp1_jump_t_U5: reloc is J4_cmpgtui_tp1_jump_t_U5_0 [ reloc = J4_cmpgtui_tp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_tp1_jump_t_r9_2: reloc is J4_cmpgtui_tp1_jump_t_r9_2_0 & J4_cmpgtui_tp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp1_jump_t_r9_2_0 << 0) + (J4_cmpgtui_tp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp1_jump_t_r9_2: reloc is                       J4_cmpgtui_tp1_jump_t_r9_2_0 & J4_cmpgtui_tp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_tp1_jump_t_r9_2_0 << 0) + (J4_cmpgtui_tp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_tp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_tp1_jump_t_r9_2_0 & J4_cmpgtui_tp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_tp1_jump_t_r9_2_0 << 0) + (J4_cmpgtui_tp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_fp1_jump_t_U5: reloc is                       J4_cmpgtui_fp1_jump_t_U5_0 [ reloc = (((J4_cmpgtui_fp1_jump_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_fp1_jump_t_U5: reloc is immext = 0xffffffff & J4_cmpgtui_fp1_jump_t_U5_0 [ reloc = J4_cmpgtui_fp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_fp1_jump_t_U5: reloc is J4_cmpgtui_fp1_jump_t_U5_0 [ reloc = J4_cmpgtui_fp1_jump_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_fp1_jump_t_r9_2: reloc is J4_cmpgtui_fp1_jump_t_r9_2_0 & J4_cmpgtui_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgtui_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp1_jump_t_r9_2: reloc is                       J4_cmpgtui_fp1_jump_t_r9_2_0 & J4_cmpgtui_fp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgtui_fp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_fp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_fp1_jump_t_r9_2_0 & J4_cmpgtui_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgtui_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
 J4_cmpeqn1_tp0_jump_nt_r9_2: reloc is                       J4_cmpeqn1_tp0_jump_nt_r9_2_0 & J4_cmpeqn1_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqn1_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqn1_tp0_jump_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
 J4_cmpeqn1_tp0_jump_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqn1_tp0_jump_nt_r9_2_0 & J4_cmpeqn1_tp0_jump_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqn1_tp0_jump_nt_r9_2_0 << 0) + (J4_cmpeqn1_tp0_jump_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
@@ -10305,73 +10305,73 @@ J4_cmpgtu_tp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtu_tp1_jump_t_r
 J4_cmpgtu_fp1_jump_t_r9_2: reloc is                       J4_cmpgtu_fp1_jump_t_r9_2_0 & J4_cmpgtu_fp1_jump_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtu_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgtu_fp1_jump_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
 J4_cmpgtu_fp1_jump_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtu_fp1_jump_t_r9_2_0 & J4_cmpgtu_fp1_jump_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtu_fp1_jump_t_r9_2_0 << 0) + (J4_cmpgtu_fp1_jump_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_jumpseti_U6: reloc is                       J4_jumpseti_U6_0 [ reloc = (((J4_jumpseti_U6_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_jumpseti_U6: reloc is immext = 0xffffffff & J4_jumpseti_U6_0 [ reloc = J4_jumpseti_U6_0 << 0; ] { export *[const]:4 reloc; }
+J4_jumpseti_U6: reloc is J4_jumpseti_U6_0 [ reloc = J4_jumpseti_U6_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_jumpseti_r9_2: reloc is J4_jumpseti_r9_2_0 & J4_jumpseti_r9_2_1 [ reloc = pkt_start + (((J4_jumpseti_r9_2_0 << 0) + (J4_jumpseti_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_jumpseti_r9_2: reloc is                       J4_jumpseti_r9_2_0 & J4_jumpseti_r9_2_1 [ reloc = pkt_start + ((((J4_jumpseti_r9_2_0 << 0) + (J4_jumpseti_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_jumpseti_r9_2: reloc is immext = 0xffffffff & J4_jumpseti_r9_2_0 & J4_jumpseti_r9_2_1 [ reloc = pkt_start + (((J4_jumpseti_r9_2_0 << 0) + (J4_jumpseti_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
 J4_jumpsetr_r9_2: reloc is                       J4_jumpsetr_r9_2_0 & J4_jumpsetr_r9_2_1 [ reloc = pkt_start + ((((J4_jumpsetr_r9_2_0 << 0) + (J4_jumpsetr_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
 J4_jumpsetr_r9_2: reloc is immext = 0xffffffff & J4_jumpsetr_r9_2_0 & J4_jumpsetr_r9_2_1 [ reloc = pkt_start + (((J4_jumpsetr_r9_2_0 << 0) + (J4_jumpsetr_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_t_jumpnv_t_U5: reloc is                       J4_cmpeqi_t_jumpnv_t_U5_0 [ reloc = (((J4_cmpeqi_t_jumpnv_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_t_jumpnv_t_U5: reloc is immext = 0xffffffff & J4_cmpeqi_t_jumpnv_t_U5_0 [ reloc = J4_cmpeqi_t_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_t_jumpnv_t_U5: reloc is J4_cmpeqi_t_jumpnv_t_U5_0 [ reloc = J4_cmpeqi_t_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_t_jumpnv_t_r9_2: reloc is J4_cmpeqi_t_jumpnv_t_r9_2_0 & J4_cmpeqi_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqi_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_t_jumpnv_t_r9_2: reloc is                       J4_cmpeqi_t_jumpnv_t_r9_2_0 & J4_cmpeqi_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqi_t_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_t_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_t_jumpnv_t_r9_2_0 & J4_cmpeqi_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqi_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_t_jumpnv_nt_U5: reloc is                       J4_cmpeqi_t_jumpnv_nt_U5_0 [ reloc = (((J4_cmpeqi_t_jumpnv_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_t_jumpnv_nt_U5: reloc is immext = 0xffffffff & J4_cmpeqi_t_jumpnv_nt_U5_0 [ reloc = J4_cmpeqi_t_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_t_jumpnv_nt_U5: reloc is J4_cmpeqi_t_jumpnv_nt_U5_0 [ reloc = J4_cmpeqi_t_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_t_jumpnv_nt_r9_2: reloc is J4_cmpeqi_t_jumpnv_nt_r9_2_0 & J4_cmpeqi_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpeqi_t_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_t_jumpnv_nt_r9_2: reloc is                       J4_cmpeqi_t_jumpnv_nt_r9_2_0 & J4_cmpeqi_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpeqi_t_jumpnv_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_t_jumpnv_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_t_jumpnv_nt_r9_2_0 & J4_cmpeqi_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpeqi_t_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_f_jumpnv_t_U5: reloc is                       J4_cmpeqi_f_jumpnv_t_U5_0 [ reloc = (((J4_cmpeqi_f_jumpnv_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_f_jumpnv_t_U5: reloc is immext = 0xffffffff & J4_cmpeqi_f_jumpnv_t_U5_0 [ reloc = J4_cmpeqi_f_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_f_jumpnv_t_U5: reloc is J4_cmpeqi_f_jumpnv_t_U5_0 [ reloc = J4_cmpeqi_f_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_f_jumpnv_t_r9_2: reloc is J4_cmpeqi_f_jumpnv_t_r9_2_0 & J4_cmpeqi_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqi_f_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_f_jumpnv_t_r9_2: reloc is                       J4_cmpeqi_f_jumpnv_t_r9_2_0 & J4_cmpeqi_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqi_f_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_f_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_f_jumpnv_t_r9_2_0 & J4_cmpeqi_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqi_f_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpeqi_f_jumpnv_nt_U5: reloc is                       J4_cmpeqi_f_jumpnv_nt_U5_0 [ reloc = (((J4_cmpeqi_f_jumpnv_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpeqi_f_jumpnv_nt_U5: reloc is immext = 0xffffffff & J4_cmpeqi_f_jumpnv_nt_U5_0 [ reloc = J4_cmpeqi_f_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpeqi_f_jumpnv_nt_U5: reloc is J4_cmpeqi_f_jumpnv_nt_U5_0 [ reloc = J4_cmpeqi_f_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpeqi_f_jumpnv_nt_r9_2: reloc is J4_cmpeqi_f_jumpnv_nt_r9_2_0 & J4_cmpeqi_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpeqi_f_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_f_jumpnv_nt_r9_2: reloc is                       J4_cmpeqi_f_jumpnv_nt_r9_2_0 & J4_cmpeqi_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqi_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpeqi_f_jumpnv_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpeqi_f_jumpnv_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpeqi_f_jumpnv_nt_r9_2_0 & J4_cmpeqi_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqi_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpeqi_f_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_t_jumpnv_t_U5: reloc is                       J4_cmpgti_t_jumpnv_t_U5_0 [ reloc = (((J4_cmpgti_t_jumpnv_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_t_jumpnv_t_U5: reloc is immext = 0xffffffff & J4_cmpgti_t_jumpnv_t_U5_0 [ reloc = J4_cmpgti_t_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_t_jumpnv_t_U5: reloc is J4_cmpgti_t_jumpnv_t_U5_0 [ reloc = J4_cmpgti_t_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_t_jumpnv_t_r9_2: reloc is J4_cmpgti_t_jumpnv_t_r9_2_0 & J4_cmpgti_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpgti_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_t_jumpnv_t_r9_2: reloc is                       J4_cmpgti_t_jumpnv_t_r9_2_0 & J4_cmpgti_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpgti_t_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_t_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_t_jumpnv_t_r9_2_0 & J4_cmpgti_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpgti_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_t_jumpnv_nt_U5: reloc is                       J4_cmpgti_t_jumpnv_nt_U5_0 [ reloc = (((J4_cmpgti_t_jumpnv_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_t_jumpnv_nt_U5: reloc is immext = 0xffffffff & J4_cmpgti_t_jumpnv_nt_U5_0 [ reloc = J4_cmpgti_t_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_t_jumpnv_nt_U5: reloc is J4_cmpgti_t_jumpnv_nt_U5_0 [ reloc = J4_cmpgti_t_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_t_jumpnv_nt_r9_2: reloc is J4_cmpgti_t_jumpnv_nt_r9_2_0 & J4_cmpgti_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgti_t_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_t_jumpnv_nt_r9_2: reloc is                       J4_cmpgti_t_jumpnv_nt_r9_2_0 & J4_cmpgti_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgti_t_jumpnv_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_t_jumpnv_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_t_jumpnv_nt_r9_2_0 & J4_cmpgti_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgti_t_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_f_jumpnv_t_U5: reloc is                       J4_cmpgti_f_jumpnv_t_U5_0 [ reloc = (((J4_cmpgti_f_jumpnv_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_f_jumpnv_t_U5: reloc is immext = 0xffffffff & J4_cmpgti_f_jumpnv_t_U5_0 [ reloc = J4_cmpgti_f_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_f_jumpnv_t_U5: reloc is J4_cmpgti_f_jumpnv_t_U5_0 [ reloc = J4_cmpgti_f_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_f_jumpnv_t_r9_2: reloc is J4_cmpgti_f_jumpnv_t_r9_2_0 & J4_cmpgti_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpgti_f_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_f_jumpnv_t_r9_2: reloc is                       J4_cmpgti_f_jumpnv_t_r9_2_0 & J4_cmpgti_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpgti_f_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_f_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_f_jumpnv_t_r9_2_0 & J4_cmpgti_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpgti_f_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgti_f_jumpnv_nt_U5: reloc is                       J4_cmpgti_f_jumpnv_nt_U5_0 [ reloc = (((J4_cmpgti_f_jumpnv_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgti_f_jumpnv_nt_U5: reloc is immext = 0xffffffff & J4_cmpgti_f_jumpnv_nt_U5_0 [ reloc = J4_cmpgti_f_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgti_f_jumpnv_nt_U5: reloc is J4_cmpgti_f_jumpnv_nt_U5_0 [ reloc = J4_cmpgti_f_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgti_f_jumpnv_nt_r9_2: reloc is J4_cmpgti_f_jumpnv_nt_r9_2_0 & J4_cmpgti_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgti_f_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgti_f_jumpnv_nt_r9_2: reloc is                       J4_cmpgti_f_jumpnv_nt_r9_2_0 & J4_cmpgti_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgti_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgti_f_jumpnv_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgti_f_jumpnv_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgti_f_jumpnv_nt_r9_2_0 & J4_cmpgti_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgti_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgti_f_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_t_jumpnv_t_U5: reloc is                       J4_cmpgtui_t_jumpnv_t_U5_0 [ reloc = (((J4_cmpgtui_t_jumpnv_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_t_jumpnv_t_U5: reloc is immext = 0xffffffff & J4_cmpgtui_t_jumpnv_t_U5_0 [ reloc = J4_cmpgtui_t_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_t_jumpnv_t_U5: reloc is J4_cmpgtui_t_jumpnv_t_U5_0 [ reloc = J4_cmpgtui_t_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_t_jumpnv_t_r9_2: reloc is J4_cmpgtui_t_jumpnv_t_r9_2_0 & J4_cmpgtui_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpgtui_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_t_jumpnv_t_r9_2: reloc is                       J4_cmpgtui_t_jumpnv_t_r9_2_0 & J4_cmpgtui_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpgtui_t_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_t_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_t_jumpnv_t_r9_2_0 & J4_cmpgtui_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpgtui_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_t_jumpnv_nt_U5: reloc is                       J4_cmpgtui_t_jumpnv_nt_U5_0 [ reloc = (((J4_cmpgtui_t_jumpnv_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_t_jumpnv_nt_U5: reloc is immext = 0xffffffff & J4_cmpgtui_t_jumpnv_nt_U5_0 [ reloc = J4_cmpgtui_t_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_t_jumpnv_nt_U5: reloc is J4_cmpgtui_t_jumpnv_nt_U5_0 [ reloc = J4_cmpgtui_t_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_t_jumpnv_nt_r9_2: reloc is J4_cmpgtui_t_jumpnv_nt_r9_2_0 & J4_cmpgtui_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgtui_t_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_t_jumpnv_nt_r9_2: reloc is                       J4_cmpgtui_t_jumpnv_nt_r9_2_0 & J4_cmpgtui_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgtui_t_jumpnv_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_t_jumpnv_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_t_jumpnv_nt_r9_2_0 & J4_cmpgtui_t_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_t_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgtui_t_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_f_jumpnv_t_U5: reloc is                       J4_cmpgtui_f_jumpnv_t_U5_0 [ reloc = (((J4_cmpgtui_f_jumpnv_t_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_f_jumpnv_t_U5: reloc is immext = 0xffffffff & J4_cmpgtui_f_jumpnv_t_U5_0 [ reloc = J4_cmpgtui_f_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_f_jumpnv_t_U5: reloc is J4_cmpgtui_f_jumpnv_t_U5_0 [ reloc = J4_cmpgtui_f_jumpnv_t_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_f_jumpnv_t_r9_2: reloc is J4_cmpgtui_f_jumpnv_t_r9_2_0 & J4_cmpgtui_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpgtui_f_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_f_jumpnv_t_r9_2: reloc is                       J4_cmpgtui_f_jumpnv_t_r9_2_0 & J4_cmpgtui_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpgtui_f_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_f_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_f_jumpnv_t_r9_2_0 & J4_cmpgtui_f_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_f_jumpnv_t_r9_2_0 << 0) + (J4_cmpgtui_f_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
-J4_cmpgtui_f_jumpnv_nt_U5: reloc is                       J4_cmpgtui_f_jumpnv_nt_U5_0 [ reloc = (((J4_cmpgtui_f_jumpnv_nt_U5_0 << 0) & 0b111111) | immext); ] { export *[const]:4 reloc; }
-J4_cmpgtui_f_jumpnv_nt_U5: reloc is immext = 0xffffffff & J4_cmpgtui_f_jumpnv_nt_U5_0 [ reloc = J4_cmpgtui_f_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
+J4_cmpgtui_f_jumpnv_nt_U5: reloc is J4_cmpgtui_f_jumpnv_nt_U5_0 [ reloc = J4_cmpgtui_f_jumpnv_nt_U5_0 << 0; ] { export *[const]:4 reloc; }
 
-J4_cmpgtui_f_jumpnv_nt_r9_2: reloc is J4_cmpgtui_f_jumpnv_nt_r9_2_0 & J4_cmpgtui_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgtui_f_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_f_jumpnv_nt_r9_2: reloc is                       J4_cmpgtui_f_jumpnv_nt_r9_2_0 & J4_cmpgtui_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + ((((J4_cmpgtui_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgtui_f_jumpnv_nt_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
+J4_cmpgtui_f_jumpnv_nt_r9_2: reloc is immext = 0xffffffff & J4_cmpgtui_f_jumpnv_nt_r9_2_0 & J4_cmpgtui_f_jumpnv_nt_r9_2_1 [ reloc = pkt_start + (((J4_cmpgtui_f_jumpnv_nt_r9_2_0 << 0) + (J4_cmpgtui_f_jumpnv_nt_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
 
 J4_cmpeqn1_t_jumpnv_t_r9_2: reloc is                       J4_cmpeqn1_t_jumpnv_t_r9_2_0 & J4_cmpeqn1_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + ((((J4_cmpeqn1_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqn1_t_jumpnv_t_r9_2_1 << 7)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
 J4_cmpeqn1_t_jumpnv_t_r9_2: reloc is immext = 0xffffffff & J4_cmpeqn1_t_jumpnv_t_r9_2_0 & J4_cmpeqn1_t_jumpnv_t_r9_2_1 [ reloc = pkt_start + (((J4_cmpeqn1_t_jumpnv_t_r9_2_0 << 0) + (J4_cmpeqn1_t_jumpnv_t_r9_2_1 << 7)) << 2); ] { export *[ram]:4 reloc; }
