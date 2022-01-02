@@ -246,7 +246,7 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		printInstructions();
 
 		Instruction newvalue_operand = program.getListing().getInstructionAt(programBuilder.addr("1004"));
-		assertEquals(newvalue_operand.toString(), "S2_storerinew_io R5 R3 0x0");
+		assertEquals(newvalue_operand.toString(), "S2_storerinew_io R5 0x0 R3");
 	}
 
 	// Challenge here is that both R4 and R3 are written, but only R4 is only

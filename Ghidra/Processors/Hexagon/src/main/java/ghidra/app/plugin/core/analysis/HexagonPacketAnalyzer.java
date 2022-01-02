@@ -252,6 +252,9 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				}
 			}
 
+			// TODO: perform some packet consistency checks on outgoing flows
+			// (no flows into middle of packets, no 2-byte aligned flows, etc)
+
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
