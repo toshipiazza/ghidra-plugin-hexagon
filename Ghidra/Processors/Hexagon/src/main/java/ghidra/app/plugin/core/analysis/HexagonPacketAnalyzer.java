@@ -33,7 +33,6 @@ import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.mem.MemoryBlock;
-import ghidra.util.Msg;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
@@ -118,7 +117,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 			} while (!packetInfo.isTerminated());
 		} catch (UnknownInstructionException | MemoryAccessException ex) {
-			Msg.error(this, "Unable to parse full packet at address " + addr + ": " + ex);
 			if (!packetInfo.packetStartAddress.equals(packetInfo.packetEndAddress)) {
 				program.getListing().clearCodeUnits(packetInfo.packetStartAddress,
 						packetInfo.packetEndAddress.subtract(1), true);
@@ -197,8 +195,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			}
 		} catch (ContextChangeException e) {
 			// undo everything, and ensure the packet had been cleared completely
-			Msg.error(this,
-					"Unable to finalize context registers for packet at @ " + packet.packetStartAddress + ": " + e);
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 			return;
 		}
@@ -219,7 +215,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				Instruction instr = program.getListing().getInstructionAt(a);
 				if (instr.getMnemonicString().equals("DUPLEX")) {
 					// duplex instructions should no longer exist at this point
-					throw new UnknownInstructionException("Packet still contains DUPLEX after context set");
+					throw new UnknownInstructionException("(Unreachable) Packet still contains DUPLEX after context set");
 				}
 			}
 
@@ -255,8 +251,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
-			Msg.error(this,
-					"Packet failed to disassemble after finalizing context at " + packet.packetStartAddress + ": " + e);
 			// undo everything, and ensure the packet had been cleared completely
 			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 		}
