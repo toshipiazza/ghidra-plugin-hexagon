@@ -184,9 +184,9 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		assertEquals(3, program.getListing().getNumInstructions());
 
-		// boils down to pkt_start + (0xffe8a3c0 | 44)
-		// there's no shift in the calculation in this case because the immext is applied (why?)
-		// verified by comparing against hexag00n output
+		// See section 10.9 in "Qualcomm Hexagon V66 Programmer's Reference Manual"
+		// > When constant extenders are used, scaled immediates are not scaled by
+		// > the processor
 		Instruction extended = program.getListing().getInstructionAt(programBuilder.addr("1004"));
 		assertEquals(extended.toString(), "J2_callf P0 0xffe8b3ec");
 	}
@@ -197,7 +197,8 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		program = programBuilder.getProgram();
 		int txId = program.startTransaction("Add Memory");
 		programBuilder.createMemory(".text", "1000", 12);
-		programBuilder.setBytes("1000", "f4 6f 2f 7f 19 44 3c 0c 00 3c 00 6a");
+
+		programBuilder.setBytes("1000", "b4 67 0f 0c d2 29 41 29");
 
 		programBuilder.disassemble("1000", 12, true);
 		programBuilder.analyze();
@@ -208,8 +209,13 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		assertEquals(4, program.getListing().getNumInstructions());
 
-		Instruction duplex_immext = program.getListing().getInstructionAt(programBuilder.addr("100a"));
-		assertEquals(duplex_immext.toString(), "SA1_seti R0 0xc3c10660");
+		// See section 10.3 in "Qualcomm Hexagon V66 Programmer's Reference Manual"
+		// > Note that a duplex can contain only one constant-extended
+		// > instruction, and it must > appear in the Slot 1 position.
+		Instruction duplex_immext = program.getListing().getInstructionAt(programBuilder.addr("1004"));
+		assertEquals(duplex_immext.toString(), "SA1_seti R2 0x1d");
+		duplex_immext = program.getListing().getInstructionAt(programBuilder.addr("1006"));
+		assertEquals(duplex_immext.toString(), "SA1_seti R1 0xc0f9ed14");
 	}
 
 	@Test
@@ -288,4 +294,5 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		ParallelInstructionLanguageHelper parallelHelper = program.getLanguage().getParallelInstructionHelper();
 		assertEquals(parallelHelper.getMnemonicSuffix(endloop), "}:endloop0");
 	}
+
 }

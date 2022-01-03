@@ -39559,9 +39559,19 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :DUPLEX is phase = 1 & subinsn = 0 & Parse = 0b00 unimpl
 
-:A4_ext reloc is phase = 1 & immext = 0xffffffff & duplex_next  = 0 & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); ] { }
+:A4_ext reloc is phase = 1 & immext = 0xffffffff & duplex_next  = 0 & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [
+  reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6;
+  immext = reloc;
+  globalset(inst_next, immext);
+] { }
 
-:A4_ext reloc is phase = 1 & immext = 0xffffffff                    & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [ reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6; immext = reloc; globalset(inst_next, immext); globalset(duplex_next, immext); ] { }
+:A4_ext reloc is phase = 1 & immext = 0xffffffff                    & Parse != 0b00 & subinsn = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 0 & A4_ext_u26_6_0 & A4_ext_u26_6_1 [
+  reloc = (((A4_ext_u26_6_0 << 0)) + (A4_ext_u26_6_1 << 14)) << 6;
+  immext = 0xffffffff;
+  globalset(inst_next, immext);
+  immext = reloc;
+  globalset(duplex_next, immext);
+] { }
 
 :A2_combinew A2_combinew_Rdd32 A2_combinew_Rs32 A2_combinew_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_combinew_Rdd32 & A2_combinew_Rs32 & A2_combinew_Rt32 & A2_combinew_Rdd32_lo & A2_combinew_Rdd32_hi {
   A2_combinew_Rdd32_lo = A2_combinew_Rt32;
