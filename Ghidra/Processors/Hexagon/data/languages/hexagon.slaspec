@@ -5691,6 +5691,12 @@ define token NORMAL(32)
   Y6_l2gcleaninvpa_Rtt32               = ( 8, 12)
   A2_combinew_Rdd32_hi                 = ( 0,  4)
   A2_combinew_Rdd32_lo                 = ( 0,  4)
+  A2_combineii_Rdd32_hi                = ( 0,  4)
+  A2_combineii_Rdd32_lo                = ( 0,  4)
+  A4_combineri_Rdd32_lo                = ( 0,  4)
+  A4_combineri_Rdd32_hi                = ( 0,  4)
+  A4_combineir_Rdd32_lo                = ( 0,  4)
+  A4_combineir_Rdd32_hi                = ( 0,  4)
 ;
 
 define token SUBINSN(16)
@@ -9982,6 +9988,9 @@ attach variables [
 
 attach variables [
   A2_combinew_Rdd32_lo
+  A2_combineii_Rdd32_lo
+  A4_combineri_Rdd32_lo
+  A4_combineir_Rdd32_lo
 ] [
   R0  _ R2  _ R4  _ R6  _
   R8  _ R10 _ R12 _ R14 _
@@ -9991,6 +10000,9 @@ attach variables [
 
 attach variables [
   A2_combinew_Rdd32_hi
+  A2_combineii_Rdd32_hi
+  A4_combineri_Rdd32_hi
+  A4_combineir_Rdd32_hi
 ] [
   R1  _ R3  _ R5  _ R7  _
   R9  _ R11 _ R13 _ R15 _
@@ -28643,225 +28655,6 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   A2_sxth_Rd32 = tmp17;
 }
 
-:A4_combineri A4_combineri_Rdd32 A4_combineri_Rs32 A4_combineri_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineri_Rdd32 & A4_combineri_Rs32 & A4_combineri_s8 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = A4_combineri_Rdd32 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = zext(A4_combineri_s8);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  A4_combineri_Rdd32 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = A4_combineri_Rdd32 & tmp23;
-  local tmp25:8;
-  tmp25 = 4294967295;
-  local tmp26:8;
-  tmp26 = zext(A4_combineri_Rs32);
-  local tmp27:8;
-  tmp27 = tmp26 & tmp25;
-  local tmp28:4;
-  tmp28 = 1;
-  local tmp29:4;
-  tmp29 = 32;
-  local tmp30:4;
-  tmp30 = tmp28 * tmp29;
-  local tmp31:8;
-  tmp31 = zext(tmp30);
-  local tmp32:8;
-  tmp32 = tmp27 << tmp31;
-  local tmp33:8;
-  tmp33 = tmp24 | tmp32;
-  A4_combineri_Rdd32 = tmp33;
-}
-
-:A4_combineir A4_combineir_Rdd32 A4_combineir_Rs32 A4_combineir_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineir_Rdd32 & A4_combineir_Rs32 & A4_combineir_s8 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = A4_combineir_Rdd32 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = zext(A4_combineir_Rs32);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  A4_combineir_Rdd32 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = A4_combineir_Rdd32 & tmp23;
-  local tmp25:8;
-  tmp25 = 4294967295;
-  local tmp26:8;
-  tmp26 = zext(A4_combineir_s8);
-  local tmp27:8;
-  tmp27 = tmp26 & tmp25;
-  local tmp28:4;
-  tmp28 = 1;
-  local tmp29:4;
-  tmp29 = 32;
-  local tmp30:4;
-  tmp30 = tmp28 * tmp29;
-  local tmp31:8;
-  tmp31 = zext(tmp30);
-  local tmp32:8;
-  tmp32 = tmp27 << tmp31;
-  local tmp33:8;
-  tmp33 = tmp24 | tmp32;
-  A4_combineir_Rdd32 = tmp33;
-}
-
-:A2_combineii A2_combineii_Rdd32 A2_combineii_s8 A2_combineii_S8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_combineii_Rdd32 & A2_combineii_s8 & A2_combineii_S8 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = A2_combineii_Rdd32 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = zext(A2_combineii_S8);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  A2_combineii_Rdd32 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = A2_combineii_Rdd32 & tmp23;
-  local tmp25:8;
-  tmp25 = 4294967295;
-  local tmp26:8;
-  tmp26 = zext(A2_combineii_s8);
-  local tmp27:8;
-  tmp27 = tmp26 & tmp25;
-  local tmp28:4;
-  tmp28 = 1;
-  local tmp29:4;
-  tmp29 = 32;
-  local tmp30:4;
-  tmp30 = tmp28 * tmp29;
-  local tmp31:8;
-  tmp31 = zext(tmp30);
-  local tmp32:8;
-  tmp32 = tmp27 << tmp31;
-  local tmp33:8;
-  tmp33 = tmp24 | tmp32;
-  A2_combineii_Rdd32 = tmp33;
-}
-
 :A4_combineii A4_combineii_Rdd32 A4_combineii_s8 A4_combineii_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineii_Rdd32 & A4_combineii_s8 & A4_combineii_U6 {
   local tmp0:8;
   tmp0 = 4294967295;
@@ -39576,6 +39369,21 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 :A2_combinew A2_combinew_Rdd32 A2_combinew_Rs32 A2_combinew_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_combinew_Rdd32 & A2_combinew_Rs32 & A2_combinew_Rt32 & A2_combinew_Rdd32_lo & A2_combinew_Rdd32_hi {
   A2_combinew_Rdd32_lo = A2_combinew_Rt32;
   A2_combinew_Rdd32_hi = A2_combinew_Rs32;
+}
+
+:A2_combineii A2_combineii_Rdd32 A2_combineii_s8 A2_combineii_S8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A2_combineii_Rdd32 & A2_combineii_s8 & A2_combineii_S8 & A2_combineii_Rdd32_lo & A2_combineii_Rdd32_hi {
+  A2_combineii_Rdd32_lo = A2_combineii_S8;
+  A2_combineii_Rdd32_hi = A2_combineii_s8;
+}
+
+:A4_combineri A4_combineri_Rdd32 A4_combineri_Rs32 A4_combineri_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineri_Rdd32 & A4_combineri_Rs32 & A4_combineri_s8 & A4_combineri_Rdd32_lo & A4_combineri_Rdd32_hi {
+  A4_combineri_Rdd32_lo = A4_combineri_s8;
+  A4_combineri_Rdd32_hi = A4_combineri_Rs32;
+}
+
+:A4_combineir A4_combineir_Rdd32 A4_combineir_Rs32 A4_combineir_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineir_Rdd32 & A4_combineir_Rs32 & A4_combineir_s8 & A4_combineir_Rdd32_lo & A4_combineir_Rdd32_hi {
+  A4_combineir_Rdd32_lo = A4_combineir_Rs32;
+  A4_combineir_Rdd32_hi = A4_combineir_s8;
 }
 
 :J2_jumpr J2_jumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpr_Rs32 & J2_jumpr_Rs32 = 31 {
