@@ -32,6 +32,7 @@ define register offset=0x000 size=4 [
   S104 S105 S106 S107 S108 S109 S110 S111
   S112 S113 S114 S115 S116 S117 S118 S119
   S120 S121 S122 S123 S124 S125 S126 S127
+  SGP0 SGP1
 ];
 
 define register offset=0x094 size=1 [
@@ -67,6 +68,7 @@ define register offset=0x000 size=8 [
   S105S104  S107S106  S109S108  S111S110
   S113S112  S115S114  S117S116  S119S118
   S121S120  S123S122  S125S124  S127S126
+  SGP1SGP0
 ];
 
 define register offset=0x500 size=24 contextreg;
@@ -83,67 +85,74 @@ define context contextreg
 ;
 
 define pcodeop newreg;
-define pcodeop fBARRIER;
-define pcodeop fSYNCH;
-define pcodeop fISYNC;
-define pcodeop fICFETCH;
-define pcodeop fDCFETCH;
-define pcodeop fICINVA;
-define pcodeop fL2FETCH;
-define pcodeop fDCCLEANA;
-define pcodeop fDCCLEANINVA;
-define pcodeop fDCINVA;
-define pcodeop fL2UNLOCKA;
-define pcodeop fBREAK;
-define pcodeop fABS;
-define pcodeop fADDSAT64;
-define pcodeop READ_SGP10;
-define pcodeop READ_SGP1;
-define pcodeop READ_SGP0;
-define pcodeop fTRAP;
-define pcodeop fTLBW;
-define pcodeop fTRAP1_VIRTINSN;
-define pcodeop fTLBP;
-define pcodeop fTLBR;
-define pcodeop fDCKILL;
-define pcodeop fDCINVIDX;
-define pcodeop fDCTAGR;
-define pcodeop fDCTAGW;
-define pcodeop fDCZEROA;
-define pcodeop fDO_NMI;
-define pcodeop fHINTJR;
-define pcodeop fL2CLEAN;
-define pcodeop fL2CLEANIDX;
-define pcodeop fL2CLEANINV;
-define pcodeop fL2CLEANINVIDX;
-define pcodeop fL2CLEANINVPA;
-define pcodeop fL2CLEANPA;
-define pcodeop fL2INVIDX;
-define pcodeop fL2KILL;
-define pcodeop fL2LOCKA;
-define pcodeop fICINVIDX;
-define pcodeop fICKILL;
-define pcodeop fICTAGR;
-define pcodeop fICTAGW;
-define pcodeop fDCCLEANIDX;
-define pcodeop fDCCLEANINVIDX;
-define pcodeop fDEINTERLEAVE;
-define pcodeop fINTERLEAVE;
-define pcodeop fL2TAGR;
-define pcodeop fL2TAGW;
-define pcodeop fL2UNLOCK;
-define pcodeop fLOAD_PHYS;
-define pcodeop DO_CIAD;
-define pcodeop DO_CSWI;
-define pcodeop DO_IASSIGNR;
-define pcodeop DO_IASSIGNW;
-define pcodeop DO_SIAD;
-define pcodeop DO_SWI;
-define pcodeop fICDATAR;
-define pcodeop fICDATAW;
-define pcodeop fPAUSE;
-define pcodeop WRITE_SGP0;
 define pcodeop fSTORE_LOCKED;
+define pcodeop trap0;
+define pcodeop trap1;
+define pcodeop pause;
+define pcodeop rte;
+define pcodeop swi;
+define pcodeop cswi;
+define pcodeop ciad;
+define pcodeop siad;
+define pcodeop iassignr;
+define pcodeop iassignw;
+define pcodeop getimask;
+define pcodeop setimask;
+define pcodeop tlbw;
+define pcodeop ctlbw;
+define pcodeop tlboc;
+define pcodeop tlbr;
+define pcodeop tlbp;
+define pcodeop tlbinvasid;
+define pcodeop tlblock;
+define pcodeop tlbunlock;
+define pcodeop k0lock;
+define pcodeop k0unlock;
+define pcodeop crswap;
+define pcodeop setprio;
+define pcodeop diag;
+define pcodeop diag0;
+define pcodeop diag1;
+define pcodeop trace;
+define pcodeop stop;
+define pcodeop nmi;
+define pcodeop start;
+define pcodeop wait;
+define pcodeop resume;
+define pcodeop brkpt;
+define pcodeop ictagr;
+define pcodeop ictagw;
+define pcodeop icdataw;
+define pcodeop icdatar;
+define pcodeop icinva;
+define pcodeop icinvidx;
+define pcodeop ickill;
+define pcodeop isync;
+define pcodeop barrier;
+define pcodeop syncht;
+define pcodeop dcfetch;
+define pcodeop dckill;
+define pcodeop dczeroa;
+define pcodeop dccleana;
+define pcodeop dccleanidx;
+define pcodeop dccleaninva;
+define pcodeop dccleaninvidx;
+define pcodeop dcinva;
+define pcodeop dcinvidx;
+define pcodeop dctagr;
+define pcodeop dctagw;
+define pcodeop l2kill;
+define pcodeop l2tagw;
+define pcodeop l2tagr;
+define pcodeop l2cleaninvidx;
+define pcodeop l2cleanidx;
+define pcodeop l2invidx;
+define pcodeop l2fetch;
+define pcodeop l2locka;
+define pcodeop l2unlocka;
+define pcodeop l2gunlock;
+define pcodeop l2gclean;
+define pcodeop l2gcleaninv;
 
 define token NORMAL(32)
   Parse                                = (14, 15)
@@ -12538,10 +12547,7 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_4>
 }
 
-:J4_hintjumpr J4_hintjumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J4_hintjumpr_Rs32 {
-  local tmp0:4;
-  tmp0 = fHINTJR(J4_hintjumpr_Rs32);
-}
+:J4_hintjumpr J4_hintjumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J4_hintjumpr_Rs32 unimpl
 
 :J2_jumprz J2_jumprz_Rs32 J2_jumprz_r13_2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b12 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_jumprz_Rs32 & J2_jumprz_r13_2 {
   local tmp0:4;
@@ -37502,148 +37508,140 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 
 :S2_ct1p S2_ct1p_Rd32 S2_ct1p_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_ct1p_Rd32 & S2_ct1p_Rss32 unimpl
 
-:S2_interleave S2_interleave_Rdd32 S2_interleave_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_interleave_Rdd32 & S2_interleave_Rss32 {
-  local tmp0:4;
-  local tmp1:8;
-  local tmp2:4;
-  local tmp3:4;
-  tmp3 = 1;
-  local tmp4:4;
-  tmp4 = 32;
-  local tmp5:4;
-  tmp5 = tmp3 * tmp4;
-  local tmp6:8;
-  tmp6 = zext(tmp5);
-  local tmp7:8;
-  tmp7 = S2_interleave_Rss32 s>> tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = tmp7 & tmp8;
-  tmp2 = tmp9:4;
-  tmp1 = zext(tmp2);
-  local tmp10:8;
-  local tmp11:4;
-  local tmp12:4;
-  tmp12 = 0;
-  local tmp13:4;
-  tmp13 = 32;
-  local tmp14:4;
-  tmp14 = tmp12 * tmp13;
-  local tmp15:8;
-  tmp15 = zext(tmp14);
-  local tmp16:8;
-  tmp16 = S2_interleave_Rss32 s>> tmp15;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:8;
-  tmp18 = tmp16 & tmp17;
-  tmp11 = tmp18:4;
-  tmp10 = zext(tmp11);
-  tmp0 = fINTERLEAVE(tmp1, tmp10);
-  S2_interleave_Rdd32 = zext(tmp0);
-}
+:S2_interleave S2_interleave_Rdd32 S2_interleave_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_interleave_Rdd32 & S2_interleave_Rss32 unimpl
 
-:S2_deinterleave S2_deinterleave_Rdd32 S2_deinterleave_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_deinterleave_Rdd32 & S2_deinterleave_Rss32 {
-  local tmp0:4;
-  tmp0 = fDEINTERLEAVE(S2_deinterleave_Rss32);
-  S2_deinterleave_Rdd32 = zext(tmp0);
-}
+:S2_deinterleave S2_deinterleave_Rdd32 S2_deinterleave_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & S2_deinterleave_Rdd32 & S2_deinterleave_Rss32 unimpl
 
 :J2_trap0 J2_trap0_u8 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_trap0_u8 {
   local tmp0:4;
-  local tmp1:4;
-  tmp1 = 0;
-  tmp0 = fTRAP(tmp1, J2_trap0_u8);
+  tmp0 = trap0(J2_trap0_u8);
 }
 
-:J2_trap1 J2_trap1_Rx32 J2_trap1_u8 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_trap1_Rx32 & J2_trap1_u8 unimpl
+:J2_trap1 J2_trap1_Rx32 J2_trap1_u8 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_trap1_Rx32 & J2_trap1_u8 {
+  local tmp0:4;
+  tmp0 = trap1(J2_trap1_Rx32, J2_trap1_u8);
+}
 
 :J2_pause J2_pause_u8 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_pause_u8 {
   local tmp0:4;
-  tmp0 = fPAUSE(J2_pause_u8);
+  tmp0 = pause(J2_pause_u8);
 }
 
-:J2_rte  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 unimpl
+:J2_rte  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b12 = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 {
+  local tmp0:4;
+  tmp0 = rte();
+}
 
 :Y2_swi Y2_swi_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_swi_Rs32 {
   local tmp0:4;
-  tmp0 = DO_SWI(Y2_swi_Rs32);
+  tmp0 = swi(Y2_swi_Rs32);
 }
 
 :Y2_cswi Y2_cswi_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_cswi_Rs32 {
   local tmp0:4;
-  tmp0 = DO_CSWI(Y2_cswi_Rs32);
+  tmp0 = cswi(Y2_cswi_Rs32);
 }
 
 :Y2_ciad Y2_ciad_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_ciad_Rs32 {
   local tmp0:4;
-  tmp0 = DO_CIAD(Y2_ciad_Rs32);
+  tmp0 = ciad(Y2_ciad_Rs32);
 }
 
 :Y4_siad Y4_siad_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_siad_Rs32 {
   local tmp0:4;
-  tmp0 = DO_SIAD(Y4_siad_Rs32);
+  tmp0 = siad(Y4_siad_Rs32);
 }
 
 :Y2_iassignr Y2_iassignr_Rd32 Y2_iassignr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_iassignr_Rd32 & Y2_iassignr_Rs32 {
   local tmp0:4;
-  tmp0 = DO_IASSIGNR(Y2_iassignr_Rs32, Y2_iassignr_Rd32);
+  tmp0 = iassignr(Y2_iassignr_Rs32);
+  Y2_iassignr_Rd32 = tmp0;
 }
 
 :Y2_iassignw Y2_iassignw_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_iassignw_Rs32 {
   local tmp0:4;
-  tmp0 = DO_IASSIGNW(Y2_iassignw_Rs32);
+  tmp0 = iassignw(Y2_iassignw_Rs32);
 }
 
-:Y2_getimask Y2_getimask_Rd32 Y2_getimask_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_getimask_Rd32 & Y2_getimask_Rs32 unimpl
+:Y2_getimask Y2_getimask_Rd32 Y2_getimask_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_getimask_Rd32 & Y2_getimask_Rs32 {
+  local tmp0:4;
+  tmp0 = getimask(Y2_getimask_Rs32);
+  Y2_getimask_Rd32 = tmp0;
+}
 
-:Y2_setimask Y2_setimask_Pt4 Y2_setimask_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_setimask_Pt4 & Y2_setimask_Rs32 unimpl
+:Y2_setimask Y2_setimask_Pt4 Y2_setimask_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_setimask_Pt4 & Y2_setimask_Rs32 {
+  local tmp0:4;
+  tmp0 = setimask(Y2_setimask_Pt4, Y2_setimask_Rs32);
+}
 
 :Y2_tlbw Y2_tlbw_Rss32 Y2_tlbw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tlbw_Rss32 & Y2_tlbw_Rt32 {
   local tmp0:4;
-  tmp0 = fTLBW(Y2_tlbw_Rt32, Y2_tlbw_Rss32);
+  tmp0 = tlbw(Y2_tlbw_Rss32, Y2_tlbw_Rt32);
 }
 
-:Y5_ctlbw Y5_ctlbw_Rd32 Y5_ctlbw_Rss32 Y5_ctlbw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y5_ctlbw_Rd32 & Y5_ctlbw_Rss32 & Y5_ctlbw_Rt32 unimpl
+:Y5_ctlbw Y5_ctlbw_Rd32 Y5_ctlbw_Rss32 Y5_ctlbw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y5_ctlbw_Rd32 & Y5_ctlbw_Rss32 & Y5_ctlbw_Rt32 {
+  local tmp0:4;
+  tmp0 = ctlbw(Y5_ctlbw_Rss32, Y5_ctlbw_Rt32);
+  Y5_ctlbw_Rd32 = tmp0;
+}
 
-:Y5_tlboc Y5_tlboc_Rd32 Y5_tlboc_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y5_tlboc_Rd32 & Y5_tlboc_Rss32 unimpl
+:Y5_tlboc Y5_tlboc_Rd32 Y5_tlboc_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y5_tlboc_Rd32 & Y5_tlboc_Rss32 {
+  local tmp0:4;
+  tmp0 = tlboc(Y5_tlboc_Rss32);
+  Y5_tlboc_Rd32 = tmp0;
+}
 
 :Y2_tlbr Y2_tlbr_Rdd32 Y2_tlbr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tlbr_Rdd32 & Y2_tlbr_Rs32 {
   local tmp0:4;
-  tmp0 = fTLBR(Y2_tlbr_Rs32);
+  tmp0 = tlbr(Y2_tlbr_Rs32);
   Y2_tlbr_Rdd32 = zext(tmp0);
 }
 
 :Y2_tlbp Y2_tlbp_Rd32 Y2_tlbp_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tlbp_Rd32 & Y2_tlbp_Rs32 {
   local tmp0:4;
-  tmp0 = fTLBP(Y2_tlbp_Rs32);
+  tmp0 = tlbp(Y2_tlbp_Rs32);
   Y2_tlbp_Rd32 = tmp0;
 }
 
-:Y5_tlbasidi Y5_tlbasidi_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y5_tlbasidi_Rs32 unimpl
-
-:Y2_tlblock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 unimpl
-
-:Y2_tlbunlock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 unimpl
-
-:Y2_k0lock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 unimpl
-
-:Y2_k0unlock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 unimpl
-
-:Y2_crswap0 Y2_crswap0_Rx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_crswap0_Rx32 {
-  local tmp:4;
-  tmp = Y2_crswap0_Rx32;
+:Y5_tlbasidi Y5_tlbasidi_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y5_tlbasidi_Rs32 {
   local tmp0:4;
-  tmp0 = READ_SGP0();
-  Y2_crswap0_Rx32 = tmp0;
-  local tmp1:4;
-  tmp1 = WRITE_SGP0(tmp);
+  tmp0 = tlbinvasid(Y5_tlbasidi_Rs32);
 }
 
-:Y4_crswap1 Y4_crswap1_Rx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_crswap1_Rx32 unimpl
+:Y2_tlblock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 {
+  local tmp0:4;
+  tmp0 = tlblock();
+}
 
-:Y4_crswap10 Y4_crswap10_Rxx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b0 = 0 & b1 = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_crswap10_Rxx32 unimpl
+:Y2_tlbunlock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 {
+  local tmp0:4;
+  tmp0 = tlbunlock();
+}
+
+:Y2_k0lock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 {
+  local tmp0:4;
+  tmp0 = k0lock();
+}
+
+:Y2_k0unlock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 {
+  local tmp0:4;
+  tmp0 = k0unlock();
+}
+
+:Y2_crswap0 Y2_crswap0_Rx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_crswap0_Rx32 {
+  local tmp0:4;
+  tmp0 = crswap(Y2_crswap0_Rx32, SGP0);
+}
+
+:Y4_crswap1 Y4_crswap1_Rx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_crswap1_Rx32 {
+  local tmp0:4;
+  tmp0 = crswap(Y4_crswap1_Rx32, SGP1);
+}
+
+:Y4_crswap10 Y4_crswap10_Rxx32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b0 = 0 & b1 = 0 & b2 = 0 & b3 = 0 & b4 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_crswap10_Rxx32 {
+  local tmp0:4;
+  tmp0 = crswap(Y4_crswap10_Rxx32, SGP1SGP0);
+}
 
 :Y2_tfrscrr Y2_tfrscrr_Rd32 Y2_tfrscrr_Ss128 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_tfrscrr_Rd32 & Y2_tfrscrr_Ss128 {
   Y2_tfrscrr_Rd32 = Y2_tfrscrr_Ss128;
@@ -37677,310 +37675,246 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   G4_tfrgpcp_Gdd32 = G4_tfrgpcp_Rss32;
 }
 
-:Y2_setprio Y2_setprio_Pt4 Y2_setprio_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_setprio_Pt4 & Y2_setprio_Rs32 unimpl
+:Y2_setprio Y2_setprio_Pt4 Y2_setprio_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_setprio_Pt4 & Y2_setprio_Rs32 {
+  local tmp0:4;
+  tmp0 = setprio(Y2_setprio_Pt4, Y2_setprio_Rs32);
+}
 
-:Y6_diag Y6_diag_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y6_diag_Rs32 unimpl
+:Y6_diag Y6_diag_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y6_diag_Rs32 {
+  local tmp0:4;
+  tmp0 = diag(Y6_diag_Rs32);
+}
 
-:Y6_diag0 Y6_diag0_Rss32 Y6_diag0_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y6_diag0_Rss32 & Y6_diag0_Rtt32 unimpl
+:Y6_diag0 Y6_diag0_Rss32 Y6_diag0_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y6_diag0_Rss32 & Y6_diag0_Rtt32 {
+  local tmp0:4;
+  tmp0 = diag0(Y6_diag0_Rss32, Y6_diag0_Rtt32);
+}
 
-:Y6_diag1 Y6_diag1_Rss32 Y6_diag1_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y6_diag1_Rss32 & Y6_diag1_Rtt32 unimpl
+:Y6_diag1 Y6_diag1_Rss32 Y6_diag1_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 1 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y6_diag1_Rss32 & Y6_diag1_Rtt32 {
+  local tmp0:4;
+  tmp0 = diag1(Y6_diag1_Rss32, Y6_diag1_Rtt32);
+}
 
-:Y4_trace Y4_trace_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_trace_Rs32 unimpl
+:Y4_trace Y4_trace_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_trace_Rs32 {
+  local tmp0:4;
+  tmp0 = trace(Y4_trace_Rs32);
+}
 
-:Y2_stop Y2_stop_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_stop_Rs32 unimpl
+:Y2_stop Y2_stop_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_stop_Rs32 {
+  local tmp0:4;
+  tmp0 = stop(Y2_stop_Rs32);
+}
 
 :Y4_nmi Y4_nmi_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y4_nmi_Rs32 {
   local tmp0:4;
-  tmp0 = fDO_NMI(Y4_nmi_Rs32);
+  tmp0 = nmi(Y4_nmi_Rs32);
 }
 
-:Y2_start Y2_start_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_start_Rs32 unimpl
+:Y2_start Y2_start_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_start_Rs32 {
+  local tmp0:4;
+  tmp0 = start(Y2_start_Rs32);
+}
 
-:Y2_wait Y2_wait_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_wait_Rs32 unimpl
+:Y2_wait Y2_wait_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_wait_Rs32 {
+  local tmp0:4;
+  tmp0 = wait(Y2_wait_Rs32);
+}
 
-:Y2_resume Y2_resume_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_resume_Rs32 unimpl
+:Y2_resume Y2_resume_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & Y2_resume_Rs32 {
+  local tmp0:4;
+  tmp0 = resume(Y2_resume_Rs32);
+}
 
 :Y2_break  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 {
   local tmp0:4;
-  tmp0 = fBREAK();
+  tmp0 = brkpt();
 }
 
-:Y2_ictagr Y2_ictagr_Rd32 Y2_ictagr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_ictagr_Rd32 & Y2_ictagr_Rs32 unimpl
+:Y2_ictagr Y2_ictagr_Rd32 Y2_ictagr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_ictagr_Rd32 & Y2_ictagr_Rs32 {
+  local tmp0:4;
+  tmp0 = ictagr(Y2_ictagr_Rs32);
+  Y2_ictagr_Rd32 = tmp0;
+}
 
 :Y2_ictagw Y2_ictagw_Rs32 Y2_ictagw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_ictagw_Rs32 & Y2_ictagw_Rt32 {
   local tmp0:4;
-  tmp0 = fICTAGW(Y2_ictagw_Rs32, Y2_ictagw_Rt32);
+  tmp0 = ictagw(Y2_ictagw_Rs32, Y2_ictagw_Rt32);
 }
 
 :Y2_icdataw Y2_icdataw_Rs32 Y2_icdataw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icdataw_Rs32 & Y2_icdataw_Rt32 {
   local tmp0:4;
-  tmp0 = fICDATAW(Y2_icdataw_Rs32, Y2_icdataw_Rt32);
+  tmp0 = icdataw(Y2_icdataw_Rs32, Y2_icdataw_Rt32);
 }
 
 :Y2_icdatar Y2_icdatar_Rd32 Y2_icdatar_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icdatar_Rd32 & Y2_icdatar_Rs32 {
   local tmp0:4;
-  tmp0 = fICDATAR(Y2_icdatar_Rs32, Y2_icdatar_Rd32);
+  tmp0 = icdatar(Y2_icdatar_Rs32);
+  Y2_icdatar_Rd32 = tmp0;
 }
 
 :Y2_icinva Y2_icinva_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icinva_Rs32 {
-  local EA:4;
-  EA = Y2_icinva_Rs32;
   local tmp0:4;
-  tmp0 = fICINVA(EA);
+  tmp0 = icinva(Y2_icinva_Rs32);
 }
 
 :Y2_icinvidx Y2_icinvidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 1 & b12 = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & Y2_icinvidx_Rs32 {
   local tmp0:4;
-  tmp0 = fICINVIDX(Y2_icinvidx_Rs32);
+  tmp0 = icinvidx(Y2_icinvidx_Rs32);
 }
 
 :Y2_ickill  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b11 = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 {
   local tmp0:4;
-  tmp0 = fICKILL();
+  tmp0 = ickill();
 }
 
 :Y2_isync  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b0 = 0 & b1 = 1 & b2 = 0 & b3 = 0 & b4 = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b8 = 0 & b9 = 0 & b13 = 0 & b16 = 0 & b17 = 0 & b18 = 0 & b19 = 0 & b20 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 {
   local tmp0:4;
-  tmp0 = fISYNC();
+  tmp0 = isync();
 }
 
 :Y2_barrier  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fBARRIER();
+  tmp0 = barrier();
 }
 
 :Y2_syncht  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fSYNCH();
+  tmp0 = syncht();
 }
 
 :Y2_dcfetchbo Y2_dcfetchbo_Rs32 Y2_dcfetchbo_u11_3 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & Y2_dcfetchbo_Rs32 & Y2_dcfetchbo_u11_3 {
-  local EA:4;
   local tmp0:4;
-  tmp0 = Y2_dcfetchbo_Rs32 + Y2_dcfetchbo_u11_3;
-  EA = tmp0;
   local tmp1:4;
-  tmp1 = fDCFETCH(EA);
+  tmp1 = Y2_dcfetchbo_Rs32 + Y2_dcfetchbo_u11_3;
+  tmp0 = dcfetch(tmp1);
 }
 
 :Y2_dckill  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fDCKILL();
+  tmp0 = dckill();
 }
 
 :Y2_dczeroa Y2_dczeroa_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dczeroa_Rs32 {
-  local EA:4;
-  EA = Y2_dczeroa_Rs32;
   local tmp0:4;
-  tmp0 = fDCZEROA(EA);
+  tmp0 = dczeroa(Y2_dczeroa_Rs32);
 }
 
 :Y2_dccleana Y2_dccleana_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleana_Rs32 {
-  local EA:4;
-  EA = Y2_dccleana_Rs32;
   local tmp0:4;
-  tmp0 = fDCCLEANA(EA);
+  tmp0 = dccleana(Y2_dccleana_Rs32);
 }
 
 :Y2_dccleanidx Y2_dccleanidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleanidx_Rs32 {
   local tmp0:4;
-  tmp0 = fDCCLEANIDX(Y2_dccleanidx_Rs32);
+  tmp0 = dccleanidx(Y2_dccleanidx_Rs32);
 }
 
 :Y2_dccleaninva Y2_dccleaninva_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleaninva_Rs32 {
-  local EA:4;
-  EA = Y2_dccleaninva_Rs32;
   local tmp0:4;
-  tmp0 = fDCCLEANINVA(EA);
+  tmp0 = dccleaninva(Y2_dccleaninva_Rs32);
 }
 
 :Y2_dccleaninvidx Y2_dccleaninvidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dccleaninvidx_Rs32 {
   local tmp0:4;
-  tmp0 = fDCCLEANINVIDX(Y2_dccleaninvidx_Rs32);
+  tmp0 = dccleaninvidx(Y2_dccleaninvidx_Rs32);
 }
 
 :Y2_dcinva Y2_dcinva_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dcinva_Rs32 {
-  local EA:4;
-  EA = Y2_dcinva_Rs32;
   local tmp0:4;
-  tmp0 = fDCCLEANINVA(EA);
+  tmp0 = dcinva(Y2_dcinva_Rs32);
 }
 
 :Y2_dcinvidx Y2_dcinvidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dcinvidx_Rs32 {
   local tmp0:4;
-  tmp0 = fDCINVIDX(Y2_dcinvidx_Rs32);
+  tmp0 = dcinvidx(Y2_dcinvidx_Rs32);
 }
 
-:Y2_dctagr Y2_dctagr_Rd32 Y2_dctagr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dctagr_Rd32 & Y2_dctagr_Rs32 unimpl
+:Y2_dctagr Y2_dctagr_Rd32 Y2_dctagr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dctagr_Rd32 & Y2_dctagr_Rs32 {
+  local tmp0:4;
+  tmp0 = dctagr(Y2_dctagr_Rs32);
+  Y2_dctagr_Rd32 = tmp0;
+}
 
 :Y2_dctagw Y2_dctagw_Rs32 Y2_dctagw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_dctagw_Rs32 & Y2_dctagw_Rt32 {
   local tmp0:4;
-  tmp0 = fDCTAGW(Y2_dctagw_Rs32, Y2_dctagw_Rt32);
+  tmp0 = dctagw(Y2_dctagw_Rs32, Y2_dctagw_Rt32);
 }
 
 :Y2_l2kill  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fL2KILL();
+  tmp0 = l2kill();
 }
 
 :Y4_l2tagw Y4_l2tagw_Rs32 Y4_l2tagw_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y4_l2tagw_Rs32 & Y4_l2tagw_Rt32 {
   local tmp0:4;
-  tmp0 = fL2TAGW(Y4_l2tagw_Rs32, Y4_l2tagw_Rt32);
+  tmp0 = l2tagw(Y4_l2tagw_Rs32, Y4_l2tagw_Rt32);
 }
 
-:Y4_l2tagr Y4_l2tagr_Rd32 Y4_l2tagr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y4_l2tagr_Rd32 & Y4_l2tagr_Rs32 unimpl
+:Y4_l2tagr Y4_l2tagr_Rd32 Y4_l2tagr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y4_l2tagr_Rd32 & Y4_l2tagr_Rs32 {
+  local tmp0:4;
+  tmp0 = l2tagr(Y4_l2tagr_Rs32);
+  Y4_l2tagr_Rd32 = tmp0;
+}
 
 :Y2_l2cleaninvidx Y2_l2cleaninvidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y2_l2cleaninvidx_Rs32 {
   local tmp0:4;
-  tmp0 = fL2CLEANINVIDX(Y2_l2cleaninvidx_Rs32);
+  tmp0 = l2cleaninvidx(Y2_l2cleaninvidx_Rs32);
 }
 
 :Y5_l2cleanidx Y5_l2cleanidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y5_l2cleanidx_Rs32 {
   local tmp0:4;
-  tmp0 = fL2CLEANIDX(Y5_l2cleanidx_Rs32);
+  tmp0 = l2cleanidx(Y5_l2cleanidx_Rs32);
 }
 
 :Y5_l2invidx Y5_l2invidx_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y5_l2invidx_Rs32 {
   local tmp0:4;
-  tmp0 = fL2INVIDX(Y5_l2invidx_Rs32);
+  tmp0 = l2invidx(Y5_l2invidx_Rs32);
 }
 
 :Y4_l2fetch Y4_l2fetch_Rs32 Y4_l2fetch_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y4_l2fetch_Rs32 & Y4_l2fetch_Rt32 {
   local tmp0:4;
-  local tmp1:4;
-  tmp1 = 255;
-  local tmp2:4;
-  tmp2 = Y4_l2fetch_Rt32 & tmp1;
-  local tmp3:4;
-  tmp3 = 8;
-  local tmp4:4;
-  tmp4 = Y4_l2fetch_Rt32 s>> tmp3;
-  local tmp5:4;
-  tmp5 = 255;
-  local tmp6:4;
-  tmp6 = tmp4 & tmp5;
-  local tmp7:4;
-  tmp7 = 16;
-  local tmp8:4;
-  tmp8 = Y4_l2fetch_Rt32 s>> tmp7;
-  local tmp9:4;
-  tmp9 = 65535;
-  local tmp10:4;
-  tmp10 = tmp8 & tmp9;
-  local tmp11:4;
-  tmp11 = 0;
-  tmp0 = fL2FETCH(Y4_l2fetch_Rs32, tmp2, tmp6, tmp10, tmp11);
+  tmp0 = l2fetch(Y4_l2fetch_Rs32, Y4_l2fetch_Rt32);
 }
 
 :Y5_l2fetch Y5_l2fetch_Rs32 Y5_l2fetch_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y5_l2fetch_Rs32 & Y5_l2fetch_Rtt32 {
   local tmp0:4;
-  local tmp1:2;
-  local tmp2:4;
-  tmp2 = 0;
-  local tmp3:4;
-  tmp3 = 16;
-  local tmp4:4;
-  tmp4 = tmp2 * tmp3;
-  local tmp5:8;
-  tmp5 = zext(tmp4);
-  local tmp6:8;
-  tmp6 = Y5_l2fetch_Rtt32 s>> tmp5;
-  local tmp7:4;
-  tmp7 = 65535;
-  local tmp8:8;
-  tmp8 = zext(tmp7);
-  local tmp9:8;
-  tmp9 = tmp6 & tmp8;
-  tmp1 = tmp9:2;
-  local tmp10:2;
-  local tmp11:4;
-  tmp11 = 1;
-  local tmp12:4;
-  tmp12 = 16;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = Y5_l2fetch_Rtt32 s>> tmp14;
-  local tmp16:4;
-  tmp16 = 65535;
-  local tmp17:8;
-  tmp17 = zext(tmp16);
-  local tmp18:8;
-  tmp18 = tmp15 & tmp17;
-  tmp10 = tmp18:2;
-  local tmp19:2;
-  local tmp20:4;
-  tmp20 = 2;
-  local tmp21:4;
-  tmp21 = 16;
-  local tmp22:4;
-  tmp22 = tmp20 * tmp21;
-  local tmp23:8;
-  tmp23 = zext(tmp22);
-  local tmp24:8;
-  tmp24 = Y5_l2fetch_Rtt32 s>> tmp23;
-  local tmp25:4;
-  tmp25 = 65535;
-  local tmp26:8;
-  tmp26 = zext(tmp25);
-  local tmp27:8;
-  tmp27 = tmp24 & tmp26;
-  tmp19 = tmp27:2;
-  local tmp28:2;
-  local tmp29:4;
-  tmp29 = 3;
-  local tmp30:4;
-  tmp30 = 16;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = Y5_l2fetch_Rtt32 s>> tmp32;
-  local tmp34:4;
-  tmp34 = 65535;
-  local tmp35:8;
-  tmp35 = zext(tmp34);
-  local tmp36:8;
-  tmp36 = tmp33 & tmp35;
-  tmp28 = tmp36:2;
-  tmp0 = fL2FETCH(Y5_l2fetch_Rs32, tmp1, tmp10, tmp19, tmp28);
+  tmp0 = l2fetch(Y5_l2fetch_Rs32, Y5_l2fetch_Rtt32);
 }
 
-:Y5_l2locka Y5_l2locka_Pd4 Y5_l2locka_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y5_l2locka_Pd4 & Y5_l2locka_Rs32 unimpl
+:Y5_l2locka Y5_l2locka_Pd4 Y5_l2locka_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y5_l2locka_Pd4 & Y5_l2locka_Rs32 {
+  local tmp0:4;
+  tmp0 = l2locka(Y5_l2locka_Rs32);
+  Y5_l2locka_Pd4 = tmp0:1;
+}
 
 :Y5_l2unlocka Y5_l2unlocka_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 1 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y5_l2unlocka_Rs32 {
-  local EA:4;
-  EA = Y5_l2unlocka_Rs32;
   local tmp0:4;
-  tmp0 = fL2UNLOCKA(EA);
+  tmp0 = l2unlocka(Y5_l2unlocka_Rs32);
 }
 
 :Y5_l2gunlock  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 1 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fL2UNLOCK();
+  tmp0 = l2gunlock();
 }
 
 :Y5_l2gclean  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fL2CLEAN();
+  tmp0 = l2gclean();
 }
 
 :Y5_l2gcleaninv  is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b10 = 0 & b11 = 1 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 {
   local tmp0:4;
-  tmp0 = fL2CLEANINV();
+  tmp0 = l2gcleaninv();
 }
 
 :Y6_l2gcleanpa Y6_l2gcleanpa_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y6_l2gcleanpa_Rtt32 {
   local tmp0:4;
-  tmp0 = fL2CLEANPA(Y6_l2gcleanpa_Rtt32);
+  tmp0 = l2gclean(Y6_l2gcleanpa_Rtt32);
 }
 
 :Y6_l2gcleaninvpa Y6_l2gcleaninvpa_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & Y6_l2gcleaninvpa_Rtt32 {
   local tmp0:4;
-  tmp0 = fL2CLEANINVPA(Y6_l2gcleaninvpa_Rtt32);
+  tmp0 = l2gcleaninv(Y6_l2gcleaninvpa_Rtt32);
 }
 
 :SA1_addi SA1_addi_Rx16 SA1_addi_s7 is phase = 1 & subinsn = 1 & a11 = 0 & a12 = 0 & SA1_addi_Rx16 & SA1_addi_s7 {
