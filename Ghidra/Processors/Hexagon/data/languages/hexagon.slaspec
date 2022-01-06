@@ -85,7 +85,6 @@ define context contextreg
 ;
 
 define pcodeop newreg;
-define pcodeop fSTORE_LOCKED;
 define pcodeop trap0;
 define pcodeop trap1;
 define pcodeop pause;
@@ -153,6 +152,9 @@ define pcodeop l2unlocka;
 define pcodeop l2gunlock;
 define pcodeop l2gclean;
 define pcodeop l2gcleaninv;
+define pcodeop memw_locked;
+define pcodeop memd_locked;
+define pcodeop memw_phys;
 
 define token NORMAL(32)
   Parse                                = (14, 15)
@@ -5706,6 +5708,16 @@ define token NORMAL(32)
   A4_combineri_Rdd32_hi                = ( 0,  4)
   A4_combineir_Rdd32_lo                = ( 0,  4)
   A4_combineir_Rdd32_hi                = ( 0,  4)
+  A4_combineii_Rdd32_lo                = ( 0,  4)
+  A4_combineii_Rdd32_hi                = ( 0,  4)
+  C2_ccombinewnewt_Rdd32_lo            = ( 0,  4)
+  C2_ccombinewnewt_Rdd32_hi            = ( 0,  4)
+  C2_ccombinewnewf_Rdd32_lo            = ( 0,  4)
+  C2_ccombinewnewf_Rdd32_hi            = ( 0,  4)
+  C2_ccombinewt_Rdd32_lo               = ( 0,  4)
+  C2_ccombinewt_Rdd32_hi               = ( 0,  4)
+  C2_ccombinewf_Rdd32_lo               = ( 0,  4)
+  C2_ccombinewf_Rdd32_hi               = ( 0,  4)
 ;
 
 define token SUBINSN(16)
@@ -5806,6 +5818,18 @@ define token SUBINSN(16)
   SS2_storebi1_Rs16                    = ( 4,  7)
   SS2_storebi1_u4_0_0                  = ( 0,  3)
   SS2_allocframe_u5_3_0                = ( 4,  8)
+  SA1_combinezr_Rdd8_lo                = ( 0,  2)
+  SA1_combinezr_Rdd8_hi                = ( 0,  2)
+  SA1_combinerz_Rdd8_lo                = ( 0,  2)
+  SA1_combinerz_Rdd8_hi                = ( 0,  2)
+  SA1_combine0i_Rdd8_lo                = ( 0,  2)
+  SA1_combine0i_Rdd8_hi                = ( 0,  2)
+  SA1_combine1i_Rdd8_lo                = ( 0,  2)
+  SA1_combine1i_Rdd8_hi                = ( 0,  2)
+  SA1_combine2i_Rdd8_lo                = ( 0,  2)
+  SA1_combine2i_Rdd8_hi                = ( 0,  2)
+  SA1_combine3i_Rdd8_lo                = ( 0,  2)
+  SA1_combine3i_Rdd8_hi                = ( 0,  2)
 ;
 
 attach variables [
@@ -10000,6 +10024,11 @@ attach variables [
   A2_combineii_Rdd32_lo
   A4_combineri_Rdd32_lo
   A4_combineir_Rdd32_lo
+  A4_combineii_Rdd32_lo
+  C2_ccombinewnewt_Rdd32_lo
+  C2_ccombinewnewf_Rdd32_lo
+  C2_ccombinewt_Rdd32_lo
+  C2_ccombinewf_Rdd32_lo
 ] [
   R0  _ R2  _ R4  _ R6  _
   R8  _ R10 _ R12 _ R14 _
@@ -10012,11 +10041,39 @@ attach variables [
   A2_combineii_Rdd32_hi
   A4_combineri_Rdd32_hi
   A4_combineir_Rdd32_hi
+  A4_combineii_Rdd32_hi
+  C2_ccombinewnewt_Rdd32_hi
+  C2_ccombinewnewf_Rdd32_hi
+  C2_ccombinewt_Rdd32_hi
+  C2_ccombinewf_Rdd32_hi
 ] [
   R1  _ R3  _ R5  _ R7  _
   R9  _ R11 _ R13 _ R15 _
   R17 _ R19 _ R21 _ R23 _
   R25 _ R27 _ R29 _ R31 _
+];
+attach variables [
+  SA1_combinezr_Rdd8_lo
+  SA1_combinerz_Rdd8_lo
+  SA1_combine0i_Rdd8_lo
+  SA1_combine1i_Rdd8_lo
+  SA1_combine2i_Rdd8_lo
+  SA1_combine3i_Rdd8_lo
+] [
+  R0   R2   R4   R6
+  R16  R18  R20  R22
+];
+
+attach variables [
+  SA1_combinezr_Rdd8_hi
+  SA1_combinerz_Rdd8_hi
+  SA1_combine0i_Rdd8_hi
+  SA1_combine1i_Rdd8_hi
+  SA1_combine2i_Rdd8_hi
+  SA1_combine3i_Rdd8_hi
+] [
+  R1   R3   R5   R7
+  R17  R19  R21  R23
 ];
 
 J2_jump_r22_2: reloc is                       J2_jump_r22_2_0 & J2_jump_r22_2_1 [ reloc = pkt_start + ((((J2_jump_r22_2_0 << 0) + (J2_jump_r22_2_1 << 13)) & 0b111111) | immext); ] { export *[ram]:4 reloc; }
@@ -16826,11 +16883,8 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local EA:4;
   EA = S2_storew_locked_Rs32;
   local tmp0:4;
-  local tmp1:4;
-  tmp1 = 1;
-  local tmp2:4;
-  tmp2 = 4;
-  tmp0 = fSTORE_LOCKED(tmp1, tmp2, EA, S2_storew_locked_Rt32, S2_storew_locked_Pd4);
+  tmp0 = memw_locked(EA, S2_storew_locked_Rt32);
+  S2_storew_locked_Pd4 = tmp0:1;
 }
 
 :L4_loadd_locked L4_loadd_locked_Rdd32 L4_loadd_locked_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b12 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadd_locked_Rdd32 & L4_loadd_locked_Rs32 {
@@ -16839,17 +16893,18 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   L4_loadd_locked_Rdd32 = *:8 EA;
 }
 
-:L4_loadw_phys L4_loadw_phys_Rd32 L4_loadw_phys_Rs32 L4_loadw_phys_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadw_phys_Rd32 & L4_loadw_phys_Rs32 & L4_loadw_phys_Rt32 unimpl
+:L4_loadw_phys L4_loadw_phys_Rd32 L4_loadw_phys_Rs32 L4_loadw_phys_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 0 & b31 = 1 & L4_loadw_phys_Rd32 & L4_loadw_phys_Rs32 & L4_loadw_phys_Rt32 {
+  local tmp0:4;
+  tmp0 = memw_phys(L4_loadw_phys_Rs32, L4_loadw_phys_Rt32);
+  L4_loadw_phys_Rd32 = tmp0;
+}
 
 :S4_stored_locked S4_stored_locked_Pd4 S4_stored_locked_Rs32 S4_stored_locked_Rtt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b13 = 0 & b21 = 1 & b22 = 1 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 0 & b31 = 1 & S4_stored_locked_Pd4 & S4_stored_locked_Rs32 & S4_stored_locked_Rtt32 {
   local EA:4;
   EA = S4_stored_locked_Rs32;
   local tmp0:4;
-  local tmp1:4;
-  tmp1 = 1;
-  local tmp2:4;
-  tmp2 = 8;
-  tmp0 = fSTORE_LOCKED(tmp1, tmp2, EA, S4_stored_locked_Rtt32, S4_stored_locked_Pd4);
+  tmp0 = memd_locked(EA, S4_stored_locked_Rtt32);
+  S4_stored_locked_Pd4 = tmp0:1;
 }
 
 :L4_loadrub_rr L4_loadrub_rr_Rd32 L4_loadrub_rr_Rs32 L4_loadrub_rr_Rt32 L4_loadrub_rr_u2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & L4_loadrub_rr_Rd32 & L4_loadrub_rr_Rs32 & L4_loadrub_rr_Rt32 & L4_loadrub_rr_u2 {
@@ -23895,338 +23950,6 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 <done_3>
 }
 
-:C2_ccombinewnewt C2_ccombinewnewt_Rdd32 C2_ccombinewnewt_Pu4 C2_ccombinewnewt_Rs32 C2_ccombinewnewt_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewnewt_Rdd32 & C2_ccombinewnewt_Pu4 & C2_ccombinewnewt_Rs32 & C2_ccombinewnewt_Rt32 {
-  local tmp0:1;
-  tmp0 = newreg(C2_ccombinewnewt_Pu4);
-  local tmp1:1;
-  tmp1 = tmp0;
-  if (tmp1) goto <t_branch_3>;
-  goto <f_branch_3>;
-<t_branch_3>
-  local tmp3:8;
-  tmp3 = 4294967295;
-  local tmp4:4;
-  tmp4 = 0;
-  local tmp5:4;
-  tmp5 = 32;
-  local tmp6:4;
-  tmp6 = tmp4 * tmp5;
-  local tmp7:8;
-  tmp7 = zext(tmp6);
-  local tmp8:8;
-  tmp8 = tmp3 << tmp7;
-  local tmp9:8;
-  tmp9 = ~ tmp8;
-  local tmp10:8;
-  tmp10 = C2_ccombinewnewt_Rdd32 & tmp9;
-  local tmp11:8;
-  tmp11 = 4294967295;
-  local tmp12:8;
-  tmp12 = zext(C2_ccombinewnewt_Rt32);
-  local tmp13:8;
-  tmp13 = tmp12 & tmp11;
-  local tmp14:4;
-  tmp14 = 0;
-  local tmp15:4;
-  tmp15 = 32;
-  local tmp16:4;
-  tmp16 = tmp14 * tmp15;
-  local tmp17:8;
-  tmp17 = zext(tmp16);
-  local tmp18:8;
-  tmp18 = tmp13 << tmp17;
-  local tmp19:8;
-  tmp19 = tmp10 | tmp18;
-  C2_ccombinewnewt_Rdd32 = tmp19;
-  local tmp20:8;
-  tmp20 = 4294967295;
-  local tmp21:4;
-  tmp21 = 1;
-  local tmp22:4;
-  tmp22 = 32;
-  local tmp23:4;
-  tmp23 = tmp21 * tmp22;
-  local tmp24:8;
-  tmp24 = zext(tmp23);
-  local tmp25:8;
-  tmp25 = tmp20 << tmp24;
-  local tmp26:8;
-  tmp26 = ~ tmp25;
-  local tmp27:8;
-  tmp27 = C2_ccombinewnewt_Rdd32 & tmp26;
-  local tmp28:8;
-  tmp28 = 4294967295;
-  local tmp29:8;
-  tmp29 = zext(C2_ccombinewnewt_Rs32);
-  local tmp30:8;
-  tmp30 = tmp29 & tmp28;
-  local tmp31:4;
-  tmp31 = 1;
-  local tmp32:4;
-  tmp32 = 32;
-  local tmp33:4;
-  tmp33 = tmp31 * tmp32;
-  local tmp34:8;
-  tmp34 = zext(tmp33);
-  local tmp35:8;
-  tmp35 = tmp30 << tmp34;
-  local tmp36:8;
-  tmp36 = tmp27 | tmp35;
-  C2_ccombinewnewt_Rdd32 = tmp36;
-  goto <done_3>;
-<f_branch_3>
-<done_3>
-}
-
-:C2_ccombinewnewf C2_ccombinewnewf_Rdd32 C2_ccombinewnewf_Pu4 C2_ccombinewnewf_Rs32 C2_ccombinewnewf_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewnewf_Rdd32 & C2_ccombinewnewf_Pu4 & C2_ccombinewnewf_Rs32 & C2_ccombinewnewf_Rt32 {
-  local tmp0:1;
-  tmp0 = newreg(C2_ccombinewnewf_Pu4);
-  local tmp1:1;
-  tmp1 = ! tmp0;
-  local tmp2:1;
-  tmp2 = tmp1;
-  if (tmp2) goto <t_branch_4>;
-  goto <f_branch_4>;
-<t_branch_4>
-  local tmp4:8;
-  tmp4 = 4294967295;
-  local tmp5:4;
-  tmp5 = 0;
-  local tmp6:4;
-  tmp6 = 32;
-  local tmp7:4;
-  tmp7 = tmp5 * tmp6;
-  local tmp8:8;
-  tmp8 = zext(tmp7);
-  local tmp9:8;
-  tmp9 = tmp4 << tmp8;
-  local tmp10:8;
-  tmp10 = ~ tmp9;
-  local tmp11:8;
-  tmp11 = C2_ccombinewnewf_Rdd32 & tmp10;
-  local tmp12:8;
-  tmp12 = 4294967295;
-  local tmp13:8;
-  tmp13 = zext(C2_ccombinewnewf_Rt32);
-  local tmp14:8;
-  tmp14 = tmp13 & tmp12;
-  local tmp15:4;
-  tmp15 = 0;
-  local tmp16:4;
-  tmp16 = 32;
-  local tmp17:4;
-  tmp17 = tmp15 * tmp16;
-  local tmp18:8;
-  tmp18 = zext(tmp17);
-  local tmp19:8;
-  tmp19 = tmp14 << tmp18;
-  local tmp20:8;
-  tmp20 = tmp11 | tmp19;
-  C2_ccombinewnewf_Rdd32 = tmp20;
-  local tmp21:8;
-  tmp21 = 4294967295;
-  local tmp22:4;
-  tmp22 = 1;
-  local tmp23:4;
-  tmp23 = 32;
-  local tmp24:4;
-  tmp24 = tmp22 * tmp23;
-  local tmp25:8;
-  tmp25 = zext(tmp24);
-  local tmp26:8;
-  tmp26 = tmp21 << tmp25;
-  local tmp27:8;
-  tmp27 = ~ tmp26;
-  local tmp28:8;
-  tmp28 = C2_ccombinewnewf_Rdd32 & tmp27;
-  local tmp29:8;
-  tmp29 = 4294967295;
-  local tmp30:8;
-  tmp30 = zext(C2_ccombinewnewf_Rs32);
-  local tmp31:8;
-  tmp31 = tmp30 & tmp29;
-  local tmp32:4;
-  tmp32 = 1;
-  local tmp33:4;
-  tmp33 = 32;
-  local tmp34:4;
-  tmp34 = tmp32 * tmp33;
-  local tmp35:8;
-  tmp35 = zext(tmp34);
-  local tmp36:8;
-  tmp36 = tmp31 << tmp35;
-  local tmp37:8;
-  tmp37 = tmp28 | tmp36;
-  C2_ccombinewnewf_Rdd32 = tmp37;
-  goto <done_4>;
-<f_branch_4>
-<done_4>
-}
-
-:C2_ccombinewt C2_ccombinewt_Rdd32 C2_ccombinewt_Pu4 C2_ccombinewt_Rs32 C2_ccombinewt_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewt_Rdd32 & C2_ccombinewt_Pu4 & C2_ccombinewt_Rs32 & C2_ccombinewt_Rt32 {
-  local tmp0:1;
-  tmp0 = C2_ccombinewt_Pu4;
-  if (tmp0) goto <t_branch_2>;
-  goto <f_branch_2>;
-<t_branch_2>
-  local tmp2:8;
-  tmp2 = 4294967295;
-  local tmp3:4;
-  tmp3 = 0;
-  local tmp4:4;
-  tmp4 = 32;
-  local tmp5:4;
-  tmp5 = tmp3 * tmp4;
-  local tmp6:8;
-  tmp6 = zext(tmp5);
-  local tmp7:8;
-  tmp7 = tmp2 << tmp6;
-  local tmp8:8;
-  tmp8 = ~ tmp7;
-  local tmp9:8;
-  tmp9 = C2_ccombinewt_Rdd32 & tmp8;
-  local tmp10:8;
-  tmp10 = 4294967295;
-  local tmp11:8;
-  tmp11 = zext(C2_ccombinewt_Rt32);
-  local tmp12:8;
-  tmp12 = tmp11 & tmp10;
-  local tmp13:4;
-  tmp13 = 0;
-  local tmp14:4;
-  tmp14 = 32;
-  local tmp15:4;
-  tmp15 = tmp13 * tmp14;
-  local tmp16:8;
-  tmp16 = zext(tmp15);
-  local tmp17:8;
-  tmp17 = tmp12 << tmp16;
-  local tmp18:8;
-  tmp18 = tmp9 | tmp17;
-  C2_ccombinewt_Rdd32 = tmp18;
-  local tmp19:8;
-  tmp19 = 4294967295;
-  local tmp20:4;
-  tmp20 = 1;
-  local tmp21:4;
-  tmp21 = 32;
-  local tmp22:4;
-  tmp22 = tmp20 * tmp21;
-  local tmp23:8;
-  tmp23 = zext(tmp22);
-  local tmp24:8;
-  tmp24 = tmp19 << tmp23;
-  local tmp25:8;
-  tmp25 = ~ tmp24;
-  local tmp26:8;
-  tmp26 = C2_ccombinewt_Rdd32 & tmp25;
-  local tmp27:8;
-  tmp27 = 4294967295;
-  local tmp28:8;
-  tmp28 = zext(C2_ccombinewt_Rs32);
-  local tmp29:8;
-  tmp29 = tmp28 & tmp27;
-  local tmp30:4;
-  tmp30 = 1;
-  local tmp31:4;
-  tmp31 = 32;
-  local tmp32:4;
-  tmp32 = tmp30 * tmp31;
-  local tmp33:8;
-  tmp33 = zext(tmp32);
-  local tmp34:8;
-  tmp34 = tmp29 << tmp33;
-  local tmp35:8;
-  tmp35 = tmp26 | tmp34;
-  C2_ccombinewt_Rdd32 = tmp35;
-  goto <done_2>;
-<f_branch_2>
-<done_2>
-}
-
-:C2_ccombinewf C2_ccombinewf_Rdd32 C2_ccombinewf_Pu4 C2_ccombinewf_Rs32 C2_ccombinewf_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewf_Rdd32 & C2_ccombinewf_Pu4 & C2_ccombinewf_Rs32 & C2_ccombinewf_Rt32 {
-  local tmp0:1;
-  tmp0 = ! C2_ccombinewf_Pu4;
-  local tmp1:1;
-  tmp1 = tmp0;
-  if (tmp1) goto <t_branch_3>;
-  goto <f_branch_3>;
-<t_branch_3>
-  local tmp3:8;
-  tmp3 = 4294967295;
-  local tmp4:4;
-  tmp4 = 0;
-  local tmp5:4;
-  tmp5 = 32;
-  local tmp6:4;
-  tmp6 = tmp4 * tmp5;
-  local tmp7:8;
-  tmp7 = zext(tmp6);
-  local tmp8:8;
-  tmp8 = tmp3 << tmp7;
-  local tmp9:8;
-  tmp9 = ~ tmp8;
-  local tmp10:8;
-  tmp10 = C2_ccombinewf_Rdd32 & tmp9;
-  local tmp11:8;
-  tmp11 = 4294967295;
-  local tmp12:8;
-  tmp12 = zext(C2_ccombinewf_Rt32);
-  local tmp13:8;
-  tmp13 = tmp12 & tmp11;
-  local tmp14:4;
-  tmp14 = 0;
-  local tmp15:4;
-  tmp15 = 32;
-  local tmp16:4;
-  tmp16 = tmp14 * tmp15;
-  local tmp17:8;
-  tmp17 = zext(tmp16);
-  local tmp18:8;
-  tmp18 = tmp13 << tmp17;
-  local tmp19:8;
-  tmp19 = tmp10 | tmp18;
-  C2_ccombinewf_Rdd32 = tmp19;
-  local tmp20:8;
-  tmp20 = 4294967295;
-  local tmp21:4;
-  tmp21 = 1;
-  local tmp22:4;
-  tmp22 = 32;
-  local tmp23:4;
-  tmp23 = tmp21 * tmp22;
-  local tmp24:8;
-  tmp24 = zext(tmp23);
-  local tmp25:8;
-  tmp25 = tmp20 << tmp24;
-  local tmp26:8;
-  tmp26 = ~ tmp25;
-  local tmp27:8;
-  tmp27 = C2_ccombinewf_Rdd32 & tmp26;
-  local tmp28:8;
-  tmp28 = 4294967295;
-  local tmp29:8;
-  tmp29 = zext(C2_ccombinewf_Rs32);
-  local tmp30:8;
-  tmp30 = tmp29 & tmp28;
-  local tmp31:4;
-  tmp31 = 1;
-  local tmp32:4;
-  tmp32 = 32;
-  local tmp33:4;
-  tmp33 = tmp31 * tmp32;
-  local tmp34:8;
-  tmp34 = zext(tmp33);
-  local tmp35:8;
-  tmp35 = tmp30 << tmp34;
-  local tmp36:8;
-  tmp36 = tmp27 | tmp35;
-  C2_ccombinewf_Rdd32 = tmp36;
-  goto <done_3>;
-<f_branch_3>
-<done_3>
-}
-
 :C2_muxii C2_muxii_Rd32 C2_muxii_Pu4 C2_muxii_s8 C2_muxii_S8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & C2_muxii_Rd32 & C2_muxii_Pu4 & C2_muxii_s8 & C2_muxii_S8 {
   local tmp0:1;
   tmp0 = C2_muxii_Pu4;
@@ -28659,79 +28382,6 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   local tmp17:4;
   tmp17 = tmp11 - tmp16;
   A2_sxth_Rd32 = tmp17;
-}
-
-:A4_combineii A4_combineii_Rdd32 A4_combineii_s8 A4_combineii_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineii_Rdd32 & A4_combineii_s8 & A4_combineii_U6 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = A4_combineii_Rdd32 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = sext(A4_combineii_U6);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  A4_combineii_Rdd32 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = A4_combineii_Rdd32 & tmp23;
-  local tmp25:8;
-  tmp25 = 4294967295;
-  local tmp26:8;
-  tmp26 = zext(A4_combineii_s8);
-  local tmp27:8;
-  tmp27 = tmp26 & tmp25;
-  local tmp28:4;
-  tmp28 = 1;
-  local tmp29:4;
-  tmp29 = 32;
-  local tmp30:4;
-  tmp30 = tmp28 * tmp29;
-  local tmp31:8;
-  tmp31 = zext(tmp30);
-  local tmp32:8;
-  tmp32 = tmp27 << tmp31;
-  local tmp33:8;
-  tmp33 = tmp24 | tmp32;
-  A4_combineii_Rdd32 = tmp33;
 }
 
 :A2_combine_hh A2_combine_hh_Rd32 A2_combine_hh_Rt32 A2_combine_hh_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & A2_combine_hh_Rd32 & A2_combine_hh_Rt32 & A2_combine_hh_Rs32 {
@@ -38151,456 +37801,6 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
   SA1_sxth_Rd16 = tmp17;
 }
 
-:SA1_combinezr SA1_combinezr_Rdd8 SA1_combinezr_Rs16 is phase = 1 & subinsn = 1 & a3 = 0 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinezr_Rdd8 & SA1_combinezr_Rs16 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = SA1_combinezr_Rdd8 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = zext(SA1_combinezr_Rs16);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  SA1_combinezr_Rdd8 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = SA1_combinezr_Rdd8 & tmp23;
-  local tmp25:4;
-  tmp25 = 0;
-  local tmp26:8;
-  tmp26 = 4294967295;
-  local tmp27:8;
-  tmp27 = zext(tmp25);
-  local tmp28:8;
-  tmp28 = tmp27 & tmp26;
-  local tmp29:4;
-  tmp29 = 1;
-  local tmp30:4;
-  tmp30 = 32;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = tmp28 << tmp32;
-  local tmp34:8;
-  tmp34 = tmp24 | tmp33;
-  SA1_combinezr_Rdd8 = tmp34;
-}
-
-:SA1_combinerz SA1_combinerz_Rdd8 SA1_combinerz_Rs16 is phase = 1 & subinsn = 1 & a3 = 1 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinerz_Rdd8 & SA1_combinerz_Rs16 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = SA1_combinerz_Rdd8 & tmp6;
-  local tmp8:4;
-  tmp8 = 0;
-  local tmp9:8;
-  tmp9 = 4294967295;
-  local tmp10:8;
-  tmp10 = zext(tmp8);
-  local tmp11:8;
-  tmp11 = tmp10 & tmp9;
-  local tmp12:4;
-  tmp12 = 0;
-  local tmp13:4;
-  tmp13 = 32;
-  local tmp14:4;
-  tmp14 = tmp12 * tmp13;
-  local tmp15:8;
-  tmp15 = zext(tmp14);
-  local tmp16:8;
-  tmp16 = tmp11 << tmp15;
-  local tmp17:8;
-  tmp17 = tmp7 | tmp16;
-  SA1_combinerz_Rdd8 = tmp17;
-  local tmp18:8;
-  tmp18 = 4294967295;
-  local tmp19:4;
-  tmp19 = 1;
-  local tmp20:4;
-  tmp20 = 32;
-  local tmp21:4;
-  tmp21 = tmp19 * tmp20;
-  local tmp22:8;
-  tmp22 = zext(tmp21);
-  local tmp23:8;
-  tmp23 = tmp18 << tmp22;
-  local tmp24:8;
-  tmp24 = ~ tmp23;
-  local tmp25:8;
-  tmp25 = SA1_combinerz_Rdd8 & tmp24;
-  local tmp26:8;
-  tmp26 = 4294967295;
-  local tmp27:8;
-  tmp27 = zext(SA1_combinerz_Rs16);
-  local tmp28:8;
-  tmp28 = tmp27 & tmp26;
-  local tmp29:4;
-  tmp29 = 1;
-  local tmp30:4;
-  tmp30 = 32;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = tmp28 << tmp32;
-  local tmp34:8;
-  tmp34 = tmp25 | tmp33;
-  SA1_combinerz_Rdd8 = tmp34;
-}
-
-:SA1_combine0i SA1_combine0i_Rdd8 SA1_combine0i_u2 is phase = 1 & subinsn = 1 & a3 = 0 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine0i_Rdd8 & SA1_combine0i_u2 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = SA1_combine0i_Rdd8 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = sext(SA1_combine0i_u2);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  SA1_combine0i_Rdd8 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = SA1_combine0i_Rdd8 & tmp23;
-  local tmp25:4;
-  tmp25 = 0;
-  local tmp26:8;
-  tmp26 = 4294967295;
-  local tmp27:8;
-  tmp27 = zext(tmp25);
-  local tmp28:8;
-  tmp28 = tmp27 & tmp26;
-  local tmp29:4;
-  tmp29 = 1;
-  local tmp30:4;
-  tmp30 = 32;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = tmp28 << tmp32;
-  local tmp34:8;
-  tmp34 = tmp24 | tmp33;
-  SA1_combine0i_Rdd8 = tmp34;
-}
-
-:SA1_combine1i SA1_combine1i_Rdd8 SA1_combine1i_u2 is phase = 1 & subinsn = 1 & a3 = 1 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine1i_Rdd8 & SA1_combine1i_u2 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = SA1_combine1i_Rdd8 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = sext(SA1_combine1i_u2);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  SA1_combine1i_Rdd8 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = SA1_combine1i_Rdd8 & tmp23;
-  local tmp25:4;
-  tmp25 = 1;
-  local tmp26:8;
-  tmp26 = 4294967295;
-  local tmp27:8;
-  tmp27 = zext(tmp25);
-  local tmp28:8;
-  tmp28 = tmp27 & tmp26;
-  local tmp29:4;
-  tmp29 = 1;
-  local tmp30:4;
-  tmp30 = 32;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = tmp28 << tmp32;
-  local tmp34:8;
-  tmp34 = tmp24 | tmp33;
-  SA1_combine1i_Rdd8 = tmp34;
-}
-
-:SA1_combine2i SA1_combine2i_Rdd8 SA1_combine2i_u2 is phase = 1 & subinsn = 1 & a3 = 0 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine2i_Rdd8 & SA1_combine2i_u2 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = SA1_combine2i_Rdd8 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = sext(SA1_combine2i_u2);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  SA1_combine2i_Rdd8 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = SA1_combine2i_Rdd8 & tmp23;
-  local tmp25:4;
-  tmp25 = 2;
-  local tmp26:8;
-  tmp26 = 4294967295;
-  local tmp27:8;
-  tmp27 = zext(tmp25);
-  local tmp28:8;
-  tmp28 = tmp27 & tmp26;
-  local tmp29:4;
-  tmp29 = 1;
-  local tmp30:4;
-  tmp30 = 32;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = tmp28 << tmp32;
-  local tmp34:8;
-  tmp34 = tmp24 | tmp33;
-  SA1_combine2i_Rdd8 = tmp34;
-}
-
-:SA1_combine3i SA1_combine3i_Rdd8 SA1_combine3i_u2 is phase = 1 & subinsn = 1 & a3 = 1 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine3i_Rdd8 & SA1_combine3i_u2 {
-  local tmp0:8;
-  tmp0 = 4294967295;
-  local tmp1:4;
-  tmp1 = 0;
-  local tmp2:4;
-  tmp2 = 32;
-  local tmp3:4;
-  tmp3 = tmp1 * tmp2;
-  local tmp4:8;
-  tmp4 = zext(tmp3);
-  local tmp5:8;
-  tmp5 = tmp0 << tmp4;
-  local tmp6:8;
-  tmp6 = ~ tmp5;
-  local tmp7:8;
-  tmp7 = SA1_combine3i_Rdd8 & tmp6;
-  local tmp8:8;
-  tmp8 = 4294967295;
-  local tmp9:8;
-  tmp9 = sext(SA1_combine3i_u2);
-  local tmp10:8;
-  tmp10 = tmp9 & tmp8;
-  local tmp11:4;
-  tmp11 = 0;
-  local tmp12:4;
-  tmp12 = 32;
-  local tmp13:4;
-  tmp13 = tmp11 * tmp12;
-  local tmp14:8;
-  tmp14 = zext(tmp13);
-  local tmp15:8;
-  tmp15 = tmp10 << tmp14;
-  local tmp16:8;
-  tmp16 = tmp7 | tmp15;
-  SA1_combine3i_Rdd8 = tmp16;
-  local tmp17:8;
-  tmp17 = 4294967295;
-  local tmp18:4;
-  tmp18 = 1;
-  local tmp19:4;
-  tmp19 = 32;
-  local tmp20:4;
-  tmp20 = tmp18 * tmp19;
-  local tmp21:8;
-  tmp21 = zext(tmp20);
-  local tmp22:8;
-  tmp22 = tmp17 << tmp21;
-  local tmp23:8;
-  tmp23 = ~ tmp22;
-  local tmp24:8;
-  tmp24 = SA1_combine3i_Rdd8 & tmp23;
-  local tmp25:4;
-  tmp25 = 3;
-  local tmp26:8;
-  tmp26 = 4294967295;
-  local tmp27:8;
-  tmp27 = zext(tmp25);
-  local tmp28:8;
-  tmp28 = tmp27 & tmp26;
-  local tmp29:4;
-  tmp29 = 1;
-  local tmp30:4;
-  tmp30 = 32;
-  local tmp31:4;
-  tmp31 = tmp29 * tmp30;
-  local tmp32:8;
-  tmp32 = zext(tmp31);
-  local tmp33:8;
-  tmp33 = tmp28 << tmp32;
-  local tmp34:8;
-  tmp34 = tmp24 | tmp33;
-  SA1_combine3i_Rdd8 = tmp34;
-}
-
 :SA1_cmpeqi SA1_cmpeqi_Rs16 SA1_cmpeqi_u2 is phase = 1 & subinsn = 1 & a8 = 1 & a9 = 0 & a10 = 0 & a11 = 1 & a12 = 1 & SA1_cmpeqi_Rs16 & SA1_cmpeqi_u2 {
   local tmp0:1;
   tmp0 = SA1_cmpeqi_Rs16 == SA1_cmpeqi_u2;
@@ -39318,6 +38518,101 @@ C4_addipc_pkt_start: reloc is epsilon [ reloc = pkt_start; ] {
 :A4_combineir A4_combineir_Rdd32 A4_combineir_Rs32 A4_combineir_s8 is phase = 1 & Parse != 0b00 & subinsn = 0 & b13 = 1 & b21 = 1 & b22 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineir_Rdd32 & A4_combineir_Rs32 & A4_combineir_s8 & A4_combineir_Rdd32_lo & A4_combineir_Rdd32_hi {
   A4_combineir_Rdd32_lo = A4_combineir_Rs32;
   A4_combineir_Rdd32_hi = A4_combineir_s8;
+}
+
+:A4_combineii A4_combineii_Rdd32 A4_combineii_s8 A4_combineii_U6 is phase = 1 & Parse != 0b00 & subinsn = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 0 & A4_combineii_Rdd32 & A4_combineii_s8 & A4_combineii_U6 & A4_combineii_Rdd32_lo & A4_combineii_Rdd32_hi {
+  A4_combineii_Rdd32_lo = A4_combineii_U6;
+  A4_combineii_Rdd32_hi = A4_combineii_s8;
+}
+
+:SA1_combinezr SA1_combinezr_Rdd8 SA1_combinezr_Rs16 is phase = 1 & subinsn = 1 & a3 = 0 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinezr_Rdd8 & SA1_combinezr_Rs16 & SA1_combinezr_Rdd8_lo & SA1_combinezr_Rdd8_hi {
+  SA1_combinezr_Rdd8_lo = SA1_combinezr_Rs16;
+  SA1_combinezr_Rdd8_hi = 0;
+}
+
+:SA1_combinerz SA1_combinerz_Rdd8 SA1_combinerz_Rs16 is phase = 1 & subinsn = 1 & a3 = 1 & a8 = 1 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combinerz_Rdd8 & SA1_combinerz_Rs16 & SA1_combinerz_Rdd8_lo & SA1_combinerz_Rdd8_hi {
+  SA1_combinerz_Rdd8_lo = 0;
+  SA1_combinerz_Rdd8_hi = SA1_combinerz_Rs16;
+}
+
+:SA1_combine0i SA1_combine0i_Rdd8 SA1_combine0i_u2 is phase = 1 & subinsn = 1 & a3 = 0 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine0i_Rdd8 & SA1_combine0i_u2 & SA1_combine0i_Rdd8_lo & SA1_combine0i_Rdd8_hi {
+  SA1_combine0i_Rdd8_lo = SA1_combine0i_u2;
+  SA1_combine0i_Rdd8_hi = 0;
+}
+
+:SA1_combine1i SA1_combine1i_Rdd8 SA1_combine1i_u2 is phase = 1 & subinsn = 1 & a3 = 1 & a4 = 0 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine1i_Rdd8 & SA1_combine1i_u2 & SA1_combine1i_Rdd8_lo & SA1_combine1i_Rdd8_hi {
+  SA1_combine1i_Rdd8_lo = SA1_combine1i_u2;
+  SA1_combine1i_Rdd8_hi = 1;
+}
+
+:SA1_combine2i SA1_combine2i_Rdd8 SA1_combine2i_u2 is phase = 1 & subinsn = 1 & a3 = 0 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine2i_Rdd8 & SA1_combine2i_u2 & SA1_combine2i_Rdd8_lo & SA1_combine2i_Rdd8_hi {
+  SA1_combine2i_Rdd8_lo = SA1_combine2i_u2;
+  SA1_combine2i_Rdd8_hi = 2;
+}
+
+:SA1_combine3i SA1_combine3i_Rdd8 SA1_combine3i_u2 is phase = 1 & subinsn = 1 & a3 = 1 & a4 = 1 & a8 = 0 & a10 = 1 & a11 = 1 & a12 = 1 & SA1_combine3i_Rdd8 & SA1_combine3i_u2 & SA1_combine3i_Rdd8_lo & SA1_combine3i_Rdd8_hi {
+  SA1_combine3i_Rdd8_lo = SA1_combine3i_u2;
+  SA1_combine3i_Rdd8_hi = 3;
+}
+
+:C2_ccombinewnewt C2_ccombinewnewt_Rdd32 C2_ccombinewnewt_Pu4 C2_ccombinewnewt_Rs32 C2_ccombinewnewt_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewnewt_Rdd32 & C2_ccombinewnewt_Pu4 & C2_ccombinewnewt_Rs32 & C2_ccombinewnewt_Rt32 & C2_ccombinewnewt_Rdd32_lo & C2_ccombinewnewt_Rdd32_hi {
+  local tmp0:1;
+  tmp0 = newreg(C2_ccombinewnewt_Pu4);
+  local tmp1:1;
+  tmp1 = tmp0;
+  if (tmp1) goto <t_branch_3>;
+  goto <f_branch_3>;
+<t_branch_3>
+  C2_ccombinewnewt_Rdd32_lo = C2_ccombinewnewt_Rt32;
+  C2_ccombinewnewt_Rdd32_hi = C2_ccombinewnewt_Rs32;
+  goto <done_3>;
+<f_branch_3>
+<done_3>
+}
+
+:C2_ccombinewnewf C2_ccombinewnewf_Rdd32 C2_ccombinewnewf_Pu4 C2_ccombinewnewf_Rs32 C2_ccombinewnewf_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 1 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewnewf_Rdd32 & C2_ccombinewnewf_Pu4 & C2_ccombinewnewf_Rs32 & C2_ccombinewnewf_Rt32 & C2_ccombinewnewf_Rdd32_lo & C2_ccombinewnewf_Rdd32_hi {
+  local tmp0:1;
+  tmp0 = newreg(C2_ccombinewnewf_Pu4);
+  local tmp1:1;
+  tmp1 = ! tmp0;
+  local tmp2:1;
+  tmp2 = tmp1;
+  if (tmp2) goto <t_branch_4>;
+  goto <f_branch_4>;
+<t_branch_4>
+  C2_ccombinewnewf_Rdd32_lo = C2_ccombinewnewf_Rt32;
+  C2_ccombinewnewf_Rdd32_hi = C2_ccombinewnewf_Rs32;
+  goto <done_4>;
+<f_branch_4>
+<done_4>
+}
+
+:C2_ccombinewt C2_ccombinewt_Rdd32 C2_ccombinewt_Pu4 C2_ccombinewt_Rs32 C2_ccombinewt_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewt_Rdd32 & C2_ccombinewt_Pu4 & C2_ccombinewt_Rs32 & C2_ccombinewt_Rt32 & C2_ccombinewt_Rdd32_lo & C2_ccombinewt_Rdd32_hi {
+  local tmp0:1;
+  tmp0 = C2_ccombinewt_Pu4;
+  if (tmp0) goto <t_branch_2>;
+  goto <f_branch_2>;
+<t_branch_2>
+  C2_ccombinewt_Rdd32_lo = C2_ccombinewt_Rt32;
+  C2_ccombinewt_Rdd32_hi = C2_ccombinewt_Rs32;
+  goto <done_2>;
+<f_branch_2>
+<done_2>
+}
+
+:C2_ccombinewf C2_ccombinewf_Rdd32 C2_ccombinewf_Pu4 C2_ccombinewf_Rs32 C2_ccombinewf_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 1 & b13 = 0 & b21 = 0 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 1 & b29 = 1 & b30 = 1 & b31 = 1 & C2_ccombinewf_Rdd32 & C2_ccombinewf_Pu4 & C2_ccombinewf_Rs32 & C2_ccombinewf_Rt32 & C2_ccombinewf_Rdd32_lo & C2_ccombinewf_Rdd32_hi {
+  local tmp0:1;
+  tmp0 = ! C2_ccombinewf_Pu4;
+  local tmp1:1;
+  tmp1 = tmp0;
+  if (tmp1) goto <t_branch_3>;
+  goto <f_branch_3>;
+<t_branch_3>
+  C2_ccombinewf_Rdd32_lo = C2_ccombinewf_Rt32;
+  C2_ccombinewf_Rdd32_hi = C2_ccombinewf_Rs32;
+  goto <done_3>;
+<f_branch_3>
+<done_3>
 }
 
 :J2_jumpr J2_jumpr_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 0 & J2_jumpr_Rs32 & J2_jumpr_Rs32 = 31 {
