@@ -155,7 +155,7 @@ public class HexagonPcodeEmitPacked {
 					PcodeOp opLoad = pcode[j - 1];
 					assert opLoad.getOpcode() == PcodeOp.LOAD;
 					assert opLoad.getInput(0).getAddress().isConstantAddress();
-					assert opLoad.getInput(0).getAddress().getOffset() != program.getAddressFactory().getRegisterSpace()
+					assert opLoad.getInput(0).getAddress().getOffset() == program.getAddressFactory().getRegisterSpace()
 							.getSpaceID();
 					assert opLoad.getInput(1).isRegister();
 					assert opLoad.getOutput().equals(op.getInput(1));
