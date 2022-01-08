@@ -196,18 +196,18 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
 		program = programBuilder.getProgram();
 		int txId = program.startTransaction("Add Memory");
-		programBuilder.createMemory(".text", "1000", 12);
+		programBuilder.createMemory(".text", "1000", 8);
 
 		programBuilder.setBytes("1000", "b4 67 0f 0c d2 29 41 29");
 
-		programBuilder.disassemble("1000", 12, true);
+		programBuilder.disassemble("1000", 8, true);
 		programBuilder.analyze();
 
 		program.endTransaction(txId, true);
 
 		printInstructions();
 
-		assertEquals(4, program.getListing().getNumInstructions());
+		assertEquals(3, program.getListing().getNumInstructions());
 
 		// See section 10.3 in "Qualcomm Hexagon V66 Programmer's Reference Manual"
 		// > Note that a duplex can contain only one constant-extended
@@ -216,6 +216,23 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(duplex_immext.toString(), "SA1_seti R2 0x1d");
 		duplex_immext = program.getListing().getInstructionAt(programBuilder.addr("1006"));
 		assertEquals(duplex_immext.toString(), "SA1_seti R1 0xc0f9ed14");
+	}
+
+	void ensureNewRegInPcode(Instruction instr, Register reg) {
+		boolean foundNewReg = false;
+		for (PcodeOp op : instr.getPcode()) {
+			System.out.println(op);
+			if (op.getOpcode() == PcodeOp.CALLOTHER && op.getInput(0).getOffset() == 0) {
+				// verify the new register is the operand to newreg()
+				assert (op.getInput(1).isRegister());
+				assertEquals(op.getInput(1).getAddress(), reg.getAddress());
+				// at most one newreg per instruction
+				assert (!foundNewReg);
+				foundNewReg = true;
+			}
+		}
+		// must have found at least one newreg()
+		assert (foundNewReg);
 	}
 
 	@Test
@@ -234,6 +251,10 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		printInstructions();
 
 		assertEquals(9, program.getListing().getNumInstructions());
+
+		Instruction instr = program.getListing().getInstructionAt(programBuilder.addr("1000"));
+
+		ensureNewRegInPcode(instr, program.getRegister("P0"));
 	}
 
 	@Test
@@ -253,6 +274,8 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		Instruction newvalue_operand = program.getListing().getInstructionAt(programBuilder.addr("1004"));
 		assertEquals(newvalue_operand.toString(), "S2_storerinew_io R5 R3 0x0");
+
+		ensureNewRegInPcode(newvalue_operand, program.getRegister("R3"));
 	}
 
 	// Challenge here is that both R4 and R3 are written, but only R4 is only
@@ -272,6 +295,11 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		program.endTransaction(txId, true);
 
 		printInstructions();
+
+		Instruction newvalue_operand = program.getListing().getInstructionAt(programBuilder.addr("1004"));
+		assertEquals(newvalue_operand.toString(), "S2_storerbnew_pi R0 R4 0x1");
+
+		ensureNewRegInPcode(newvalue_operand, program.getRegister("R4"));
 	}
 
 	@Test
