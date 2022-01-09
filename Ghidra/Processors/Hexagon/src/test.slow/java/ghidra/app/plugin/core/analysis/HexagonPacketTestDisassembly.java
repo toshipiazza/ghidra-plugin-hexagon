@@ -16,8 +16,6 @@
 package ghidra.app.plugin.core.analysis;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -27,7 +25,6 @@ import org.junit.Test;
 
 import ghidra.framework.options.Options;
 import ghidra.program.database.ProgramBuilder;
-import ghidra.program.model.address.Address;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.lang.Register;
@@ -65,9 +62,10 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		program.endTransaction(txId, true);
 	}
 
-	void printInstructions() {
+	void printInstructions() throws UnknownInstructionException {
 		ParallelInstructionLanguageHelper parallelHelper = program.getLanguage().getParallelInstructionHelper();
 		InstructionIterator iter = program.getListing().getInstructions(true);
+		Instruction pktStart = null;
 		while (iter.hasNext()) {
 			Instruction instr = iter.next();
 			String prefix = parallelHelper.getMnemonicPrefix(instr);
@@ -89,6 +87,23 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 			out += suffix;
 
 			System.out.println(out);
+
+			if (pktStart == null) {
+				pktStart = instr;
+			}
+
+			if (parallelHelper.isEndOfParallelInstructionGroup(instr)) {
+				UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(program.getAddressFactory(),
+						program.getLanguage());
+				HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
+				List<PcodeOp> pcode = emit.getPcode(pktStart.getInstructionContext(), uniqueFactory);
+				System.out.println();
+				for (PcodeOp op : pcode) {
+					System.out.println("  " + op);
+				}
+				System.out.println();
+				pktStart = null;
+			}
 		}
 	}
 
@@ -221,7 +236,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 	void ensureNewRegInPcode(Instruction instr, Register reg) {
 		boolean foundNewReg = false;
 		for (PcodeOp op : instr.getPcode()) {
-			System.out.println(op);
 			if (op.getOpcode() == PcodeOp.CALLOTHER && op.getInput(0).getOffset() == 0) {
 				// verify the new register is the operand to newreg()
 				assert (op.getInput(1).isRegister());

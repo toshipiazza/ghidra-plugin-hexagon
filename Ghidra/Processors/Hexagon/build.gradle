@@ -23,6 +23,7 @@ eclipse.project.name = 'Processors Hexagon'
 
 dependencies {
 	api project(':Base')
+	api project(':Decompiler')
 }
 
 sleighCompileOptions = [
