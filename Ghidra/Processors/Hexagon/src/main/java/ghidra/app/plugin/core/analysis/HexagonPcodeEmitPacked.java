@@ -19,6 +19,7 @@ import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
 import ghidra.program.model.address.*;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.PackedBytes;
+import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.FlowOverride;
 import ghidra.program.model.listing.Instruction;
@@ -28,6 +29,7 @@ import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.PcodeOp;
 import ghidra.program.model.pcode.SequenceNumber;
 import ghidra.program.model.pcode.Varnode;
+import ghidra.util.exception.NotYetImplementedException;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -49,171 +51,21 @@ public class HexagonPcodeEmitPacked {
 		this.program = program;
 	}
 
-	Address getRegisterTemp(Address[] scratchRegUnique, Address addr) {
-		return scratchRegUnique[(int) (addr.getOffset() / 4)].add(addr.getOffset() % 4);
-	}
-
-	boolean branchRequiresFixup(PcodeOp op) {
-		if (op.getOpcode() == PcodeOp.CBRANCH || op.getOpcode() == PcodeOp.BRANCH) {
-			// constant cbranches are pcode-relative and don't need to be fixed up
-			return !op.getInput(0).isConstant();
-		}
-		return op.getOpcode() == PcodeOp.CALL || op.getOpcode() == PcodeOp.CALLIND
-				|| op.getOpcode() == PcodeOp.BRANCHIND || op.getOpcode() == PcodeOp.RETURN;
-	}
-
-	boolean isCall(PcodeOp op) {
-		return op.getOpcode() == PcodeOp.CALL || op.getOpcode() == PcodeOp.CALLIND;
-	}
-
-	void analyzePcode(Instruction instruction, PcodeOp[] pcode, UniqueAddressFactory uniqueFactory,
-			Address[] scratchRegUnique, Set<Varnode> registerSpills, Map<SequenceNumber, Varnode> branches) {
-
-		// identify all the registers which need to be spilled up top and control flow
-		// to be patched
-		for (PcodeOp op : pcode) {
-			for (int i = 0; i < op.getNumInputs(); ++i) {
-				Address addr = op.getInput(i).getAddress();
-				if (addr.getAddressSpace().getName().equals("register")) {
-					registerSpills.add(op.getInput(i));
-				}
-			}
-			if (branchRequiresFixup(op)) {
-				branches.put(op.getSeqnum(), new Varnode(uniqueFactory.getNextUniqueAddress(), 1));
-			}
-		}
-	}
-
-	void initBranches(List<PcodeOp> uniqPcode, Map<SequenceNumber, Varnode> branches, AddressFactory addressFactory) {
-		for (Varnode branchVn : branches.values()) {
-			Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(0), 1) };
-			PcodeOp spill = new PcodeOp(defaultSeqno, PcodeOp.COPY, in, branchVn);
-			uniqPcode.add(spill);
-		}
-	}
-
-	void spillRegs(List<PcodeOp> uniqPcode, Address[] scratchRegUnique, Set<Varnode> registerSpills) {
-		for (Varnode reg : registerSpills) {
-			Address uniq = getRegisterTemp(scratchRegUnique, reg.getAddress());
-			Varnode[] in = new Varnode[] { reg };
-			Varnode out = new Varnode(uniq, reg.getSize());
-			PcodeOp spill = new PcodeOp(defaultSeqno, PcodeOp.COPY, in, out);
-			uniqPcode.add(spill);
-		}
-	}
-
-	boolean hasFallthrough(Instruction insn) {
-		return insn.getPrototype().getFallThrough(insn.getInstructionContext()) != null;
-	}
-
-	boolean isNewRegUserOp(PcodeOp op) {
+	boolean hasDotNewPredicateOrNewValueOperand(PcodeOp op) {
+		// $U2dd00:1 = CALLOTHER "newreg", P0
 		if (op.getOpcode() != PcodeOp.CALLOTHER) {
 			return false;
 		}
-
 		if (op.getNumInputs() != 2) {
 			return false;
 		}
-
 		if (!op.getInput(0).isConstant()) {
 			return false;
 		}
-
-		return op.getInput(0).getOffset() == 0;
-	}
-
-	void writePcode(Instruction instruction, PcodeOp[] pcode, List<PcodeOp> mainPcode, List<PcodeOp> jumpPcode,
-			UniqueAddressFactory uniqueFactory, Address[] scratchRegUnique, Set<Varnode> registerSpills,
-			Map<SequenceNumber, Varnode> branches, AddressFactory addressFactory) {
-		for (int j = 0; j < pcode.length; j++) {
-			PcodeOp op = pcode[j];
-			PcodeOp opNew;
-			if (isNewRegUserOp(op)) {
-
-				opNew = new PcodeOp(defaultSeqno, PcodeOp.COPY, 1, op.getOutput());
-
-				if (op.getInput(1).isRegister()) {
-					// Replace dot-new predicate of the form
-					//
-					// $U2dd00:1 = CALLOTHER "newreg", P0
-					//
-					// With:
-					//
-					// $U2dd00:1 = P0
-					//
-					opNew.setInput(op.getInput(1), 0);
-				} else {
-					// Replace new-value operand of the form
-					//
-					// $U47d80:4 = LOAD register(R6)
-					// $U47d00:4 = CALLOTHER "newreg", $U47d80:4
-					//
-					// With:
-					//
-					// $U47d00:4 = R6
-					assert j != 0;
-					PcodeOp opLoad = pcode[j - 1];
-					assert opLoad.getOpcode() == PcodeOp.LOAD;
-					assert opLoad.getInput(0).getAddress().isConstantAddress();
-					assert opLoad.getInput(0).getAddress().getOffset() == program.getAddressFactory().getRegisterSpace()
-							.getSpaceID();
-					assert opLoad.getInput(1).isRegister();
-					assert opLoad.getOutput().equals(op.getInput(1));
-
-					opNew.setInput(opLoad.getInput(1), 0);
-				}
-			} else {
-				opNew = new PcodeOp(defaultSeqno, op.getOpcode(), op.getNumInputs(), op.getOutput());
-				for (int i = 0; i < op.getNumInputs(); i++) {
-					if (op.getInput(i).getAddress().getAddressSpace().getName().equals("register")) {
-						Address uniq = getRegisterTemp(scratchRegUnique, op.getInput(i).getAddress());
-						opNew.setInput(new Varnode(uniq, op.getInput(i).getSize()), i);
-					} else {
-						opNew.setInput(op.getInput(i), i);
-					}
-				}
-			}
-			if (branchRequiresFixup(opNew)) {
-				Varnode branchVn = branches.get(op.getSeqnum());
-
-				InstructionPcodeOverride override = new InstructionPcodeOverride(instruction);
-				// jump to next instruction in case of a call, so we don't
-				// fallthrough to another jump
-				// the one exception to this is a CALL_RETURN flow override,
-				// which will append a RETURN right after the CALL
-				boolean insert_jump_after_packet = isCall(op)
-						&& !override.getFlowOverride().equals(FlowOverride.CALL_RETURN);
-
-				if (hasFallthrough(instruction)) {
-					Varnode[] in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(1), 1) };
-					PcodeOp spill = new PcodeOp(defaultSeqno, PcodeOp.COPY, in, branchVn);
-					mainPcode.add(spill);
-
-					int disp = 2;
-					if (insert_jump_after_packet) {
-						disp = 3;
-					}
-
-					in = new Varnode[] { branchVn };
-					Varnode out = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-					PcodeOp insn1 = new PcodeOp(defaultSeqno, PcodeOp.BOOL_NEGATE, in, out);
-					jumpPcode.add(insn1);
-					in = new Varnode[] { new Varnode(addressFactory.getConstantAddress(disp), 1), out };
-					PcodeOp insn2 = new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, in, null);
-					jumpPcode.add(insn2);
-				}
-
-				jumpPcode.add(opNew);
-
-				if (insert_jump_after_packet) {
-					Varnode[] in = new Varnode[] { new Varnode(pktNext, 4) };
-					PcodeOp insn2 = new PcodeOp(defaultSeqno, PcodeOp.BRANCH, in, null);
-					jumpPcode.add(insn2);
-				}
-			} else {
-				mainPcode.add(opNew);
-			}
+		if (op.getInput(0).getOffset() != 0) {
+			return false;
 		}
+		return op.getInput(1).isRegister();
 	}
 
 	void writeOffset(PackedBytes buf, long val) {
@@ -302,52 +154,175 @@ public class HexagonPcodeEmitPacked {
 
 		packetSize = pkt_next.subtract(pkt_start).intValue();
 
-		List<PcodeOp> uniqPcode = new ArrayList<>();
-		List<PcodeOp> mainPcode = new ArrayList<>();
-		List<PcodeOp> jumpPcode = new ArrayList<>();
-
-		Set<Varnode> registerSpills = new HashSet<>();
-		Map<SequenceNumber, Varnode> branches = new HashMap<>();
-
-		// Registers R1R0 aliases with R1 and R0, so their scratch regs must too
-		// 96 registers R0 to R31, C0 to R31, G0 to G31, S0 to S127
-		// XXX: pull this from the slaspec somehow?
-		Address[] scratchRegUnique = new Address[224];
-
-		for (int i = 0; i < scratchRegUnique.length; i += 2) {
-			Address uniq = uniqueFactory.getNextUniqueAddress();
-			scratchRegUnique[i + 0] = uniq.add(0);
-			scratchRegUnique[i + 1] = uniq.add(4);
-		}
+		HexagonRegisterScratchSpace wSpace = new HexagonRegisterScratchSpace(program, uniqueFactory);
+		HexagonRegisterScratchSpace rSpace = new HexagonRegisterScratchSpace(program, uniqueFactory);
 
 		AddressSet addrSet = new AddressSet(minAddr, maxAddr);
+
+		HexagonRegisterScratchSpace regTempSpace = new HexagonRegisterScratchSpace(program, uniqueFactory);
+		HexagonRegisterScratchSpace regTempSpaceWrite = new HexagonRegisterScratchSpace(program, uniqueFactory);
+
+		// used for all register loads that happen before all instructions run in
+		// parallel
+		List<PcodeOp> phase1 = new ArrayList<PcodeOp>();
+
+		// used for initializing conditional branch constants
+		List<PcodeOp> phase2 = new ArrayList<PcodeOp>();
+
+		// used for main pcode for all instructions
+		List<PcodeOp> phase3 = new ArrayList<PcodeOp>();
+
+		// used to writeback all registers written in phase 3
+		List<PcodeOp> phase4 = new ArrayList<PcodeOp>();
+
+		// used to resolve control flow in order that they appear in the packet
+		List<PcodeOp> phase5 = new ArrayList<PcodeOp>();
+
+		// TODO: change to addrset
+		Set<Varnode> regsWritten = new HashSet<>();
+		Set<Varnode> regsRead = new HashSet<>();
 
 		InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
 		while (insnIter.hasNext()) {
 			Instruction instr = insnIter.next();
-			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(),
-					new InstructionPcodeOverride(instr), uniqueFactory);
-			analyzePcode(instr, pcode, uniqueFactory, scratchRegUnique, registerSpills, branches);
+
+			// TODO: support flow overrides
+			List<PcodeOp> ops = Arrays
+					.asList(instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory));
+
+			// first pass to find all read vs written regs
+			Set<Varnode> regsReadInInstruction = new HashSet<>();
+			Set<Varnode> regsWrittenInInstruction = new HashSet<>();
+			for (PcodeOp op : ops) {
+				if (!hasDotNewPredicateOrNewValueOperand(op)) {
+					for (int i = 0; i < op.getNumInputs(); i++) {
+						if (op.getInput(i).getAddress().getAddressSpace()
+								.equals(program.getAddressFactory().getRegisterSpace())) {
+							regsReadInInstruction.add(op.getInput(i));
+						}
+					}
+				}
+				if (op.getOutput() != null && op.getOutput().getAddress().getAddressSpace()
+						.equals(program.getAddressFactory().getRegisterSpace())) {
+					regsWrittenInInstruction.add(op.getOutput());
+				}
+			}
+			regsWritten.addAll(regsWrittenInInstruction);
+			regsRead.addAll(regsReadInInstruction);
+
+			// handle spills
+			for (Varnode vn : regsReadInInstruction) {
+				if (!regsWrittenInInstruction.contains(vn)) {
+					phase1.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { vn },
+							regTempSpace.getScratchVn(vn)));
+				}
+			}
+			for (Varnode vn : regsWrittenInInstruction) {
+				phase1.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { vn },
+						regTempSpaceWrite.getScratchVn(vn)));
+			}
+
+			// heuristic to detect if there's been conditional control flow until now
+			boolean hasConditional = false;
+
+			for (int i = 0; i < ops.size(); i++) {
+				PcodeOp op = ops.get(i);
+				if (hasDotNewPredicateOrNewValueOperand(op)) {
+					// replace `$U2dd00:1 = CALLOTHER "newreg", P0` with
+					// `$U2dd00:1 = regTempSpaceWrite(P0)`
+					ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY,
+							new Varnode[] { regTempSpaceWrite.getScratchVn(op.getInput(1)) }, op.getOutput()));
+				} else {
+					// replace all registers in ops with register reads
+					for (int j = 0; j < op.getNumInputs(); j++) {
+						if (op.getInput(j).getAddress().getAddressSpace()
+								.equals(program.getAddressFactory().getRegisterSpace())) {
+							if (regsWrittenInInstruction.contains(op.getInput(j))) {
+								op.setInput(regTempSpaceWrite.getScratchVn(op.getInput(j)), j);
+							} else {
+								op.setInput(regTempSpace.getScratchVn(op.getInput(j)), j);
+							}
+						}
+					}
+					if (op.getOutput() != null && op.getOutput().getAddress().getAddressSpace()
+							.equals(program.getAddressFactory().getRegisterSpace())) {
+						if (regsWrittenInInstruction.contains(op.getOutput())) {
+							op.setOutput(regTempSpaceWrite.getScratchVn(op.getOutput()));
+						} else {
+							op.setOutput(regTempSpace.getScratchVn(op.getOutput()));
+						}
+					}
+				}
+				Varnode init = new Varnode(program.getAddressFactory().getConstantAddress(0), 1);
+				Varnode hit = new Varnode(program.getAddressFactory().getConstantAddress(1), 1);
+
+				switch (op.getOpcode()) {
+				case PcodeOp.CALL:
+				case PcodeOp.CALLIND: {
+					Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
+					phase2.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { init }, vn));
+					ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { hit }, vn));
+					Varnode pktNextVn = new Varnode(pktNext, 4);
+					if (!hasConditional) {
+						phase5.add(op);
+						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { pktNextVn }, null));
+					} else {
+						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { Constant(2), vn }, null));
+						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { Constant(3) }, null));
+						phase5.add(op);
+						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { pktNextVn }, null));
+					}
+				}
+					break;
+				case PcodeOp.RETURN:
+				case PcodeOp.BRANCH:
+				case PcodeOp.BRANCHIND:
+					if (!op.getInput(0).isConstant()) {
+						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
+						phase2.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { init }, vn));
+						ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { hit }, vn));
+						if (!hasConditional) {
+							phase5.add(op);
+						} else {
+							phase5.add(new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { Constant(2), vn },
+									null));
+							phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { Constant(2) }, null));
+							phase5.add(op);
+						}
+					}
+					break;
+				case PcodeOp.CBRANCH:
+					if (!op.getInput(0).isConstant()) {
+						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
+						phase2.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { init }, vn));
+						ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { op.getInput(1) }, vn));
+						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { Constant(2), vn }, null));
+						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { Constant(2) }, null));
+						phase5.add(op);
+					} else {
+						hasConditional = true;
+					}
+					break;
+				}
+			}
+
+			phase3.addAll(ops);
+
+			for (Varnode vn : regsWrittenInInstruction) {
+				phase4.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { regTempSpaceWrite.getScratchVn(vn) },
+						vn));
+			}
 		}
 
-		initBranches(uniqPcode, branches, program.getAddressFactory());
-		spillRegs(uniqPcode, scratchRegUnique, registerSpills);
+		phase1.addAll(phase2);
+		phase1.addAll(phase3);
+		phase1.addAll(phase4);
+		phase1.addAll(phase5);
+		return phase1;
+	}
 
-		insnIter = program.getListing().getInstructions(addrSet, true);
-		while (insnIter.hasNext()) {
-			Instruction instr = insnIter.next();
-			PcodeOp[] pcode = instr.getPrototype().getPcode(instr.getInstructionContext(),
-					new InstructionPcodeOverride(instr), uniqueFactory);
-			writePcode(instr, pcode, mainPcode, jumpPcode, uniqueFactory, scratchRegUnique, registerSpills, branches,
-					program.getAddressFactory());
-		}
-
-		List<PcodeOp> donePcode = new ArrayList<>();
-		donePcode.addAll(uniqPcode);
-		donePcode.addAll(mainPcode);
-		donePcode.addAll(jumpPcode);
-
-		return donePcode;
+	Varnode Constant(int val) {
+		return new Varnode(program.getAddressFactory().getConstantAddress(val), 1);
 	}
 
 	public PackedBytes getPcodePacked(InstructionContext context, UniqueAddressFactory uniqueFactory)
