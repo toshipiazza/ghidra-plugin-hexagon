@@ -27,6 +27,7 @@ import ghidra.app.decompiler.DecompInterface;
 import ghidra.app.decompiler.DecompileResults;
 import ghidra.framework.options.Options;
 import ghidra.program.database.ProgramBuilder;
+import ghidra.program.model.listing.FlowOverride;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.PcodeOpAST;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
@@ -606,6 +607,57 @@ public class HexagonPacketTestDecompilation extends AbstractGhidraHeadedIntegrat
 				+ "      uStack12 = uStack12 * 3 + 1;\n"
 				+ "    }\n"
 				+ "  }\n"
+				+ "  return;\n"
+				+ "}\n"
+				+ "\n"
+				+ "");
+	}
+
+	@Test
+	public void testCallReturnFlowOverride() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 68);
+
+		programBuilder.setBytes("1000",
+				"00 c0 9d a0 02 c0 00 58 00 40 00 58 00 c0 00 7f 02 c0 9d a0 ff e0 9e a7 fe e1 9e a7 e0 ff 9e 97 c1 ff 9e 97 01 c1 00 f3 08 48 00 00 00 d4 49 6a fd e0 9e a7 00 c1 80 a1 e0 ff 9e 97 fc e0 9e a7 e0 ff ff 5b");
+
+		programBuilder.disassemble("1000", 68, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		txId = program.startTransaction("Add functions and FlowOverride");
+
+		programBuilder.createFunction("1000");
+		programBuilder.createFunction("1010");
+		program.getListing().getInstructionAt(programBuilder.addr("1040")).setFlowOverride(FlowOverride.CALL_RETURN);
+
+		program.endTransaction(txId, true);
+
+		DecompInterface ifc = new DecompInterface();
+		ifc.openProgram(program);
+
+		DecompileResults results = ifc
+				.decompileFunction(program.getListing().getFunctionAt(programBuilder.addr("1010")), 0, null);
+
+		System.out.println("Optimized pcode:");
+		Iterator<PcodeOpAST> pcodeOpIter = results.getHighFunction().getPcodeOps();
+		while (pcodeOpIter.hasNext()) {
+			System.out.println(pcodeOpIter.next());
+		}
+
+		String getC = results.getDecompiledFunction().getC();
+		System.out.println(getC);
+		assertEquals(getC, "\n"
+				+ "/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\n"
+				+ "\n"
+				+ "void FUN_00001010(int param_1,int param_2)\n"
+				+ "\n"
+				+ "{\n"
+				+ "  _DAT_00021250 = param_1 + param_2;\n"
+				+ "  FUN_00001000();\n"
 				+ "  return;\n"
 				+ "}\n"
 				+ "\n"

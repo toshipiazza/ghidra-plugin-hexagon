@@ -154,9 +154,6 @@ public class HexagonPcodeEmitPacked {
 
 		packetSize = pkt_next.subtract(pkt_start).intValue();
 
-		HexagonRegisterScratchSpace wSpace = new HexagonRegisterScratchSpace(program, uniqueFactory);
-		HexagonRegisterScratchSpace rSpace = new HexagonRegisterScratchSpace(program, uniqueFactory);
-
 		AddressSet addrSet = new AddressSet(minAddr, maxAddr);
 
 		HexagonRegisterScratchSpace regTempSpace = new HexagonRegisterScratchSpace(program, uniqueFactory);
@@ -182,9 +179,9 @@ public class HexagonPcodeEmitPacked {
 		while (insnIter.hasNext()) {
 			Instruction instr = insnIter.next();
 
-			// TODO: support flow overrides
+			InstructionPcodeOverride pcodeOverride = new InstructionPcodeOverride(instr);
 			List<PcodeOp> ops = Arrays
-					.asList(instr.getPrototype().getPcode(instr.getInstructionContext(), null, uniqueFactory));
+					.asList(instr.getPrototype().getPcode(instr.getInstructionContext(), pcodeOverride, uniqueFactory));
 
 			// first pass to find all read vs written regs
 			Set<Varnode> regsReadInInstruction = new HashSet<>();
@@ -214,8 +211,14 @@ public class HexagonPcodeEmitPacked {
 
 			// heuristic to detect if there's been conditional control flow until now
 			boolean hasConditional = false;
+			boolean skipNextInstruction = false;
 
 			for (int i = 0; i < ops.size(); i++) {
+				if (skipNextInstruction) {
+					skipNextInstruction = false;
+					continue;
+				}
+
 				PcodeOp op = ops.get(i);
 				if (hasDotNewPredicateOrNewValueOperand(op)) {
 					// replace
@@ -251,37 +254,64 @@ public class HexagonPcodeEmitPacked {
 
 				switch (op.getOpcode()) {
 				case PcodeOp.CALL:
-				case PcodeOp.CALLIND:
+				case PcodeOp.CALLIND: {
 					//
 					// phase2:
-					//   branch_taken = 0
+					// branch_taken = 0
 					// phase3:
-					//   ...
-					//   branch_taken = 1
-					//   ...
+					// ...
+					// branch_taken = 1
+					// ...
 					// phase5:
-					//   CBRANCH taken branch_taken
-					//   BRANCH done
+					// CBRANCH taken branch_taken
+					// BRANCH done
 					// taken:
-					//   CALL[IND] dest
-					//   BRANCH pkt_next
+					// CALL[IND] dest
+					// BRANCH pkt_next
 					// done:
 					//
-					{
-						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-						phase2.add(Copy(vn, init));
-						ops.set(i, Copy(vn, hit));
-						Varnode pktNextVn = new Varnode(pktNext, 4);
-						if (!hasConditional) {
-							phase5.add(op);
-							phase5.add(Branch(pktNextVn));
-						} else {
-							phase5.add(Cbranch(Constant(2), vn));
-							phase5.add(Branch(Constant(3)));
-							phase5.add(op);
-							phase5.add(Branch(pktNextVn));
-						}
+					Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
+					phase2.add(Copy(vn, init));
+					PcodeOp hitOp = Copy(vn, hit);
+					ops.set(i, hitOp);
+					Varnode pktNextVn = new Varnode(pktNext, 4);
+					if (!hasConditional) {
+						phase5.add(op);
+					} else {
+						phase5.add(Cbranch(Constant(2), vn)); // goto <taken>
+						phase5.add(Branch(Constant(3)));	  // goto <done>
+						// <taken>:
+						phase5.add(op);
 					}
+
+					// Note that because both cases insert an instruction, we
+					// don't need to fixup the constant relative jumps above
+					if (pcodeOverride.getFlowOverride().equals(FlowOverride.CALL_RETURN)) {
+						//
+						// If CALL_RETURN FlowOverride is requested, then
+						// getPcode() above inserted a null RETURN right after
+						// the call
+						//
+						assert ops.get(i + 1) != null;
+						assert ops.get(i + 1).getOpcode() == PcodeOp.RETURN;
+						assert ops.get(i + 1).getInput(0).isConstant();
+						assert ops.get(i + 1).getInput(0).getOffset() == 0;
+						phase5.add(ops.get(i + 1));
+						// We need to "nop" out the RETURN in ops, do so without
+						// changing any relative offsets by just re-inserting
+						// the hitOp (effectively a NOP)
+						ops.set(i+1, hitOp);
+						// Skip the subsequent RETURN
+						skipNextInstruction = true;
+					} else {
+						//
+						// If there was no CALL_RETURN override, then we want to
+						// ignore the rest of the packet when the CALL is taken
+						//
+						phase5.add(Branch(pktNextVn));
+					}
+					// <done>:
+				}
 					break;
 
 				case PcodeOp.RETURN:
@@ -289,16 +319,16 @@ public class HexagonPcodeEmitPacked {
 				case PcodeOp.BRANCHIND:
 					//
 					// phase2:
-					//   branch_taken = 0
+					// branch_taken = 0
 					// phase3:
-					//   ...
-					//   branch_taken = 1
-					//   ...
+					// ...
+					// branch_taken = 1
+					// ...
 					// phase5:
-					//   CBRANCH taken branch_taken
-					//   BRANCH done
+					// CBRANCH taken branch_taken
+					// BRANCH done
 					// taken:
-					//   BRANCH[ind] dest
+					// BRANCH[ind] dest
 					// done:
 					//
 					if (!op.getInput(0).isConstant()) {
@@ -318,13 +348,13 @@ public class HexagonPcodeEmitPacked {
 				case PcodeOp.CBRANCH:
 					//
 					// phase2:
-					//   branch_taken = 0
+					// branch_taken = 0
 					// phase3:
-					//   ...
-					//   branch_taken = <original CBRANCH conditional>
-					//   ...
+					// ...
+					// branch_taken = <original CBRANCH conditional>
+					// ...
 					// phase5:
-					//   CBRANCH dest branch_taken
+					// CBRANCH dest branch_taken
 					//
 					if (!op.getInput(0).isConstant()) {
 						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
@@ -333,7 +363,7 @@ public class HexagonPcodeEmitPacked {
 						phase5.add(Cbranch(op.getInput(0), vn));
 					} else {
 						// assume that the rest of the instruction is
-						// conditional because this was a conditional branch 
+						// conditional because this was a conditional branch
 						hasConditional = true;
 					}
 					break;

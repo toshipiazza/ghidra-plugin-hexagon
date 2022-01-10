@@ -16,7 +16,6 @@
 package ghidra.app.plugin.core.analysis;
 
 import ghidra.program.model.address.Address;
-import ghidra.program.model.address.AddressSpace;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.listing.Program;
