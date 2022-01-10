@@ -178,10 +178,6 @@ public class HexagonPcodeEmitPacked {
 		// used to resolve control flow in order that they appear in the packet
 		List<PcodeOp> phase5 = new ArrayList<PcodeOp>();
 
-		// TODO: change to addrset
-		Set<Varnode> regsWritten = new HashSet<>();
-		Set<Varnode> regsRead = new HashSet<>();
-
 		InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
 		while (insnIter.hasNext()) {
 			Instruction instr = insnIter.next();
@@ -196,30 +192,24 @@ public class HexagonPcodeEmitPacked {
 			for (PcodeOp op : ops) {
 				if (!hasDotNewPredicateOrNewValueOperand(op)) {
 					for (int i = 0; i < op.getNumInputs(); i++) {
-						if (op.getInput(i).getAddress().getAddressSpace()
-								.equals(program.getAddressFactory().getRegisterSpace())) {
+						if (op.getInput(i).isRegister()) {
 							regsReadInInstruction.add(op.getInput(i));
 						}
 					}
 				}
-				if (op.getOutput() != null && op.getOutput().getAddress().getAddressSpace()
-						.equals(program.getAddressFactory().getRegisterSpace())) {
+				if (op.getOutput() != null && op.getOutput().isRegister()) {
 					regsWrittenInInstruction.add(op.getOutput());
 				}
 			}
-			regsWritten.addAll(regsWrittenInInstruction);
-			regsRead.addAll(regsReadInInstruction);
 
 			// handle spills
 			for (Varnode vn : regsReadInInstruction) {
 				if (!regsWrittenInInstruction.contains(vn)) {
-					phase1.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { vn },
-							regTempSpace.getScratchVn(vn)));
+					phase1.add(Copy(regTempSpace.getScratchVn(vn), vn));
 				}
 			}
 			for (Varnode vn : regsWrittenInInstruction) {
-				phase1.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { vn },
-						regTempSpaceWrite.getScratchVn(vn)));
+				phase1.add(Copy(regTempSpaceWrite.getScratchVn(vn), vn));
 			}
 
 			// heuristic to detect if there's been conditional control flow until now
@@ -228,15 +218,18 @@ public class HexagonPcodeEmitPacked {
 			for (int i = 0; i < ops.size(); i++) {
 				PcodeOp op = ops.get(i);
 				if (hasDotNewPredicateOrNewValueOperand(op)) {
-					// replace `$U2dd00:1 = CALLOTHER "newreg", P0` with
+					// replace
+					//
+					// `$U2dd00:1 = CALLOTHER "newreg", P0`
+					//
+					// with
+					//
 					// `$U2dd00:1 = regTempSpaceWrite(P0)`
-					ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY,
-							new Varnode[] { regTempSpaceWrite.getScratchVn(op.getInput(1)) }, op.getOutput()));
+					ops.set(i, Copy(op.getOutput(), regTempSpaceWrite.getScratchVn(op.getInput(1))));
 				} else {
 					// replace all registers in ops with register reads
 					for (int j = 0; j < op.getNumInputs(); j++) {
-						if (op.getInput(j).getAddress().getAddressSpace()
-								.equals(program.getAddressFactory().getRegisterSpace())) {
+						if (op.getInput(j).isRegister()) {
 							if (regsWrittenInInstruction.contains(op.getInput(j))) {
 								op.setInput(regTempSpaceWrite.getScratchVn(op.getInput(j)), j);
 							} else {
@@ -244,8 +237,7 @@ public class HexagonPcodeEmitPacked {
 							}
 						}
 					}
-					if (op.getOutput() != null && op.getOutput().getAddress().getAddressSpace()
-							.equals(program.getAddressFactory().getRegisterSpace())) {
+					if (op.getOutput() != null && op.getOutput().isRegister()) {
 						if (regsWrittenInInstruction.contains(op.getOutput())) {
 							op.setOutput(regTempSpaceWrite.getScratchVn(op.getOutput()));
 						} else {
@@ -253,64 +245,106 @@ public class HexagonPcodeEmitPacked {
 						}
 					}
 				}
-				Varnode init = new Varnode(program.getAddressFactory().getConstantAddress(0), 1);
-				Varnode hit = new Varnode(program.getAddressFactory().getConstantAddress(1), 1);
+
+				Varnode init = Constant(0);
+				Varnode hit = Constant(1);
 
 				switch (op.getOpcode()) {
 				case PcodeOp.CALL:
-				case PcodeOp.CALLIND: {
-					Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-					phase2.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { init }, vn));
-					ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { hit }, vn));
-					Varnode pktNextVn = new Varnode(pktNext, 4);
-					if (!hasConditional) {
-						phase5.add(op);
-						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { pktNextVn }, null));
-					} else {
-						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { Constant(2), vn }, null));
-						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { Constant(3) }, null));
-						phase5.add(op);
-						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { pktNextVn }, null));
+				case PcodeOp.CALLIND:
+					//
+					// phase2:
+					//   branch_taken = 0
+					// phase3:
+					//   ...
+					//   branch_taken = 1
+					//   ...
+					// phase5:
+					//   CBRANCH taken branch_taken
+					//   BRANCH done
+					// taken:
+					//   CALL[IND] dest
+					//   BRANCH pkt_next
+					// done:
+					//
+					{
+						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
+						phase2.add(Copy(vn, init));
+						ops.set(i, Copy(vn, hit));
+						Varnode pktNextVn = new Varnode(pktNext, 4);
+						if (!hasConditional) {
+							phase5.add(op);
+							phase5.add(Branch(pktNextVn));
+						} else {
+							phase5.add(Cbranch(Constant(2), vn));
+							phase5.add(Branch(Constant(3)));
+							phase5.add(op);
+							phase5.add(Branch(pktNextVn));
+						}
 					}
-				}
 					break;
+
 				case PcodeOp.RETURN:
 				case PcodeOp.BRANCH:
 				case PcodeOp.BRANCHIND:
+					//
+					// phase2:
+					//   branch_taken = 0
+					// phase3:
+					//   ...
+					//   branch_taken = 1
+					//   ...
+					// phase5:
+					//   CBRANCH taken branch_taken
+					//   BRANCH done
+					// taken:
+					//   BRANCH[ind] dest
+					// done:
+					//
 					if (!op.getInput(0).isConstant()) {
 						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-						phase2.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { init }, vn));
-						ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { hit }, vn));
+						phase2.add(Copy(vn, init));
+						ops.set(i, Copy(vn, hit));
 						if (!hasConditional) {
 							phase5.add(op);
 						} else {
-							phase5.add(new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { Constant(2), vn },
-									null));
-							phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { Constant(2) }, null));
+							phase5.add(Cbranch(Constant(2), vn));
+							phase5.add(Branch(Constant(2)));
 							phase5.add(op);
 						}
 					}
 					break;
+
 				case PcodeOp.CBRANCH:
+					//
+					// phase2:
+					//   branch_taken = 0
+					// phase3:
+					//   ...
+					//   branch_taken = <original CBRANCH conditional>
+					//   ...
+					// phase5:
+					//   CBRANCH dest branch_taken
+					//
 					if (!op.getInput(0).isConstant()) {
 						Varnode vn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-						phase2.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { init }, vn));
-						ops.set(i, new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { op.getInput(1) }, vn));
-						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { Constant(2), vn }, null));
-						phase5.add(new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { Constant(2) }, null));
-						phase5.add(op);
+						phase2.add(Copy(vn, init));
+						ops.set(i, Copy(vn, op.getInput(1)));
+						phase5.add(Cbranch(op.getInput(0), vn));
 					} else {
+						// assume that the rest of the instruction is
+						// conditional because this was a conditional branch 
 						hasConditional = true;
 					}
 					break;
+
 				}
 			}
 
 			phase3.addAll(ops);
 
 			for (Varnode vn : regsWrittenInInstruction) {
-				phase4.add(new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { regTempSpaceWrite.getScratchVn(vn) },
-						vn));
+				phase4.add(Copy(vn, regTempSpaceWrite.getScratchVn(vn)));
 			}
 		}
 
@@ -319,6 +353,18 @@ public class HexagonPcodeEmitPacked {
 		phase1.addAll(phase4);
 		phase1.addAll(phase5);
 		return phase1;
+	}
+
+	PcodeOp Cbranch(Varnode dst, Varnode vn) {
+		return new PcodeOp(defaultSeqno, PcodeOp.CBRANCH, new Varnode[] { dst, vn }, null);
+	}
+
+	PcodeOp Branch(Varnode dst) {
+		return new PcodeOp(defaultSeqno, PcodeOp.BRANCH, new Varnode[] { dst }, null);
+	}
+
+	PcodeOp Copy(Varnode dst, Varnode src) {
+		return new PcodeOp(defaultSeqno, PcodeOp.COPY, new Varnode[] { src }, dst);
 	}
 
 	Varnode Constant(int val) {
