@@ -24,6 +24,7 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
 import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.AddressSetView;
+import ghidra.program.model.lang.Processor;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.BookmarkManager;
@@ -45,10 +46,40 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 	private final static int NOTIFICATION_INTERVAL = 1024;
 
+	private final static String PROCESSOR_NAME = "hexagon";
+
+	private Register subinsnRegister;
+	private Register hasnewRegister;
+	private Register dotnewRegister;
+	private Register duplexNextRegister;
+	private Register pktStartRegister;
+	private Register pktNextRegister;
+	private Register endloopRegister;
+
 	public HexagonPacketAnalyzer() {
 		super(NAME, DESCRIPTION, AnalyzerType.INSTRUCTION_ANALYZER);
 		setPriority(AnalysisPriority.BLOCK_ANALYSIS.after());
-		setDefaultEnablement(true);
+        setDefaultEnablement(true);
+	}
+
+	@Override
+	public boolean canAnalyze(Program program) {
+		boolean canAnalyze = program.getLanguage().getProcessor()
+				.equals(Processor.findOrPossiblyCreateProcessor(PROCESSOR_NAME));
+
+		if (!canAnalyze) {
+			return false;
+		}
+
+		subinsnRegister = program.getProgramContext().getRegister("subinsn");
+		hasnewRegister = program.getProgramContext().getRegister("hasnew");
+		dotnewRegister = program.getProgramContext().getRegister("dotnew");
+		duplexNextRegister = program.getProgramContext().getRegister("duplex_next");
+		pktStartRegister = program.getProgramContext().getRegister("pkt_start");
+		pktNextRegister = program.getProgramContext().getRegister("pkt_next");
+		endloopRegister = program.getProgramContext().getRegister("endloop");
+
+		return true;
 	}
 
 	private AddressSetView removeUninitializedBlock(Program program, AddressSetView set) {
@@ -66,10 +97,8 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
 	Instruction reallyDisassembleInstruction(Program program, TaskMonitor monitor, Address addr)
 			throws UnknownInstructionException {
-		BigInteger subinsn_value = program.getProgramContext()
-				.getValue(program.getProgramContext().getRegister("subinsn"), addr, false);
-		BigInteger hasnew_value = program.getProgramContext()
-				.getValue(program.getProgramContext().getRegister("hasnew"), addr, false);
+		BigInteger subinsn_value = program.getProgramContext().getValue(subinsnRegister, addr, false);
+		BigInteger hasnew_value = program.getProgramContext().getValue(hasnewRegister, addr, false);
 		if ((subinsn_value == null || subinsn_value.intValue() == 0)
 				&& (hasnew_value == null || hasnew_value.intValue() == 0)) {
 			Instruction inst = program.getListing().getInstructionAt(addr);
@@ -154,10 +183,8 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 		BigInteger pktNextCtx = BigInteger.valueOf(packet.packetEndAddress.getOffset());
 
 		try {
-			program.getProgramContext().setValue(program.getProgramContext().getRegister("pkt_start"), packetStart,
-					packetEnd, pktStartCtx);
-			program.getProgramContext().setValue(program.getProgramContext().getRegister("pkt_next"), packetStart,
-					packetEnd, pktNextCtx);
+			program.getProgramContext().setValue(pktStartRegister, packetStart, packetEnd, pktStartCtx);
+			program.getProgramContext().setValue(pktNextRegister, packetStart, packetEnd, pktNextCtx);
 
 			if (packet.hasDuplex) {
 				if (packet.insns.size() >= 2) {
@@ -165,32 +192,30 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 					if (info.isImmext) {
 						// A2_ext needs to know the address of both duplex instructions if immext comes
 						// just before
-						program.getProgramContext().setValue(program.getProgramContext().getRegister("duplex_next"),
-								info.getAddress(), info.getAddress(), packet.duplex2Address.getOffsetAsBigInteger());
+						program.getProgramContext().setValue(duplexNextRegister, info.getAddress(), info.getAddress(),
+								packet.duplex2Address.getOffsetAsBigInteger());
 					}
 				}
 
-				Register subinsnRegister = program.getProgramContext().getRegister("subinsn");
 				program.getProgramContext().setValue(subinsnRegister, packet.duplex1Address, packet.duplex1Address,
 						BigInteger.valueOf(packet.duplex1.getValue()));
 				program.getProgramContext().setValue(subinsnRegister, packet.duplex2Address, packet.duplex2Address,
 						BigInteger.valueOf(packet.duplex2.getValue()));
 			} else {
 				// packets with duplex instructions cannot terminate loops
-				program.getProgramContext().setValue(program.getProgramContext().getRegister("endloop"),
-						packet.LastInsnAddress, packet.LastInsnAddress,
+				program.getProgramContext().setValue(endloopRegister, packet.LastInsnAddress, packet.LastInsnAddress,
 						BigInteger.valueOf(packet.loopEncoding.toInt()));
 			}
 
 			for (HexagonInstructionInfo info : packet.insns) {
 				if (info.newValueOperandRegister != null) {
-					program.getProgramContext().setValue(program.getProgramContext().getRegister("hasnew"),
-							info.getAddress(), info.getAddress(), BigInteger.valueOf(1));
+					program.getProgramContext().setValue(hasnewRegister, info.getAddress(), info.getAddress(),
+							BigInteger.valueOf(1));
 					// All R. regs are 4-bytes long, so divide by 4 to get the register number from
 					// its address
-					program.getProgramContext().setValue(program.getProgramContext().getRegister("dotnew"),
-							info.getAddress(), info.getAddress(), info.newValueOperandRegister.getAddress()
-									.getOffsetAsBigInteger().divide(BigInteger.valueOf(4)));
+					program.getProgramContext().setValue(dotnewRegister, info.getAddress(), info.getAddress(),
+							info.newValueOperandRegister.getAddress().getOffsetAsBigInteger()
+									.divide(BigInteger.valueOf(4)));
 				}
 			}
 		} catch (ContextChangeException e) {
@@ -215,7 +240,8 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				Instruction instr = program.getListing().getInstructionAt(a);
 				if (instr.getMnemonicString().equals("DUPLEX")) {
 					// duplex instructions should no longer exist at this point
-					throw new UnknownInstructionException("(Unreachable) Packet still contains DUPLEX after context set");
+					throw new UnknownInstructionException(
+							"(Unreachable) Packet still contains DUPLEX after context set");
 				}
 			}
 
@@ -300,8 +326,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				continue;
 			}
 
-			BigInteger pkt_start = program.getProgramContext()
-					.getValue(program.getProgramContext().getRegister("pkt_start"), addr, false);
+			BigInteger pkt_start = program.getProgramContext().getValue(pktStartRegister, addr, false);
 			if (pkt_start != null && pkt_start.intValue() != 0) {
 				continue;
 			}

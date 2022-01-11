@@ -18,6 +18,10 @@ package ghidra.app.plugin.core.analysis;
 import ghidra.app.plugin.core.analysis.HexagonInstructionInfo.DuplexEncoding;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.lang.UnknownInstructionException;
+import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.InstructionIterator;
+import ghidra.program.model.listing.Program;
+import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.util.Msg;
 
 import java.util.ArrayList;
@@ -53,6 +57,10 @@ class HexagonPacketInfo {
 	public void addInstruction(HexagonInstructionInfo info) throws UnknownInstructionException {
 		insns.add(info);
 
+		if (terminated) {
+			throw new IllegalArgumentException("Attempting to push to terminated packet");
+		}
+
 		if (info.endPacket) {
 			terminated = true;
 			if (info.isDuplex) {
@@ -64,10 +72,9 @@ class HexagonPacketInfo {
 			}
 			loopEncoding = getLoopEncoding();
 		} else if (insns.size() == 4) {
-			// This must be an invalid packet since the maximum number
-			// of instructions in a packet is 4 (counting two SUBINSNS's
-			// as one DUPLEX instruction)
-			throw new UnknownInstructionException();
+			// Section 10.9
+			// > All packets must contain four or fewer words
+			throw new UnknownInstructionException("Unterminated packet contained too many instructions");
 		}
 
 		LastInsnAddress = info.getAddress();
