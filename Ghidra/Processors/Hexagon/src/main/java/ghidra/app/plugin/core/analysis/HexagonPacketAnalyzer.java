@@ -22,22 +22,27 @@ import ghidra.app.util.importer.MessageLog;
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
+import ghidra.program.model.address.AddressRange;
 import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.AddressSetView;
 import ghidra.program.model.lang.Processor;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
+import ghidra.program.model.listing.Bookmark;
 import ghidra.program.model.listing.BookmarkManager;
+import ghidra.program.model.listing.BookmarkType;
 import ghidra.program.model.listing.ContextChangeException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.mem.MemoryBlock;
+import ghidra.util.Msg;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
 import java.math.BigInteger;
+import java.util.Iterator;
 
 public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
@@ -59,7 +64,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 	public HexagonPacketAnalyzer() {
 		super(NAME, DESCRIPTION, AnalyzerType.INSTRUCTION_ANALYZER);
 		setPriority(AnalysisPriority.BLOCK_ANALYSIS.after());
-        setDefaultEnablement(true);
+		setDefaultEnablement(true);
 	}
 
 	@Override
@@ -135,24 +140,31 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 		return inst;
 	}
 
-	HexagonPacketInfo identifyPacketAtAddress(Program program, TaskMonitor monitor, Address addr) {
-		HexagonPacketInfo packetInfo = new HexagonPacketInfo(addr);
+	HexagonPacketInfo identifyPacketAtAddress(Program program, TaskMonitor monitor, Address addr, Instruction instr) {
+		BookmarkManager bookmarkMgr = program.getBookmarkManager();
+
+		HexagonInstructionInfo info;
+
 		try {
-			do {
-				Instruction inst = reallyDisassembleInstruction(program, monitor, packetInfo.packetEndAddress);
-
-				HexagonInstructionInfo info = new HexagonInstructionInfo(program, inst, packetInfo.packetStartAddress);
-				packetInfo.addInstruction(info);
-
-			} while (!packetInfo.isTerminated());
+			info = new HexagonInstructionInfo(program, instr, addr);
 		} catch (UnknownInstructionException | MemoryAccessException ex) {
-			if (!packetInfo.packetStartAddress.equals(packetInfo.packetEndAddress)) {
-				program.getListing().clearCodeUnits(packetInfo.packetStartAddress,
-						packetInfo.packetEndAddress.subtract(1), true);
-			} else {
-				// an exception on the first instruction might cause this
-				program.getListing().clearCodeUnits(packetInfo.packetStartAddress, packetInfo.packetEndAddress, true);
+			// first instruction was invalid, clear the instruction
+			program.getListing().clearCodeUnits(addr, addr, true);
+			bookmarkMgr.setBookmark(addr, BookmarkType.ERROR, "Bad Instruction", ex.getMessage());
+			return null;
+		}
+
+		HexagonPacketInfo packetInfo = new HexagonPacketInfo(addr, info);
+
+		try {
+			while (!packetInfo.isTerminated()) {
+				instr = reallyDisassembleInstruction(program, monitor, packetInfo.packetEndAddress);
+				info = new HexagonInstructionInfo(program, instr, packetInfo.packetStartAddress);
+				packetInfo.addInstruction(info);
 			}
+		} catch (UnknownInstructionException | MemoryAccessException ex) {
+			packetInfo.clearPacket(program);
+			bookmarkMgr.setBookmark(addr, BookmarkType.ERROR, "Bad Instruction", ex.getMessage());
 			return null;
 		}
 
@@ -163,13 +175,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			throws CancelledException {
 		program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
 
-		AddressSet disassembleSet = new AddressSet();
-		for (HexagonInstructionInfo info : packet.insns) {
-			disassembleSet.add(info.getAddress());
-		}
-		if (packet.hasDuplex) {
-			disassembleSet.add(packet.duplex2Address);
-		}
+		AddressSet disassembleSet = packet.getAddressSet();
 
 		// cleanup error bookmarks
 		BookmarkManager bookmarkMgr = program.getBookmarkManager();
@@ -190,8 +196,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				if (packet.insns.size() >= 2) {
 					HexagonInstructionInfo info = packet.insns.get(packet.insns.size() - 2);
 					if (info.isImmext) {
-						// A2_ext needs to know the address of both duplex instructions if immext comes
-						// just before
+						// Teach A2_ext to apply the immext to the second duplex subinstruction
 						program.getProgramContext().setValue(duplexNextRegister, info.getAddress(), info.getAddress(),
 								packet.duplex2Address.getOffsetAsBigInteger());
 					}
@@ -219,15 +224,15 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				}
 			}
 		} catch (ContextChangeException e) {
-			// undo everything, and ensure the packet had been cleared completely
-			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
+			Msg.error(this, "Unexpected exception " + e);
+			packet.clearPacket(program); // cleanup context anyway just in case
 			return;
 		}
 
 		try {
 			// disassemble packet again so the context reg changes stick
 			Disassembler dis = Disassembler.getDisassembler(program, monitor, null);
-			AddressSetView disassembled = dis.disassemble(disassembleSet, null, true);
+			AddressSetView disassembled = dis.disassemble(disassembleSet, null, false);
 
 			AddressIterator iter = disassembleSet.getAddresses(true);
 			while (iter.hasNext()) {
@@ -277,8 +282,10 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
-			// undo everything, and ensure the packet had been cleared completely
-			program.getListing().clearCodeUnits(packet.packetStartAddress, packet.packetEndAddress.subtract(1), true);
+			packet.clearPacket(program);
+			bookmarkMgr.removeBookmarks(disassembleSet, monitor);
+			bookmarkMgr.setBookmark(packet.packetStartAddress, BookmarkType.ERROR, "Bad Instruction",
+					e.getMessage());
 		}
 
 	}
@@ -311,17 +318,15 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				count++;
 			}
 
-			if (program.getListing().getInstructionAt(addr) == null) {
+			Instruction inst = program.getListing().getInstructionAt(addr);
+			if (inst == null) {
 				continue;
 			}
 
 			if ((addr.getOffset() & ~3) != addr.getOffset()) {
-				Instruction inst = program.getListing().getInstructionAt(addr);
-				if (inst != null) {
-					if (inst.getLength() != 2) {
-						// user might have disassembled on a 2-byte boundary, which is invalid
-						program.getListing().clearCodeUnits(addr, addr, true);
-					}
+				if (inst.getLength() != 2) {
+					// user might have disassembled on a 2-byte boundary, which is invalid
+					program.getListing().clearCodeUnits(addr, addr, true);
 				}
 				continue;
 			}
@@ -331,7 +336,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				continue;
 			}
 
-			HexagonPacketInfo packet = identifyPacketAtAddress(program, monitor, addr);
+			HexagonPacketInfo packet = identifyPacketAtAddress(program, monitor, addr, inst);
 
 			if (packet == null) {
 				continue;

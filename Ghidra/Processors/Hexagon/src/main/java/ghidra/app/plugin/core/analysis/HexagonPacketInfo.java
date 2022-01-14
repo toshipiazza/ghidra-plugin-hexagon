@@ -17,6 +17,7 @@ package ghidra.app.plugin.core.analysis;
 
 import ghidra.app.plugin.core.analysis.HexagonInstructionInfo.DuplexEncoding;
 import ghidra.program.model.address.Address;
+import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
@@ -44,7 +45,7 @@ class HexagonPacketInfo {
 
 	LoopEncoding loopEncoding;
 
-	HexagonPacketInfo(Address addr) {
+	HexagonPacketInfo(Address addr, HexagonInstructionInfo info) {
 		insns = new ArrayList<>();
 		packetStartAddress = addr;
 		packetEndAddress = addr;
@@ -52,6 +53,28 @@ class HexagonPacketInfo {
 		terminated = false;
 		hasDuplex = false;
 		loopEncoding = LoopEncoding.NotLastInLoop;
+		try {
+			addInstruction(info);
+		} catch (UnknownInstructionException ex) {
+			// addInstruction only fails when we've exceeded 4 words, which
+			// cannot have happened here yet
+			Msg.error(this, "Unexpected exception " + ex);
+		}
+	}
+
+	public AddressSet getAddressSet() {
+		AddressSet disassembleSet = new AddressSet();
+		for (HexagonInstructionInfo info : insns) {
+			disassembleSet.add(info.getAddress());
+		}
+		if (hasDuplex) {
+			disassembleSet.add(duplex2Address);
+		}
+		return disassembleSet;
+	}
+
+	public void clearPacket(Program program) {
+		program.getListing().clearCodeUnits(packetStartAddress, packetEndAddress.subtract(1), true);
 	}
 
 	public void addInstruction(HexagonInstructionInfo info) throws UnknownInstructionException {

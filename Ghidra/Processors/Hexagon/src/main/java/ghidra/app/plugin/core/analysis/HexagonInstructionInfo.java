@@ -885,7 +885,7 @@ class HexagonInstructionInfo {
 			// We cleared subinsn, so all "instructions" should be 4
 			// bytes. Duplex instructions will appear as a 4-byte opaque
 			// DUPLEX temporary instruction.
-			throw new UnknownInstructionException();
+			throw new IllegalArgumentException("Duplex subinstruction not allowed in HexagonInstructionInfo");
 		}
 
 		BigInteger value = BigInteger.valueOf(((instr.getByte(1) & 0xc0) >> 6) & 0b011);
