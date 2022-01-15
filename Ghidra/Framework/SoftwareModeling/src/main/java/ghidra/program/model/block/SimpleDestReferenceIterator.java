@@ -16,6 +16,7 @@
 package ghidra.program.model.block;
 
 import ghidra.program.model.address.Address;
+import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.listing.*;
 import ghidra.program.model.symbol.*;
 import ghidra.util.Msg;
@@ -110,6 +111,8 @@ public class SimpleDestReferenceIterator implements CodeBlockReferenceIterator {
 		Address end = block.getMaxAddress();
 		if (start == null || start.isExternalAddress())
 			return 0;
+
+		ParallelInstructionLanguageHelper parallelHelper = model.getProgram().getLanguage().getParallelInstructionHelper();
 			
 		int count = 0;
 		Listing listing = model.getListing();
@@ -129,6 +132,17 @@ public class SimpleDestReferenceIterator implements CodeBlockReferenceIterator {
     		RefType refType = ref.getReferenceType();
     		if (!(refType.isFlow()))
     			continue;
+
+			if (parallelHelper != null) {
+				Instruction inst = model.getProgram().getListing().getInstructionAt(ref.getFromAddress());
+				if (!parallelHelper.isEndOfParallelInstructionGroup(inst)) {
+					// ignore fallthrough references unless this is the last
+					// instruction in a parallel instruction group
+					if (refType == RefType.FALL_THROUGH) {
+						continue;
+					}
+				}
+			}
     		
     		// Handle possible indirection
     		// Indirect flow should be to a data pointer which references code.

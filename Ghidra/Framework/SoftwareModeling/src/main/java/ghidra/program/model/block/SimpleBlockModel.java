@@ -18,6 +18,7 @@ package ghidra.program.model.block;
 import java.util.ArrayList;
 
 import ghidra.program.model.address.*;
+import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.listing.*;
 import ghidra.program.model.symbol.*;
 import ghidra.util.Msg;
@@ -71,6 +72,7 @@ public class SimpleBlockModel implements CodeBlockModel {
 	protected ReferenceManager referenceMgr;
 	protected AddressObjectMap foundBlockMap;
 	protected final boolean includeExternals;
+	protected ParallelInstructionLanguageHelper parallelHelper;
 
 	protected static final boolean followIndirectFlows = true;
 
@@ -81,6 +83,7 @@ public class SimpleBlockModel implements CodeBlockModel {
 	 */
 	public SimpleBlockModel(Program program) {
 		this(program, false);
+		parallelHelper = program.getLanguage().getParallelInstructionHelper();
 	}
 
 	/**
@@ -94,6 +97,7 @@ public class SimpleBlockModel implements CodeBlockModel {
 		listing = program.getListing();
 		referenceMgr = program.getReferenceManager();
 		foundBlockMap = new AddressObjectMap();
+		parallelHelper = program.getLanguage().getParallelInstructionHelper();
 	}
 
 	/**
@@ -173,8 +177,19 @@ public class SimpleBlockModel implements CodeBlockModel {
 				break;
 			}
 			Instruction nextInstr = listing.getInstructionAt(fallThru);
+			
+			if (nextInstr == null) {
+				break;
+			}
+			
+			boolean canTerminateForSymbol = true;
+			if (parallelHelper != null) {
+				// we cannot terminate the codeblock if the instruction is in
+				// the middle of a group
+				canTerminateForSymbol = parallelHelper.isEndOfParallelInstructionGroup(instr);
+			}
 
-			if (nextInstr == null || symTable.hasSymbol(fallThru)) {
+			if (canTerminateForSymbol && symTable.hasSymbol(fallThru)) {
 				break;
 			}
 			instr = nextInstr;
@@ -239,6 +254,16 @@ public class SimpleBlockModel implements CodeBlockModel {
 	 * @return true if end-of-block flow exists from specified instruction.
 	 */
 	protected boolean hasEndOfBlockFlow(Instruction instr) {
+		if (parallelHelper != null) {
+			if (!parallelHelper.isEndOfParallelInstructionGroup(instr)) {
+				// do not split up a parallel instruction group
+				return false;
+			}
+			if (parallelHelper.getFlowType(instr) == RefType.FALL_THROUGH) {
+				return false;
+			}
+			return true; // be conservative
+		}
 
 		if (instr.getFlowType() != RefType.FALL_THROUGH) {
 			return true;
@@ -551,6 +576,11 @@ public class SimpleBlockModel implements CodeBlockModel {
 		// of the last address in the block
 		Instruction instr = listing.getInstructionContaining(block.getMaxAddress());
 		if (instr != null) {
+			
+			if (parallelHelper != null) {
+				assert parallelHelper.isEndOfParallelInstructionGroup(instr);
+				return parallelHelper.getFlowType(instr);
+			} 
 
 			// search backwards until a non-delay slot instruction is found
 			while (instr.isInDelaySlot()) {

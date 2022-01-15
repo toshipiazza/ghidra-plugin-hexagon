@@ -15,6 +15,8 @@
  */
 package ghidra.app.plugin.core.analysis;
 
+import ghidra.app.plugin.core.clear.ClearCmd;
+import ghidra.app.plugin.core.clear.ClearOptions;
 import ghidra.app.services.AbstractAnalyzer;
 import ghidra.app.services.AnalysisPriority;
 import ghidra.app.services.AnalyzerType;
@@ -284,8 +286,7 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 		} catch (UnknownInstructionException e) {
 			packet.clearPacket(program);
 			bookmarkMgr.removeBookmarks(disassembleSet, monitor);
-			bookmarkMgr.setBookmark(packet.packetStartAddress, BookmarkType.ERROR, "Bad Instruction",
-					e.getMessage());
+			bookmarkMgr.setBookmark(packet.packetStartAddress, BookmarkType.ERROR, "Bad Instruction", e.getMessage());
 		}
 
 	}
