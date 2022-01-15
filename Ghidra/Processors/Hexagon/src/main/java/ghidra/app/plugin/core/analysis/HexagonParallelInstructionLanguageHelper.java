@@ -15,15 +15,21 @@
  */
 package ghidra.app.plugin.core.analysis;
 
+import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
+import ghidra.program.model.symbol.FlowType;
+import ghidra.program.model.symbol.RefType;
 
 import java.math.BigInteger;
+
+import javax.lang.model.type.ReferenceType;
 
 public class HexagonParallelInstructionLanguageHelper implements ParallelInstructionLanguageHelper {
 
@@ -44,8 +50,7 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 		return null;
 	}
 
-	@Override
-	public String getMnemonicSuffix(Instruction instr) {
+	BigInteger nextPacket(Instruction instr) {
 		Program program = instr.getProgram();
 		BigInteger pkt_next = program.getProgramContext().getValue(program.getProgramContext().getRegister("pkt_next"),
 				instr.getAddress(), false);
@@ -53,6 +58,29 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 			// not yet analyzed
 			return null;
 		}
+		return pkt_next;
+	}
+
+	BigInteger startPacket(Instruction instr) {
+		Program program = instr.getProgram();
+		BigInteger pkt_start = program.getProgramContext()
+				.getValue(program.getProgramContext().getRegister("pkt_start"), instr.getAddress(), false);
+		if (pkt_start == null || pkt_start.intValue() == 0) {
+			// not yet analyzed
+			return null;
+		}
+		return pkt_start;
+	}
+
+	@Override
+	public String getMnemonicSuffix(Instruction instr) {
+		Program program = instr.getProgram();
+		BigInteger pkt_next = nextPacket(instr);
+		if (pkt_next == null) {
+			// not yet analyzed
+			return null;
+		}
+
 		if (pkt_next.equals(instr.getAddress().add(instr.getLength()).getOffsetAsBigInteger())) {
 			// end of packet
 			String res = "}";
@@ -84,14 +112,11 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 
 	@Override
 	public boolean isEndOfParallelInstructionGroup(Instruction instr) {
-		Program program = instr.getProgram();
-		BigInteger pkt_next = program.getProgramContext().getValue(program.getProgramContext().getRegister("pkt_next"),
-				instr.getAddress(), false);
+		BigInteger pkt_next = nextPacket(instr);
 		if (pkt_next == null) {
 			// not yet analyzed
 			return false;
 		}
-		// instr is not the last instruction in the packet
 		return instr.getAddress().add(instr.getLength()).getOffsetAsBigInteger().equals(pkt_next);
 	}
 
@@ -100,6 +125,42 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 			throws UnknownInstructionException {
 		HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
 		return emit.getPcodePacked(context, uniqueFactory);
+	}
+
+	@Override
+	public FlowType getFlowType(Instruction instr) {
+		Program program = instr.getProgram();
+
+		BigInteger pkt_start = startPacket(instr);
+		if (pkt_start == null) {
+			// not yet analyzed
+			return RefType.INVALID;
+		}
+		BigInteger pkt_next = nextPacket(instr);
+		if (pkt_next == null) {
+			// not yet analyzed
+			return RefType.INVALID;
+		}
+
+		AddressSet addrSet = new AddressSet(
+				program.getAddressFactory().getDefaultAddressSpace().getAddress(pkt_start.longValue()),
+				program.getAddressFactory().getDefaultAddressSpace().getAddress(pkt_next.longValue() - 1));
+		InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
+
+		FlowType ret = RefType.FALL_THROUGH;
+		while (insnIter.hasNext()) {
+			Instruction inst = insnIter.next();
+			if (inst.getFlowType() != RefType.FALL_THROUGH) {
+				if (ret != RefType.FALL_THROUGH) {
+					// More than one flow type results in RefType.FLOW
+					// TODO: is this right? SimpleBlockModel says to return FlowType.UNKNOWN but it
+					// no longer (?) exists
+					return RefType.FLOW;
+				}
+				ret = inst.getFlowType();
+			}
+		}
+		return ret;
 	}
 
 }
