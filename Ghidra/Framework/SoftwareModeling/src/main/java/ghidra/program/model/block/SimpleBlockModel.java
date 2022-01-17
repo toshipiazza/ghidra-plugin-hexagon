@@ -254,18 +254,22 @@ public class SimpleBlockModel implements CodeBlockModel {
 	 * @return true if end-of-block flow exists from specified instruction.
 	 */
 	protected boolean hasEndOfBlockFlow(Instruction instr) {
+		FlowType flowType;
 		if (parallelHelper != null) {
 			if (!parallelHelper.isEndOfParallelInstructionGroup(instr)) {
 				// do not split up a parallel instruction group
 				return false;
 			}
-			if (parallelHelper.getFlowType(instr) == RefType.FALL_THROUGH) {
-				return false;
+			flowType = parallelHelper.getFlowType(instr);
+			if (flowType == RefType.FLOW) {
+				// be conservative in response to multiple flows
+				return true;
 			}
-			return true; // be conservative
+		} else {
+			flowType = instr.getFlowType();
 		}
 
-		if (instr.getFlowType() != RefType.FALL_THROUGH) {
+		if (flowType != RefType.FALL_THROUGH) {
 			return true;
 		}
 		return referenceMgr.hasFlowReferencesFrom(instr.getMinAddress());
@@ -576,23 +580,24 @@ public class SimpleBlockModel implements CodeBlockModel {
 		// of the last address in the block
 		Instruction instr = listing.getInstructionContaining(block.getMaxAddress());
 		if (instr != null) {
-			
+
+			FlowType flowType;
 			if (parallelHelper != null) {
 				assert parallelHelper.isEndOfParallelInstructionGroup(instr);
-				return parallelHelper.getFlowType(instr);
-			} 
-
-			// search backwards until a non-delay slot instruction is found
-			while (instr.isInDelaySlot()) {
-				Address fallFrom = instr.getFallFrom();
-				if (fallFrom == null) {
-					Msg.warn(this, "WARNING: Invalid delay slot instruction found at " +
-						instr.getMinAddress());
-					break;
+				flowType = parallelHelper.getFlowType(instr);
+			} else {
+				// search backwards until a non-delay slot instruction is found
+				while (instr.isInDelaySlot()) {
+					Address fallFrom = instr.getFallFrom();
+					if (fallFrom == null) {
+						Msg.warn(this, "WARNING: Invalid delay slot instruction found at " +
+							instr.getMinAddress());
+						break;
+					}
+					instr = listing.getInstructionContaining(fallFrom);
 				}
-				instr = listing.getInstructionContaining(fallFrom);
+				flowType = instr.getFlowType();
 			}
-			FlowType flowType = instr.getFlowType();
 			if (block.getStartAddresses().length > 1) {
 				// modify flow type to a conditional	
 				if (flowType == RefType.UNCONDITIONAL_CALL) {

@@ -16,10 +16,11 @@
  */
 package ghidra.program.model.block;
 
-import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
-import ghidra.program.model.symbol.*;
+import ghidra.program.model.symbol.FlowType;
+import ghidra.program.model.symbol.RefType;
+import ghidra.program.model.symbol.Reference;
 
 /**
  * This BlockModel implements the Basic block model.
@@ -66,18 +67,21 @@ public class BasicBlockModel extends SimpleBlockModel {
 
 	@Override
 	protected boolean hasEndOfBlockFlow(Instruction instr) {
+		FlowType flowType;
 		if (parallelHelper != null) {
 			if (!parallelHelper.isEndOfParallelInstructionGroup(instr)) {
 				// do not split up a parallel instruction group
 				return false;
 			}
-			if (parallelHelper.getFlowType(instr) == RefType.FALL_THROUGH) {
-				return false;
+			flowType = parallelHelper.getFlowType(instr);
+			if (flowType == RefType.FLOW) {
+				// be conservative in response to multiple flows
+				return true;
 			}
-			return true; // be conservative
+		} else {
+			flowType = instr.getFlowType();
 		}
 
-		FlowType flowType = instr.getFlowType();
 		if (flowType.isJump() || flowType.isTerminal()) {
 			return true;
 		}
