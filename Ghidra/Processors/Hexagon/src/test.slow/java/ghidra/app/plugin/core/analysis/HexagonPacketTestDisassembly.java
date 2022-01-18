@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import ghidra.framework.options.Options;
 import ghidra.program.database.ProgramBuilder;
+import ghidra.program.model.address.Address;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.lang.Register;
@@ -33,6 +34,7 @@ import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.PcodeOp;
+import ghidra.program.model.scalar.Scalar;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
 import ghidra.test.TestEnv;
 
@@ -337,4 +339,79 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 		assertEquals(parallelHelper.getMnemonicSuffix(endloop), "}:endloop0");
 	}
 
+	boolean isGpInPcode(Instruction instr) {
+		boolean foundGp = false;
+		Address gp = program.getRegister("C11").getAddress();
+		for (PcodeOp op : instr.getPcode()) {
+			for (int i = 0; i < op.getNumInputs(); ++i) {
+				if (op.getInput(i).getAddress().equals(gp)) {
+					foundGp = true;
+					break;
+				}
+			}
+			if (op.getOutput().equals(gp)) {
+				foundGp = true;
+				break;
+			}
+		}
+		return foundGp;
+	}
+
+	@Test
+	public void testGpImm() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 12);
+
+		programBuilder.setBytes("1000", "d1 48 01 00 00 c2 80 49 00 c0 9f 52");
+
+		programBuilder.disassemble("1000", 12, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		printInstructions();
+
+		Instruction imm_load = program.getListing().getInstructionAt(programBuilder.addr("1004"));
+
+		// verify opnd is 0
+		Object[] obj = imm_load.getOpObjects(1);
+		assertEquals(1, obj.length);
+		Object obj2 = obj[0];
+		assert obj2 instanceof Scalar;
+		Scalar s = (Scalar) obj2;
+		assertEquals(0, s.getUnsignedValue());
+
+		assert !isGpInPcode(imm_load);
+	}
+
+	@Test
+	public void testGpRel() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 8);
+
+		programBuilder.setBytes("1000", "80 c0 80 49 00 c0 9f 52");
+
+		programBuilder.disassemble("1000", 8, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		printInstructions();
+
+		Instruction rel_load = program.getListing().getInstructionAt(programBuilder.addr("1000"));
+
+		// verify opnd is C11
+		Object[] obj = rel_load.getOpObjects(1);
+		assertEquals(1, obj.length);
+		Object obj2 = obj[0];
+		assert obj2 instanceof Register;
+		Register s = (Register) obj2;
+		assertEquals(s, program.getRegister("C11"));
+
+		assert isGpInPcode(rel_load);
+	}
 }
