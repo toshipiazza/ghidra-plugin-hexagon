@@ -90,6 +90,24 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 			System.out.println(out);
 
+			System.out.println();
+			System.out.println("  Input objects:");
+			System.out.println();
+			for (Object obj : instr.getInputObjects()) {
+				if (obj instanceof Register) {
+					System.out.println("    " + obj);
+				}
+			}
+			System.out.println();
+			System.out.println("  Output objects:");
+			System.out.println();
+			for (Object obj : instr.getResultObjects()) {
+				if (obj instanceof Register) {
+					System.out.println("    " + obj);
+				}
+			}
+			System.out.println();
+
 			if (pktStart == null) {
 				pktStart = instr;
 			}
@@ -99,7 +117,6 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 						program.getLanguage());
 				HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
 				List<PcodeOp> pcode = emit.getPcode(pktStart.getInstructionContext(), uniqueFactory);
-				System.out.println();
 				for (PcodeOp op : pcode) {
 					System.out.println("  " + op);
 				}

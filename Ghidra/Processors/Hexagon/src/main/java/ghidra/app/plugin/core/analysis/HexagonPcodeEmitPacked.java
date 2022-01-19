@@ -15,8 +15,18 @@
  */
 package ghidra.app.plugin.core.analysis;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
-import ghidra.program.model.address.*;
+import ghidra.program.model.address.Address;
+import ghidra.program.model.address.AddressSet;
+import ghidra.program.model.address.AddressSpace;
+import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.PackedBytes;
 import ghidra.program.model.lang.Register;
@@ -29,12 +39,101 @@ import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.PcodeOp;
 import ghidra.program.model.pcode.SequenceNumber;
 import ghidra.program.model.pcode.Varnode;
-import ghidra.util.exception.NotYetImplementedException;
-
-import java.math.BigInteger;
-import java.util.*;
 
 public class HexagonPcodeEmitPacked {
+
+	static final Set<String> AUTO_AND_PRED_INSNS;
+
+	static {
+		AUTO_AND_PRED_INSNS = new HashSet<>();
+
+		AUTO_AND_PRED_INSNS.add("C2_cmpeq");
+		AUTO_AND_PRED_INSNS.add("C2_cmpgt");
+		AUTO_AND_PRED_INSNS.add("C2_cmpgtu");
+		AUTO_AND_PRED_INSNS.add("C2_cmpeqp");
+		AUTO_AND_PRED_INSNS.add("C2_cmpgtp");
+		AUTO_AND_PRED_INSNS.add("C2_cmpgtup");
+		AUTO_AND_PRED_INSNS.add("C2_cmpeqi");
+		AUTO_AND_PRED_INSNS.add("C2_cmpgti");
+		AUTO_AND_PRED_INSNS.add("C2_cmpgtui");
+		AUTO_AND_PRED_INSNS.add("A4_cmpbeq");
+		AUTO_AND_PRED_INSNS.add("A4_cmpbeqi");
+		AUTO_AND_PRED_INSNS.add("A4_cmpbgtu");
+		AUTO_AND_PRED_INSNS.add("A4_cmpbgtui");
+		AUTO_AND_PRED_INSNS.add("A4_cmpbgt");
+		AUTO_AND_PRED_INSNS.add("A4_cmpbgti");
+		AUTO_AND_PRED_INSNS.add("A4_cmpheq");
+		AUTO_AND_PRED_INSNS.add("A4_cmphgt");
+		AUTO_AND_PRED_INSNS.add("A4_cmphgtu");
+		AUTO_AND_PRED_INSNS.add("A4_cmpheqi");
+		AUTO_AND_PRED_INSNS.add("A4_cmphgti");
+		AUTO_AND_PRED_INSNS.add("A4_cmphgtui");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqi_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgti_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtui_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeqn1_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtn1_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpeq_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgt_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_tp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_fp0_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_tp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_fp0_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_tp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_fp1_jump_nt");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_tp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("J4_cmpgtu_fp1_jump_t");
+		AUTO_AND_PRED_INSNS.add("SA1_cmpeqi");
+	}
 
 	Program program;
 
@@ -126,6 +225,66 @@ public class HexagonPcodeEmitPacked {
 		buf.write(PcodeEmitPacked.end_tag);
 	}
 
+	Set<Varnode> getRegsRead(Instruction instr) {
+		Set<Varnode> regsReadInInstruction = new HashSet<>();
+		for (Object obj : instr.getInputObjects()) {
+			if (obj instanceof Register) {
+				Register reg = (Register) obj;
+				Varnode vn = new Varnode(reg.getAddress(), reg.getNumBytes());
+				regsReadInInstruction.add(vn);
+			}
+		}
+		return regsReadInInstruction;
+	}
+
+	Set<Varnode> getRegsWritten(Instruction instr) {
+		Set<Varnode> regsWrittenInInstruction = new HashSet<>();
+		for (Object obj : instr.getResultObjects()) {
+			if (obj instanceof Register) {
+				Register reg = (Register) obj;
+				Varnode vn = new Varnode(reg.getAddress(), reg.getNumBytes());
+				regsWrittenInInstruction.add(vn);
+			}
+		}
+		return regsWrittenInInstruction;
+	}
+
+	boolean regWrittenInInstruction(Instruction instr, Register r) {
+		for (Object obj : instr.getResultObjects()) {
+			if (obj instanceof Register) {
+				Register reg = (Register) obj;
+				if (reg.equals(r)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	Varnode getPredRegWritten(Instruction instr) {
+		Varnode vn = null;
+		for (Object obj : instr.getResultObjects()) {
+			if (obj instanceof Register) {
+				Register reg = (Register) obj;
+				if (reg.getNumBytes() == 1) {
+					assert vn == null;
+					vn = new Varnode(reg.getAddress(), reg.getNumBytes());
+				}
+			}
+		}
+		return vn;
+	}
+
+	Varnode getScratchReg(Instruction instr, HexagonRegisterScratchSpace regTempSpace,
+			HexagonRegisterScratchSpace regTempSpaceWrite, Varnode vn) {
+		Register reg = program.getRegister(vn);
+		if (regWrittenInInstruction(instr, reg)) {
+			return regTempSpaceWrite.getScratchVn(vn);
+		} else {
+			return regTempSpace.getScratchVn(vn);
+		}
+	}
+
 	public List<PcodeOp> getPcode(InstructionContext context, UniqueAddressFactory uniqueFactory)
 			throws UnknownInstructionException {
 		BigInteger pkt_start = program.getProgramContext()
@@ -175,32 +334,16 @@ public class HexagonPcodeEmitPacked {
 		// used to resolve control flow in order that they appear in the packet
 		List<PcodeOp> phase5 = new ArrayList<PcodeOp>();
 
+		Set<Varnode> predsWritten = new HashSet<>();
+
 		InstructionIterator insnIter = program.getListing().getInstructions(addrSet, true);
 		while (insnIter.hasNext()) {
 			Instruction instr = insnIter.next();
 
-			InstructionPcodeOverride pcodeOverride = new InstructionPcodeOverride(instr);
-			List<PcodeOp> ops = Arrays
-					.asList(instr.getPrototype().getPcode(instr.getInstructionContext(), pcodeOverride, uniqueFactory));
-
-			// first pass to find all read vs written regs
-			Set<Varnode> regsReadInInstruction = new HashSet<>();
-			Set<Varnode> regsWrittenInInstruction = new HashSet<>();
-			for (PcodeOp op : ops) {
-				if (!hasDotNewPredicateOrNewValueOperand(op)) {
-					for (int i = 0; i < op.getNumInputs(); i++) {
-						if (op.getInput(i).isRegister()) {
-							regsReadInInstruction.add(op.getInput(i));
-						}
-					}
-				}
-				if (op.getOutput() != null && op.getOutput().isRegister()) {
-					regsWrittenInInstruction.add(op.getOutput());
-				}
-			}
+			Set<Varnode> regsWrittenInInstruction = getRegsWritten(instr);
 
 			// handle spills
-			for (Varnode vn : regsReadInInstruction) {
+			for (Varnode vn : getRegsRead(instr)) {
 				if (!regsWrittenInInstruction.contains(vn)) {
 					phase1.add(Copy(regTempSpace.getScratchVn(vn), vn));
 				}
@@ -208,6 +351,26 @@ public class HexagonPcodeEmitPacked {
 			for (Varnode vn : regsWrittenInInstruction) {
 				phase1.add(Copy(regTempSpaceWrite.getScratchVn(vn), vn));
 			}
+
+			// Section 6.1.3 in "Hexagon V66 Programmer’s Reference Manual"
+			// > If multiple compare instructions in a packet write to the same
+			// > predicate register, the result is the logical AND of the
+			// > individual compare results
+			// This is NYI, but fail instead of showing incorrect decompilation
+			if (AUTO_AND_PRED_INSNS.contains(instr.getMnemonicString())) {
+				Varnode pred = getPredRegWritten(instr);
+				if (pred != null) {
+					if (predsWritten.contains(pred)) {
+						throw new UnknownInstructionException("NYI: predicate register " + pred
+								+ " written several times in same packet must have auto-and semantics");
+					}
+					predsWritten.add(pred);
+				}
+			}
+
+			InstructionPcodeOverride pcodeOverride = new InstructionPcodeOverride(instr);
+			List<PcodeOp> ops = Arrays
+					.asList(instr.getPrototype().getPcode(instr.getInstructionContext(), pcodeOverride, uniqueFactory));
 
 			// heuristic to detect if there's been conditional control flow until now
 			boolean hasConditional = false;
@@ -233,19 +396,11 @@ public class HexagonPcodeEmitPacked {
 					// replace all registers in ops with register reads
 					for (int j = 0; j < op.getNumInputs(); j++) {
 						if (op.getInput(j).isRegister()) {
-							if (regsWrittenInInstruction.contains(op.getInput(j))) {
-								op.setInput(regTempSpaceWrite.getScratchVn(op.getInput(j)), j);
-							} else {
-								op.setInput(regTempSpace.getScratchVn(op.getInput(j)), j);
-							}
+							op.setInput(getScratchReg(instr, regTempSpace, regTempSpaceWrite, op.getInput(j)), j);
 						}
 					}
 					if (op.getOutput() != null && op.getOutput().isRegister()) {
-						if (regsWrittenInInstruction.contains(op.getOutput())) {
-							op.setOutput(regTempSpaceWrite.getScratchVn(op.getOutput()));
-						} else {
-							op.setOutput(regTempSpace.getScratchVn(op.getOutput()));
-						}
+						op.setOutput(getScratchReg(instr, regTempSpace, regTempSpaceWrite, op.getOutput()));
 					}
 				}
 
@@ -279,7 +434,7 @@ public class HexagonPcodeEmitPacked {
 						phase5.add(op);
 					} else {
 						phase5.add(Cbranch(Constant(2), vn)); // goto <taken>
-						phase5.add(Branch(Constant(3)));	  // goto <done>
+						phase5.add(Branch(Constant(3))); // goto <done>
 						// <taken>:
 						phase5.add(op);
 					}
@@ -300,7 +455,7 @@ public class HexagonPcodeEmitPacked {
 						// We need to "nop" out the RETURN in ops, do so without
 						// changing any relative offsets by just re-inserting
 						// the hitOp (effectively a NOP)
-						ops.set(i+1, hitOp);
+						ops.set(i + 1, hitOp);
 						// Skip the subsequent RETURN
 						skipNextInstruction = true;
 					} else {
