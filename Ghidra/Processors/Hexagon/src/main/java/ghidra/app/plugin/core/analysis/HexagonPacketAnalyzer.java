@@ -281,6 +281,15 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 				}
 			}
 
+			try {
+				// perform some validation of the packet for constructs we don't support
+				insnIter = program.getListing().getInstructions(addrSet, true);
+				packet.validatePredicates(program, insnIter);
+			} catch (UnknownInstructionException e) {
+				Msg.error(this, "Packet at " + packet.packetStartAddress + " had unimplemented construct " + e);
+				throw e;
+			}
+
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
 
 		} catch (UnknownInstructionException e) {
@@ -288,7 +297,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 			bookmarkMgr.removeBookmarks(disassembleSet, monitor);
 			bookmarkMgr.setBookmark(packet.packetStartAddress, BookmarkType.ERROR, "Bad Instruction", e.getMessage());
 		}
-
 	}
 
 	@Override

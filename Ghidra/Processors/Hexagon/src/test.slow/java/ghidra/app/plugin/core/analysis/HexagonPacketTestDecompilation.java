@@ -664,48 +664,5 @@ public class HexagonPacketTestDecompilation extends AbstractGhidraHeadedIntegrat
 				+ "");
 	}
 
-	@Test
-	public void testAutoAndPredicates() throws Exception {
-		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
-		program = programBuilder.getProgram();
-		int txId = program.startTransaction("Add Memory");
-		programBuilder.createMemory(".text", "1000", 16);
 
-		programBuilder.setBytes("1000",
-				"40 40 00 75 06 e1 00 10 c0 3f 00 48 c0 3f 10 48");
-
-		programBuilder.disassemble("1000", 16, true);
-		programBuilder.analyze();
-
-		programBuilder.createFunction("1000");
-
-		program.endTransaction(txId, true);
-
-		DecompInterface ifc = new DecompInterface();
-		ifc.openProgram(program);
-
-		DecompileResults results = ifc
-				.decompileFunction(program.getListing().getFunctionAt(programBuilder.addr("1000")), 0, null);
-
-		System.out.println("Optimized pcode:");
-		Iterator<PcodeOpAST> pcodeOpIter = results.getHighFunction().getPcodeOps();
-		while (pcodeOpIter.hasNext()) {
-			System.out.println(pcodeOpIter.next());
-		}
-
-		// Since AutoAnd predicates are NYIm we expect to see halt_baddata()
-		String getC = results.getDecompiledFunction().getC();
-		System.out.println(getC);
-		assertEquals(getC, "\n"
-				+ "/* WARNING: Control flow encountered bad instruction data */\n"
-				+ "\n"
-				+ "void FUN_00001000(void)\n"
-				+ "\n"
-				+ "{\n"
-				+ "                    /* WARNING: Bad instruction - Truncating control flow here */\n"
-				+ "  halt_baddata();\n"
-				+ "}\n"
-				+ "\n"
-				+ "");
-	}
 }

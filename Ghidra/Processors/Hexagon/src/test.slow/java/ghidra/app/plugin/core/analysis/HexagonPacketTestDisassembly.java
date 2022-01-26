@@ -15,10 +15,10 @@
  */
 package ghidra.app.plugin.core.analysis;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.List;
 
+import ghidra.app.decompiler.DecompInterface;
+import ghidra.app.decompiler.DecompileResults;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +37,8 @@ import ghidra.program.model.pcode.PcodeOp;
 import ghidra.program.model.scalar.Scalar;
 import ghidra.test.AbstractGhidraHeadedIntegrationTest;
 import ghidra.test.TestEnv;
+
+import static org.junit.Assert.*;
 
 public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegrationTest {
 
@@ -431,4 +433,54 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		assert isGpInPcode(rel_load);
 	}
+
+	@Test
+	public void testAutoAndPredicates() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 16);
+
+		programBuilder.setBytes("1000", "40 40 00 75 06 e1 00 10 c0 3f 00 48 c0 3f 10 48");
+
+		programBuilder.disassemble("1000", 16, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		printInstructions();
+
+		// auto-and predicates are currently NYI so we expect no instruction or packet
+		// to appear here
+		assertNull(program.getListing().getInstructionAt(programBuilder.addr("1000")));
+		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("1008")));
+		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100a")));
+		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100c")));
+		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100e")));
+	}
+
+	@Test
+	public void testReorderedDotNewPredicates() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 16);
+
+		programBuilder.setBytes("1000", "20 65 80 7e 06 c0 0a 10 c0 3f 00 48 c0 3f 10 48");
+
+		programBuilder.disassemble("1000", 16, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		printInstructions();
+
+		// reordering of dot-new predicates is currently NYI so we expect no instruction
+		// or packet to appear here
+		assertNull(program.getListing().getInstructionAt(programBuilder.addr("1000")));
+		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("1008")));
+		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100a")));
+
+	}
+
 }
