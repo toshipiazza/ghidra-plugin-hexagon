@@ -24,7 +24,6 @@ import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.Varnode;
-import ghidra.program.model.scalar.Scalar;
 import ghidra.util.Msg;
 
 import java.util.*;
@@ -177,7 +176,7 @@ class HexagonPacketInfo {
 		}
 	}
 
-	private static final Map<String, Integer> dot_new_predicates;
+	static final Map<String, Integer> dot_new_predicates;
 
 	static {
 		dot_new_predicates = new HashMap<>();
@@ -261,7 +260,7 @@ class HexagonPacketInfo {
 		dot_new_predicates.put("J4_cmpgtu_fp1_jump_t", 1);
 	}
 
-	private static final Set<String> dot_new_predicates_operands;
+	static final Set<String> dot_new_predicates_operands;
 
 	static {
 		dot_new_predicates_operands = new HashSet<>();
@@ -533,21 +532,6 @@ class HexagonPacketInfo {
 		return null;
 	}
 
-	private void validateDotNewPredicate(Program program, Instruction inst) throws UnknownInstructionException {
-		Register predicate = getDotNewPredicate(program, inst);
-		if (predicate == null) {
-			return;
-		}
-
-		while (!predicate.equals(getPredRegWritten(inst))) {
-			if (inst.getAddress().equals(packetStartAddress)) {
-				throw new UnknownInstructionException(
-						"NYI: packet has dot-new predicate pointing before the beginning of the packet");
-			}
-			inst = inst.getPrevious();
-		}
-	}
-
 	Varnode getPredVarWritten(Instruction instr) {
 		Register reg = getPredRegWritten(instr);
 		if (reg == null) {
@@ -589,10 +573,6 @@ class HexagonPacketInfo {
 
 		while (iter.hasNext()) {
 			Instruction instr = iter.next();
-
-			// dot-new predicates (P0.new) can be referenced before they are written.
-			// This is NYI, but fail instead of showing incorrect decompilation
-			validateDotNewPredicate(program, instr);
 
 			// Section 6.1.3 in "Hexagon V66 Programmer’s Reference Manual"
 			// > If multiple compare instructions in a packet write to the same
