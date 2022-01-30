@@ -433,30 +433,4 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 
 		assert isGpInPcode(rel_load);
 	}
-
-	@Test
-	public void testAutoAndPredicates() throws Exception {
-		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
-		program = programBuilder.getProgram();
-		int txId = program.startTransaction("Add Memory");
-		programBuilder.createMemory(".text", "1000", 16);
-
-		programBuilder.setBytes("1000", "40 40 00 75 06 e1 00 10 c0 3f 00 48 c0 3f 10 48");
-
-		programBuilder.disassemble("1000", 16, true);
-		programBuilder.analyze();
-
-		program.endTransaction(txId, true);
-
-		printInstructions();
-
-		// auto-and predicates are currently NYI so we expect no instruction or packet
-		// to appear here
-		assertNull(program.getListing().getInstructionAt(programBuilder.addr("1000")));
-		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("1008")));
-		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100a")));
-		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100c")));
-		assertNotNull(program.getListing().getInstructionAt(programBuilder.addr("100e")));
-	}
-
 }

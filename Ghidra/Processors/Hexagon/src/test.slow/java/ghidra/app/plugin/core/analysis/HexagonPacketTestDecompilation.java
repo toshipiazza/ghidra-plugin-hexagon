@@ -756,7 +756,7 @@ public class HexagonPacketTestDecompilation extends AbstractGhidraHeadedIntegrat
 		program.endTransaction(txId, true);
 
 		programBuilder.createFunction("1000");
-		
+
 		DecompInterface ifc = new DecompInterface();
 		ifc.openProgram(program);
 
@@ -777,10 +777,57 @@ public class HexagonPacketTestDecompilation extends AbstractGhidraHeadedIntegrat
 				+ "{\n"
 				+ "  int unaff_R18;\n"
 				+ "  \n"
-				+ "  if (unaff_R18 != 0) {\n"
-				+ "    return 0;\n"
+				+ "  if (unaff_R18 == 0) {\n"
+				+ "    return 1;\n"
 				+ "  }\n"
-				+ "  return 1;\n"
+				+ "  return 0;\n"
+				+ "}\n"
+				+ "\n"
+				+ "");
+	}
+
+	@Test
+	public void testAutoAndPredicates() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 16);
+
+		// see https://github.com/qemu/qemu/blob/d940d468e29bff5eb5669c0dd8f3de0c3de17bfb/tests/tcg/hexagon/misc.c#L203 (cmpnd_cmp_jump test case)
+		programBuilder.setBytes("1000", "06 47 05 10 e0 c0 06 75 c0 3f c0 48 c0 3f d0 48");
+
+		programBuilder.disassemble("1000", 16, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		programBuilder.createFunction("1000");
+
+		DecompInterface ifc = new DecompInterface();
+		ifc.openProgram(program);
+
+		DecompileResults results = ifc
+				.decompileFunction(program.getListing().getFunctionAt(programBuilder.addr("1000")), 0, null);
+
+		System.out.println("Optimized pcode:");
+		Iterator<PcodeOpAST> pcodeOpIter = results.getHighFunction().getPcodeOps();
+		while (pcodeOpIter.hasNext()) {
+			System.out.println(pcodeOpIter.next());
+		}
+
+		String getC = results.getDecompiledFunction().getC();
+		System.out.println(getC);
+		assertEquals(getC, "\n"
+				+ "undefined4 FUN_00001000(void)\n"
+				+ "\n"
+				+ "{\n"
+				+ "  int in_R5;\n"
+				+ "  int in_R6;\n"
+				+ "  \n"
+				+ "  if (in_R5 != 7 || in_R6 != 7) {\n"
+				+ "    return 0xc;\n"
+				+ "  }\n"
+				+ "  return 0xd;\n"
 				+ "}\n"
 				+ "\n"
 				+ "");
