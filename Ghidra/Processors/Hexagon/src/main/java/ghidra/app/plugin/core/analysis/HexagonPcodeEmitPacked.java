@@ -18,11 +18,9 @@ package ghidra.app.plugin.core.analysis;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
@@ -41,7 +39,6 @@ import ghidra.program.model.lang.ProcessorContextImpl;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.ContextChangeException;
-import ghidra.program.model.listing.FlowOverride;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
@@ -69,7 +66,6 @@ public class HexagonPcodeEmitPacked {
 		this.program = program;
 		part1Register = program.getProgramContext().getRegister("part1");
 		part2Register = program.getProgramContext().getRegister("part2");
-
 	}
 
 	boolean isCallotherNewreg(PcodeOp op) {
@@ -183,44 +179,6 @@ public class HexagonPcodeEmitPacked {
 		return false;
 	}
 
-	Varnode getScratchReg(Instruction instr, Varnode vn) {
-		Register reg = program.getRegister(vn);
-		if (regWrittenInInstruction(instr, reg)) {
-			return regTempSpaceWrite.getScratchVn(vn);
-		} else {
-			return regTempSpace.getScratchVn(vn);
-		}
-	}
-
-	class HexagonExternalBranch {
-
-		Address insnAddress;
-		FlowOverride override;
-		int opcode;
-		Varnode destVn;
-		Varnode condVn;
-		boolean hasConditional;
-		int branchNoInInsn;
-
-		HexagonExternalBranch(Instruction instr, int opcode, Varnode destVn, UniqueAddressFactory uniqueFactory,
-				boolean hasConditional, int branchNoInInsn) {
-			insnAddress = instr.getAddress();
-			this.override = instr.getFlowOverride();
-			this.opcode = opcode;
-			condVn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-			if (destVn.isRegister()) {
-				this.destVn = getScratchReg(instr, destVn);
-			} else {
-				this.destVn = destVn;
-			}
-			this.hasConditional = hasConditional;
-			this.branchNoInInsn = branchNoInInsn;
-			if (branchNoInInsn > 0) {
-				this.override = FlowOverride.NONE;
-			}
-		}
-	}
-
 	HexagonExternalBranch getBranchInfo(Instruction instr, int branchNoInInsn) {
 		for (HexagonExternalBranch b : branches) {
 			if (b.insnAddress.equals(instr.getAddress()) && b.branchNoInInsn == branchNoInInsn) {
@@ -249,357 +207,6 @@ public class HexagonPcodeEmitPacked {
 		}
 	}
 
-	static final Map<String, Integer> dot_new_predicates;
-
-	static {
-		dot_new_predicates = new HashMap<>();
-		dot_new_predicates.put("J4_cmpeqi_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpeqi_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpeqi_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpeqi_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgti_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgti_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgti_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgti_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgtui_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgtui_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgtui_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgtui_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpeqn1_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpeqn1_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpeqn1_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpeqn1_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgtn1_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgtn1_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgtn1_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgtn1_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_tstbit0_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_tstbit0_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_tstbit0_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_tstbit0_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpeq_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpeq_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpeq_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpeq_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgt_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgt_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgt_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgt_fp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgtu_tp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgtu_fp0_jump_nt", 0);
-		dot_new_predicates.put("J4_cmpgtu_tp0_jump_t", 0);
-		dot_new_predicates.put("J4_cmpgtu_fp0_jump_t", 0);
-		dot_new_predicates.put("SA1_clrtnew", 0);
-		dot_new_predicates.put("SA1_clrfnew", 0);
-		dot_new_predicates.put("SL2_return_tnew", 0);
-		dot_new_predicates.put("SL2_return_fnew", 0);
-		dot_new_predicates.put("SL2_jumpr31_tnew", 0);
-		dot_new_predicates.put("SL2_jumpr31_fnew", 0);
-		dot_new_predicates.put("J4_cmpeqi_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpeqi_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpeqi_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpeqi_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgti_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgti_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgti_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgti_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgtui_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgtui_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgtui_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgtui_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpeqn1_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpeqn1_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpeqn1_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpeqn1_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgtn1_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgtn1_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgtn1_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgtn1_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_tstbit0_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_tstbit0_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_tstbit0_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_tstbit0_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpeq_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpeq_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpeq_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpeq_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgt_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgt_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgt_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgt_fp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgtu_tp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgtu_fp1_jump_nt", 1);
-		dot_new_predicates.put("J4_cmpgtu_tp1_jump_t", 1);
-		dot_new_predicates.put("J4_cmpgtu_fp1_jump_t", 1);
-	}
-
-	static final Set<String> dot_new_predicates_operands;
-
-	static {
-		dot_new_predicates_operands = new HashSet<>();
-		dot_new_predicates_operands.add("J2_jumptnew");
-		dot_new_predicates_operands.add("J2_jumpfnew");
-		dot_new_predicates_operands.add("J2_jumptnewpt");
-		dot_new_predicates_operands.add("J2_jumpfnewpt");
-		dot_new_predicates_operands.add("J2_jumprtnew");
-		dot_new_predicates_operands.add("J2_jumprfnew");
-		dot_new_predicates_operands.add("J2_jumprtnewpt");
-		dot_new_predicates_operands.add("J2_jumprfnewpt");
-		dot_new_predicates_operands.add("L4_return_tnew_pt");
-		dot_new_predicates_operands.add("L4_return_fnew_pt");
-		dot_new_predicates_operands.add("L4_return_tnew_pnt");
-		dot_new_predicates_operands.add("L4_return_fnew_pnt");
-		dot_new_predicates_operands.add("L2_ploadrubtnew_io");
-		dot_new_predicates_operands.add("L2_ploadrubfnew_io");
-		dot_new_predicates_operands.add("L4_ploadrubtnew_rr");
-		dot_new_predicates_operands.add("L4_ploadrubfnew_rr");
-		dot_new_predicates_operands.add("L2_ploadrubtnew_pi");
-		dot_new_predicates_operands.add("L2_ploadrubfnew_pi");
-		dot_new_predicates_operands.add("L4_ploadrubtnew_abs");
-		dot_new_predicates_operands.add("L4_ploadrubfnew_abs");
-		dot_new_predicates_operands.add("L2_ploadrbtnew_io");
-		dot_new_predicates_operands.add("L2_ploadrbfnew_io");
-		dot_new_predicates_operands.add("L4_ploadrbtnew_rr");
-		dot_new_predicates_operands.add("L4_ploadrbfnew_rr");
-		dot_new_predicates_operands.add("L2_ploadrbtnew_pi");
-		dot_new_predicates_operands.add("L2_ploadrbfnew_pi");
-		dot_new_predicates_operands.add("L4_ploadrbtnew_abs");
-		dot_new_predicates_operands.add("L4_ploadrbfnew_abs");
-		dot_new_predicates_operands.add("L2_ploadruhtnew_io");
-		dot_new_predicates_operands.add("L2_ploadruhfnew_io");
-		dot_new_predicates_operands.add("L4_ploadruhtnew_rr");
-		dot_new_predicates_operands.add("L4_ploadruhfnew_rr");
-		dot_new_predicates_operands.add("L2_ploadruhtnew_pi");
-		dot_new_predicates_operands.add("L2_ploadruhfnew_pi");
-		dot_new_predicates_operands.add("L4_ploadruhtnew_abs");
-		dot_new_predicates_operands.add("L4_ploadruhfnew_abs");
-		dot_new_predicates_operands.add("L2_ploadrhtnew_io");
-		dot_new_predicates_operands.add("L2_ploadrhfnew_io");
-		dot_new_predicates_operands.add("L4_ploadrhtnew_rr");
-		dot_new_predicates_operands.add("L4_ploadrhfnew_rr");
-		dot_new_predicates_operands.add("L2_ploadrhtnew_pi");
-		dot_new_predicates_operands.add("L2_ploadrhfnew_pi");
-		dot_new_predicates_operands.add("L4_ploadrhtnew_abs");
-		dot_new_predicates_operands.add("L4_ploadrhfnew_abs");
-		dot_new_predicates_operands.add("L2_ploadritnew_io");
-		dot_new_predicates_operands.add("L2_ploadrifnew_io");
-		dot_new_predicates_operands.add("L4_ploadritnew_rr");
-		dot_new_predicates_operands.add("L4_ploadrifnew_rr");
-		dot_new_predicates_operands.add("L2_ploadritnew_pi");
-		dot_new_predicates_operands.add("L2_ploadrifnew_pi");
-		dot_new_predicates_operands.add("L4_ploadritnew_abs");
-		dot_new_predicates_operands.add("L4_ploadrifnew_abs");
-		dot_new_predicates_operands.add("L2_ploadrdtnew_io");
-		dot_new_predicates_operands.add("L2_ploadrdfnew_io");
-		dot_new_predicates_operands.add("L4_ploadrdtnew_rr");
-		dot_new_predicates_operands.add("L4_ploadrdfnew_rr");
-		dot_new_predicates_operands.add("L2_ploadrdtnew_pi");
-		dot_new_predicates_operands.add("L2_ploadrdfnew_pi");
-		dot_new_predicates_operands.add("L4_ploadrdtnew_abs");
-		dot_new_predicates_operands.add("L4_ploadrdfnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerbtnew_io");
-		dot_new_predicates_operands.add("S4_pstorerbfnew_io");
-		dot_new_predicates_operands.add("S4_pstorerbtnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerbfnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerbtnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerbfnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerbtnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerbfnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerhtnew_io");
-		dot_new_predicates_operands.add("S4_pstorerhfnew_io");
-		dot_new_predicates_operands.add("S4_pstorerhtnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerhfnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerhtnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerhfnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerhtnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerhfnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerftnew_io");
-		dot_new_predicates_operands.add("S4_pstorerffnew_io");
-		dot_new_predicates_operands.add("S4_pstorerftnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerffnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerftnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerffnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerftnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerffnew_abs");
-		dot_new_predicates_operands.add("S4_pstoreritnew_io");
-		dot_new_predicates_operands.add("S4_pstorerifnew_io");
-		dot_new_predicates_operands.add("S4_pstoreritnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerifnew_rr");
-		dot_new_predicates_operands.add("S2_pstoreritnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerifnew_pi");
-		dot_new_predicates_operands.add("S4_pstoreritnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerifnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerdtnew_io");
-		dot_new_predicates_operands.add("S4_pstorerdfnew_io");
-		dot_new_predicates_operands.add("S4_pstorerdtnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerdfnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerdtnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerdfnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerdtnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerdfnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerinewtnew_io");
-		dot_new_predicates_operands.add("S4_pstorerinewfnew_io");
-		dot_new_predicates_operands.add("S4_pstorerinewtnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerinewfnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerinewtnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerinewfnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerinewtnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerinewfnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerbnewtnew_io");
-		dot_new_predicates_operands.add("S4_pstorerbnewfnew_io");
-		dot_new_predicates_operands.add("S4_pstorerbnewtnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerbnewfnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerbnewtnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerbnewfnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerbnewtnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerbnewfnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerhnewtnew_io");
-		dot_new_predicates_operands.add("S4_pstorerhnewfnew_io");
-		dot_new_predicates_operands.add("S4_pstorerhnewtnew_rr");
-		dot_new_predicates_operands.add("S4_pstorerhnewfnew_rr");
-		dot_new_predicates_operands.add("S2_pstorerhnewtnew_pi");
-		dot_new_predicates_operands.add("S2_pstorerhnewfnew_pi");
-		dot_new_predicates_operands.add("S4_pstorerhnewtnew_abs");
-		dot_new_predicates_operands.add("S4_pstorerhnewfnew_abs");
-		dot_new_predicates_operands.add("S4_storeirbtnew_io");
-		dot_new_predicates_operands.add("S4_storeirbfnew_io");
-		dot_new_predicates_operands.add("S4_storeirhtnew_io");
-		dot_new_predicates_operands.add("S4_storeirhfnew_io");
-		dot_new_predicates_operands.add("S4_storeiritnew_io");
-		dot_new_predicates_operands.add("S4_storeirifnew_io");
-		dot_new_predicates_operands.add("C2_cmovenewit");
-		dot_new_predicates_operands.add("C2_cmovenewif");
-		dot_new_predicates_operands.add("C2_ccombinewnewt");
-		dot_new_predicates_operands.add("C2_ccombinewnewf");
-		dot_new_predicates_operands.add("A2_paddtnew");
-		dot_new_predicates_operands.add("A2_paddfnew");
-		dot_new_predicates_operands.add("A2_psubtnew");
-		dot_new_predicates_operands.add("A2_psubfnew");
-		dot_new_predicates_operands.add("A2_padditnew");
-		dot_new_predicates_operands.add("A2_paddifnew");
-		dot_new_predicates_operands.add("A2_pxortnew");
-		dot_new_predicates_operands.add("A2_pxorfnew");
-		dot_new_predicates_operands.add("A2_pandtnew");
-		dot_new_predicates_operands.add("A2_pandfnew");
-		dot_new_predicates_operands.add("A2_portnew");
-		dot_new_predicates_operands.add("A2_porfnew");
-		dot_new_predicates_operands.add("A4_psxtbtnew");
-		dot_new_predicates_operands.add("A4_psxtbfnew");
-		dot_new_predicates_operands.add("A4_pzxtbtnew");
-		dot_new_predicates_operands.add("A4_pzxtbfnew");
-		dot_new_predicates_operands.add("A4_psxthtnew");
-		dot_new_predicates_operands.add("A4_psxthfnew");
-		dot_new_predicates_operands.add("A4_pzxthtnew");
-		dot_new_predicates_operands.add("A4_pzxthfnew");
-		dot_new_predicates_operands.add("A4_paslhtnew");
-		dot_new_predicates_operands.add("A4_paslhfnew");
-		dot_new_predicates_operands.add("A4_pasrhtnew");
-		dot_new_predicates_operands.add("A4_pasrhfnew");
-	}
-
-	static final Set<String> new_cmp_jumps;
-
-	static {
-		new_cmp_jumps = new HashSet<>();
-		new_cmp_jumps.add("J4_cmpeqi_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqi_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqi_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpeqi_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpeqi_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqi_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqi_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpeqi_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgti_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgti_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgti_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgti_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgti_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgti_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgti_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgti_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgtui_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtui_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtui_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgtui_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgtui_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtui_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtui_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgtui_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpeqn1_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqn1_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqn1_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpeqn1_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpeqn1_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqn1_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpeqn1_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpeqn1_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgtn1_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtn1_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtn1_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgtn1_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgtn1_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtn1_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtn1_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgtn1_fp1_jump_t");
-		new_cmp_jumps.add("J4_tstbit0_tp0_jump_nt");
-		new_cmp_jumps.add("J4_tstbit0_fp0_jump_nt");
-		new_cmp_jumps.add("J4_tstbit0_tp0_jump_t");
-		new_cmp_jumps.add("J4_tstbit0_fp0_jump_t");
-		new_cmp_jumps.add("J4_tstbit0_tp1_jump_nt");
-		new_cmp_jumps.add("J4_tstbit0_fp1_jump_nt");
-		new_cmp_jumps.add("J4_tstbit0_tp1_jump_t");
-		new_cmp_jumps.add("J4_tstbit0_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpeq_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpeq_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpeq_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpeq_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpeq_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpeq_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpeq_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpeq_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgt_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgt_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgt_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgt_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgt_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgt_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgt_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgt_fp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgtu_tp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtu_fp0_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtu_tp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgtu_fp0_jump_t");
-		new_cmp_jumps.add("J4_cmpgtu_tp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtu_fp1_jump_nt");
-		new_cmp_jumps.add("J4_cmpgtu_tp1_jump_t");
-		new_cmp_jumps.add("J4_cmpgtu_fp1_jump_t");
-	}
-
-	boolean isNewCmpJumpInstruction(Instruction instr) {
-		// NEWCMPJUMP instructions are single 4-byte instructions of the form
-		//
-		// p0=cmp.eq(Rs16,#U5)
-		// if (!p0.new) jump:nt #r9:2
-		//
-		// such instructions both write a predicate and read a predicate in the same
-		// instruction, so they must come before any other instruction in the packet
-		// thats reads that dot-new predicate
-		return new_cmp_jumps.contains(instr.getMnemonicString());
-	}
-
-	boolean doesInstructionContainDotNewPredicate(Instruction instr) {
-		// any (non-NEWCMPJMP) instruction that reads a dot-new predicate should be
-		// handled after all other instructions, to give a "future" producer the chance
-		// to perform the store
-		if (dot_new_predicates.containsKey(instr.getMnemonicString())
-				|| dot_new_predicates_operands.contains(instr.getMnemonicString())) {
-			return true;
-		}
-		return false;
-	}
-
-	List<Instruction> newCmpJumpInstructions;
-
 	List<Instruction> instructionsContainingDotNewPredicates;
 
 	Set<Varnode> regsWrittenSoFar;
@@ -627,14 +234,13 @@ public class HexagonPcodeEmitPacked {
 	}
 
 	void processInstructionsBesidesDotNewPredicates(InstructionIterator insnIter) throws UnknownInstructionException {
-		newCmpJumpInstructions = new ArrayList<>();
 		instructionsContainingDotNewPredicates = new ArrayList<>();
 		while (insnIter.hasNext()) {
 			boolean part1 = false;
 			Instruction instr = insnIter.next();
-			if (doesInstructionContainDotNewPredicate(instr)) {
+			if (HexagonInstructionAttributeConstants.doesInstructionContainDotNewPredicate(instr)) {
 				instructionsContainingDotNewPredicates.add(instr);
-				if (isNewCmpJumpInstruction(instr)) {
+				if (HexagonInstructionAttributeConstants.isNewCmpJumpInstruction(instr)) {
 					// resolve pcode for "part1" of new-comp jump instruction (the compare portion)
 					part1 = true;
 				} else {
@@ -755,7 +361,7 @@ public class HexagonPcodeEmitPacked {
 
 		Instruction instr_or_part;
 
-		if (isNewCmpJumpInstruction(instr) && (part1 || part2)) {
+		if (HexagonInstructionAttributeConstants.isNewCmpJumpInstruction(instr) && (part1 || part2)) {
 			//
 			// set part1 or part2 context register so that the subsequent proto.getPcode()
 			// yields only the compare- or dot-new-jump part of the newcmpjump instruction
@@ -857,6 +463,9 @@ public class HexagonPcodeEmitPacked {
 			Varnode dst = regTempSpaceWrite.getScratchVn(vn);
 			Varnode src = regTempSpaceLocalWrite.getScratchVn(vn);
 			if (isPredicateRegister(vn)) {
+				// if predicate registers are written at this point we have failed to properly
+				// split up newcmpjump instructions
+				assert !part2;
 				// Section 6.1.3 in "Hexagon V66 Programmer’s Reference Manual"
 				// > If multiple compare instructions in a packet write to the same
 				// > predicate register, the result is the logical AND of the
@@ -901,8 +510,8 @@ public class HexagonPcodeEmitPacked {
 							hasConditional = true;
 						}
 					} else {
-						HexagonExternalBranch br = new HexagonExternalBranch(insn, op.getOpcode(), op.getInput(0),
-								uniqueFactory, hasConditional, branchNoInInsn);
+						HexagonExternalBranch br = new HexagonExternalBranch(this, insn, op.getOpcode(), op.getInput(0),
+								hasConditional, branchNoInInsn);
 						branches.add(br);
 						final_pcode.add(Copy(br.condVn, init));
 						branchNoInInsn++;
