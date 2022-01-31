@@ -193,6 +193,7 @@ public class HexagonPcodeEmitPacked {
 	}
 
 	class HexagonExternalBranch {
+
 		Address insnAddress;
 		FlowOverride override;
 		int opcode;
@@ -209,7 +210,6 @@ public class HexagonPcodeEmitPacked {
 			condVn = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
 			if (destVn.isRegister()) {
 				this.destVn = getScratchReg(instr, destVn);
-
 			} else {
 				this.destVn = destVn;
 			}
@@ -750,29 +750,25 @@ public class HexagonPcodeEmitPacked {
 	Set<Varnode> autoAndPredicatesWritten;
 
 	List<PcodeOp> fixupPcode(Instruction instr, boolean part1, boolean part2) throws UnknownInstructionException {
-		boolean insertedInstrumentationForAutoAndPredicate = false;
-		boolean hasRelativeCof = false;
-		boolean skipNextInstruction = false;
-
 		InstructionPrototype proto;
 		InstructionContext ctx;
 
+		Instruction instr_or_part;
+
 		if (isNewCmpJumpInstruction(instr) && (part1 || part2)) {
 			//
-			// p0=cmp.eq(Rs16,#U5); if (p0.new) jump:nt #r9:2
-			//
-			// part1: fWRITE_P0(f8BITSOF((RsV==UiV)))
-			//
-			// part2: if (fLSBNEW0) { fIMMEXT(riV); fBRANCH(fREAD_PC()+riV,COF_TYPE_JUMP); }
+			// set part1 or part2 context register so that the subsequent proto.getPcode()
+			// yields only the compare- or dot-new-jump part of the newcmpjump instruction
 			//
 			try {
 				ProcessorContext impl = new ProcessorContextImpl(program.getLanguage());
 				impl.setValue(part1Register, BigInteger.valueOf(part1 ? 1 : 0));
 				impl.setValue(part2Register, BigInteger.valueOf(part2 ? 1 : 0));
-
 				proto = program.getLanguage().parse(instr.getInstructionContext().getMemBuffer(), impl, false);
-				ctx = new PseudoInstruction(program, instr.getAddress(), proto,
+				PseudoInstruction pi = new PseudoInstruction(program, instr.getAddress(), proto,
 						instr.getInstructionContext().getMemBuffer(), impl);
+				ctx = pi;
+				instr_or_part = pi;
 			} catch (ContextChangeException | InsufficientBytesException | AddressOverflowException e) {
 				String msg = "Unexpected exception when trying to break out new-cmp jump into parts" + e;
 				throw new UnknownInstructionException(msg);
@@ -780,15 +776,28 @@ public class HexagonPcodeEmitPacked {
 		} else {
 			proto = instr.getPrototype();
 			ctx = instr.getInstructionContext();
+			instr_or_part = instr;
 		}
 
-		LinkedList<PcodeOp> ops = new LinkedList<>(Arrays.asList(proto.getPcode(ctx, null, null)));
+		// We need a local register temp space for local writes before they are written
+		// to the global register temp space; this is because some instruction pcode
+		// (the semantics, not the instruction itself) write to the same register more
+		// than once
+		HexagonRegisterScratchSpace regTempSpaceLocalWrite = new HexagonRegisterScratchSpace(program, uniqueFactory);
 
-		for (int i = 0; i < ops.size(); i++) {
-			if (skipNextInstruction) {
-				skipNextInstruction = false;
-				continue;
-			}
+		LinkedList<PcodeOp> ops = new LinkedList<>();
+
+		// Copy out any RW registers from regTempSpace into regTempSpaceLocalWrite
+		for (Varnode vn : getRegsWritten(instr_or_part)) {
+			Varnode dst = regTempSpaceLocalWrite.getScratchVn(vn);
+			Varnode src = regTempSpaceWrite.getScratchVn(vn);
+			ops.add(Copy(dst, src));
+		}
+		int start = ops.size();
+
+		// add the main pcode for the instruction and fix it all up
+		ops.addAll(Arrays.asList(proto.getPcode(ctx, null, null)));
+		for (int i = start; i < ops.size(); i++) {
 			PcodeOp op = ops.get(i);
 			if (isCallotherNewreg(op)) {
 				// new-value operand/dot-new predicate must have been written earlier in packet
@@ -799,39 +808,19 @@ public class HexagonPcodeEmitPacked {
 				// replace all registers with appropriate scratch regs
 				for (int j = 0; j < op.getNumInputs(); j++) {
 					if (op.getInput(j).isRegister()) {
-						op.setInput(getScratchReg(instr, op.getInput(j)), j);
+						Varnode vn = op.getInput(j);
+						Varnode replace;
+						if (regWrittenInInstruction(instr_or_part, program.getRegister(vn))) {
+							replace = regTempSpaceLocalWrite.getScratchVn(vn);
+						} else {
+							replace = regTempSpace.getScratchVn(vn);
+						}
+						op.setInput(replace, j);
 					}
 				}
 				if (op.getOutput() != null && op.getOutput().isRegister()) {
 					regsWrittenSoFar.add(op.getOutput());
-					if (isPredicateRegister(op.getOutput())) {
-						// Section 6.1.3 in "Hexagon V66 Programmer’s Reference Manual"
-						// > If multiple compare instructions in a packet write to the same
-						// > predicate register, the result is the logical AND of the
-						// > individual compare results
-						Varnode prd = op.getOutput();
-						if (autoAndPredicatesWritten.contains(prd)) {
-							if (op.getOpcode() != PcodeOp.COPY) {
-								Varnode tmp = new Varnode(uniqueFactory.getNextUniqueAddress(), 1);
-								op.setOutput(tmp);
-								// next iter of the loop will fix this instruction up
-								PcodeOp auto_and = And(getScratchReg(instr, prd), tmp);
-								ops.add(i + 1, auto_and);
-								insertedInstrumentationForAutoAndPredicate = true;
-								skipNextInstruction = true;
-							} else {
-								// we can transform copies into auto-and predicates fairly easily
-								ops.set(i, And(getScratchReg(instr, prd), op.getInput(0)));
-							}
-						} else {
-							// first set of this predicate, perform the store "normally"
-							op.setOutput(getScratchReg(instr, op.getOutput()));
-							autoAndPredicatesWritten.add(prd);
-						}
-
-					} else {
-						op.setOutput(getScratchReg(instr, op.getOutput()));
-					}
+					op.setOutput(regTempSpaceLocalWrite.getScratchVn(op.getOutput()));
 				}
 			}
 
@@ -849,8 +838,6 @@ public class HexagonPcodeEmitPacked {
 					PcodeOp hitOp = Copy(br.condVn, hit);
 					ops.set(i, hitOp);
 					branchNoInInsn++;
-				} else {
-					hasRelativeCof = true;
 				}
 				break;
 			case PcodeOp.CBRANCH:
@@ -860,26 +847,31 @@ public class HexagonPcodeEmitPacked {
 					PcodeOp hitOp = Copy(br.condVn, op.getInput(1));
 					ops.set(i, hitOp);
 					branchNoInInsn++;
-				} else {
-					hasRelativeCof = true;
 				}
 				break;
 			}
 		}
 
-		if (hasRelativeCof && insertedInstrumentationForAutoAndPredicate) {
-			// I don't think this is reachable since only newcmpjumps should write a
-			// predicate and then branch. Hence the runtime assert instead of throwing
-			// UnknownInstructionException
-			assert false;
-			String msg = "NYI: auto-and predicates required, but internal cof could not be fixed up " + instr;
-			if (part1) {
-				msg += " (1st part)";
-			} else if (part2) {
-				msg += " (2nd part)";
+		// write out all written registers back to regTempSpaceWrite
+		for (Varnode vn : getRegsWritten(instr_or_part)) {
+			Varnode dst = regTempSpaceWrite.getScratchVn(vn);
+			Varnode src = regTempSpaceLocalWrite.getScratchVn(vn);
+			if (isPredicateRegister(vn)) {
+				// Section 6.1.3 in "Hexagon V66 Programmer’s Reference Manual"
+				// > If multiple compare instructions in a packet write to the same
+				// > predicate register, the result is the logical AND of the
+				// > individual compare results
+				if (autoAndPredicatesWritten.contains(vn)) {
+					ops.add(And(dst, src));
+				} else {
+					ops.add(Copy(dst, src));
+					autoAndPredicatesWritten.add(vn);
+				}
+			} else {
+				ops.add(Copy(dst, src));
 			}
-			throw new AssertionError(msg);
 		}
+
 		return ops;
 	}
 
