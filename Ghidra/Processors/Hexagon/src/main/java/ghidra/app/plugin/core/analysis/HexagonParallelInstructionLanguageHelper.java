@@ -15,6 +15,8 @@
  */
 package ghidra.app.plugin.core.analysis;
 
+import java.math.BigInteger;
+
 import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
@@ -26,10 +28,6 @@ import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.symbol.FlowType;
 import ghidra.program.model.symbol.RefType;
-
-import java.math.BigInteger;
-
-import javax.lang.model.type.ReferenceType;
 
 public class HexagonParallelInstructionLanguageHelper implements ParallelInstructionLanguageHelper {
 

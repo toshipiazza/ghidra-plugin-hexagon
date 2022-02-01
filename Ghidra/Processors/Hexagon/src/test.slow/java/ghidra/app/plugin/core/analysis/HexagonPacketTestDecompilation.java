@@ -241,6 +241,83 @@ public class HexagonPacketTestDecompilation extends AbstractGhidraHeadedIntegrat
 	}
 
 	@Test
+	public void testHwLoop01() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 48);
+
+		programBuilder.setBytes("1000",
+				"00 c0 40 f2 28 c0 23 69 40 41 06 69 00 40 00 f2 00 40 00 78 08 e0 82 ab 23 c0 81 9b 00 83 00 f3 00 80 00 7f 00 c0 00 7f 08 c0 82 ab 00 c0 9f 52");
+
+		programBuilder.disassemble("1000", 48, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		programBuilder.createFunction("1000");
+
+		DecompInterface ifc = new DecompInterface();
+		ifc.openProgram(program);
+		
+		DecompileResults results = ifc
+				.decompileFunction(program.getListing().getFunctionAt(programBuilder.addr("1000")), 0, null);
+
+		System.out.println("Optimized pcode:");
+		Iterator<PcodeOpAST> pcodeOpIter = results.getHighFunction().getPcodeOps();
+		while (pcodeOpIter.hasNext()) {
+			System.out.println(pcodeOpIter.next());
+		}
+
+		String getC = results.getDecompiledFunction().getC();
+		System.out.println(getC);
+		assertEquals(getC, "\n"
+				+ "/* WARNING: Removing unreachable block (ram,0x00001008) */\n"
+				+ "/* WARNING: Removing unreachable block (ram,0x0000101c) */\n"
+				+ "\n"
+				+ "void FUN_00001000(undefined4 param_1,int *param_2,int *param_3)\n"
+				+ "\n"
+				+ "{\n"
+				+ "  bool bVar1;\n"
+				+ "  byte bVar2;\n"
+				+ "  int iVar3;\n"
+				+ "  int iVar4;\n"
+				+ "  int iVar5;\n"
+				+ "  \n"
+				+ "  iVar5 = 100;\n"
+				+ "  iVar4 = 200;\n"
+				+ "  bVar2 = 0;\n"
+				+ "  iVar3 = 0;\n"
+				+ "  while( true ) {\n"
+				+ "    bVar1 = false;\n"
+				+ "    iVar3 = iVar3 + *param_2;\n"
+				+ "    if ((bool)(bVar2 & 3)) {\n"
+				+ "      bVar2 = (bVar2 & 3) - 1;\n"
+				+ "    }\n"
+				+ "    if (iVar4 < 2) {\n"
+				+ "      if (1 < iVar5) {\n"
+				+ "        bVar1 = true;\n"
+				+ "        iVar5 = iVar5 + -1;\n"
+				+ "      }\n"
+				+ "    }\n"
+				+ "    else {\n"
+				+ "      bVar1 = true;\n"
+				+ "      iVar4 = iVar4 + -1;\n"
+				+ "    }\n"
+				+ "    if (!bVar1) break;\n"
+				+ "    param_2 = param_2 + 1;\n"
+				+ "    switch(0x1018) {\n" // FIXME: I think this is a problem with the decompiler, not with the pcode
+				+ "    }\n"
+				+ "  }\n"
+				+ "  *param_3 = iVar3;\n"
+				+ "  return;\n"
+				+ "}\n"
+				+ "\n"
+				+ "");
+	}
+
+	
+	@Test
 	public void testDualjumpDirectCallReorder() throws Exception {
 		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
 		program = programBuilder.getProgram();
@@ -664,5 +741,96 @@ public class HexagonPacketTestDecompilation extends AbstractGhidraHeadedIntegrat
 				+ "");
 	}
 
+	@Test
+	public void testReorderedDotNewPredicates() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 16);
+
+		programBuilder.setBytes("1000", "20 65 80 7e 06 c0 0a 10 c0 3f 00 48 c0 3f 10 48");
+
+		programBuilder.disassemble("1000", 16, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		programBuilder.createFunction("1000");
+
+		DecompInterface ifc = new DecompInterface();
+		ifc.openProgram(program);
+
+		DecompileResults results = ifc
+				.decompileFunction(program.getListing().getFunctionAt(programBuilder.addr("1000")), 0, null);
+
+		System.out.println("Optimized pcode:");
+		Iterator<PcodeOpAST> pcodeOpIter = results.getHighFunction().getPcodeOps();
+		while (pcodeOpIter.hasNext()) {
+			System.out.println(pcodeOpIter.next());
+		}
+
+		String getC = results.getDecompiledFunction().getC();
+		System.out.println(getC);
+		assertEquals(getC, "\n"
+				+ "undefined4 FUN_00001000(void)\n"
+				+ "\n"
+				+ "{\n"
+				+ "  int unaff_R18;\n"
+				+ "  \n"
+				+ "  if (unaff_R18 == 0) {\n"
+				+ "    return 1;\n"
+				+ "  }\n"
+				+ "  return 0;\n"
+				+ "}\n"
+				+ "\n"
+				+ "");
+	}
+
+	@Test
+	public void testAutoAndPredicates() throws Exception {
+		ProgramBuilder programBuilder = new ProgramBuilder("Test", "hexagon:LE:32:default");
+		program = programBuilder.getProgram();
+		int txId = program.startTransaction("Add Memory");
+		programBuilder.createMemory(".text", "1000", 16);
+
+		// see https://github.com/qemu/qemu/blob/d940d468e29bff5eb5669c0dd8f3de0c3de17bfb/tests/tcg/hexagon/misc.c#L203 (cmpnd_cmp_jump test case)
+		programBuilder.setBytes("1000", "06 47 05 10 e0 c0 06 75 c0 3f c0 48 c0 3f d0 48");
+
+		programBuilder.disassemble("1000", 16, true);
+		programBuilder.analyze();
+
+		program.endTransaction(txId, true);
+
+		programBuilder.createFunction("1000");
+
+		DecompInterface ifc = new DecompInterface();
+		ifc.openProgram(program);
+
+		DecompileResults results = ifc
+				.decompileFunction(program.getListing().getFunctionAt(programBuilder.addr("1000")), 0, null);
+
+		System.out.println("Optimized pcode:");
+		Iterator<PcodeOpAST> pcodeOpIter = results.getHighFunction().getPcodeOps();
+		while (pcodeOpIter.hasNext()) {
+			System.out.println(pcodeOpIter.next());
+		}
+
+		String getC = results.getDecompiledFunction().getC();
+		System.out.println(getC);
+		assertEquals(getC, "\n"
+				+ "undefined4 FUN_00001000(void)\n"
+				+ "\n"
+				+ "{\n"
+				+ "  int in_R5;\n"
+				+ "  int in_R6;\n"
+				+ "  \n"
+				+ "  if (in_R5 != 7 || in_R6 != 7) {\n"
+				+ "    return 0xc;\n"
+				+ "  }\n"
+				+ "  return 0xd;\n"
+				+ "}\n"
+				+ "\n"
+				+ "");
+	}
 
 }

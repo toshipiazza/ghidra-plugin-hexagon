@@ -15,8 +15,8 @@
  */
 package ghidra.app.plugin.core.analysis;
 
-import ghidra.app.plugin.core.clear.ClearCmd;
-import ghidra.app.plugin.core.clear.ClearOptions;
+import java.math.BigInteger;
+
 import ghidra.app.services.AbstractAnalyzer;
 import ghidra.app.services.AnalysisPriority;
 import ghidra.app.services.AnalyzerType;
@@ -24,13 +24,11 @@ import ghidra.app.util.importer.MessageLog;
 import ghidra.program.disassemble.Disassembler;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressIterator;
-import ghidra.program.model.address.AddressRange;
 import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.AddressSetView;
 import ghidra.program.model.lang.Processor;
 import ghidra.program.model.lang.Register;
 import ghidra.program.model.lang.UnknownInstructionException;
-import ghidra.program.model.listing.Bookmark;
 import ghidra.program.model.listing.BookmarkManager;
 import ghidra.program.model.listing.BookmarkType;
 import ghidra.program.model.listing.ContextChangeException;
@@ -42,9 +40,6 @@ import ghidra.program.model.mem.MemoryBlock;
 import ghidra.util.Msg;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
-
-import java.math.BigInteger;
-import java.util.Iterator;
 
 public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 
@@ -279,15 +274,6 @@ public class HexagonPacketAnalyzer extends AbstractAnalyzer {
 						instr.setFallThrough(null);
 					}
 				}
-			}
-
-			try {
-				// perform some validation of the packet for constructs we don't support
-				insnIter = program.getListing().getInstructions(addrSet, true);
-				packet.validatePredicates(program, insnIter);
-			} catch (UnknownInstructionException e) {
-				Msg.error(this, "Packet at " + packet.packetStartAddress + " had unimplemented construct " + e);
-				throw e;
 			}
 
 			AutoAnalysisManager.getAnalysisManager(program).codeDefined(disassembled);
