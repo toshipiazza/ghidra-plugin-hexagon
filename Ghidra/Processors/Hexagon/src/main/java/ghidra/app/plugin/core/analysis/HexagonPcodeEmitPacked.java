@@ -331,7 +331,6 @@ public class HexagonPcodeEmitPacked {
 					break;
 				case PcodeOp.CBRANCH:
 					insertCbranch(br.condVn, br.destVn);
-					assert false;
 					break;
 				case PcodeOp.RETURN:
 					insertBranch(br.hasConditional, br.condVn, Return(br.destVn));
