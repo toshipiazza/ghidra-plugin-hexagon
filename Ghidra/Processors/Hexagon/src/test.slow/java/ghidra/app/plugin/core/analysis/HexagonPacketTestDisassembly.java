@@ -117,7 +117,7 @@ public class HexagonPacketTestDisassembly extends AbstractGhidraHeadedIntegratio
 			if (parallelHelper.isEndOfParallelInstructionGroup(instr)) {
 				UniqueAddressFactory uniqueFactory = new UniqueAddressFactory(program.getAddressFactory(),
 						program.getLanguage());
-				HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
+				HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program, true);
 				List<PcodeOp> pcode = emit.getPcode(pktStart.getInstructionContext(), uniqueFactory);
 				for (PcodeOp op : pcode) {
 					System.out.println("  " + op);

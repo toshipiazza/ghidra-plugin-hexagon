@@ -121,7 +121,7 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 	@Override
 	public PackedBytes getPcodePacked(Program program, InstructionContext context, UniqueAddressFactory uniqueFactory)
 			throws UnknownInstructionException {
-		HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program);
+		HexagonPcodeEmitPacked emit = new HexagonPcodeEmitPacked(program, true);
 		return emit.getPcodePacked(context, uniqueFactory);
 	}
 

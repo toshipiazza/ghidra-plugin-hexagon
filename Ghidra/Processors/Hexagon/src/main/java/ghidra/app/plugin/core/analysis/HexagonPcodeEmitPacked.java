@@ -57,13 +57,15 @@ public class HexagonPcodeEmitPacked {
 	Address maxAddr;
 	Address pktNext;
 	long packetSize;
+	boolean handleFlowOverride;
 
 	// the sequence number does not matter for our purposes, so just keep a
 	// default one around
 	SequenceNumber defaultSeqno;
 
-	HexagonPcodeEmitPacked(Program program) {
+	public HexagonPcodeEmitPacked(Program program, boolean handleFlowOverride) {
 		this.program = program;
+		this.handleFlowOverride = handleFlowOverride;
 		part1Register = program.getProgramContext().getRegister("part1");
 		part2Register = program.getProgramContext().getRegister("part2");
 	}
@@ -510,7 +512,7 @@ public class HexagonPcodeEmitPacked {
 						}
 					} else {
 						HexagonExternalBranch br = new HexagonExternalBranch(this, insn, op.getOpcode(), op.getInput(0),
-								hasConditional, branchNoInInsn);
+								hasConditional, branchNoInInsn, handleFlowOverride);
 						branches.add(br);
 						final_pcode.add(Copy(br.condVn, init));
 						branchNoInInsn++;
