@@ -202,10 +202,6 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 						fieldFactory.setWidth(37);
 						formatModel.updateRow(row);
 					}
-					else if (fieldFactory.getFieldName().equals("Parallel Suffix")) {
-						fieldFactory.setWidth(37);
-						formatModel.updateRow(row);
-					}
 					else if (fieldFactory.getFieldName().equals("Parallel ||")) {
 						fieldFactory.setWidth(37);
 						formatModel.updateRow(row);

@@ -15,10 +15,9 @@
  */
 package ghidra.app.util.viewer.field;
 
-import java.awt.Color;
-import java.math.BigInteger;
-
-import docking.widgets.fieldpanel.field.*;
+import docking.widgets.fieldpanel.field.AttributedString;
+import docking.widgets.fieldpanel.field.FieldElement;
+import docking.widgets.fieldpanel.field.TextFieldElement;
 import docking.widgets.fieldpanel.support.FieldLocation;
 import ghidra.app.util.HighlightProvider;
 import ghidra.app.util.viewer.format.FieldFormatModel;
@@ -29,6 +28,9 @@ import ghidra.program.model.lang.ParallelInstructionLanguageHelper;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.util.ParallelInstructionLocation;
 import ghidra.program.util.ProgramLocation;
+
+import java.awt.*;
+import java.math.BigInteger;
 
 /**
   *  Generates Parallel execution marks '}' for those language which have a
@@ -55,7 +57,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 	 * @param fieldOptions the Options for field specific properties.
 	 */
 	private ParallelInstructionSuffixFieldFactory(FieldFormatModel model, HighlightProvider hsProvider,
-			Options displayOptions, Options fieldOptions) {
+                                                  Options displayOptions, Options fieldOptions) {
 		super(FIELD_NAME, model, hsProvider, displayOptions, fieldOptions);
 	}
 
@@ -99,7 +101,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 	}
 
 	/**
-	 * @see ghidra.app.util.viewer.field.FieldFactory#getProgramLocation(int, int, ghidra.app.util.viewer.field.ListingField)
+	 * @see FieldFactory#getProgramLocation(int, int, ListingField)
 	 */
 	@Override
 	public ProgramLocation getProgramLocation(int row, int col, ListingField bf) {
@@ -113,7 +115,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 	}
 
 	/**
-	 * @see ghidra.app.util.viewer.field.FieldFactory#getFieldLocation(ghidra.app.util.viewer.field.ListingField, BigInteger, int, ghidra.program.util.ProgramLocation)
+	 * @see FieldFactory#getFieldLocation(ListingField, BigInteger, int, ProgramLocation)
 	 */
 	@Override
 	public FieldLocation getFieldLocation(ListingField bf, BigInteger index, int fieldNum,
@@ -127,7 +129,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 	}
 
 	/**
-	 * @see ghidra.app.util.viewer.field.FieldFactory#acceptsType(int, java.lang.Class)
+	 * @see FieldFactory#acceptsType(int, Class)
 	 */
 	@Override
 	public boolean acceptsType(int category, Class<?> proxyObjectClass) {
@@ -141,7 +143,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 	}
 
 	/**
-	 * @see ghidra.app.util.viewer.field.FieldFactory#getDefaultColor()
+	 * @see FieldFactory#getDefaultColor()
 	 */
 	@Override
 	public Color getDefaultColor() {

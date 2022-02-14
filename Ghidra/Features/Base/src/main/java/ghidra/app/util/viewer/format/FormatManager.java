@@ -620,12 +620,6 @@ public class FormatManager implements OptionsChangeListener {
 		rowElem.addContent(colElem);
 
 		colElem = new Element("FIELD");
-		colElem.setAttribute("NAME", "Parallel Suffix");
-		colElem.setAttribute("WIDTH", "20");
-		colElem.setAttribute("ENABLED", "true");
-		rowElem.addContent(colElem);
-
-		colElem = new Element("FIELD");
 		colElem.setAttribute("NAME", "EOL Comment");
 		colElem.setAttribute("WIDTH", "240");
 		colElem.setAttribute("ENABLED", "true");
