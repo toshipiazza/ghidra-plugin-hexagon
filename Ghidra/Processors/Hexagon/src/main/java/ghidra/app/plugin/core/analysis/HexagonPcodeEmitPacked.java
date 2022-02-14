@@ -27,7 +27,6 @@ import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
 import ghidra.app.util.PseudoInstruction;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressOverflowException;
-import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.address.AddressSpace;
 import ghidra.program.model.address.UniqueAddressFactory;
 import ghidra.program.model.lang.InstructionContext;
@@ -54,7 +53,6 @@ public class HexagonPcodeEmitPacked {
 	Register part2Register;
 
 	Address minAddr;
-	Address maxAddr;
 	Address pktNext;
 	long packetSize;
 	boolean handleFlowOverride;
@@ -555,11 +553,7 @@ public class HexagonPcodeEmitPacked {
 
 		pktNext = program.getAddressFactory().getDefaultAddressSpace().getAddress(pkt_next.longValue());
 
-		maxAddr = pktNext.subtract(1);
-
 		packetSize = pkt_next.subtract(pkt_start).intValue();
-
-		AddressSet addrSet = new AddressSet(minAddr, maxAddr);
 
 		this.uniqueFactory = uniqueFactory;
 
@@ -579,7 +573,7 @@ public class HexagonPcodeEmitPacked {
 		// either regTempSpace or regTempSpaceWrite
 		//
 
-		initializeTemporaryRegisters(program.getListing().getInstructions(addrSet, true));
+		initializeTemporaryRegisters(new HexagonInstructionsInPacketInDescendingSlotOrderIterator(program, minAddr));
 
 		//
 		// 2. All branches in the packet are recorded in the order they appear in the
@@ -592,7 +586,8 @@ public class HexagonPcodeEmitPacked {
 		// taken
 		//
 
-		recordBranchesAndValidateImplementedPcode(program.getListing().getInstructions(addrSet, true), uniqueFactory);
+		recordBranchesAndValidateImplementedPcode(
+				new HexagonInstructionsInPacketInDescendingSlotOrderIterator(program, minAddr), uniqueFactory);
 
 		//
 		// 3. Copy pcode for all instructions that don't contain dot-new predicates.
@@ -644,7 +639,8 @@ public class HexagonPcodeEmitPacked {
 		// N.B. Emitted pcode respects flow overrides and handles them appropriately
 		//
 
-		processInstructionsBesidesDotNewPredicates(program.getListing().getInstructions(addrSet, true));
+		processInstructionsBesidesDotNewPredicates(
+				new HexagonInstructionsInPacketInDescendingSlotOrderIterator(program, minAddr));
 
 		//
 		// 5. Copy pcode for all other instructions containing dot-new predicates,
